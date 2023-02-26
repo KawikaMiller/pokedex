@@ -3,6 +3,9 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import Button from "react-bootstrap/Button";
+
+import MoveList from "./MoveList";
 
 class Pokedex extends React.Component {
   constructor(props) {
@@ -31,6 +34,7 @@ class Pokedex extends React.Component {
             </Card.Header>
 
             <Card.Body>
+              {/* displays pokemon picture */}
               <Container id='pokdex-display-border'>
                 <Container id='pokedex-display'>
                   {this.props.searchResult ?
@@ -39,7 +43,15 @@ class Pokedex extends React.Component {
                   }
                 </Container>
               </Container>
-              <Container id='pokedex-info' style={{marginTop: '0.5rem', backgroundColor: '#86d352', width: '40%', height: '30%'}}>
+
+              <Container id='shiny-toggle'>
+                {/* <Button style={{borderRadius: "50%", width: '7vh', height: '7vh', backgroundColor: 'darkslategray', border: 'none'}} ></Button> */}
+                <Button style={{backgroundColor: 'red', borderColor: 'red'}}></Button>
+                <Button></Button>
+              </Container>
+
+                {/* displays pokemon stats */}
+              <Container id='pokedex-info' style={{marginTop: '0.5rem', backgroundColor: '#86d352', width: '50%', height: '35%'}}>
 
                 {this.props.searchResult ? 
                 <h4>{this.props.searchResult.name[0].toUpperCase() + this.props.searchResult.name.slice(1)}</h4> 
@@ -48,24 +60,17 @@ class Pokedex extends React.Component {
                 {this.props.searchResult ? 
                 <Container style={{padding: 0}}>
                   {this.props.searchResult.stats.map(element => (
-                    <div>
+                    <div style={{display: 'flex', justifyContent: 'space-between', textAlign: 'start', margin: '0 0.5rem', alignItems: 'baseline'}}>
+                      <p style={{margin: '0', fontSize: '0.85rem'}}>{element.stat.name}</p>
                       <ProgressBar 
                         min={1} 
                         max={255} 
                         now={element.base_stat}
                         variant='success'
-                        label={element.stat.name}
-                        style={{backgroundColor: 'rgba(255, 255, 255, 20%)', color: 'lime', height: '1.25vh', margin: '0.75vh'}}
+                        style={{backgroundColor: 'rgba(255, 255, 255, 20%)', height: '1vh', margin: '0.75vh', width: '60%', float: 'right'}}
                       />
                     </div>
                   ))}
-                  {/* <ProgressBar 
-                    min={1} 
-                    max={255} 
-                    now={this.props.searchResult.stats[0].base_stat}
-                    variant='success'
-                    style={{backgroundColor: 'rgba(255, 255, 255, 20%)', color: 'lime', height: '1vh'}}
-                    /> */}
                 </Container> 
                 : null}
 
@@ -78,10 +83,20 @@ class Pokedex extends React.Component {
           </Card>
 
           <Card bg='danger'>
+            <Container style={{height: '60vh', overflowY: 'scroll'}}>
+              {/* { this.props.searchResult ? 
+              this.props.searchResult.moves.map(element => (
+                <p>{element.move.name} | {element.version_group_details[0].level_learned_at}</p>
+              )) 
+              : null } */}
 
+              {this.props.searchResult ?
+                <MoveList moves={this.props.searchResult.moves} /> 
+                : null }
+            </Container>
           </Card>
 
-          </CardGroup>
+        </CardGroup>
       </Container>
       
     )

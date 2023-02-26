@@ -80,8 +80,8 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70%;
-  width: 70%;
+  height: 55%;
+  width: 55%;
   padding: 0;
   background-color: gainsboro;
   border-color: gainsboro;
@@ -119,4 +119,10 @@ main {
 .progress {
   background-color: #e0ffa7;
   color: green;
+}
+
+#shiny-toggle button {
+  margin: 1.5vh;
+  height: 1vh;
+  width: 20%;
 }

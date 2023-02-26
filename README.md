@@ -1,3 +1,28 @@
+# Pokedex App
+
+**Author**: Kawika Miller
+
+**Version**: 1.0.0 
+<!-- (increment the patch/fix version number if you make more commits past your first submission) -->
+
+## Overview
+This application will allow a user to query the pokeapi and view the results in a kanto-pokedex-styled ui.
+
+## Getting Started
+<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+
+## Architecture
+This application utilizes JavaScript, React, and React-Bootstrap
+
+## Change Log
+2023-02-23 : Initialize project
+2023-02-24 : Add search bar and show results
+
+## Credit and Collaborations
+
+
+------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
