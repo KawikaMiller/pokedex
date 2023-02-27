@@ -1,6 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
 
 class Move {
   constructor(name, levelLearned) {
@@ -39,7 +40,9 @@ class MoveList extends React.Component {
       levelUpMoves: [],
       tmMoves: [],
       tutorMoves: [],
-      moves: []
+      moves: [],
+      sortedByLevel: true,
+      sortedByName: false,
     }
   }
 
@@ -67,6 +70,24 @@ class MoveList extends React.Component {
     })
   }
 
+  handleToggleLevelSort = () => {
+    if (this.state.sortedByLevel) {
+      this.setState({
+        sortedByLevel: true,
+        sortedByName: false,
+        levelUpMoves: this.state.levelUpMoves.reverse(),
+      })
+    } else {
+      let sortedMoves = [...this.state.levelUpMoves];
+      this.sortMovesByLevel(sortedMoves);
+      this.setState({
+        sortedByLevel: true,
+        sortedByName: false,
+        levelUpMoves: sortedMoves
+      })
+    }
+  }
+
   sortMovesByName = (arr) => {
     arr.sort((a,b) => {
       if(a.name < b.name){
@@ -75,6 +96,35 @@ class MoveList extends React.Component {
         return 1;
       } else return 0;
     })
+  }
+
+  handleToggleNameSort = () => {
+
+    if (this.state.sortedByName) {
+      this.setState({
+        sortedByName: true,
+        sortedByLevel: false,
+        levelUpMoves: this.state.levelUpMoves.reverse(),
+        tmMoves: this.state.tmMoves.reverse(),
+        tutorMoves: this.state.tutorMoves.reverse()
+      })
+    } else {
+      let newLevelUpMoves = [...this.state.levelUpMoves];
+      let newTmMoves = [...this.state.tmMoves];
+      let newTutorMoves = [...this.state.tutorMoves];
+
+      this.sortMovesByName(newLevelUpMoves);
+      this.sortMovesByName(newTmMoves);
+      this.sortMovesByName(newTutorMoves);
+
+      this.setState({
+        sortedByLevel: false,
+        sortedByName: true,
+        levelUpMoves: newLevelUpMoves,
+        tmMoves: newTmMoves,
+        tutorMoves: newTutorMoves
+      })
+    }
   }
 
   parseLevelUpMoves = () => {
@@ -135,7 +185,6 @@ class MoveList extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({moves: this.props.moves});
     this.parseLevelUpMoves();
     this.parseTmMoves();
     this.parseTutorMoves();
@@ -150,8 +199,8 @@ class MoveList extends React.Component {
             <Table striped hover bordered>
               <thead>
                 <tr>
-                  <th>Level</th>
-                  <th>Move</th>
+                  <th><Button onClick={this.handleToggleLevelSort} >Level</Button></th>
+                  <th><Button onClick={this.handleToggleNameSort}>Name</Button></th>
                   <th>Power</th>
                   <th>Accuracy</th>
                   <th>PP</th>
@@ -187,8 +236,8 @@ class MoveList extends React.Component {
             <Table striped hover bordered>
               <thead>
                 <tr>
-                  <th>Level</th>
-                  <th>Move</th>
+                  <th><Button onClick={this.handleToggleLevelSort} >Level</Button></th>
+                  <th><Button onClick={this.handleToggleNameSort}>Name</Button></th>
                   <th>Power</th>
                   <th>Accuracy</th>
                   <th>PP</th>
@@ -215,8 +264,8 @@ class MoveList extends React.Component {
             <Table striped hover bordered>
               <thead>
                 <tr>
-                  <th>Level</th>
-                  <th>Move</th>
+                  <th><Button onClick={this.handleToggleLevelSort} >Level</Button></th>
+                  <th><Button onClick={this.handleToggleNameSort}>Name</Button></th>
                   <th>Power</th>
                   <th>Accuracy</th>
                   <th>PP</th>

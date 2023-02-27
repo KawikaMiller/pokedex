@@ -84,12 +84,6 @@ class Pokedex extends React.Component {
 
           <Card bg='danger'>
             <Container style={{height: '60vh', overflowY: 'scroll'}}>
-              {/* { this.props.searchResult ? 
-              this.props.searchResult.moves.map(element => (
-                <p>{element.move.name} | {element.version_group_details[0].level_learned_at}</p>
-              )) 
-              : null } */}
-
               {this.props.searchResult ?
                 <MoveList moves={this.props.searchResult.moves} /> 
                 : null }
