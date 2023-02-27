@@ -83,7 +83,8 @@ class Main extends React.Component{
             ));
         })
         return moveArr;
-      }).then(response => {
+      })
+      .then(response => {
         response.forEach(async move => {
           try {
             let request = {
@@ -93,7 +94,6 @@ class Main extends React.Component{
             
             let response = await axios(request);
 
-            // console.log(response)
             move.power = response.data.power;
             move.accuracy = response.data.accuracy;
             move.pp = response.data.pp;
@@ -106,7 +106,8 @@ class Main extends React.Component{
         this.setState({
           searchResult: response
         })
-      }).catch(error => {
+      })
+      .catch(error => {
         this.setState({
           searchError: error
         })
