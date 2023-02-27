@@ -36,12 +36,12 @@ class Pokedex extends React.Component {
             <Card.Body>
               {/* displays pokemon picture */}
               <Container id='pokdex-display-border'>
-                <Container id='pokedex-display'>
+                {/* <Container id='pokedex-display'>
                   {this.props.searchResult ?
                     <Card.Img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.props.searchResult.id}.png`} /> 
                     : null
                   }
-                </Container>
+                </Container> */}
               </Container>
 
               <Container id='shiny-toggle'>
@@ -53,7 +53,7 @@ class Pokedex extends React.Component {
                 {/* displays pokemon stats */}
               <Container id='pokedex-info' style={{marginTop: '0.5rem', backgroundColor: '#86d352', width: '50%', height: '35%'}}>
 
-                {this.props.searchResult ? 
+                {/* {this.props.searchResult ? 
                 <h4>{this.props.searchResult.name[0].toUpperCase() + this.props.searchResult.name.slice(1)}</h4> 
                 : null}
 
@@ -72,7 +72,7 @@ class Pokedex extends React.Component {
                     </div>
                   ))}
                 </Container> 
-                : null}
+                : null} */}
 
               </Container>
             </Card.Body>
@@ -84,9 +84,9 @@ class Pokedex extends React.Component {
 
           <Card bg='danger'>
             <Container style={{height: '60vh', overflowY: 'scroll'}}>
-              {this.props.searchResult ?
+              {/* {this.props.searchResult ?
                 <MoveList moves={this.props.searchResult.moves} /> 
-                : null }
+                : null } */}
             </Container>
           </Card>
 

@@ -2,11 +2,25 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 class Move {
-  constructor(name, levelLearned) {
+  constructor(
+    name=undefined, 
+    levelLearned=undefined, 
+    power=undefined, 
+    accuracy=undefined, 
+    pp=undefined, 
+    dmgClass=undefined, 
+    type=undefined
+    ){
     this.name = name;
     this.levelLearned = levelLearned;
+    this.power = power;
+    this.accuracy = accuracy;
+    this.pp = pp;
+    this.dmgClass = dmgClass;
+    this.type = type;
   }
 }
 
@@ -40,11 +54,55 @@ class MoveList extends React.Component {
       levelUpMoves: [],
       tmMoves: [],
       tutorMoves: [],
-      moves: [],
+      allMoves: undefined,
+      moves: this.props.moves,
       sortedByLevel: true,
       sortedByName: false,
     }
   }
+
+  // makeMoveDataAPICall = async(moveName) => {
+  //   let moveData;
+  //   try {
+  //     let request = {
+  //       url: `https://pokeapi.co/api/v2/move/${moveName}`,
+  //       method: 'GET'
+  //     }
+  
+  //     let response = await axios(request);
+
+  //     moveData = new Move(response.data.name);
+  //   } catch {
+  //     console.log('error getting move info')
+  //   }
+  //   console.log(moveData);
+  //   return moveData;
+  // }
+
+  // getMoveData = (arr) => {
+  //   let moveData = this.makeMoveDataAPICall(arr[0].name);
+
+  //   console.log(moveData);
+
+  //   let updatedMove = new Move(moveData.name, arr[0].levelLearned, moveData.power, moveData.accuracy, moveData.pp, moveData.dmgClass, moveData.type)
+
+  //   console.log(updatedMove);
+  // }
+
+  // setFilteredMovesToState = (arr) => {
+  //   let dupeArr = [];
+
+  //   arr.forEach(element => {
+  //     dupeArr.push(new Move(element.move.name, element.version_group_details[0].level_learned_at))
+  //   })
+
+  //   this.getMoveData(dupeArr);
+  
+
+  //   this.setState({
+  //     allMoves: dupeArr
+  //   })
+  // }
 
   filterDuplicateMoves = (arr) => {
     let filteredArr = [];
@@ -56,7 +114,7 @@ class MoveList extends React.Component {
       else if (arr[i].name !== arr[i + 1].name) {
         filteredArr = [arr[i], ...filteredArr];
       }
-    } 
+    }
     return filteredArr;
   }
 
@@ -185,6 +243,7 @@ class MoveList extends React.Component {
   }
 
   componentDidMount() {
+    this.setFilteredMovesToState(this.props.moves)
     this.parseLevelUpMoves();
     this.parseTmMoves();
     this.parseTutorMoves();

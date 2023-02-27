@@ -1,0 +1,37 @@
+id: national pokedex number
+
+moves | moves.forEach
+	- .move.name (slam, thundershock)
+	- .version_group_details
+		.level_learned_at
+		.move_learn_method
+			.name (machine, tutor, level-up)
+		.version_group
+			.name (red-blue, emerald)
+
+abilities: abilities.ability.name (forEach)
+
+.sprites	
+	.back_default
+	.back_female
+	.back_shiny
+	.back_shiny_female
+	.front_default
+	.front_female
+	.front_shiny
+	.front_shiny_female
+	
+.sprites.other.official-artwork
+	.front_default
+	.front_shiny
+
+.sprites.versions
+
+.stats
+	.base_stat (number)
+	.stat.name
+
+.types
+	.slot (1, 2)
+	.type.name (electric)
+	
