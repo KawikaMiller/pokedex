@@ -2,27 +2,6 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
-
-class Move {
-  constructor(
-    name=undefined, 
-    levelLearned=undefined, 
-    power=undefined, 
-    accuracy=undefined, 
-    pp=undefined, 
-    dmgClass=undefined, 
-    type=undefined
-    ){
-    this.name = name;
-    this.levelLearned = levelLearned;
-    this.power = power;
-    this.accuracy = accuracy;
-    this.pp = pp;
-    this.dmgClass = dmgClass;
-    this.type = type;
-  }
-}
 
 class MoveList extends React.Component {
   constructor(props){
@@ -54,69 +33,25 @@ class MoveList extends React.Component {
       levelUpMoves: [],
       tmMoves: [],
       tutorMoves: [],
-      allMoves: undefined,
-      moves: this.props.moves,
+      eggMoves: [],
       sortedByLevel: true,
       sortedByName: false,
     }
   }
 
-  // makeMoveDataAPICall = async(moveName) => {
-  //   let moveData;
-  //   try {
-  //     let request = {
-  //       url: `https://pokeapi.co/api/v2/move/${moveName}`,
-  //       method: 'GET'
-  //     }
-  
-  //     let response = await axios(request);
+  // filterDuplicateMoves = (arr) => {
+  //   let filteredArr = [];
 
-  //     moveData = new Move(response.data.name);
-  //   } catch {
-  //     console.log('error getting move info')
-  //   }
-  //   console.log(moveData);
-  //   return moveData;
-  // }
-
-  // getMoveData = (arr) => {
-  //   let moveData = this.makeMoveDataAPICall(arr[0].name);
-
-  //   console.log(moveData);
-
-  //   let updatedMove = new Move(moveData.name, arr[0].levelLearned, moveData.power, moveData.accuracy, moveData.pp, moveData.dmgClass, moveData.type)
-
-  //   console.log(updatedMove);
-  // }
-
-  // setFilteredMovesToState = (arr) => {
-  //   let dupeArr = [];
-
-  //   arr.forEach(element => {
-  //     dupeArr.push(new Move(element.move.name, element.version_group_details[0].level_learned_at))
-  //   })
-
-  //   this.getMoveData(dupeArr);
-  
-
-  //   this.setState({
-  //     allMoves: dupeArr
-  //   })
-  // }
-
-  filterDuplicateMoves = (arr) => {
-    let filteredArr = [];
-
-    for (let i = 0; i < arr.length; i++) {
-      if (!arr[i + 1]){
+  //   for (let i = 0; i < arr.length; i++) {
+  //     if (!arr[i + 1]){
         
-      }
-      else if (arr[i].name !== arr[i + 1].name) {
-        filteredArr = [arr[i], ...filteredArr];
-      }
-    }
-    return filteredArr;
-  }
+  //     }
+  //     else if (arr[i].name !== arr[i + 1].name) {
+  //       filteredArr = [arr[i], ...filteredArr];
+  //     }
+  //   }
+  //   return filteredArr;
+  // }
 
   sortMovesByLevel = (arr) => {
     arr.sort((a,b) => {
@@ -164,94 +99,116 @@ class MoveList extends React.Component {
         sortedByLevel: false,
         levelUpMoves: this.state.levelUpMoves.reverse(),
         tmMoves: this.state.tmMoves.reverse(),
-        tutorMoves: this.state.tutorMoves.reverse()
+        tutorMoves: this.state.tutorMoves.reverse(),
+        eggMoves: this.state.eggMoves.reverse()
       })
     } else {
       let newLevelUpMoves = [...this.state.levelUpMoves];
       let newTmMoves = [...this.state.tmMoves];
       let newTutorMoves = [...this.state.tutorMoves];
+      let newEggMoves = [...this.state.eggMoves];
 
       this.sortMovesByName(newLevelUpMoves);
       this.sortMovesByName(newTmMoves);
       this.sortMovesByName(newTutorMoves);
+      this.sortMovesByName(newEggMoves);
 
       this.setState({
         sortedByLevel: false,
         sortedByName: true,
         levelUpMoves: newLevelUpMoves,
         tmMoves: newTmMoves,
-        tutorMoves: newTutorMoves
+        tutorMoves: newTutorMoves,
+        eggMoves: newEggMoves
       })
     }
+  }
+
+  parseEggMoves = () => {
+    let eggArr = [];
+
+    this.props.moves.forEach(move => {
+      if (move.learnMethod === 'egg') {
+        eggArr.push(move);
+      }
+    })
+
+    this.sortMovesByName(eggArr);
+
+    this.setState({eggMoves: eggArr})
   }
 
   parseLevelUpMoves = () => {
     let levelUpArr = [];
 
-    this.props.moves.forEach(element => (
+    this.props.moves.forEach(move => {
+      if (move.learnMethod === 'level-up') {
+        levelUpArr.push(move);
+      }
+    })
 
-      element.version_group_details.forEach(item => {
-        if (item.move_learn_method.name === 'level-up') {
-          levelUpArr.push((new Move(element.move.name, item.level_learned_at)));
-        };
-      })
-    ))
+    this.sortMovesByLevel(levelUpArr);
 
-    let newArr = (this.filterDuplicateMoves(levelUpArr));
-
-    this.sortMovesByLevel(newArr);
-
-    this.setState({levelUpMoves: newArr})
+    this.setState({levelUpMoves: levelUpArr})
   }
 
   parseTmMoves = () => {
     let tmArr = [];
 
-    this.props.moves.forEach(element => (
+    this.props.moves.forEach(move => {
+      if (move.learnMethod === 'machine') {
+        tmArr.push(move);
+      }
+    })
 
-      element.version_group_details.forEach(item => {
-        if (item.move_learn_method.name === 'machine') {
-          tmArr.push((new Move(element.move.name, item.level_learned_at)));
-        };
-      })
-    ))
+    this.sortMovesByName(tmArr);
 
-    let newArr = (this.filterDuplicateMoves(tmArr));
-
-    this.sortMovesByName(newArr);
-
-    this.setState({tmMoves: newArr})
+    this.setState({tmMoves: tmArr})
   }
 
   parseTutorMoves = () => {
     let tutorArr = [];
 
-    this.props.moves.forEach(element => (
+    this.props.moves.forEach(move => {
+      if (move.learnMethod === 'tutor') {
+        tutorArr.push(move);
+      }
+    })
 
-      element.version_group_details.forEach(item => {
-        if (item.move_learn_method.name === 'tutor') {
-          tutorArr.push((new Move(element.move.name, item.level_learned_at)));
-        };
-      })
-    ))
+    this.sortMovesByName(tutorArr);
 
-    let newArr = (this.filterDuplicateMoves(tutorArr));
+    this.setState({tutorMoves: tutorArr})
+  }
 
-    this.sortMovesByName(newArr);
-
-    this.setState({tutorMoves: newArr})
+  displayMoves = (thisstateProperty) => {
+    if (thisstateProperty.length > 0) {
+      return thisstateProperty
+        .map(element => (
+        <tr>
+          <td>{element.levelLearned}</td>
+          <td>{element.name}</td>
+          <td>{element.power}</td>
+          <td>{element.accuracy}</td>
+          <td>{element.pp}</td>
+          <td>{element.dmgClass}</td>
+          <td>{element.type}</td>
+        </tr>
+        ))
+    } else return null;
   }
 
   componentDidMount() {
-    this.setFilteredMovesToState(this.props.moves)
+    this.setState({sortedByLevel: true})
     this.parseLevelUpMoves();
     this.parseTmMoves();
     this.parseTutorMoves();
+    this.parseEggMoves();
   }
 
   render(){
     return(
       <Accordion defaultActiveKey='0'>
+
         <Accordion.Item eventKey='0'>
           <Accordion.Header>Level-Up</Accordion.Header>
           <Accordion.Body>
@@ -268,27 +225,12 @@ class MoveList extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {/* {this.props.moves.length > 0 ?
-                 this.props.moves.map(element => (
-                  <tr>
-                    <td>{element.version_group_details[0].level_learned_at}</td>
-                    <td>{element.move.name}</td>
-                  </tr>
-                 ))
-                 : null } */}
-
-                 {this.state.levelUpMoves.length > 0 ?
-                 this.state.levelUpMoves.map(element => (
-                  <tr>
-                    <td>{element.levelLearned}</td>
-                    <td>{element.name}</td>
-                  </tr>
-                 ))
-                 : null }
+                {this.displayMoves(this.state.levelUpMoves)}
               </tbody>
             </Table>
           </Accordion.Body>
         </Accordion.Item>
+
         <Accordion.Item eventKey='1'>
           <Accordion.Header>TM Moves</Accordion.Header>
           <Accordion.Body>
@@ -305,18 +247,12 @@ class MoveList extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                 {this.state.tmMoves.length > 0 ?
-                 this.state.tmMoves.map(element => (
-                  <tr>
-                    <td>{element.levelLearned}</td>
-                    <td>{element.name}</td>
-                  </tr>
-                 ))
-                 : null }
+                 {this.displayMoves(this.state.tmMoves)}
               </tbody>
             </Table>
           </Accordion.Body>
         </Accordion.Item>
+
         <Accordion.Item eventKey='2'>
           <Accordion.Header>Tutor Moves</Accordion.Header>
           <Accordion.Body>
@@ -333,18 +269,34 @@ class MoveList extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                 {this.state.tutorMoves.length > 0 ?
-                 this.state.tutorMoves.map(element => (
-                  <tr>
-                    <td>{element.levelLearned}</td>
-                    <td>{element.name}</td>
-                  </tr>
-                 ))
-                 : null }
+              {this.displayMoves(this.state.tutorMoves)}
               </tbody>
             </Table>
           </Accordion.Body>
         </Accordion.Item>
+
+        <Accordion.Item eventKey='3'>
+          <Accordion.Header>Egg Moves</Accordion.Header>
+          <Accordion.Body>
+            <Table striped hover bordered>
+              <thead>
+                <tr>
+                  <th><Button onClick={this.handleToggleLevelSort} >Level</Button></th>
+                  <th><Button onClick={this.handleToggleNameSort}>Name</Button></th>
+                  <th>Power</th>
+                  <th>Accuracy</th>
+                  <th>PP</th>
+                  <th>Class</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+              {this.displayMoves(this.state.eggMoves)}
+              </tbody>
+            </Table>
+          </Accordion.Body>
+        </Accordion.Item>
+
       </Accordion>
     )
   }

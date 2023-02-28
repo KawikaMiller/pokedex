@@ -35,3 +35,9 @@ abilities: abilities.ability.name (forEach)
 	.slot (1, 2)
 	.type.name (electric)
 	
+/move
+	. accuracy
+	.power
+	.pp
+	.type.name
+	.damage_class.name
