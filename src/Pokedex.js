@@ -12,11 +12,15 @@ class Pokedex extends React.Component {
     super(props);
 
     this.state = {
-      
+      searchResult: this.props.searchResult
     }
   }
-  
-  
+
+  componentDidMount() {
+    this.setState({
+      searchResult: this.props.searchResult
+    })
+  }
 
   render() {
     return(
@@ -86,7 +90,7 @@ class Pokedex extends React.Component {
           <Card bg='danger'>        
             <Container style={{height: '60vh', overflowY: 'scroll'}}>
               {this.props.searchResult ?
-                <MoveList moves={this.props.searchResult.moves} /> 
+                <MoveList moves={this.props.searchResult.moves} pokemonName={this.props.searchResult.name} key={`${this.props.searchResult.name}_moves`}/> 
                 : null }
             </Container>
 
