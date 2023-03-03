@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import SearchBar from "./SearchBar";
 import Pokedex from "./Pokedex";
+import Container from "react-bootstrap/Container";
 
 class Move {
   constructor(
@@ -152,10 +153,10 @@ class Main extends React.Component{
 
   render() {
     return(
-      <>
-      <SearchBar handleSearch={this.newHandleSearch} handleInputChange={this.handleInputChange} />
-      <Pokedex searchResult={this.state.searchResult} />
-      </>
+      <Container>
+        <SearchBar handleSearch={this.newHandleSearch} handleInputChange={this.handleInputChange} />
+        <Pokedex searchResult={this.state.searchResult} />
+      </Container>
     )
   }
 }

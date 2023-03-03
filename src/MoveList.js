@@ -16,10 +16,170 @@ class MoveList extends React.Component {
       sortedByName: false,
       sortedByPower: false,
       sortedByAccuracy: false,
+      sortedByPP: false,
+      sortedByDmgClass: false,
+      sortedByType: false,
     }
   }
 
-  //TODO: Add methods for sorting the remaining move properties, add "sortedBy(property)" to state, refactor all "handleToggle(property)Sort" in the else > this.setState section
+  // type sort
+  sortMovesByType = (arr) => {
+    arr.sort((a,b) => {
+      if(a.type < b.type){
+        return -1;
+      } else if (a.type > b.type) {
+        return 1;
+      } else return 0;      
+    }) 
+  }
+  
+  handleToggleTypeSort = () => {
+    if (this.state.sortedByType) {
+      this.setState({
+        sortedByLevel: false,
+        sortedByName: false,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: true,
+        levelUpMoves: this.state.levelUpMoves.reverse(),
+        tmMoves: this.state.tmMoves.reverse(),
+        tutorMoves: this.state.tutorMoves.reverse(),
+        eggMoves: this.state.eggMoves.reverse()
+      })
+    } else {
+      let newLevelUpMoves = [...this.state.levelUpMoves];
+      let newTmMoves = [...this.state.tmMoves];
+      let newTutorMoves = [...this.state.tutorMoves];
+      let newEggMoves = [...this.state.eggMoves];
+
+      this.sortMovesByType(newLevelUpMoves);
+      this.sortMovesByType(newTmMoves);
+      this.sortMovesByType(newTutorMoves);
+      this.sortMovesByType(newEggMoves);
+
+      this.setState({
+        sortedByLevel: false,
+        sortedByName: false,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: true,
+        levelUpMoves: newLevelUpMoves,
+        tmMoves: newTmMoves,
+        tutorMoves: newTutorMoves,
+        eggMoves: newEggMoves
+      })
+    }
+  }
+
+  // damage class sort
+  sortMovesByDmgClass = (arr) => {
+    arr.sort((a,b) => {
+      if(a.dmgClass < b.dmgClass){
+        return -1;
+      } else if (a.dmgClass > b.dmgClass) {
+        return 1;
+      } else return 0;      
+    }) 
+  }
+  
+  handleToggleDmgClassSort = () => {
+    if (this.state.sortedByDmgClass) {
+      this.setState({
+        sortedByLevel: false,
+        sortedByName: false,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: true,
+        sortedByType: false,
+        levelUpMoves: this.state.levelUpMoves.reverse(),
+        tmMoves: this.state.tmMoves.reverse(),
+        tutorMoves: this.state.tutorMoves.reverse(),
+        eggMoves: this.state.eggMoves.reverse()
+      })
+    } else {
+      let newLevelUpMoves = [...this.state.levelUpMoves];
+      let newTmMoves = [...this.state.tmMoves];
+      let newTutorMoves = [...this.state.tutorMoves];
+      let newEggMoves = [...this.state.eggMoves];
+
+      this.sortMovesByDmgClass(newLevelUpMoves);
+      this.sortMovesByDmgClass(newTmMoves);
+      this.sortMovesByDmgClass(newTutorMoves);
+      this.sortMovesByDmgClass(newEggMoves);
+
+      this.setState({
+        sortedByLevel: false,
+        sortedByName: false,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: true,
+        sortedByType: false,
+        levelUpMoves: newLevelUpMoves,
+        tmMoves: newTmMoves,
+        tutorMoves: newTutorMoves,
+        eggMoves: newEggMoves
+      })
+    }
+  }
+
+  // pp sort
+  sortMovesByPP = (arr) => {
+    arr.sort((a,b) => {
+      if(a.pp < b.pp){
+        return -1;
+      } else if (a.pp > b.pp) {
+        return 1;
+      } else return 0;      
+    }) 
+  }
+  
+  handleTogglePPSort = () => {
+    if (this.state.sortedByPP) {
+      this.setState({
+        sortedByLevel: false,
+        sortedByName: false,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: true,
+        sortedByDmgClass: false,
+        sortedByType: false,
+        levelUpMoves: this.state.levelUpMoves.reverse(),
+        tmMoves: this.state.tmMoves.reverse(),
+        tutorMoves: this.state.tutorMoves.reverse(),
+        eggMoves: this.state.eggMoves.reverse()
+      })
+    } else {
+      let newLevelUpMoves = [...this.state.levelUpMoves];
+      let newTmMoves = [...this.state.tmMoves];
+      let newTutorMoves = [...this.state.tutorMoves];
+      let newEggMoves = [...this.state.eggMoves];
+
+      this.sortMovesByPP(newLevelUpMoves);
+      this.sortMovesByPP(newTmMoves);
+      this.sortMovesByPP(newTutorMoves);
+      this.sortMovesByPP(newEggMoves);
+
+      this.setState({
+        sortedByLevel: false,
+        sortedByName: false,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: true,
+        sortedByDmgClass: false,
+        sortedByType: false,
+        levelUpMoves: newLevelUpMoves,
+        tmMoves: newTmMoves,
+        tutorMoves: newTutorMoves,
+        eggMoves: newEggMoves
+      })
+    }
+  }
 
   // accuracy sorting
   sortMovesByAccuracy = (arr) => {
@@ -45,6 +205,9 @@ class MoveList extends React.Component {
         sortedByName: false,
         sortedByPower: false,
         sortedByAccuracy: true,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: false,
         levelUpMoves: this.state.levelUpMoves.reverse(),
         tmMoves: this.state.tmMoves.reverse(),
         tutorMoves: this.state.tutorMoves.reverse(),
@@ -66,6 +229,9 @@ class MoveList extends React.Component {
         sortedByName: false,
         sortedByPower: false,
         sortedByAccuracy: true,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: false,
         levelUpMoves: newLevelUpMoves,
         tmMoves: newTmMoves,
         tutorMoves: newTutorMoves,
@@ -97,6 +263,10 @@ class MoveList extends React.Component {
         sortedByLevel: false,
         sortedByName: false,
         sortedByPower: true,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: false,
         levelUpMoves: this.state.levelUpMoves.reverse(),
         tmMoves: this.state.tmMoves.reverse(),
         tutorMoves: this.state.tutorMoves.reverse(),
@@ -117,6 +287,10 @@ class MoveList extends React.Component {
         sortedByLevel: false,
         sortedByName: false,
         sortedByPower: true,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: false,
         levelUpMoves: newLevelUpMoves,
         tmMoves: newTmMoves,
         tutorMoves: newTutorMoves,
@@ -141,7 +315,13 @@ class MoveList extends React.Component {
       this.setState({
         sortedByLevel: true,
         sortedByName: false,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: false,
         levelUpMoves: this.state.levelUpMoves.reverse(),
+        // only needs to handle levelUpMoves because all others have a 'levelLearned' value of 0
       })
     } else {
       let sortedMoves = [...this.state.levelUpMoves];
@@ -149,7 +329,13 @@ class MoveList extends React.Component {
       this.setState({
         sortedByLevel: true,
         sortedByName: false,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: false,
         levelUpMoves: sortedMoves
+        // only needs to handle levelUpMoves because all others have a 'levelLearned' value of 0
       })
     }
   }
@@ -170,8 +356,13 @@ class MoveList extends React.Component {
     if (this.state.sortedByName) {
       // if moves are already sorted by name, then reverse the order to switch from ascending/descending
       this.setState({
-        sortedByName: true,
         sortedByLevel: false,
+        sortedByName: true,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: false,
         levelUpMoves: this.state.levelUpMoves.reverse(),
         tmMoves: this.state.tmMoves.reverse(),
         tutorMoves: this.state.tutorMoves.reverse(),
@@ -192,6 +383,11 @@ class MoveList extends React.Component {
       this.setState({
         sortedByLevel: false,
         sortedByName: true,
+        sortedByPower: false,
+        sortedByAccuracy: false,
+        sortedByPP: false,
+        sortedByDmgClass: false,
+        sortedByType: false,
         levelUpMoves: newLevelUpMoves,
         tmMoves: newTmMoves,
         tutorMoves: newTutorMoves,
@@ -302,17 +498,17 @@ class MoveList extends React.Component {
         {/* level up moves */}
         <Accordion.Item eventKey='0'>
           <Accordion.Header>Level-Up</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body style={{overflowY: 'scroll', maxHeight:'33vh'}}>
             <Table striped hover bordered>
               <thead>
                 <tr>
-                  <th><Button onClick={this.handleToggleLevelSort}>Level</Button></th>
-                  <th><Button onClick={this.handleToggleNameSort}>Name</Button></th>
-                  <th><Button onClick={this.handleTogglePowerSort}>Power</Button></th>
-                  <th><Button onClick={this.handleToggleAccuracySort}>Accuracy</Button></th>
-                  <th>PP</th>
-                  <th>Class</th>
-                  <th>Type</th>
+                  <th><Button size='sm' onClick={this.handleToggleLevelSort}>Level</Button></th>
+                  <th><Button size='sm' onClick={this.handleToggleNameSort}>Name</Button></th>
+                  <th><Button size='sm' onClick={this.handleTogglePowerSort}>Power</Button></th>
+                  <th><Button size='sm' onClick={this.handleToggleAccuracySort}>Accuracy</Button></th>
+                  <th><Button size='sm' onClick={this.handleTogglePPSort}>PP</Button></th>
+                  <th><Button size='sm' onClick={this.handleToggleDmgClassSort}>Damage</Button></th>
+                  <th><Button size='sm' onClick={this.handleToggleTypeSort}>Type</Button></th>
                 </tr>
               </thead>
               <tbody>
@@ -324,7 +520,7 @@ class MoveList extends React.Component {
         {/* tm moves */}
         <Accordion.Item eventKey='1'>
           <Accordion.Header>TM Moves</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body style={{overflowY: 'scroll', maxHeight:'33vh'}}>
             <Table striped hover bordered>
               <thead>
                 <tr>
@@ -346,7 +542,7 @@ class MoveList extends React.Component {
         {/* tutor moves */}
         <Accordion.Item eventKey='2'>
           <Accordion.Header>Tutor Moves</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body style={{overflowY: 'scroll', maxHeight:'33vh'}}>
             <Table striped hover bordered>
               <thead>
                 <tr>
@@ -368,7 +564,7 @@ class MoveList extends React.Component {
         {/* egg moves */}
         <Accordion.Item eventKey='3'>
           <Accordion.Header>Egg Moves</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body style={{overflowY: 'scroll', maxHeight:'33vh'}}>
             <Table striped hover bordered>
               <thead>
                 <tr>

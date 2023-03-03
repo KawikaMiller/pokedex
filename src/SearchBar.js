@@ -19,7 +19,7 @@ class SearchBar extends React.Component {
   render() {
     return(
       <Container>
-        <Form>
+        <Form style={{display:'flex'}}>
           <Form.Control type="text" placeholder='Search...' onChange={this.props.handleInputChange} />
           <Button type='submit' variant="primary" onClick={this.props.handleSearch} onSubmit={this.props.handleSearch} >Search</Button>
         </Form>

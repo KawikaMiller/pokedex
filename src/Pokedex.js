@@ -4,6 +4,8 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Button from "react-bootstrap/Button";
+import PokemonDisplay from "./PokemonDisplay";
+import Abilities from "./Abilities";
 
 import MoveList from "./MoveList";
 
@@ -29,6 +31,7 @@ class Pokedex extends React.Component {
 
           <Card bg='danger'>
             <Card.Header>
+              {/* pokedex lights */}
               <div id="light-container">
                 <div id="blue-light"></div>
                 <div id="red-light"></div>
@@ -42,7 +45,12 @@ class Pokedex extends React.Component {
               <Container id='pokdex-display-border'>
                 <Container id='pokedex-display'>
                   {this.props.searchResult ?
-                    <Card.Img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.props.searchResult.id}.png`} /> 
+                    <PokemonDisplay 
+                      name={this.props.searchResult.name}
+                      id={this.props.searchResult.id} 
+                      sprites={this.props.searchResult.sprites} 
+                      key={`${this.props.searchResult.name}_display`} 
+                    /> 
                     : null
                   }
                 </Container>
@@ -87,25 +95,21 @@ class Pokedex extends React.Component {
             </Card.Footer>
           </Card>
 
-          <Card bg='danger'>        
-            <Container style={{height: '60vh', overflowY: 'scroll'}}>
+          <Card bg='danger' style={{justifyContent: 'space-evenly'}}>        
+            <Container style={{maxHeight: '57vh', overflowY: 'hidden'}}>
               {this.props.searchResult ?
                 <MoveList moves={this.props.searchResult.moves} pokemonName={this.props.searchResult.name} key={`${this.props.searchResult.name}_moves`}/> 
                 : null }
             </Container>
 
-            <Container>
+            <Container id='abilities_container'>
               {this.props.searchResult ? 
-              this.props.searchResult.abilities.map(element => (
-                <p>{element.ability.name}</p>
-              ))
-              : null  
+                <Abilities abilities={this.props.searchResult.abilities} />
+                : null  
               }
+
             </Container>
-
-            <Card.Footer>
-
-            </Card.Footer>
+            
           </Card>
 
         </CardGroup>
