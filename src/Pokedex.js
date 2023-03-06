@@ -2,12 +2,13 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
-import ProgressBar from "react-bootstrap/ProgressBar";
 import Button from "react-bootstrap/Button";
-import PokemonDisplay from "./PokemonDisplay";
-import Abilities from "./Abilities";
 
-import MoveList from "./MoveList";
+
+import RightCard from "./RightCard";
+import PokemonDisplay from "./PokemonDisplay";
+import BaseStats from "./BaseStats";
+// import SideTabs from "./SideTabs";
 
 class Pokedex extends React.Component {
   constructor(props) {
@@ -27,8 +28,12 @@ class Pokedex extends React.Component {
   render() {
     return(
       <Container id='pokedex-container'>
-        <CardGroup >
+        <Container>
+        </Container>
+        
+        <CardGroup id='pokedex' >
 
+          {/* left side card */}
           <Card bg='danger'>
             <Card.Header>
               {/* pokedex lights */}
@@ -65,28 +70,15 @@ class Pokedex extends React.Component {
                 {/* displays pokemon stats */}
               <Container id='pokedex-info' style={{marginTop: '0.5rem', backgroundColor: '#86d352', width: '50%', height: '35%'}}>
 
+                {/* displays pokemon name */}
                 {this.props.searchResult ? 
                 <h4>{this.props.searchResult.name[0].toUpperCase() + this.props.searchResult.name.slice(1)}</h4> 
                 : null}
-
+                
+                {/* displays pokemon base stats */}
                 {this.props.searchResult ? 
-                <Container style={{padding: 0}}>
-                  {this.props.searchResult.stats.map(element => (
-                    <div style={{display: 'flex', justifyContent: 'space-between', textAlign: 'start', margin: '0 0.5rem', alignItems: 'baseline'}}>
-                      <p style={{margin: '0', fontSize: '0.85rem'}}>{element.stat.name}</p>
-                      <ProgressBar 
-                        min={1} 
-                        max={255} 
-                        now={element.base_stat}
-                        label={element.base_stat}
-                        variant='success'
-                        style={{backgroundColor: 'rgba(255, 255, 255, 20%)', height: '1.3vh', margin: '0.75vh', width: '60%', float: 'right'}}
-                      />
-                    </div>
-                  ))}
-                </Container> 
+                <BaseStats stats={this.props.searchResult.stats} key={`${this.props.searchResult.name}_basestats`}/>
                 : null}
-
               </Container>
             </Card.Body>
 
@@ -94,23 +86,9 @@ class Pokedex extends React.Component {
               Footer
             </Card.Footer>
           </Card>
-
-          <Card bg='danger' style={{justifyContent: 'space-evenly'}}>        
-            <Container style={{maxHeight: '57vh', overflowY: 'hidden'}}>
-              {this.props.searchResult ?
-                <MoveList moves={this.props.searchResult.moves} pokemonName={this.props.searchResult.name} key={`${this.props.searchResult.name}_moves`}/> 
-                : null }
-            </Container>
-
-            <Container id='abilities_container'>
-              {this.props.searchResult ? 
-                <Abilities abilities={this.props.searchResult.abilities} />
-                : null  
-              }
-
-            </Container>
-            
-          </Card>
+          
+          {/* right side card */}
+          <RightCard searchResult={this.props.searchResult} />
 
         </CardGroup>
       </Container>

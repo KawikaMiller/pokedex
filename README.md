@@ -2,7 +2,7 @@
 
 **Author**: Kawika Miller
 
-**Version**: 1.0.0 
+**Version**: 1.0.3 
 <!-- (increment the patch/fix version number if you make more commits past your first submission) -->
 
 ## Overview
@@ -17,6 +17,9 @@ This application utilizes JavaScript, React, and React-Bootstrap
 ## Change Log
 2023-02-23 : Initialize project
 2023-02-24 : Add search bar and show results
+2023-03-01 : Moves refresh/rerender when a new pokemon is searched for
+2023-03-02 : Add ability information to screen
+2023-03-04 : Modularize move-lists and move-container.
 
 ## Credit and Collaborations
 
