@@ -14,8 +14,8 @@ class BaseStats extends React.Component{
     return(
       <>
         {this.props.stats.map(element => (
-          <div style={{display: 'flex', justifyContent: 'space-between', textAlign: 'start', margin: '0 0.5rem', alignItems: 'baseline'}}>
-          <p style={{margin: '0', fontSize: '0.85rem'}}>{element.stat.name}</p>
+          <div style={{display: 'flex', justifyContent: 'space-between', textAlign: 'start', margin: '0 0.5rem', alignItems: 'baseline'}} key={`${element.stat.name}_div`}>
+          <p style={{margin: '0', fontSize: '0.85rem'}} key={`${element.stat.name}_name`}>{element.stat.name}</p>
           <ProgressBar 
             min={1} 
             max={255} 

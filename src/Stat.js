@@ -7,8 +7,8 @@ class Stat extends React.Component {
     super(props);
 
     this.state = {
-      IV: 31,
-      EV: 0,
+      IV: this.props.stat.iv,
+      EV: this.props.stat.ev,
       level: 99,
       statName: undefined,
       statValue: 0,
@@ -17,19 +17,19 @@ class Stat extends React.Component {
   }
 
   calculateStatValue = () => {
-    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.state.IV + Math.floor(this.state.EV / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
+    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(this.props.stat.ev / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
   }
 
   calculateHpValue = () => {
-    return Math.floor(((2 * this.props.stat.base_stat + this.state.IV + Math.floor(this.state.EV / 4)) * this.state.level) / 100) + this.state.level + 10
+    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(this.props.stat.ev / 4)) * this.state.level) / 100) + this.state.level + 10
   }
 
   calculateMaxStatValue = () => {
-    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + 31 + Math.floor(255 / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
+    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
   }
 
   calculateMinStatValue = () => {
-    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + 0 + Math.floor(0 / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
+    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
   }
 
   abbreviateStatName = () => {
@@ -70,7 +70,13 @@ class Stat extends React.Component {
   componentDidMount() {
     // hp gets calculated differently than other stats
     this.abbreviateStatName();
-    if (this.props.stat.stat.name === 'hp') {
+
+    this.setState({
+      IV: this.props.stat.iv,
+      EV: this.props.stat.ev
+    })
+
+    if (this.state.statName === 'HP') {
       this.setState({
         statValue: this.calculateHpValue()
       })
@@ -83,7 +89,7 @@ class Stat extends React.Component {
 
   render() {
     return(
-      <Container style={{textAlign: 'left', padding: '0'}}>
+      <Container style={{textAlign: 'left', padding: '0'}} key={`${this.state.statName}_container`}>
         {this.state.statName} : {this.state.statValue} <ProgressBar style={{height: '0.5vh', width: '90%'}} now={this.state.statValue} max={this.calculateMaxStatValue()} min={this.calculateMinStatValue()} />
       </Container>
     )

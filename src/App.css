@@ -186,3 +186,25 @@ div.team_member_stats_sub {
 .stats_sub_spec > *, .stats_sub_phys > * {
   margin: 0.5rem 0;
 }
+
+#team_member_stats_edit {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+#team_member_stats_edit div {
+  width: 100%;
+}
+
+#team_member_stats_edit > *{
+  margin: 1rem;
+}
+
+.ivev_form > * {
+  margin: 0.25rem 0;
+}
+
+.form-label {
+  margin: 0.25rem 0 !important;
+}

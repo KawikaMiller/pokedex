@@ -25,7 +25,10 @@ class Team extends React.Component{
   render(){
     return(
       <>
-        <TeamMemberPlaceholder addTeamMember={this.addTeamMember} searchResult={this.props.searchResult} />
+        {this.props.searchResult ? 
+          <TeamMemberPlaceholder addTeamMember={this.addTeamMember} searchResult={this.props.searchResult} key='teamMemberPlaceholder' />
+        : null }
+
 
         {this.state.team.length > 0 ?
         this.state.team.map(element => <TeamMember pokemon={element}/>) 
