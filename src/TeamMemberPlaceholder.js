@@ -1,8 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import Stat from './Stat';
 import TeamMemberStats from './TeamMemberStats';
 
 class TeamMemberPlaceholder extends React.Component{
@@ -27,17 +25,15 @@ class TeamMemberPlaceholder extends React.Component{
     console.log(this.state.pokemon)
   }
 
-  // componentDidMount() {
-  //   {this.state.pokemon === undefined ? 
-  //     this.setState({
-  //       pokemon: this.props.searchResult
-  //     })
-  //     : 
-  //     this.setState({
-  //       pokemon: this.state.pokemon
-  //     })
-  //   }
-  // }
+// updates and rerenders when props change | props change when searching a new pokemon
+  componentDidUpdate(prevProps) {
+    
+    if (prevProps !== this.props) {
+      this.setState({
+        pokemon: this.props.searchResult
+      })
+    }
+  }
 
   render(){
     return(

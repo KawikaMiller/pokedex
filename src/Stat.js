@@ -7,8 +7,8 @@ class Stat extends React.Component {
     super(props);
 
     this.state = {
-      IV: this.props.stat.iv,
-      EV: this.props.stat.ev,
+      IV: 31,
+      EV: 0,
       level: 99,
       statName: undefined,
       statValue: 0,
@@ -32,46 +32,61 @@ class Stat extends React.Component {
     return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
   }
 
+  calculateMaxHpValue = () => {
+    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.state.level) / 100) + this.state.level + 10
+  }
+
+  calculateMinHpValue = () => {
+    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.state.level) / 100) + this.state.level + 10
+  }
+
   abbreviateStatName = () => {
     switch (this.props.stat.stat.name) {
       case 'hp' :
         this.setState({
-          statName: 'HP'
+          statName: 'HP',
+          statValue: this.calculateHpValue()
         });
         break;
       case 'attack' :
         this.setState({
-          statName: 'ATK'
+          statName: 'ATK',
+          statValue: this.calculateStatValue(),
         });
         break;
       case 'defense' :
         this.setState({
-          statName: 'DEF'
+          statName: 'DEF',
+          statValue: this.calculateStatValue(),
         });
         break;
       case 'special-attack' :
         this.setState({
-          statName: 'SP.ATK'
+          statName: 'SP.ATK',
+          statValue: this.calculateStatValue(),
         });
         break;
       case 'special-defense' :
         this.setState({
-          statName: 'SP.DEF'
+          statName: 'SP.DEF',
+          statValue: this.calculateStatValue(),
         });
         break;
       case 'speed' :
         this.setState({
-          statName: 'SPD'
+          statName: 'SPD',
+          statValue: this.calculateStatValue()
         });
         break;
+      default:
+        console.log('no stat name match found')
     }
   }
 
-  componentDidMount() {
-    // hp gets calculated differently than other stats
-    this.abbreviateStatName();
+  componentDidUpdate(prevProps) {
 
-    this.setState({
+    if (prevProps !== this.props) {
+      this.setState({
       IV: this.props.stat.iv,
       EV: this.props.stat.ev
     })
@@ -84,13 +99,52 @@ class Stat extends React.Component {
       this.setState({
         statValue: this.calculateStatValue()
       })
+    } 
     }
+
+  }
+
+  componentDidMount() {
+    // hp gets calculated differently than other stats
+    this.abbreviateStatName();
+
+    this.setState({
+      IV: this.props.stat.iv,
+      EV: this.props.stat.ev
+    })
   }
 
   render() {
     return(
-      <Container style={{textAlign: 'left', padding: '0'}} key={`${this.state.statName}_container`}>
-        {this.state.statName} : {this.state.statValue} <ProgressBar style={{height: '0.5vh', width: '90%'}} now={this.state.statValue} max={this.calculateMaxStatValue()} min={this.calculateMinStatValue()} />
+      <Container 
+        style={{textAlign: 'left', padding: '0'}} 
+        key={`${this.state.statName}_container`}
+      >
+        {this.state.statName === 'HP' ?
+        <>
+          {this.state.statName} : {this.state.statValue} 
+          <ProgressBar 
+            style={{height: '0.5vh', width: '90%'}} 
+            now={this.state.statValue} 
+            max={this.calculateMaxHpValue()} 
+            min={this.calculateMinHpValue()}
+            key={`${this.state.statName}_${this.state.statValue}`}
+          />
+        </>         
+        :
+        <>
+        {this.state.statName} : {this.state.statValue} 
+        <ProgressBar 
+          style={{height: '0.5vh', width: '90%'}} 
+          now={this.state.statValue} 
+          max={this.calculateMaxStatValue()} 
+          min={this.calculateMinStatValue()}
+          key={`${this.state.statName}_${this.state.statValue}`}
+        />
+        </>
+}
+
+        <></>
       </Container>
     )
   }
