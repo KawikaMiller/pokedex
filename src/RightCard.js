@@ -4,7 +4,6 @@ import Nav from 'react-bootstrap/Nav';
 import MoveContainer from "./MoveContainer";
 import Container from 'react-bootstrap/Container';
 import Abilities from "./Abilities";
-import TeamMember from "./TeamMember";
 import Team from "./Team";
 
 class RightCard extends React.Component {
@@ -41,7 +40,7 @@ class RightCard extends React.Component {
         </Nav>
       </Card.Header> 
       
-      <Card.Body style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center'}}>
+      <Card.Body id="right_card_body" style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center'}}>
         {this.state.activeKey === 0 ?
         <>
           <Container style={{maxHeight: '57vh', overflowY: 'hidden'}}>

@@ -9,7 +9,7 @@ class Stat extends React.Component {
     this.state = {
       IV: 31,
       EV: 0,
-      level: 99,
+      level: this.props.level,
       statName: undefined,
       statValue: 0,
       nature: 1, //change this later
@@ -17,27 +17,27 @@ class Stat extends React.Component {
   }
 
   calculateStatValue = () => {
-    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(this.props.stat.ev / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
+    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(this.props.stat.ev / 4)) * this.props.level) / 100)) + 5) * this.state.nature)
   }
 
   calculateHpValue = () => {
-    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(this.props.stat.ev / 4)) * this.state.level) / 100) + this.state.level + 10
+    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(this.props.stat.ev / 4)) * this.props.level) / 100) + this.props.level + 10
   }
 
   calculateMaxStatValue = () => {
-    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
+    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.props.level) / 100)) + 5) * this.state.nature)
   }
 
   calculateMinStatValue = () => {
-    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.state.level) / 100)) + 5) * this.state.nature)
+    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.props.level) / 100)) + 5) * this.state.nature)
   }
 
   calculateMaxHpValue = () => {
-    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.state.level) / 100) + this.state.level + 10
+    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.props.level) / 100) + this.props.level + 10
   }
 
   calculateMinHpValue = () => {
-    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.state.level) / 100) + this.state.level + 10
+    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.props.level) / 100) + this.props.level + 10
   }
 
   abbreviateStatName = () => {
@@ -85,23 +85,22 @@ class Stat extends React.Component {
 
   componentDidUpdate(prevProps) {
 
-    if (prevProps !== this.props) {
+    if (prevProps !== this.props && this.state.statName === 'HP') {
       this.setState({
-      IV: this.props.stat.iv,
-      EV: this.props.stat.ev
-    })
-
-    if (this.state.statName === 'HP') {
-      this.setState({
-        statValue: this.calculateHpValue()
+        level: this.props.level,
+        IV: this.props.stat.iv,
+        EV: this.props.stat.ev,
+        statValue: this.calculateHpValue(),
       })
-    } else {
-      this.setState({
-        statValue: this.calculateStatValue()
-      })
-    } 
     }
-
+    else if(prevProps !== this.props && this.state.statName !== 'HP') {
+      this.setState({
+        level: this.props.level,
+        IV: this.props.stat.iv,
+        EV: this.props.stat.ev,
+        statValue: this.calculateStatValue(),
+      })
+    }
   }
 
   componentDidMount() {
@@ -122,7 +121,7 @@ class Stat extends React.Component {
       >
         {this.state.statName === 'HP' ?
         <>
-          {this.state.statName} : {this.state.statValue} 
+          {this.state.statName} : {this.state.statValue} | {this.calculateMaxHpValue()}
           <ProgressBar 
             style={{height: '0.5vh', width: '90%'}} 
             now={this.state.statValue} 
@@ -133,7 +132,7 @@ class Stat extends React.Component {
         </>         
         :
         <>
-        {this.state.statName} : {this.state.statValue} 
+        {this.state.statName} : {this.state.statValue} | {this.calculateMaxStatValue()}
         <ProgressBar 
           style={{height: '0.5vh', width: '90%'}} 
           now={this.state.statValue} 

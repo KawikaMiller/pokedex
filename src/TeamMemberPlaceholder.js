@@ -6,17 +6,18 @@ import TeamMemberStats from './TeamMemberStats';
 class TeamMemberPlaceholder extends React.Component{
   constructor(props){
     super(props);
-
+    this.props.searchResult.level = 100;
     this.state = {
       pokemon: this.props.searchResult,
       stats: undefined,
     }
   }
 
-  updateStatValues = (newStats) => {
+  updateStatValues = (newStats, newLevel) => {
     let newPokemon = this.props.searchResult;
 
     newPokemon.stats = newStats;
+    newPokemon.level = newLevel;
 
     this.setState({
       pokemon: newPokemon
@@ -47,11 +48,12 @@ class TeamMemberPlaceholder extends React.Component{
           {/* shows sprite and level */}
             <div>
               <Card.Img variant='top' src={this.props.searchResult.sprites.front_default} style={{backgroundColor: 'white', borderRadius: '50%'}}></Card.Img>
-              <p style={{margin: '0'}}>Lv. {this.state.level}</p>
+              <p style={{margin: '0'}}>Lv. {this.state.pokemon.level}</p>
             </div>
           {/* shows stats */}
           <TeamMemberStats 
-            stats={this.state.pokemon.stats} 
+            stats={this.state.pokemon.stats}
+            level={100} 
             key={`${this.state.pokemon.name}_stats`}
             updateStatValues={this.updateStatValues} 
           />

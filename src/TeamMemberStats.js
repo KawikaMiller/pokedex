@@ -17,6 +17,7 @@ class TeamMemberStats extends React.Component{
     })
 
     this.state = {
+      level: this.props.level,
       stats: newStats,
       showModal: false,
       disableSubmit: false,
@@ -73,9 +74,10 @@ class TeamMemberStats extends React.Component{
     newStats[5].iv = parseInt(event.target.iv_spd.value)
     newStats[5].ev = parseInt(event.target.ev_spd.value)
     // sends updated stat values back to placeholder component
-    this.props.updateStatValues(newStats);
+    this.props.updateStatValues(newStats, event.target.level.value);
 
     this.setState({
+      level: parseInt(event.target.level.value),
       stats: newStats
     })
   
@@ -93,14 +95,14 @@ class TeamMemberStats extends React.Component{
       <>
       <div className='team_member_stats' >
         <div className='stats_sub_phys'>
-          <Stat stat={this.state.stats[0]}/>
-          <Stat stat={this.state.stats[1]}/>
-          <Stat stat={this.state.stats[2]}/>
+          <Stat stat={this.state.stats[0]} level={this.state.level} />
+          <Stat stat={this.state.stats[1]} level={this.state.level} />
+          <Stat stat={this.state.stats[2]} level={this.state.level} />
         </div>
         <div className='stats_sub_spec'>
-          <Stat stat={this.state.stats[3]}/>
-          <Stat stat={this.state.stats[4]}/>
-          <Stat stat={this.state.stats[5]}/>
+          <Stat stat={this.state.stats[3]} level={this.state.level} />
+          <Stat stat={this.state.stats[4]} level={this.state.level} />
+          <Stat stat={this.state.stats[5]} level={this.state.level} />
         </div>
         <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: "flex-end"}}>
           <Button 
@@ -216,6 +218,15 @@ class TeamMemberStats extends React.Component{
                 </Form.Group>
               </div>
             </Container>
+            <Form.Group className='ivev_form'>
+              <Form.Label>Level</Form.Label>
+              <Form.Control 
+                type="number" 
+                id='level' 
+                placeholder={this.state.level ? this.state.level : 'Level'}
+                defaultValue={this.state.level ? this.state.level : 100} 
+                min='1' max='100' ></Form.Control>
+            </Form.Group>
             <Button type='submit' disabled={this.state.disableSubmit}>Submit</Button>
           </Form>
         </Modal.Body>
