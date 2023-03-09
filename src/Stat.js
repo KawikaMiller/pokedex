@@ -7,8 +7,8 @@ class Stat extends React.Component {
     super(props);
 
     this.state = {
-      IV: 31,
-      EV: 0,
+      IV: this.props.stat.iv,
+      EV: this.props.stat.ev,
       level: this.props.level,
       statName: undefined,
       statValue: 0,
@@ -104,13 +104,7 @@ class Stat extends React.Component {
   }
 
   componentDidMount() {
-    // hp gets calculated differently than other stats
     this.abbreviateStatName();
-
-    this.setState({
-      IV: this.props.stat.iv,
-      EV: this.props.stat.ev
-    })
   }
 
   render() {
@@ -121,7 +115,7 @@ class Stat extends React.Component {
       >
         {this.state.statName === 'HP' ?
         <>
-          {this.state.statName} : {this.state.statValue} | {this.calculateMaxHpValue()}
+          {this.state.statName} : {this.state.statValue} / {this.calculateMaxHpValue()}
           <ProgressBar 
             style={{height: '0.5vh', width: '90%'}} 
             now={this.state.statValue} 
@@ -132,7 +126,7 @@ class Stat extends React.Component {
         </>         
         :
         <>
-        {this.state.statName} : {this.state.statValue} | {this.calculateMaxStatValue()}
+        {this.state.statName} : {this.state.statValue} / {this.calculateMaxStatValue()}
         <ProgressBar 
           style={{height: '0.5vh', width: '90%'}} 
           now={this.state.statValue} 
