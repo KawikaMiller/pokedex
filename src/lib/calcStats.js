@@ -1,5 +1,3 @@
-'use strict';
-
 export const calculateStatTotal = (baseStat, iv, ev, level, nature) => {
   return Math.floor(((Math.floor(((2 * baseStat + iv + Math.floor(ev / 4)) * level) / 100)) + 5) * nature)
 }

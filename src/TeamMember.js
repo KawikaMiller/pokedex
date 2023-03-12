@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { calculateHpTotal, calculateMaxHpTotal, calculateMinHpTotal, calculateStatTotal, calculateMaxStatTotal, calculateMinStatTotal } from './lib/calcStats';
+// import { calculateHpTotal, calculateMaxHpTotal, calculateMinHpTotal, calculateStatTotal, calculateMaxStatTotal, calculateMinStatTotal } from './lib/calcStats';
 
 class TeamMember extends React.Component {
   constructor(props){
