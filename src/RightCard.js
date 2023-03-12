@@ -5,6 +5,7 @@ import MoveContainer from "./MoveContainer";
 import Container from 'react-bootstrap/Container';
 import Abilities from "./Abilities";
 import Team from "./Team";
+import Button from 'react-bootstrap/Button'
 
 class RightCard extends React.Component {
   constructor(props){
@@ -40,7 +41,7 @@ class RightCard extends React.Component {
         </Nav>
       </Card.Header> 
       
-      <Card.Body id="right_card_body" style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignContent: 'center'}}>
+      <Card.Body id="right_card_body">
         {this.state.activeKey === 0 ?
         <>
           <Container style={{maxHeight: '57vh', overflowY: 'hidden'}}>
@@ -59,14 +60,16 @@ class RightCard extends React.Component {
 
         {this.state.activeKey === 1 ?
         <Container>
-          <Team searchResult={this.props.searchResult}/>
+          <Team searchResult={this.props.searchResult} team='team' />
         </Container> 
         
         : null}
 
       </Card.Body>
 
-
+      <Card.Footer>
+        <Button>Save Team</Button>
+      </Card.Footer>
     </Card>
     )
   }

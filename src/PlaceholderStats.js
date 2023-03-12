@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
-class TeamMemberStats extends React.Component{
+class PlaceholderStats extends React.Component{
   constructor(props){
     super(props);
 
@@ -19,10 +19,13 @@ class TeamMemberStats extends React.Component{
     this.state = {
       level: this.props.level,
       stats: newStats,
+      nature: 'bashful',
       showModal: false,
       disableSubmit: false,
     }
   }
+
+
 
   // prevents EVs from totaling over 510
   handleFormChange = (event) => {
@@ -74,11 +77,12 @@ class TeamMemberStats extends React.Component{
     newStats[5].iv = parseInt(event.target.iv_spd.value)
     newStats[5].ev = parseInt(event.target.ev_spd.value)
     // sends updated stat values back to placeholder component
-    this.props.updateStatValues(newStats, event.target.level.value);
+    this.props.updateStatValues(newStats, event.target.level.value, event.target.nature.value);
 
     this.setState({
       level: parseInt(event.target.level.value),
-      stats: newStats
+      stats: newStats,
+      nature: event.target.nature.value
     })
   
     this.handleHideModal();
@@ -95,16 +99,28 @@ class TeamMemberStats extends React.Component{
       <>
       <div className='team_member_stats' >
         <div className='stats_sub_phys'>
-          <Stat stat={this.state.stats[0]} level={this.state.level} />
-          <Stat stat={this.state.stats[1]} level={this.state.level} />
-          <Stat stat={this.state.stats[2]} level={this.state.level} />
+          <Stat 
+            stat={this.state.stats[0]} 
+            level={this.state.level} />
+          <Stat 
+            stat={this.state.stats[1]} 
+            level={this.state.level} />
+          <Stat 
+            stat={this.state.stats[2]} 
+            level={this.state.level} />
         </div>
         <div className='stats_sub_spec'>
-          <Stat stat={this.state.stats[3]} level={this.state.level} />
-          <Stat stat={this.state.stats[4]} level={this.state.level} />
-          <Stat stat={this.state.stats[5]} level={this.state.level} />
+          <Stat 
+            stat={this.state.stats[3]} 
+            level={this.state.level} />
+          <Stat 
+            stat={this.state.stats[4]} 
+            level={this.state.level} />
+          <Stat 
+            stat={this.state.stats[5]} 
+            level={this.state.level} />
         </div>
-        <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: "flex-end"}}>
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: "flex-end"}}>
           <Button 
             style={{ margin: '0.5rem 0', padding: '0'}}
             onClick={this.handleHideModal}
@@ -119,7 +135,9 @@ class TeamMemberStats extends React.Component{
         <Modal.Body>
           <Form onSubmit={this.handleEditStats} onChange={this.handleFormChange}>  
             <Container id='team_member_stats_edit'>
-              <div>
+              <div id='hp_phys'>
+
+                {/* HP IV and EV */}
                 <Form.Group className='ivev_form'>
                   <Form.Label>HP</Form.Label>
                   <Form.Control 
@@ -136,6 +154,7 @@ class TeamMemberStats extends React.Component{
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
 
+                {/* Attack IV and EV */}
                 <Form.Group className='ivev_form'>
                   <Form.Label>ATK</Form.Label>
                   <Form.Control 
@@ -152,6 +171,7 @@ class TeamMemberStats extends React.Component{
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
 
+                {/* Defense IV and EV */}
                 <Form.Group className='ivev_form'>
                   <Form.Label>DEF</Form.Label>
                   <Form.Control 
@@ -168,7 +188,9 @@ class TeamMemberStats extends React.Component{
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
               </div>
-              <div>
+
+              {/* Special Attack IV and EV */}
+              <div id='spd_special'>
                 <Form.Group className='ivev_form'>
                   <Form.Label>SPATK</Form.Label>
                   <Form.Control 
@@ -185,6 +207,7 @@ class TeamMemberStats extends React.Component{
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
 
+                {/* Special Defense IV and EV */}
                 <Form.Group className='ivev_form'>
                   <Form.Label>SPDEF</Form.Label>
                   <Form.Control 
@@ -201,6 +224,7 @@ class TeamMemberStats extends React.Component{
                     min='0' max='255'></Form.Control>
                 </Form.Group>
 
+                {/* Speed IV and EV */}
                 <Form.Group className='ivev_form'>
                   <Form.Label>SPD</Form.Label>
                   <Form.Control 
@@ -218,15 +242,59 @@ class TeamMemberStats extends React.Component{
                 </Form.Group>
               </div>
             </Container>
-            <Form.Group className='ivev_form'>
-              <Form.Label>Level</Form.Label>
-              <Form.Control 
-                type="number" 
-                id='level' 
-                placeholder={this.state.level ? this.state.level : 'Level'}
-                defaultValue={this.state.level ? this.state.level : 100} 
-                min='1' max='100' ></Form.Control>
-            </Form.Group>
+
+            {/* Level and Nature */}
+            <Container id='team_member_level_nature_edit'>
+              <div id='level_edit'>
+                <Form.Group className='ivev_form'>
+                  <Form.Label>Level</Form.Label>
+                  <Form.Control 
+                    type="number" 
+                    id='level' 
+                    placeholder={this.state.level ? this.state.level : 'Level'}
+                    defaultValue={this.state.level ? this.state.level : 100} 
+                    min='1' max='100' ></Form.Control>
+                </Form.Group>
+              </div>
+
+              <div id='nature_edit'>
+                <Form.Group className='ivev_form'>
+                  <Form.Label>Nature</Form.Label>
+                  <Form.Select 
+                    id='nature' 
+                    defaultValue={this.state.nature ? this.state.nature : 'bashful'} 
+                  >
+                    <option value='adamant'>Adamant</option>
+                    <option value='bashful'>Bashful</option>
+                    <option value='bold'>Bold</option>
+                    <option value='brave'>Brave</option>
+                    <option value='calm'>Calm</option>
+                    <option value='careful'>Careful</option>
+                    <option value='docile'>Docile</option>
+                    <option value='gentle'>Gentle</option>
+                    <option value='hardy'>Hardy</option>
+                    <option value='hasty'>Hasty</option>
+                    <option value='impish'>Impish</option>
+                    <option value='jolly'>Jolly</option>
+                    <option value='lax'>Lax</option>
+                    <option value='lonely'>Lonely</option>
+                    <option value='mild'>Mild</option>
+                    <option value='modest'>Modest</option>
+                    <option value='naive'>Naive</option>
+                    <option value='naughty'>Naughty</option>
+                    <option value='quiet'>Quiet</option>
+                    <option value='quirky'>Quirky</option>
+                    <option value='rash'>Rash</option>
+                    <option value='relaxed'>Relaxed</option>
+                    <option value='sassy'>Sassy</option>
+                    <option value='serious'>Serious</option>
+                    <option value='timid'>Timid</option>
+                  </Form.Select>
+                </Form.Group>
+              </div>
+            </Container>
+
+
             <Button type='submit' disabled={this.state.disableSubmit}>Submit</Button>
           </Form>
         </Modal.Body>
@@ -236,4 +304,4 @@ class TeamMemberStats extends React.Component{
   }
 }
 
-export default TeamMemberStats;
+export default PlaceholderStats;

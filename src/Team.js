@@ -2,6 +2,7 @@ import React from 'react';
 import TeamMember from './TeamMember';
 import TeamMemberPlaceholder from './TeamMemberPlaceholder';
 
+
 class Team extends React.Component{
   constructor(props){
     super(props);
@@ -25,14 +26,19 @@ class Team extends React.Component{
   render(){
     return(
       <>
-        {this.props.searchResult ? 
+        <section id='team_member_placeholder'>
+          {this.props.searchResult ? 
           <TeamMemberPlaceholder addTeamMember={this.addTeamMember} searchResult={this.props.searchResult} key='teamMemberPlaceholder' />
-        : null }
+          : null }
+        </section>
+        
+        <section id='team_members'>
 
+          {this.state.team.length > 0 ?
+          this.state.team.map(element => <TeamMember pokemon={element}/>) 
+          : null }
+        </section>
 
-        {this.state.team.length > 0 ?
-        this.state.team.map(element => <TeamMember pokemon={element}/>) 
-        : null }
       </>
 
     )

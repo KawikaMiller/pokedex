@@ -10,33 +10,33 @@ class Stat extends React.Component {
       IV: this.props.stat.iv,
       EV: this.props.stat.ev,
       level: this.props.level,
-      statName: undefined,
-      statValue: 0,
+      statName: this.props.stat.stat.name,
+      statTotal: 0,
       nature: 1, //change this later
     }
   }
 
-  calculateStatValue = () => {
+  calculateStatTotal = () => {
     return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(this.props.stat.ev / 4)) * this.props.level) / 100)) + 5) * this.state.nature)
   }
 
-  calculateHpValue = () => {
+  calculateHpTotal = () => {
     return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(this.props.stat.ev / 4)) * this.props.level) / 100) + this.props.level + 10
   }
 
-  calculateMaxStatValue = () => {
+  calculateMaxStatTotal = () => {
     return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.props.level) / 100)) + 5) * this.state.nature)
   }
 
-  calculateMinStatValue = () => {
+  calculateMinStatTotal = () => {
     return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.props.level) / 100)) + 5) * this.state.nature)
   }
 
-  calculateMaxHpValue = () => {
+  calculateMaxHpTotal = () => {
     return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.props.level) / 100) + this.props.level + 10
   }
 
-  calculateMinHpValue = () => {
+  calculateMinHpTotal = () => {
     return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.props.level) / 100) + this.props.level + 10
   }
 
@@ -45,37 +45,37 @@ class Stat extends React.Component {
       case 'hp' :
         this.setState({
           statName: 'HP',
-          statValue: this.calculateHpValue()
+          statTotal: this.calculateHpTotal()
         });
         break;
       case 'attack' :
         this.setState({
           statName: 'ATK',
-          statValue: this.calculateStatValue(),
+          statTotal: this.calculateStatTotal(),
         });
         break;
       case 'defense' :
         this.setState({
           statName: 'DEF',
-          statValue: this.calculateStatValue(),
+          statTotal: this.calculateStatTotal(),
         });
         break;
       case 'special-attack' :
         this.setState({
           statName: 'SP.ATK',
-          statValue: this.calculateStatValue(),
+          statTotal: this.calculateStatTotal(),
         });
         break;
       case 'special-defense' :
         this.setState({
           statName: 'SP.DEF',
-          statValue: this.calculateStatValue(),
+          statTotal: this.calculateStatTotal(),
         });
         break;
       case 'speed' :
         this.setState({
           statName: 'SPD',
-          statValue: this.calculateStatValue()
+          statTotal: this.calculateStatTotal()
         });
         break;
       default:
@@ -90,7 +90,7 @@ class Stat extends React.Component {
         level: this.props.level,
         IV: this.props.stat.iv,
         EV: this.props.stat.ev,
-        statValue: this.calculateHpValue(),
+        statTotal: this.calculateHpTotal(),
       })
     }
     else if(prevProps !== this.props && this.state.statName !== 'HP') {
@@ -98,7 +98,7 @@ class Stat extends React.Component {
         level: this.props.level,
         IV: this.props.stat.iv,
         EV: this.props.stat.ev,
-        statValue: this.calculateStatValue(),
+        statTotal: this.calculateStatTotal(),
       })
     }
   }
@@ -115,24 +115,24 @@ class Stat extends React.Component {
       >
         {this.state.statName === 'HP' ?
         <>
-          {this.state.statName} : {this.state.statValue} / {this.calculateMaxHpValue()}
+          {this.state.statName} : {this.state.statTotal} / {this.calculateMaxHpTotal()}
           <ProgressBar 
             style={{height: '0.5vh', width: '90%'}} 
-            now={this.state.statValue} 
-            max={this.calculateMaxHpValue()} 
-            min={this.calculateMinHpValue()}
-            key={`${this.state.statName}_${this.state.statValue}`}
+            now={this.state.statTotal} 
+            max={this.calculateMaxHpTotal()} 
+            min={this.calculateMinHpTotal()}
+            key={`${this.state.statName}_${this.state.statTotal}`}
           />
         </>         
         :
         <>
-        {this.state.statName} : {this.state.statValue} / {this.calculateMaxStatValue()}
+        {this.state.statName} : {this.state.statTotal} / {this.calculateMaxStatTotal()}
         <ProgressBar 
           style={{height: '0.5vh', width: '90%'}} 
-          now={this.state.statValue} 
-          max={this.calculateMaxStatValue()} 
-          min={this.calculateMinStatValue()}
-          key={`${this.state.statName}_${this.state.statValue}`}
+          now={this.state.statTotal} 
+          max={this.calculateMaxStatTotal()} 
+          min={this.calculateMinStatTotal()}
+          key={`${this.state.statName}_${this.state.statTotal}`}
         />
         </>
 }

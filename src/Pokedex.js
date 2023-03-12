@@ -81,10 +81,6 @@ class Pokedex extends React.Component {
                 : null}
               </Container>
             </Card.Body>
-
-            <Card.Footer>
-              Footer
-            </Card.Footer>
           </Card>
           
           {/* right side card */}
