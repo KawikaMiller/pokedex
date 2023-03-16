@@ -34,15 +34,6 @@ class TeamMember extends React.Component {
             </section>
           {/* shows stats */}
           <section className='team_member_info' style={{width: '100%'}}>
-            {/* renders the stat information, possibly put this in a button/modal */}
-            {/* {this.state.pokemon.stats.map(stat => {
-              console.log(this.state.pokemon.level)
-              if (stat.stat.name.toLowerCase() === 'hp') {
-                return <p>{stat.stat.name} : {calculateHpTotal(stat.base_stat, stat.iv, stat.ev, parseInt(this.state.pokemon.level))}</p>;
-              } else {
-                return <p>{stat.stat.name} : {calculateStatTotal(stat.base_stat, stat.iv, stat.ev, this.state.pokemon.level, 1)}</p>
-              }
-            })} */}
             <ProgressBar now={100} variant='success' style={{margin: '0.25rem'}}/>
           </section>
 

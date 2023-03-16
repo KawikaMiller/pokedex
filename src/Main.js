@@ -134,6 +134,33 @@ class Main extends React.Component{
         return response;
       })
       .then(response => {
+        response.types.forEach(async element => {
+          try{
+            let res = await axios(element.type.url);
+
+            element.doubleDamageFrom = [];
+            element.halfDamageFrom = [];
+            element.noDamageFrom = [];
+
+            res.data.damage_relations.double_damage_from.forEach(async item => {
+              element.doubleDamageFrom.push(item.name)
+            });
+
+            res.data.damage_relations.half_damage_from.forEach(async item => {
+              element.halfDamageFrom.push(item.name)
+            });
+
+            res.data.damage_relations.no_damage_from.forEach(async item => {
+              element.noDamageFrom.push(item.name)
+            })
+          } catch(err) {
+            console.log(err)
+          }
+        })
+
+        return response;
+      })
+      .then(response => {
         //gets ability descriptions
         response.abilities.forEach(async element => {
           try{

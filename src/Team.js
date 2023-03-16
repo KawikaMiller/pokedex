@@ -62,8 +62,8 @@ class Team extends React.Component{
           : null }
         </Container>
 
-        <Container id='team_type_chart'>
-          <TeamTypeChart team={this.state.team} />
+        <Container id='team_type_chart_container'>
+          <TeamTypeChart key='team_type_chart' team={this.state.team} />
         </Container>
 
         <Button onClick={this.saveTeamToDB}>
