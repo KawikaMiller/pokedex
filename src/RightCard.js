@@ -91,7 +91,7 @@ class RightCard extends React.Component {
       </Card.Body>
 
       <Card.Footer>
-        github.com/KMArtwork
+
       </Card.Footer>
     </Card>
     )

@@ -26,7 +26,7 @@ class TeamMember extends React.Component {
           <section className='team_member_sprite'>
               <Card.Img 
                 variant='top' 
-                src={this.state.pokemon.sprites.front_default}
+                src={this.state.pokemon.sprite.front_default}
                 style={{backgroundColor: 'white', borderRadius: '50%'}}
               >
               </Card.Img>

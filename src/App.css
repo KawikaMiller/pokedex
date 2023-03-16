@@ -171,8 +171,8 @@ color: white !important;
 
 .card.member0 {
   background-color: rgba(0, 0, 0, 0%);
-  max-height: 20vh;
-  height: 25vh; 
+  max-height: auto;
+  /* height: 25vh;  */
   border-color: white;
 }
 
@@ -266,4 +266,8 @@ section.team_member_info {
 
 .form-label {
   margin: 0.25rem 0 !important;
+}
+
+#type_chart_headers > * {
+  padding: 0 1rem;
 }

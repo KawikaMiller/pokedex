@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React from 'react';
+
 import TeamMember from './TeamMember';
 import TeamMemberPlaceholder from './TeamMemberPlaceholder';
-import Button from 'react-bootstrap/Button'
-import { Pokemon } from './lib/pokemon';
+import TeamTypeChart from './TeamTypeChart';
 
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container';
 
 class Team extends React.Component{
   constructor(props){
@@ -19,22 +21,10 @@ class Team extends React.Component{
     if (this.state.team.length === 6) {
       // add modal pop up, 'team is full'
     } else {
-      // console.log(pokemon);
-      const teamMember = new Pokemon (
-        pokemon.name, 
-        pokemon.id, 
-        pokemon.level, 
-        pokemon.nature, 
-        pokemon.abilities, 
-        [], 
-        pokemon.sprites.front_default, 
-        pokemon.stats, 
-        pokemon.types
-      );
-      console.log(teamMember);
-      // this.setState({
-      //   team: [...this.state.team, teamMember]
-      // })
+      console.log(pokemon);
+      this.setState({
+        team: [...this.state.team, pokemon]
+      })
     }
   }
 
@@ -60,18 +50,21 @@ class Team extends React.Component{
   render(){
     return(
       <>
-        <section id='team_member_placeholder'>
+        <Container id='team_member_placeholder'>
           {this.props.searchResult ? 
           <TeamMemberPlaceholder addTeamMember={this.addTeamMember} searchResult={this.props.searchResult} key='teamMemberPlaceholder' />
           : null }
-        </section>
+        </Container>
         
-        <section id='team_members'>
-
+        <Container id='team_members'>
           {this.state.team.length > 0 ?
           this.state.team.map(element => <TeamMember pokemon={element}/>) 
           : null }
-        </section>
+        </Container>
+
+        <Container id='team_type_chart'>
+          <TeamTypeChart team={this.state.team} />
+        </Container>
 
         <Button onClick={this.saveTeamToDB}>
           Save Team

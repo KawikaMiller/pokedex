@@ -124,7 +124,7 @@ class PlaceholderStats extends React.Component{
           <Button 
             style={{ margin: '0.5rem 0', padding: '0'}}
             onClick={this.handleHideModal}
-            >Edit
+            >IV/EV
           </Button>
         </div>
       </div>

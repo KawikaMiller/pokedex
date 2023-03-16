@@ -52,7 +52,7 @@ class TeamMemberPlaceholder extends React.Component{
             <section id='placeholder_sprite'>
               <Card.Img 
                 variant='top' 
-                src={this.props.searchResult.sprites.front_default}
+                src={this.props.searchResult.sprite.front_default}
                 style={{backgroundColor: 'white', borderRadius: '50%'}}
               >
               </Card.Img>
