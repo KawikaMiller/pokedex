@@ -1,27 +1,18 @@
 import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-import axios from 'axios';
 
 class Ability extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      description: 'lorem ipsum leviosah'
+      description: this.props.ability.description
     }
   }
 
-  getAbilityDescription = async (ability) => {
-    try {
-      let response = await axios(ability.ability.url);
-
-      this.setState({
-        description: response.data.effect_entries[1].effect
-      })
-    } catch(err) {console.log(err)}
-  }
-
   componentDidMount(){
-    this.getAbilityDescription(this.props.ability)
+    this.setState({
+      description: this.props.ability.description
+    })
   }
 
   render() {

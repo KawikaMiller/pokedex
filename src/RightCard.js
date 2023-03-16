@@ -1,21 +1,22 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
-import MoveContainer from "./MoveContainer";
+import Learnset from "./Learnset";
 import Container from 'react-bootstrap/Container';
 import Abilities from "./Abilities";
 import Team from "./Team";
-import Button from 'react-bootstrap/Button'
 
 class RightCard extends React.Component {
   constructor(props){
     super(props);
 
     this.state = {
+      //activeKey dictates what 'tab' is open on the right side of the pokedex
       activeKey: 0,
     }
   }
 
+  // handles changing the activeKey state property
   changeTab(tabIndex) {
     this.setState({
       activeKey: tabIndex
@@ -23,13 +24,15 @@ class RightCard extends React.Component {
   }
 
   componentDidMount() {
-    console.log('reRender successful')
+    console.log('RightCard component reRender successful')
   }
+  
 
   render() {
     return(
       <Card bg='danger' style={{justifyContent: 'space-evenly'}}>    
       
+      {/* tabs for different functionality of the pokedex */}
       <Card.Header>
         <Nav variant='tabs' defaultActiveKey='0'>
           <Nav.Item>
@@ -41,34 +44,54 @@ class RightCard extends React.Component {
         </Nav>
       </Card.Header> 
       
+      {/* conditionally renders different components based on tab selected */}
       <Card.Body id="right_card_body">
+        {/* if activeKey is 0, displays moves and abilities */}
         {this.state.activeKey === 0 ?
-        <>
-          <Container style={{maxHeight: '57vh', overflowY: 'hidden'}}>
-          {this.props.searchResult ?
-            <MoveContainer moves={this.props.searchResult.moves} pokemonName={this.props.searchResult.name} key={`${this.props.searchResult.name}_moves`}/> 
-            : null }
-          </Container>
+          <>
+            {/* displays all the moves, categorized by learn method */}
+            <Container id="moves_container">
+              {
+                this.props.searchResult ?
+                  <Learnset 
+                    moves={this.props.searchResult.moves} 
+                    pokemonName={this.props.searchResult.name} 
+                    key={`${this.props.searchResult.name}_moves`}
+                  /> 
+                : 
+                  null
+              }
+            </Container>
+            
+            {/* displays the pokemon's abilities */}
+            <Container id='abilities_container'>
+              {
+                this.props.searchResult ? 
+                  <Abilities 
+                    abilities={this.props.searchResult.abilities} 
+                  />
+                : 
+                  null  
+              }
+            </Container>
+          </> 
+          : null
+        }
 
-          <Container id='abilities_container'>
-            {this.props.searchResult ? 
-              <Abilities abilities={this.props.searchResult.abilities} />
-              : null  
-            }
-          </Container>
-        </> : null}
-
-        {this.state.activeKey === 1 ?
-        <Container>
-          <Team searchResult={this.props.searchResult} team='team' />
-        </Container> 
-        
-        : null}
+        {/* if activeKey is 1, displays team builder */}
+        {
+          this.state.activeKey === 1 ?
+            <Container>
+              <Team searchResult={this.props.searchResult} team='team' />
+            </Container> 
+          : 
+            null
+        }
 
       </Card.Body>
 
       <Card.Footer>
-        <Button>Save Team</Button>
+        github.com/KMArtwork
       </Card.Footer>
     </Card>
     )

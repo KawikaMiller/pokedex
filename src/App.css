@@ -105,6 +105,13 @@ div#pokedex {
   color: white;
 }
 
+#pokedex-info {
+  margin-top: 0.5rem;
+  background-color: #86d352;
+  width: 50%;
+  height: 35%;
+}
+
 .progress {
   background-color: #e0ffa7;
   color: green;
@@ -114,6 +121,11 @@ div#pokedex {
   margin: 1.5vh;
   height: 1vh;
   width: 20%;
+}
+
+#moves_container {
+  max-height: 57vh;
+  overflow-Y: hidden;
 }
 
 .nav-link {
@@ -240,6 +252,8 @@ section.team_member_info {
   justify-content: 'flex-start';
   align-content: 'center';
 }
+
+
 
 #level_edit, #nature_edit {
   width: 50%;
