@@ -7,6 +7,7 @@ import TeamTypeChart from './TeamTypeChart';
 
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container';
+import Modal from 'react-bootstrap/Modal';
 
 class Team extends React.Component{
   constructor(props){
@@ -14,7 +15,14 @@ class Team extends React.Component{
 
     this.state = {
       team: [],
+      showTypeCoverage: false,
     }
+  }
+
+  toggleTypeCoverageModal = () => {
+    this.setState({
+      showTypeCoverage: !this.state.showTypeCoverage
+    })
   }
 
   addTeamMember = (pokemon) => {
@@ -61,11 +69,29 @@ class Team extends React.Component{
           this.state.team.map(element => <TeamMember pokemon={element}/>) 
           : null }
         </Container>
+        
 
-        <Container id='team_type_chart_container'>
+        <Modal
+          className='team_type_chart_modal' 
+          centered 
+          size='xl' 
+          show={this.state.showTypeCoverage} 
+          onHide={this.toggleTypeCoverageModal}
+        >
+          <Modal.Header>Team Type Coverage</Modal.Header>
+          <Modal.Body>
+            <TeamTypeChart key='team_type_chart' team={this.state.team} />
+          </Modal.Body>
+
+        </Modal>
+        {/* <Container id='team_type_chart_container'>
           <TeamTypeChart key='team_type_chart' team={this.state.team} />
-        </Container>
+        </Container> */}
 
+        
+        <Button onClick={this.toggleTypeCoverageModal}>
+          Type Coverage
+        </Button>
         <Button onClick={this.saveTeamToDB}>
           Save Team
         </Button>

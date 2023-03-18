@@ -37,8 +37,8 @@ class TeamTypeChart extends React.Component {
   render() {
     return(
       this.props.team.length > 0 ? 
-      <Container style={{overflowX: 'scroll', margin: '0', padding: '0'}}>
-        <Table id='team_type_chart_table' bordered hover size='sm' style={{color: 'white'}}>
+      <Container>
+        <Table id='team_type_chart_table' striped bordered hover size='sm'>
           <thead key='type_chart_tablehead'>
             <tr key='type_chart_headers' id='type_chart_headers' style={{margin: '0.25rem'}}>
               <th></th>{/*intentionally blank*/}

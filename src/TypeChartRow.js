@@ -127,7 +127,11 @@ class TypeChartRow extends React.Component{
   render(){
     return(
       <tr key={`${this.props.typeInfo.name}_typechart_row`}>
-        <td key={`${this.props.typeInfo.name}_label`}>{`${this.props.pokemonName[0].toUpperCase()}${this.props.pokemonName.slice(1).toLowerCase()}`}</td>
+        <td key={`${this.props.typeInfo.name}_label`}>
+          <strong>
+            {`${this.props.pokemonName[0].toUpperCase()}${this.props.pokemonName.slice(1).toLowerCase()}`}
+          </strong>
+        </td>
         {
           this.state.typeEffectiveness ? 
             this.state.typeEffectiveness.map(element => (
@@ -136,25 +140,6 @@ class TypeChartRow extends React.Component{
           : 
             null 
         }
-        {/* <td key={`${this.props.typeInfo.name}_label`}>{this.props.pokemonName}</td>
-        <td key={`${this.props.typeInfo.name}_normal`} className='normal'>1x</td>
-        <td key={`${this.props.typeInfo.name}_fire`} className='fire'>1x</td>
-        <td key={`${this.props.typeInfo.name}_water`} className='water'>1x</td>
-        <td key={`${this.props.typeInfo.name}_grass`} className='grass'>1x</td>
-        <td key={`${this.props.typeInfo.name}_electric`} className='electric'>1x</td>
-        <td key={`${this.props.typeInfo.name}_flying`} className='flying'>1x</td>
-        <td key={`${this.props.typeInfo.name}_bug`} className='bug'>1x</td>
-        <td key={`${this.props.typeInfo.name}_rock`} className='rock'>1x</td>
-        <td key={`${this.props.typeInfo.name}_ground`} className='ground'>1x</td>
-        <td key={`${this.props.typeInfo.name}_fighting`} className='fighting'>1x</td>
-        <td key={`${this.props.typeInfo.name}_steel`} className='steel'>1x</td>
-        <td key={`${this.props.typeInfo.name}_poison`} className='poison'>1x</td>
-        <td key={`${this.props.typeInfo.name}_ice`} className='ice'>1x</td>
-        <td key={`${this.props.typeInfo.name}_dragon`} className='dragon'>1x</td>
-        <td key={`${this.props.typeInfo.name}_ghost`} className='ghost'>1x</td>
-        <td key={`${this.props.typeInfo.name}_psychic`} className='psychic'>1x</td>
-        <td key={`${this.props.typeInfo.name}_dark`} className='dark'>1x</td>
-        <td key={`${this.props.typeInfo.name}_fairy`} className='fairy'>1x</td> */}
       </tr>
     )
   }

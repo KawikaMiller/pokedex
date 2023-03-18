@@ -269,5 +269,12 @@ section.team_member_info {
 }
 
 #type_chart_headers > * {
-  padding: 0 1rem;
+  padding: 0 0;
+  text-align: center;
+}
+
+td, th {
+  text-align: center;
+  width: 2.75rem;
+  font-size: 0.825rem;
 }
