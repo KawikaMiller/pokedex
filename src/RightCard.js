@@ -108,13 +108,12 @@ class RightCard extends React.Component {
         {/* if activeKey is 1, displays team builder */}
         {
           this.state.activeKey === 1 ?
-            <Container>
               <Team 
                 searchResult={this.props.searchResult}
                 addTeamMember={this.addTeamMember}
                 removeTeamMember={this.removeTeamMember} 
-                team={this.state.team} />
-            </Container> 
+                team={this.state.team} 
+              />
           : 
             null
         }

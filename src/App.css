@@ -248,10 +248,10 @@ section.team_member_info {
 }
 
 #right_card_body {
-  display: 'flex';
-  flex-direction: 'column';
-  justify-content: 'flex-start';
-  align-content: 'center';
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
 }
 
 
@@ -279,4 +279,13 @@ td, th {
   vertical-align: middle; 
   width: 2.75rem;
   font-size: 0.825rem;
+}
+
+.accordion-body {
+  font-size: 0.825rem;
+  padding: 0.5rem 0.75rem !important;
+}
+
+.team_member_edit_buttons > * {
+  width: 40% !important; 
 }

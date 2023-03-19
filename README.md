@@ -2,7 +2,7 @@
 
 **Author**: Kawika Miller
 
-**Version**: 1.0.3 
+**Version**: 1.0.5 
 <!-- (increment the patch/fix version number if you make more commits past your first submission) -->
 
 ## Overview
@@ -16,10 +16,23 @@ This application utilizes JavaScript, React, and React-Bootstrap
 
 ## Change Log
 2023-02-23 : Initialize project
+
 2023-02-24 : Add search bar and show results
+
 2023-03-01 : Moves refresh/rerender when a new pokemon is searched for
+
 2023-03-02 : Add ability information to screen
+
 2023-03-04 : Modularize move-lists and move-container.
+
+2023-03-05 thru 19 : Add team builder
+- Can add/remove a Pokemon to/from team of 6
+- Can edit EVs/IVs, Level, and Nature
+- Can select 4 Battle Moves, Ability, and Held Item
+  - Held item functionality is there, but list of items does not exist
+- Can save team to database
+  - Server is not currently deployed, must be ran locally
+- Can see type coverage chart
 
 ## Credit and Collaborations
 

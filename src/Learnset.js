@@ -89,7 +89,7 @@ class Learnset extends React.Component {
       tmMoves: this.state.tmMoves,
       tutorMoves: this.state.tutorMoves,
       eggMoves: this.state.eggMoves,
-    }), 10)
+    }), 500)
   }
 
   render(){

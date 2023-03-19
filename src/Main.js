@@ -96,6 +96,19 @@ class Main extends React.Component{
             }
           })
         })
+        if (moveArr.length === 0) {
+          response.data.moves.forEach(element => {
+            element.version_group_details.forEach(vgDetail => {
+              if (vgDetail.version_group.name === 'sword-shield') {
+                moveArr.push(new Move(
+                  element.move.name,
+                  vgDetail.level_learned_at,
+                  vgDetail.move_learn_method.name,
+                ))
+              }
+            })
+          })
+        }
         // create pokemon object which will ultimately be what is returned/sent as response
         let pokemon = new Pokemon(
           response.data.name,
@@ -182,6 +195,9 @@ class Main extends React.Component{
           searchError: error
         })
       })
+      .finally(
+        console.log(event)
+      )
   }
 
   render() {

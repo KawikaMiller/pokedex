@@ -5,7 +5,7 @@ class Ability extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      description: this.props.ability.description
+      description: 'default'
     }
   }
 
@@ -13,6 +13,14 @@ class Ability extends React.Component{
     this.setState({
       description: this.props.ability.description
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps !== this.props) {
+      this.setState({
+        description: this.props.ability.description
+      })
+    }
   }
 
   render() {

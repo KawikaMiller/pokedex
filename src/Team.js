@@ -67,13 +67,11 @@ class Team extends React.Component{
     this.setState({
       team: this.props.team
     })
-
-    console.log('')
   }
 
   render(){
     return(
-      <Container style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%'}}>
+      <Container style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%'}}>
         <Container id='team_member_placeholder'>
           {this.props.searchResult ? 
           <PlaceholderTeamMember addTeamMember={this.props.addTeamMember} searchResult={this.props.searchResult} key='PlaceholderTeamMember' />
@@ -104,7 +102,7 @@ class Team extends React.Component{
           <TeamTypeChart key='team_type_chart' team={this.state.team} />
         </Container> */}
 
-        <div>
+        <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
           <Button onClick={this.toggleTypeCoverageModal}>
             Type Coverage
           </Button>

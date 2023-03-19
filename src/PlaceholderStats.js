@@ -5,9 +5,6 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
-import Learnset from './Learnset';
-import Abilities from './Abilities';
-
 class PlaceholderStats extends React.Component{
   constructor(props){
     super(props);
@@ -245,14 +242,6 @@ class PlaceholderStats extends React.Component{
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
-        {/* <Learnset 
-          moves={this.props.moves}
-        />
-        <Abilities
-          abilities={this.props.abilities}
-        /> */}
       </Modal>
 
       {/* handles editing stat IV and EV values */}
