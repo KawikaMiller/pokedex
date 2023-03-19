@@ -35,8 +35,22 @@ class RightCard extends React.Component {
     }
   }
 
+  removeTeamMember = (idx) => {
+    let newTeam = this.state.team;
+    
+    newTeam.splice(idx, 1);
+
+    this.setState({
+      team: newTeam,
+    })
+  } 
+
+  componentDidUpdate() {
+
+  }
+
   componentDidMount() {
-    console.log('RightCard component reRender successful')
+
   }
   
 
@@ -97,7 +111,8 @@ class RightCard extends React.Component {
             <Container>
               <Team 
                 searchResult={this.props.searchResult}
-                addTeamMember={this.addTeamMember} 
+                addTeamMember={this.addTeamMember}
+                removeTeamMember={this.removeTeamMember} 
                 team={this.state.team} />
             </Container> 
           : 

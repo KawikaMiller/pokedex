@@ -19,7 +19,7 @@ class Ability extends React.Component{
     return(
         <Accordion.Item eventKey={this.props.eventKey}>
           <Accordion.Header>{this.props.ability.ability.name}</Accordion.Header>
-          <Accordion.Body style={{overflowY: 'scroll', maxHeight: '8vh'}}>{this.state.description}</Accordion.Body>
+          <Accordion.Body style={{overflowY: 'scroll', maxHeight: '9vh'}}>{this.state.description}</Accordion.Body>
         </Accordion.Item>
     )
   }

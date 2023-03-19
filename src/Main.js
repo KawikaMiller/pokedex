@@ -124,6 +124,7 @@ class Main extends React.Component{
             move.power = res.data.power;
             move.accuracy = res.data.accuracy;
             move.pp = res.data.pp;
+            move.priority = res.data.priority;
             move.dmgClass = res.data.damage_class.name;
             move.type = res.data.type.name;
           } catch (err) {

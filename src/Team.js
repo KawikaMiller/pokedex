@@ -63,9 +63,17 @@ class Team extends React.Component{
     }
   }
 
+  componentDidMount() {
+    this.setState({
+      team: this.props.team
+    })
+
+    console.log('')
+  }
+
   render(){
     return(
-      <>
+      <Container style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%'}}>
         <Container id='team_member_placeholder'>
           {this.props.searchResult ? 
           <PlaceholderTeamMember addTeamMember={this.props.addTeamMember} searchResult={this.props.searchResult} key='PlaceholderTeamMember' />
@@ -74,7 +82,7 @@ class Team extends React.Component{
         
         <Container id='team_members'>
           {this.state.team.length > 0 ?
-          this.state.team.map(element => <TeamMember pokemon={element}/>) 
+          this.state.team.map((element, idx) => <TeamMember pokemon={element} removeTeamMember={() => this.props.removeTeamMember(idx)} />)
           : null }
         </Container>
         
@@ -96,14 +104,16 @@ class Team extends React.Component{
           <TeamTypeChart key='team_type_chart' team={this.state.team} />
         </Container> */}
 
-        
-        <Button onClick={this.toggleTypeCoverageModal}>
-          Type Coverage
-        </Button>
-        <Button onClick={this.saveTeamToDB}>
-          Save Team
-        </Button>
-      </>
+        <div>
+          <Button onClick={this.toggleTypeCoverageModal}>
+            Type Coverage
+          </Button>
+          <Button onClick={this.saveTeamToDB}>
+            Save Team
+          </Button>
+        </div>
+
+      </Container>
 
     )
   }

@@ -15,7 +15,7 @@ class PlaceholderTeamMember extends React.Component{
   }
 
   updateStatValues = (newStats, newLevel, newNature) => {
-    let newPokemon = this.props.searchResult;
+    let newPokemon = this.state.pokemon;
 
     newPokemon.stats = newStats;
     newPokemon.level = newLevel;
@@ -24,8 +24,20 @@ class PlaceholderTeamMember extends React.Component{
     this.setState({
       pokemon: newPokemon
     })
+  }
 
-    console.log(this.state.pokemon)
+  updateBattleInfo = (battleMovesArr, battleAbility, heldItem) => {
+    let newPokemon = this.state.pokemon;
+
+    console.log('updating battle info')
+
+    newPokemon.battleMoves = battleMovesArr;
+    newPokemon.battleAbility = battleAbility;
+    newPokemon.heldItem = heldItem;
+
+    this.setState({
+      pokemon: newPokemon
+    })
   }
 
 // updates and rerenders when props change | props change when searching a new pokemon
@@ -59,11 +71,14 @@ class PlaceholderTeamMember extends React.Component{
               <p style={{margin: '0'}}>Lv. {this.state.pokemon.level}</p>
             </section>
           {/* shows stats */}
-          <PlaceholderStats 
+          <PlaceholderStats
+            moves={this.state.pokemon.moves}
+            abilities={this.state.pokemon.abilities} 
             stats={this.state.pokemon.stats}
             level={100} 
             key={`${this.state.pokemon.name}_stats`}
-            updateStatValues={this.updateStatValues} 
+            updateStatValues={this.updateStatValues}
+            updateBattleInfo={this.updateBattleInfo} 
           />
         </Card.Body>
       </Card>
