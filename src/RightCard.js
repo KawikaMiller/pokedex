@@ -13,6 +13,7 @@ class RightCard extends React.Component {
     this.state = {
       //activeKey dictates what 'tab' is open on the right side of the pokedex
       activeKey: 0,
+      team: [],
     }
   }
 
@@ -21,6 +22,17 @@ class RightCard extends React.Component {
     this.setState({
       activeKey: tabIndex
     })
+  }
+
+  addTeamMember = (pokemon) => {
+    if (this.state.team.length === 6) {
+      // add modal pop up, 'team is full'
+    } else {
+      console.log(pokemon);
+      this.setState({
+        team: [...this.state.team, pokemon]
+      })
+    }
   }
 
   componentDidMount() {
@@ -46,6 +58,7 @@ class RightCard extends React.Component {
       
       {/* conditionally renders different components based on tab selected */}
       <Card.Body id="right_card_body">
+
         {/* if activeKey is 0, displays moves and abilities */}
         {this.state.activeKey === 0 ?
           <>
@@ -82,7 +95,10 @@ class RightCard extends React.Component {
         {
           this.state.activeKey === 1 ?
             <Container>
-              <Team searchResult={this.props.searchResult} team='team' />
+              <Team 
+                searchResult={this.props.searchResult}
+                addTeamMember={this.addTeamMember} 
+                team={this.state.team} />
             </Container> 
           : 
             null

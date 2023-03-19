@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 
 import TeamMember from './TeamMember';
-import TeamMemberPlaceholder from './TeamMemberPlaceholder';
+import PlaceholderTeamMember from './PlaceholderTeamMember';
 import TeamTypeChart from './TeamTypeChart';
 
 import Button from 'react-bootstrap/Button'
@@ -14,7 +14,7 @@ class Team extends React.Component{
     super(props);
 
     this.state = {
-      team: [],
+      team: this.props.team,
       showTypeCoverage: false,
     }
   }
@@ -25,16 +25,16 @@ class Team extends React.Component{
     })
   }
 
-  addTeamMember = (pokemon) => {
-    if (this.state.team.length === 6) {
-      // add modal pop up, 'team is full'
-    } else {
-      console.log(pokemon);
-      this.setState({
-        team: [...this.state.team, pokemon]
-      })
-    }
-  }
+  // addTeamMember = (pokemon) => {
+  //   if (this.state.team.length === 6) {
+  //     // add modal pop up, 'team is full'
+  //   } else {
+  //     console.log(pokemon);
+  //     this.setState({
+  //       team: [...this.state.team, pokemon]
+  //     })
+  //   }
+  // }
 
   saveTeamToDB = () => {
     let request = {
@@ -55,12 +55,20 @@ class Team extends React.Component{
       .catch(err => {console.log(err)})
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.setState({
+        team: this.props.team
+      })
+    }
+  }
+
   render(){
     return(
       <>
         <Container id='team_member_placeholder'>
           {this.props.searchResult ? 
-          <TeamMemberPlaceholder addTeamMember={this.addTeamMember} searchResult={this.props.searchResult} key='teamMemberPlaceholder' />
+          <PlaceholderTeamMember addTeamMember={this.props.addTeamMember} searchResult={this.props.searchResult} key='PlaceholderTeamMember' />
           : null }
         </Container>
         

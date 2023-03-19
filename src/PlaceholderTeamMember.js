@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import PlaceholderStats from './PlaceholderStats';
 
-class TeamMemberPlaceholder extends React.Component{
+class PlaceholderTeamMember extends React.Component{
   constructor(props){
     super(props);
     this.props.searchResult.level = 100;
@@ -71,4 +71,4 @@ class TeamMemberPlaceholder extends React.Component{
   }
 }
 
-export default TeamMemberPlaceholder;
+export default PlaceholderTeamMember;

@@ -25,8 +25,6 @@ class PlaceholderStats extends React.Component{
     }
   }
 
-
-
   // prevents EVs from totaling over 510
   handleFormChange = (event) => {
     if (
@@ -97,7 +95,8 @@ class PlaceholderStats extends React.Component{
   render() {
     return(
       <>
-      <div className='team_member_stats' >
+      <Container className='team_member_stats' >
+
         <div className='stats_sub_phys'>
           <Stat 
             stat={this.state.stats[0]} 
@@ -109,6 +108,7 @@ class PlaceholderStats extends React.Component{
             stat={this.state.stats[2]} 
             level={this.state.level} />
         </div>
+
         <div className='stats_sub_spec'>
           <Stat 
             stat={this.state.stats[3]} 
@@ -120,14 +120,25 @@ class PlaceholderStats extends React.Component{
             stat={this.state.stats[5]} 
             level={this.state.level} />
         </div>
-        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: "flex-end"}}>
+
+        <div 
+          style={
+            {
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'flex-end', 
+              alignItems: "flex-end"
+            }
+          }
+        >
           <Button 
             style={{ margin: '0.5rem 0', padding: '0'}}
             onClick={this.handleHideModal}
-            >IV/EV
+          >
+            IV/EV
           </Button>
         </div>
-      </div>
+      </Container>
 
       {/* handles editing stat IV and EV values */}
       <Modal show={this.state.showModal} onHide={this.handleHideModal} centered>
