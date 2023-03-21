@@ -15,13 +15,21 @@ class Team extends React.Component{
 
     this.state = {
       team: this.props.team,
+      loadedTeams: [],
       showTypeCoverage: false,
+      showLoadedTeams: false,
     }
   }
 
   toggleTypeCoverageModal = () => {
     this.setState({
       showTypeCoverage: !this.state.showTypeCoverage
+    })
+  }
+
+  toggleLoadedTeamsModal = () => {
+    this.setState({
+      showLoadedTeams: !this.state.showLoadedTeams
     })
   }
 
@@ -36,15 +44,42 @@ class Team extends React.Component{
   //   }
   // }
 
+  listTeamsFromDB = async () => {
+    try {
+      let response = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
+      console.log(response);
+      this.setState({
+        loadedTeams: response.data,
+      })
+      this.toggleLoadedTeamsModal();
+    } catch(error) {
+      console.log(error, ` | error getting teams from database`)
+    }
+  }
+
+  loadTeam = async (teamId) => {
+    console.log(teamId);
+    try {
+      let response = await axios.get(`${process.env.REACT_APP_SERVER}/team?id=${teamId}`);
+
+      // console.log(response.data)
+
+      this.setState({
+        team: response.data.pokemon
+      })
+
+    } catch (err) {
+      console.log(err, ' | error loading team from database')
+    }
+
+    this.toggleLoadedTeamsModal()
+  }
+
   saveTeamToDB = () => {
     let request = {
-      teamName: 'testTeam',
-      slot1: this.state.team[0],
-      slot2: this.state.team[1],
-      slot3: this.state.team[2],
-      slot4: this.state.team[3],
-      slot5: this.state.team[4],
-      slot6: this.state.team[5],
+      teamName: 'newTestTeam',
+      pokemon: this.state.team
+
     };
     console.log(request);
     axios
@@ -72,19 +107,23 @@ class Team extends React.Component{
   render(){
     return(
       <Container style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%'}}>
+
+        {/* placeholder team member before adding pokemon to team */}
         <Container id='team_member_placeholder'>
           {this.props.searchResult ? 
-          <PlaceholderTeamMember addTeamMember={this.props.addTeamMember} searchResult={this.props.searchResult} key='PlaceholderTeamMember' />
+          <PlaceholderTeamMember addTeamMember={this.props.addTeamMember} searchResult={this.props.searchResult} key='PlaceholderTeamMember' 
+          />
           : null }
         </Container>
         
+        {/* displays all team members */}
         <Container id='team_members'>
           {this.state.team.length > 0 ?
           this.state.team.map((element, idx) => <TeamMember pokemon={element} removeTeamMember={() => this.props.removeTeamMember(idx)} />)
           : null }
         </Container>
         
-
+        {/* displays team type coverage chart */}
         <Modal
           className='team_type_chart_modal' 
           centered 
@@ -96,11 +135,32 @@ class Team extends React.Component{
           <Modal.Body>
             <TeamTypeChart key='team_type_chart' team={this.state.team} />
           </Modal.Body>
-
         </Modal>
-        {/* <Container id='team_type_chart_container'>
-          <TeamTypeChart key='team_type_chart' team={this.state.team} />
-        </Container> */}
+
+        {/* displays list of saved teams */}
+        <Modal
+          centered
+          className='loaded_teams_list'
+          show={this.state.showLoadedTeams}
+          onHide={this.toggleLoadedTeamsModal}  
+        >
+          <Modal.Header>Your Teams</Modal.Header>
+
+          <Modal.Body>
+            {this.state.loadedTeams.length > 0 ?
+              this.state.loadedTeams.map(element => (
+                <Button onClick={() => this.loadTeam(element.id)}>
+                  {element.teamName}
+                </Button>
+              ))
+            :
+              null
+            }
+          </Modal.Body>
+
+          <Modal.Footer>Footer</Modal.Footer>
+        </Modal>
+  
 
         <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
           <Button onClick={this.toggleTypeCoverageModal}>
@@ -108,6 +168,9 @@ class Team extends React.Component{
           </Button>
           <Button onClick={this.saveTeamToDB}>
             Save Team
+          </Button>
+          <Button onClick={this.listTeamsFromDB}>
+            Load Team
           </Button>
         </div>
 
