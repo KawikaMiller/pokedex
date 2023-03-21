@@ -2,7 +2,7 @@
 
 **Author**: Kawika Miller
 
-**Version**: 1.0.5 
+**Version**: 1.0.6 
 <!-- (increment the patch/fix version number if you make more commits past your first submission) -->
 
 ## Overview
@@ -33,6 +33,10 @@ This application utilizes JavaScript, React, and React-Bootstrap
 - Can save team to database
   - Server is not currently deployed, must be ran locally
 - Can see type coverage chart
+
+2023-03-21 : Able to load teams from database and render to screen
+- Minor reworks to shape of the `team` object sent to database. `pokemon` is now a property of `team` whose value is an array of pokemon objects instead of the six individual properties (e.g. `slot1`, `slot2`, etc.)
+  - This makes it easier for rendering the team back to the screen after the GET request (e.g. 'Load Team') has been made.
 
 ## Credit and Collaborations
 
