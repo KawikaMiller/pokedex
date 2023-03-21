@@ -20,12 +20,11 @@ class PlaceholderStats extends React.Component{
       level: this.props.level,
       stats: newStats,
       nature: 'bashful',
-      showModal: false,
+      showMovesModal: false,
+      showIvEvModal: false,
       disableSubmit: false,
     }
   }
-
-
 
   // prevents EVs from totaling over 510
   handleFormChange = (event) => {
@@ -47,9 +46,15 @@ class PlaceholderStats extends React.Component{
   }
 
   // toggles visibility of edit stats modal
-  handleHideModal = () => {
+  handleHideIvEvModal = () => {
     this.setState({
-      showModal: !this.state.showModal
+      showIvEvModal: !this.state.showIvEvModal
+    })
+  }
+
+  handleHideMovesModal = () => {
+    this.setState({
+      showMovesModal: !this.state.showMovesModal
     })
   }
 
@@ -85,7 +90,27 @@ class PlaceholderStats extends React.Component{
       nature: event.target.nature.value
     })
   
-    this.handleHideModal();
+    this.handleHideIvEvModal();
+  }
+
+  sortMoves = (arr) => {
+    arr.sort((a,b) => {
+      if(a.name < b.name){
+        return -1;
+      } else if (a.name > b.name) {
+        return 1;
+      } else return 0;
+    })
+  }
+
+  handleSubmitBattleInfo = (event) => {
+    event.preventDefault();
+
+    const battleMovesArr = [event.target.move_1.value, event.target.move_2.value, event.target.move_3.value, event.target.move_4.value]
+
+    this.props.updateBattleInfo(battleMovesArr, event.target.battle_ability.value, event.target.held_item.value)
+
+    this.handleHideMovesModal()
   }
 
   componentDidUpdate(prevProps) {
@@ -97,7 +122,8 @@ class PlaceholderStats extends React.Component{
   render() {
     return(
       <>
-      <div className='team_member_stats' >
+      <Container className='team_member_stats' >
+
         <div className='stats_sub_phys'>
           <Stat 
             stat={this.state.stats[0]} 
@@ -109,6 +135,7 @@ class PlaceholderStats extends React.Component{
             stat={this.state.stats[2]} 
             level={this.state.level} />
         </div>
+
         <div className='stats_sub_spec'>
           <Stat 
             stat={this.state.stats[3]} 
@@ -120,21 +147,110 @@ class PlaceholderStats extends React.Component{
             stat={this.state.stats[5]} 
             level={this.state.level} />
         </div>
-        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: "flex-end"}}>
+
+        <div className='placeholder_buttons'>
+
+          <Button
+            style={{ margin: '0.5rem 0', padding: '0'}}
+            onClick={this.handleHideMovesModal}
+          >
+            Moves
+          </Button>
+
           <Button 
             style={{ margin: '0.5rem 0', padding: '0'}}
-            onClick={this.handleHideModal}
-            >Edit
+            onClick={this.handleHideIvEvModal}
+          >
+            IV/EV
           </Button>
         </div>
-      </div>
+      </Container>
+
+      <Modal centered show={this.state.showMovesModal} onHide={this.handleHideMovesModal} >
+        {this.sortMoves(this.props.moves)}
+        <Modal.Header>
+          Battle Info
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={this.handleSubmitBattleInfo}>
+            <Form.Group id='battle_moves' className='battle_moves_form'>
+              <Container style={{display: 'flex', flexDirection: 'column'}}>
+                <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+                  <div>
+                    <Form.Label>Ability</Form.Label>
+                    <Form.Select id='battle_ability'>
+                      {this.props.abilities.map(element => (
+                        <option value={element.name}>{element.ability.name}</option>
+                      ))}
+                    </Form.Select>
+                  </div>
+                  <div>
+                    <Form.Label>Held Item</Form.Label>
+                    <Form.Select id='held_item'>
+                      <option value='Oran Berry'>Coming soon...</option>
+                    </Form.Select>  
+                  </div>
+
+                </div>
+                
+                <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+                  <div>
+                    <Form.Label>Move 1</Form.Label>
+                    <Form.Select id='move_1'>
+                      {this.props.moves.map(element => (
+                        <option value={element.name}>{element.name}</option>
+                      ))}
+                    </Form.Select>                    
+                  </div>
+                  
+                  <div>
+                    <Form.Label>Move 2</Form.Label>
+                    <Form.Select id="move_2">
+                      {this.props.moves.map(element => (
+                        <option value={element.name}>{element.name}</option>
+                      ))}
+                    </Form.Select>                     
+                  </div>
+                </div>
+
+                <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+                  <div>
+                    <Form.Label>Move 3</Form.Label>
+                    <Form.Select id='move_3'>
+                      {this.props.moves.map(element => (
+                        <option value={element.name}>{element.name}</option>
+                      ))}
+                    </Form.Select>                    
+                  </div>
+                  
+                  <div>
+                    <Form.Label>Move 4</Form.Label>
+                    <Form.Select id='move_4'>
+                      {this.props.moves.map(element => (
+                        <option value={element.name}>{element.name}</option>
+                      ))}
+                    </Form.Select>                     
+                  </div>
+                </div>
+
+                <div style={{alignSelf: 'flex-end', margin: '1rem'}}>
+                  <Button type='submit'>
+                    Save
+                  </Button>
+                </div>
+              </Container>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+      </Modal>
 
       {/* handles editing stat IV and EV values */}
-      <Modal show={this.state.showModal} onHide={this.handleHideModal} centered>
+      <Modal centered show={this.state.showIvEvModal} onHide={this.handleHideIvEvModal}>
         <Modal.Header>Edit IVs & EVs <span>EV totals must be 510 or less</span></Modal.Header>
         <Modal.Body>
           <Form onSubmit={this.handleEditStats} onChange={this.handleFormChange}>  
             <Container id='team_member_stats_edit'>
+              {/* HP, ATK, DEF */}
               <div id='hp_phys'>
 
                 {/* HP IV and EV */}
@@ -188,9 +304,11 @@ class PlaceholderStats extends React.Component{
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
               </div>
-
-              {/* Special Attack IV and EV */}
+              
+              {/* SPATK, SPDEF, SPD */}
               <div id='spd_special'>
+
+                {/* Special Attack IV and EV */}
                 <Form.Group className='ivev_form'>
                   <Form.Label>SPATK</Form.Label>
                   <Form.Control 

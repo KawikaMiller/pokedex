@@ -4,7 +4,7 @@ import Accordion from 'react-bootstrap/Accordion';
 // import Button from 'react-bootstrap/Button';
 import MoveList from './MoveList';
 
-class MoveContainer extends React.Component {
+class Learnset extends React.Component {
   constructor(props){
     super(props);
 
@@ -89,7 +89,7 @@ class MoveContainer extends React.Component {
       tmMoves: this.state.tmMoves,
       tutorMoves: this.state.tutorMoves,
       eggMoves: this.state.eggMoves,
-    }), 10)
+    }), 500)
   }
 
   render(){
@@ -121,7 +121,7 @@ class MoveContainer extends React.Component {
   }
 }
 
-export default MoveContainer;
+export default Learnset;
 
   // filterDuplicateMoves = (arr) => {
   //   let filteredArr = [];

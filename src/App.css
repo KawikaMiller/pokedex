@@ -27,9 +27,11 @@ main {
 }
 
 #pokedex-container {
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
+
+/* leftside card header */
 
 #light-container {
   display: flex;
@@ -44,26 +46,25 @@ main {
   background-color: #009fff;
 }
 
-#red-light {
+#red-light, #yellow-light, #green-light {
   width: 2vh;
   height: 2vh;
   border-radius: 50%;
+}
+
+#red-light {
   background-color: #d60000;
 }
 
 #yellow-light {
-  width: 2vh;
-  height: 2vh;
-  border-radius: 50%;
   background-color: #f7e600;
 }
 
 #green-light {
-  width: 2vh;
-  height: 2vh;
-  border-radius: 50%;
   background-color: #00c900;
 }
+
+/* left side card body  */
 
 #pokdex-display-border {
   display: flex;
@@ -75,8 +76,6 @@ main {
   background-color: gainsboro;
   border-color: gainsboro;
   border-radius: 2% 2% 2% 10%;
-  /* border-style: solid;
-  border-width: 0 0 50px 0; */
 }
 
 #pokedex-display {
@@ -100,9 +99,16 @@ main {
   padding: 0;
 }
 
-div#pokedex {
-  min-height: 80vh;
+#pokedex {
+  min-height: 88vh;
   color: white;
+}
+
+#pokedex-info {
+  margin-top: 0.5rem;
+  background-color: #86d352;
+  width: 50%;
+  height: 35%;
 }
 
 .progress {
@@ -116,6 +122,13 @@ div#pokedex {
   width: 20%;
 }
 
+/* right side card  */
+
+#moves_container {
+  max-height: 57vh;
+  overflow-Y: hidden;
+}
+
 .nav-link {
 background-color: #d60000 !important;
 color: white !important;
@@ -124,16 +137,6 @@ color: white !important;
 .nav-link.active {
   background-color: #dc3545 !important;
   color: white !important;
-}
-
-.team_member_body {
-  display: flex;
-  justify-content: flex-start;
-
-}
-
-.team_member_body Button {
-  width: 5vw;
 }
 
 .card-header.team_member_header {
@@ -147,43 +150,51 @@ color: white !important;
   margin: 0;
 }
 
-.team_member.card {
+div.team_member.card {
   color: black;
   border-color: white;
   background-color: grey;
   width: 47.7%;
-  height: 150px;
-  /* max-height: 300px; */
+  height: auto;
   margin: 0.25rem;
 }
 
-.card.member0 {
-  background-color: rgba(0, 0, 0, 0%);
-  max-height: 20vh;
-  height: 25vh; 
-  border-color: white;
-}
-
 div.team_member_body {
+  display: flex;
+  justify-content: flex-start;
   padding: 0.5rem;
   margin: 0;
 }
 
-div.team_member_stats{
+.team_member_body Button {
+  width: 6vw;
+}
+
+.team_member_stats{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   padding: 0 0.5rem;
 }
 
-div.team_member_stats_sub {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
+/* placeholder / add pokemon to team card  */
+
+.card.member0 {
+  background-color: rgba(0, 0, 0, 0%);
+  max-height: auto;
+  border-color: white;
+}
+
+div.placeholder_buttons {
+  display: flex; 
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 30%;
 }
 
 .stats_sub_phys, .stats_sub_spec {
-  width: 48%;
+  width: 50% !important;
 }
 
 .stats_sub_phys Button, .stats_sub_spec Button{
@@ -220,6 +231,8 @@ section.team_member_sprite {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: auto;
+  height: auto;
 }
 
 section.team_member_info {
@@ -235,11 +248,13 @@ section.team_member_info {
 }
 
 #right_card_body {
-  display: 'flex';
-  flex-direction: 'column';
-  justify-content: 'flex-start';
-  align-content: 'center';
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
 }
+
+
 
 #level_edit, #nature_edit {
   width: 50%;
@@ -252,4 +267,25 @@ section.team_member_info {
 
 .form-label {
   margin: 0.25rem 0 !important;
+}
+
+#type_chart_headers > * {
+  padding: 0 0;
+  text-align: center;
+}
+
+td, th {
+  text-align: center;
+  vertical-align: middle; 
+  width: 2.75rem;
+  font-size: 0.825rem;
+}
+
+.accordion-body {
+  font-size: 0.825rem;
+  padding: 0.5rem 0.75rem !important;
+}
+
+.team_member_edit_buttons > * {
+  width: 40% !important; 
 }

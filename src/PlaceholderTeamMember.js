@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import PlaceholderStats from './PlaceholderStats';
 
-class TeamMemberPlaceholder extends React.Component{
+class PlaceholderTeamMember extends React.Component{
   constructor(props){
     super(props);
     this.props.searchResult.level = 100;
@@ -15,7 +15,7 @@ class TeamMemberPlaceholder extends React.Component{
   }
 
   updateStatValues = (newStats, newLevel, newNature) => {
-    let newPokemon = this.props.searchResult;
+    let newPokemon = this.state.pokemon;
 
     newPokemon.stats = newStats;
     newPokemon.level = newLevel;
@@ -24,8 +24,20 @@ class TeamMemberPlaceholder extends React.Component{
     this.setState({
       pokemon: newPokemon
     })
+  }
 
-    console.log(this.state.pokemon)
+  updateBattleInfo = (battleMovesArr, battleAbility, heldItem) => {
+    let newPokemon = this.state.pokemon;
+
+    console.log('updating battle info')
+
+    newPokemon.battleMoves = battleMovesArr;
+    newPokemon.battleAbility = battleAbility;
+    newPokemon.heldItem = heldItem;
+
+    this.setState({
+      pokemon: newPokemon
+    })
   }
 
 // updates and rerenders when props change | props change when searching a new pokemon
@@ -52,18 +64,21 @@ class TeamMemberPlaceholder extends React.Component{
             <section id='placeholder_sprite'>
               <Card.Img 
                 variant='top' 
-                src={this.props.searchResult.sprites.front_default}
+                src={this.props.searchResult.sprite.front_default}
                 style={{backgroundColor: 'white', borderRadius: '50%'}}
               >
               </Card.Img>
               <p style={{margin: '0'}}>Lv. {this.state.pokemon.level}</p>
             </section>
           {/* shows stats */}
-          <PlaceholderStats 
+          <PlaceholderStats
+            moves={this.state.pokemon.moves}
+            abilities={this.state.pokemon.abilities} 
             stats={this.state.pokemon.stats}
             level={100} 
             key={`${this.state.pokemon.name}_stats`}
-            updateStatValues={this.updateStatValues} 
+            updateStatValues={this.updateStatValues}
+            updateBattleInfo={this.updateBattleInfo} 
           />
         </Card.Body>
       </Card>
@@ -71,4 +86,4 @@ class TeamMemberPlaceholder extends React.Component{
   }
 }
 
-export default TeamMemberPlaceholder;
+export default PlaceholderTeamMember;
