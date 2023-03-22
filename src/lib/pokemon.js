@@ -45,3 +45,25 @@ export class AbilityInfo {
     this.isHidden = isHidden;
   }
 }
+
+export class Move {
+  constructor(
+    name=undefined, 
+    levelLearned=undefined, 
+    learnMethod=undefined,
+    power=undefined, 
+    accuracy=undefined, 
+    pp=undefined, 
+    dmgClass=undefined, 
+    type=undefined,
+    ){
+    this.name = name;
+    this.levelLearned = levelLearned;
+    this.learnMethod = learnMethod;
+    this.power = power;
+    this.accuracy = accuracy;
+    this.pp = pp;
+    this.dmgClass = dmgClass;
+    this.type = type;
+  }
+}

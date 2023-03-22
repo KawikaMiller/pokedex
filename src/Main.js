@@ -3,29 +3,29 @@ import axios from "axios";
 import SearchBar from "./SearchBar";
 import Pokedex from "./Pokedex";
 import Container from "react-bootstrap/Container";
-import { Pokemon } from "./lib/pokemon";
+import { Pokemon, Move } from "./lib/pokemon";
 
-class Move {
-  constructor(
-    name=undefined, 
-    levelLearned=undefined, 
-    learnMethod=undefined,
-    power=undefined, 
-    accuracy=undefined, 
-    pp=undefined, 
-    dmgClass=undefined, 
-    type=undefined,
-    ){
-    this.name = name;
-    this.levelLearned = levelLearned;
-    this.learnMethod = learnMethod;
-    this.power = power;
-    this.accuracy = accuracy;
-    this.pp = pp;
-    this.dmgClass = dmgClass;
-    this.type = type;
-  }
-}
+// class Move {
+//   constructor(
+//     name=undefined, 
+//     levelLearned=undefined, 
+//     learnMethod=undefined,
+//     power=undefined, 
+//     accuracy=undefined, 
+//     pp=undefined, 
+//     dmgClass=undefined, 
+//     type=undefined,
+//     ){
+//     this.name = name;
+//     this.levelLearned = levelLearned;
+//     this.learnMethod = learnMethod;
+//     this.power = power;
+//     this.accuracy = accuracy;
+//     this.pp = pp;
+//     this.dmgClass = dmgClass;
+//     this.type = type;
+//   }
+// }
 
 class Main extends React.Component{
   constructor(props){
@@ -43,32 +43,6 @@ class Main extends React.Component{
       searchInput: event.target.value.toLowerCase()
     })
   }
-
-  // handleSearch = async (event) => {
-  //   event.preventDefault();
-  //   this.setState({
-  //     searchError: null
-  //   })
-  //   try {
-  //     let request = {
-  //       url: `https://pokeapi.co/api/v2/pokemon/${this.state.searchInput}`,
-  //       method: 'GET'
-  //     }
-
-  //     let response = await axios(request);
-
-  //     console.log(response.data);
-
-  //     this.setState({
-  //       searchResult: response.data
-  //     })
-  //   } catch (err) {
-  //     console.log(err);
-  //     this.setState({
-  //       searchError: err
-  //     })
-  //   }
-  // }
 
   newHandleSearch = async (event) => {
     // prevents page from reloading on  search 'submit'
@@ -96,6 +70,7 @@ class Main extends React.Component{
             }
           })
         })
+        // if there are no moves from gen9, get gen8 moves instead
         if (moveArr.length === 0) {
           response.data.moves.forEach(element => {
             element.version_group_details.forEach(vgDetail => {
