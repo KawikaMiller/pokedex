@@ -14,13 +14,6 @@ class SearchBar extends React.Component {
     }
   }
 
-  // handleSubmitForm = (event) => {
-  //   event.preventDefault();
-  //   this.props.handleSearch(event);
-  //   console.log(document.getElementById('search_input'))
-  //   document.getElementById('search_input').value = '';
-  // }
-
   render() {
     return(
       <Container>

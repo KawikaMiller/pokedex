@@ -4,8 +4,10 @@ import React from 'react';
 import TeamMember from './TeamMember';
 import PlaceholderTeamMember from './PlaceholderTeamMember';
 import TeamTypeChart from './TeamTypeChart';
+import { Move } from './lib/pokemon';
 
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 
@@ -15,9 +17,12 @@ class Team extends React.Component{
 
     this.state = {
       team: this.props.team,
+      teamName: 'missingName',
+      teamId: undefined,
       loadedTeams: [],
       showTypeCoverage: false,
       showLoadedTeams: false,
+      showTeamName: false,
     }
   }
 
@@ -33,16 +38,11 @@ class Team extends React.Component{
     })
   }
 
-  // addTeamMember = (pokemon) => {
-  //   if (this.state.team.length === 6) {
-  //     // add modal pop up, 'team is full'
-  //   } else {
-  //     console.log(pokemon);
-  //     this.setState({
-  //       team: [...this.state.team, pokemon]
-  //     })
-  //   }
-  // }
+  toggleTeamNameModal = () => {
+    this.setState({
+      showTeamName: !this.state.showTeamName
+    })
+  }
 
   listTeamsFromDB = async () => {
     try {
@@ -60,13 +60,81 @@ class Team extends React.Component{
   loadTeam = async (teamId) => {
     console.log(teamId);
     try {
-      let response = await axios.get(`${process.env.REACT_APP_SERVER}/team?id=${teamId}`);
+      let response = 
+        await axios
+        .get(
+          `${process.env.REACT_APP_SERVER}/team?id=${teamId}`
+        )
+        .then(res => {
+          console.log('.then on load team | ', res)
 
-      // console.log(response.data)
+          res.data.pokemon.forEach(async element => {
+            axios
+            .get(`https://pokeapi.co/api/v2/pokemon/${element.name}`)
 
-      this.setState({
-        team: response.data.pokemon
-      })
+            .then(res2 => {
+
+              let movesArr = [];
+
+              res2.data.moves.forEach(move => {
+                move.version_group_details.forEach(vgDetail => {
+                  if (vgDetail.version_group.name === 'scarlet-violet') {
+                    movesArr.push(new Move(
+                      move.move.name, 
+                      vgDetail.level_learned_at,
+                      vgDetail.move_learn_method.name,
+                    ))
+                  }
+                })
+              })
+
+              if (movesArr.length === 0) {
+                res2.data.moves.forEach(move => {
+                  move.version_group_details.forEach(vgDetail => {
+                    if(vgDetail.version_group.name === 'sword-shield') {
+                      movesArr.push(new Move(
+                        move.move.name, 
+                        vgDetail.level_learned_at,
+                        vgDetail.move_learn_method.name,
+                      ))
+                    }
+                  })
+                })
+              }
+              element.moves = movesArr;
+              return element;
+            })
+            .then(res2 => {
+              res2.moves.forEach(async move => {
+                try {
+                  let request = {
+                    url: `https://pokeapi.co/api/v2/move/${move.name}`,
+                    method: 'GET'
+                  }
+                  
+                  let res = await axios(request);
+      
+                  move.power = res.data.power;
+                  move.accuracy = res.data.accuracy;
+                  move.pp = res.data.pp;
+                  move.priority = res.data.priority;
+                  move.dmgClass = res.data.damage_class.name;
+                  move.type = res.data.type.name;
+                } catch (err) {
+                  console.log(err)
+                }
+              })
+            })
+          })
+          return res
+        })
+        console.log(response.data);
+
+        this.setState({
+          team: response.data.pokemon,
+          teamName: response.data.teamName,
+          teamId: response.data._id
+        })     
 
     } catch (err) {
       console.log(err, ' | error loading team from database')
@@ -75,10 +143,18 @@ class Team extends React.Component{
     this.toggleLoadedTeamsModal()
   }
 
-  saveTeamToDB = () => {
+  saveTeamToDB = (event) => {
+    event.preventDefault();
+
+    let savedTeam = this.state.team;
+
+    savedTeam.forEach(element => {
+      element.moves = ['emptied for sake of database space, when team is loaded from database, must make api call to reinstantiate move information.']
+    })
+
     let request = {
-      teamName: 'newTestTeam',
-      pokemon: this.state.team
+      teamName: this.state.teamName,
+      pokemon: savedTeam
 
     };
     console.log(request);
@@ -88,6 +164,14 @@ class Team extends React.Component{
         console.log(response);
       })
       .catch(err => {console.log(err)})
+
+      this.toggleTeamNameModal();
+  }
+
+  handleInputChange = (event) => {
+    this.setState({
+      teamName: event.target.value
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -137,6 +221,28 @@ class Team extends React.Component{
           </Modal.Body>
         </Modal>
 
+        <Modal show={this.state.showTeamName} onHide={this.toggleTeamNameModal} centered>
+          <Modal.Header>Save Your Team</Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={this.saveTeamToDB}>
+              <Form.Group id='save_team_form'>
+                <Form.Label>Team Name</Form.Label>
+                <Form.Control 
+                  type='text' 
+                  min={1} 
+                  max={15} 
+                  id='team_form_name'
+                  placeholder='Enter team name..'
+                  onChange={this.handleInputChange}
+                />
+              </Form.Group>
+              <Button type='submit' onClick={this.saveTeamToDB}>
+                Submit
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+
         {/* displays list of saved teams */}
         <Modal
           centered
@@ -160,13 +266,13 @@ class Team extends React.Component{
 
           <Modal.Footer>Footer</Modal.Footer>
         </Modal>
-  
 
+        {/* buttons at bottom */}
         <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
           <Button onClick={this.toggleTypeCoverageModal}>
             Type Coverage
           </Button>
-          <Button onClick={this.saveTeamToDB}>
+          <Button onClick={this.toggleTeamNameModal}>
             Save Team
           </Button>
           <Button onClick={this.listTeamsFromDB}>
