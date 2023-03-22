@@ -14,6 +14,7 @@ class TeamMember extends React.Component {
       pokemon: this.props.pokemon,
       showMovesModal: false,
       showIvEvModal: false,
+      showNicknameModal: false,
       disableSubmit: false,
     }
   }
@@ -36,15 +37,21 @@ class TeamMember extends React.Component {
       }
   }
 
-  handleHideMovesModal = () => {
+  handleToggleMovesModal = () => {
     this.setState({
       showMovesModal: !this.state.showMovesModal
     })
   }
   
-  handleHideIvEvModal = () => {
+  handleToggleIvEvModal = () => {
     this.setState({
       showIvEvModal: !this.state.showIvEvModal
+    })
+  }
+
+  handleToggleNicknameModal = () => {
+    this.setState({
+      showNicknameModal: !this.state.showNicknameModal
     })
   }
 
@@ -52,6 +59,8 @@ class TeamMember extends React.Component {
     event.preventDefault();
 
     let newPokemon = this.state.pokemon;
+
+    console.log(event.target)
 
     newPokemon.battleMoves = [event.target.move_1.value, event.target.move_2.value, event.target.move_3.value, event.target.move_4.value];
 
@@ -63,7 +72,7 @@ class TeamMember extends React.Component {
       pokemon: newPokemon
     })
 
-    this.handleHideMovesModal();
+    this.handleToggleMovesModal();
   }
 
   handleSubmitIvEvInfo = (event) => {
@@ -96,7 +105,21 @@ class TeamMember extends React.Component {
       pokemon: newPokemon
     })
 
-    this.handleHideIvEvModal();
+    this.handleToggleIvEvModal();
+  }
+
+  handleSubmitNickname = (event) => {
+    event.preventDefault()
+
+    let newPokemon = this.state.pokemon;
+
+    newPokemon.nickname = event.target.pokemon_nickname.value
+
+    this.setState({
+      pokemon: newPokemon
+    })
+
+    this.handleToggleNicknameModal()
   }
 
 
@@ -104,10 +127,17 @@ class TeamMember extends React.Component {
   render(){
     return(
       <>
-      <Card className='team_member'>
+      <Card className={
+        `team_member ${this.props.pokemon.types.length === 2 ? `${this.props.pokemon.types[0].type.name} ${this.props.pokemon.types[1].type.name}` : this.props.pokemon.types[0].type.name}`
+      }>
 
         <Card.Header className='team_member_header'>
-            <h6>{this.props.pokemon.name}</h6>
+            <h6>{
+              this.state.pokemon.nickname ? 
+              this.state.pokemon.nickname
+              :
+              (this.props.pokemon.name[0].toUpperCase() + this.props.pokemon.name.slice(1))
+              }</h6>
             {this.props.pokemon.types.map(element => <p>{element.type.name}</p>)}
         </Card.Header>
 
@@ -125,30 +155,50 @@ class TeamMember extends React.Component {
           {/* shows stats */}
           <section className='team_member_info' style={{width: '100%'}}>
 
-            <div className='team_member_edit_buttons' style={{display: 'flex', justifyContent: 'space-around', padding: '0.5rem'}}>
-              <Button size='sm' onClick={this.handleHideMovesModal}>
-                Moves
+            <div className='team_member_edit_buttons' style={{display: 'flex', justifyContent: 'space-around', padding: '0.25rem'}}>
+              <Button size='sm' onClick={this.handleToggleNicknameModal}>
+                Nickname
               </Button>
 
-              <Button size='sm' onClick={this.handleHideIvEvModal}>
+              <Button size='sm' onClick={this.handleToggleMovesModal}>
+                Moves
+              </Button>
+            </div>
+
+            <div className='team_member_edit_buttons' style={{display: 'flex', justifyContent: 'space-around', padding: '0.25rem'}}>
+              <Button size='sm' onClick={this.handleToggleIvEvModal}>
                 IVs/EVs
-              </Button>              
+              </Button> 
+              
+              <Button size='sm' variant='danger' onClick={this.props.removeTeamMember}>
+                Remove
+              </Button>
             </div>
 
 
             <ProgressBar now={100} variant='success' style={{margin: '0.25rem'}}/>
           </section>
         </Card.Body>
-
-        <Card.Footer style={{display: 'flex', justifyContent: 'space-around'}}>
-          <Button size='sm' onClick={this.props.removeTeamMember}>
-            Remove
-          </Button>
-        </Card.Footer>
       </Card>
 
+      {/* Edit pokemon's nickname */}
+      <Modal centered show={this.state.showNicknameModal} onHide={this.handleToggleNicknameModal}>
+        <Modal.Header>Edit Nickname</Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={this.handleSubmitNickname}>
+            <Form.Group id='pokemon_nickname_form'>
+              <Form.Label>Nickname</Form.Label>
+              <Form.Control type='text' placeholder='Enter a nickname...' id='pokemon_nickname' minLength={1} maxLength={12} />
+              <Button type='submit'>
+               Submit
+              </Button>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+      </Modal>
+
       {/* Battle Moves, Ability, Held Item */}
-      <Modal centered show={this.state.showMovesModal} onHide={this.handleHideMovesModal}>
+      <Modal centered show={this.state.showMovesModal} onHide={this.handleToggleMovesModal}>
         <Modal.Header>
           Edit Pokemon Info
         </Modal.Header>
@@ -231,7 +281,7 @@ class TeamMember extends React.Component {
       </Modal>
 
       {/* IVs, EVs, Level, Nature */}
-      <Modal centered show={this.state.showIvEvModal} onHide={this.handleHideIvEvModal}>
+      <Modal centered show={this.state.showIvEvModal} onHide={this.handleToggleIvEvModal}>
         <Modal.Header>Edit IVs & EVs <span>EV totals must be 510 or less</span></Modal.Header>
         <Modal.Body>
           <Form onSubmit={this.handleSubmitIvEvInfo} onChange={this.handleFormChange}>  

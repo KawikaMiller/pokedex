@@ -38,6 +38,8 @@ This application utilizes JavaScript, React, and React-Bootstrap
 - Minor reworks to shape of the `team` object sent to database. `pokemon` is now a property of `team` whose value is an array of pokemon objects instead of the six individual properties (e.g. `slot1`, `slot2`, etc.)
   - This makes it easier for rendering the team back to the screen after the GET request (e.g. 'Load Team') has been made.
 
+2023-03-22 : Able to delete a team from the database
+
 ## Credit and Collaborations
 
 
