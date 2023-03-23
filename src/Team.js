@@ -52,7 +52,6 @@ class Team extends React.Component{
   listTeamsFromDB = async () => {
     try {
       let response = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
-      console.log(response);
       this.setState({
         loadedTeams: response.data,
       })
@@ -64,17 +63,17 @@ class Team extends React.Component{
 
   // gets one specific team from the database
   loadTeam = async (teamId) => {
-    console.log(teamId);
     try {
       let response = await axios.get(
         `${process.env.REACT_APP_SERVER}/team?id=${teamId}`
       )
 
-        this.setState({
-          team: response.data.pokemon,
-          teamName: response.data.teamName,
-          teamId: response.data._id
-        })     
+      this.props.setTeam(response.data.pokemon)
+
+      this.setState({
+        teamName: response.data.teamName,
+        teamId: response.data._id
+      })     
 
     } catch (err) {
       console.log(err, ' | error loading team from database')
@@ -109,21 +108,22 @@ class Team extends React.Component{
   deleteTeamFromDB = async (teamId) => {
     try {
       axios
-        .delete(`${process.env.REACT_APP_SERVER}/teams/${teamId}`);
-
-      let response = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
-      this.setState({
-        loadedTeams: response.data,
-      })      
+        .delete(`${process.env.REACT_APP_SERVER}/teams/${teamId}`);     
     } catch (err) {
       console.log(err)
+    } finally {
+      let response = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
+      
+      this.setState({
+        loadedTeams: response.data,
+      }) 
     }
   }
 
   // clears team and teamId state to prep for a new team
   newTeam = () => {
+    this.props.clearTeam();
     this.setState({
-      team: [],
       teamId: undefined,
       teamName: 'missingName'
     })
@@ -242,19 +242,24 @@ class Team extends React.Component{
 
         {/* buttons at bottom */}
         <Container style={{ position: 'absolute', bottom: '0%', width: '100%'}}>
+          <Container>
+            <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
+              {`Team Name: ${this.state.teamName} | Team Id: ${this.state.teamId}`}
+            </h5>
+          </Container>
           <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
-          <Button size='sm' onClick={this.toggleTypeCoverageModal}>
-            Type Coverage
-          </Button>
-          <Button size='sm' onClick={this.newTeam}>
-            New Team
-          </Button>
-          <Button size='sm' onClick={this.toggleTeamNameModal}>
-            Save Team
-          </Button>
-          <Button size='sm' onClick={this.listTeamsFromDB}>
-            Load Team
-          </Button>            
+            <Button size='sm' onClick={this.toggleTypeCoverageModal}>
+              Type Coverage
+            </Button>
+            <Button size='sm' onClick={this.newTeam}>
+              New Team
+            </Button>
+            <Button size='sm' onClick={this.toggleTeamNameModal}>
+              Save Team
+            </Button>
+            <Button size='sm' onClick={this.listTeamsFromDB}>
+              Load Team
+            </Button>            
           </Container>
 
         </Container>

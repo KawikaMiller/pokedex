@@ -125,7 +125,7 @@ main {
 }
 
 #pokedex-display img {
-  width: inherit;
+  width: 72.5%;
   height: auto;
   overflow: hidden;
 }
@@ -190,9 +190,9 @@ div.team_member.card {
   color: white;
   border-color: white;
   background-color: grey;
-  width: 47.7%;
+  width: 49.25%;
   height: auto;
-  margin: 0.25rem;
+  margin: 0.25rem 0;
 }
 
 div.team_member.card.electric, div.team_member.card.ground {
@@ -202,7 +202,7 @@ div.team_member.card.electric, div.team_member.card.ground {
 div.team_member_body {
   display: flex;
   justify-content: flex-start;
-  padding: 0.5rem;
+  padding: 0.25rem;
   margin: 0;
 }
 
@@ -221,7 +221,6 @@ div.team_member_body {
 
 .card.member0 {
   background-color: rgba(0, 0, 0, 0%);
-  /* color: greenyellow; */
   max-height: auto;
   border-color: white;
 }
@@ -285,7 +284,8 @@ section.team_member_info {
 #team_members {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0;
 }
 
 #right_card_body {
@@ -329,4 +329,8 @@ td, th {
 
 .team_member_edit_buttons > * {
   width: 48% !important; 
+}
+
+#team_member_placeholder {
+  padding: 0;
 }

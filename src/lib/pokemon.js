@@ -1,7 +1,7 @@
 export class Pokemon {
   constructor(name, id, level, nature, abilities = [], moves = [], sprite, stats, types ) {
     this.name = name;
-    this.nickname = undefined;
+    this.nickname = '';
     this.id = id;
     this.level = level;
     this.nature = nature;
@@ -10,9 +10,9 @@ export class Pokemon {
     this.sprite = sprite;
     this.stats = stats;
     this.types = types;
-    this.battleAbility = undefined;
-    this.battleMoves = undefined;
-    this.heldItem = undefined;
+    this.battleAbility = '';
+    this.battleMoves = [];
+    this.heldItem = '';
   }
 }
 

@@ -29,11 +29,16 @@ class RightCard extends React.Component {
     if (this.state.team.length === 6) {
       // add modal pop up, 'team is full'
     } else {
-      console.log(pokemon);
       this.setState({
         team: [...this.state.team, pokemon]
       })
     }
+  }
+
+  setTeam = (team) => {
+    this.setState({
+      team: team
+    })
   }
 
   removeTeamMember = (idx) => {
@@ -44,7 +49,13 @@ class RightCard extends React.Component {
     this.setState({
       team: newTeam,
     })
-  } 
+  }
+  
+  clearTeam = () => {
+    this.setState({
+      team: []
+    })
+  }
 
   componentDidUpdate() {
 
@@ -112,7 +123,9 @@ class RightCard extends React.Component {
               <Team 
                 searchResult={this.props.searchResult}
                 addTeamMember={this.addTeamMember}
-                removeTeamMember={this.removeTeamMember} 
+                removeTeamMember={this.removeTeamMember}
+                clearTeam={this.clearTeam}
+                setTeam={this.setTeam} 
                 team={this.state.team}
               />
           : 

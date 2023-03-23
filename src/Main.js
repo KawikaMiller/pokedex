@@ -170,9 +170,6 @@ class Main extends React.Component{
           searchError: error
         })
       })
-      .finally(
-        console.log(event)
-      )
   }
 
   render() {

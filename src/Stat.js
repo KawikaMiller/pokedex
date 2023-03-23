@@ -110,7 +110,7 @@ class Stat extends React.Component {
   render() {
     return(
       <Container 
-        style={{textAlign: 'left', padding: '0'}} 
+        style={{textAlign: 'left', padding: '0', marginTop: '0'}} 
         key={`${this.state.statName}_container`}
       >
         {this.state.statName === 'HP' ?
