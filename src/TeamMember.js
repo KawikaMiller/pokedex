@@ -127,9 +127,19 @@ class TeamMember extends React.Component {
   render(){
     return(
       <>
-      <Card className={
-        `team_member ${this.props.pokemon.types.length === 2 ? `${this.props.pokemon.types[0].type.name} ${this.props.pokemon.types[1].type.name}` : this.props.pokemon.types[0].type.name}`
-      }>
+      <Card 
+        className={
+          `team_member ${this.props.pokemon.types.length === 2 ? `${this.props.pokemon.types[0].type.name} ${this.props.pokemon.types[1].type.name}` : this.props.pokemon.types[0].type.name}`
+        }
+        style={{
+          background: this.props.pokemon.types.length === 2 ?
+            `linear-gradient(
+              var(--${this.props.pokemon.types[0].type.name}), var(--${this.props.pokemon.types[1].type.name})
+            )` 
+          : 
+            `var(--${this.props.pokemon.types[0].type.name})`,
+        }}
+      >
 
         <Card.Header className='team_member_header'>
             <h6>{
