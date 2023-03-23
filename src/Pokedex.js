@@ -46,7 +46,7 @@ class Pokedex extends React.Component {
 
             <Card.Body>
               {/* displays pokemon picture */}
-              <Container id='pokdex-display-border'>
+              <Container id='pokedex-display-border'>
                 <Container id='pokedex-display'>
                   {this.props.searchResult ?
                     <PokemonDisplay 

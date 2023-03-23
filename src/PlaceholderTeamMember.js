@@ -56,7 +56,7 @@ class PlaceholderTeamMember extends React.Component{
       <Card className='member0'>
 
         <Card.Header className='team_member_header'>
-          <Button onClick={() => this.props.addTeamMember(this.state.pokemon)} >+ Add {this.props.searchResult.name[0].toUpperCase() + this.props.searchResult.name.slice(1)}</Button>
+          <Button size='sm' onClick={() => this.props.addTeamMember(this.state.pokemon)} >+ Add {this.props.searchResult.name[0].toUpperCase() + this.props.searchResult.name.slice(1)}</Button>
         </Card.Header>
         
         <Card.Body className='team_member_body'>

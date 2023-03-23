@@ -5,6 +5,7 @@ import Learnset from "./Learnset";
 import Container from 'react-bootstrap/Container';
 import Abilities from "./Abilities";
 import Team from "./Team";
+// import Button from 'react-bootstrap/Button';
 
 class RightCard extends React.Component {
   constructor(props){
@@ -112,7 +113,7 @@ class RightCard extends React.Component {
                 searchResult={this.props.searchResult}
                 addTeamMember={this.addTeamMember}
                 removeTeamMember={this.removeTeamMember} 
-                team={this.state.team} 
+                team={this.state.team}
               />
           : 
             null

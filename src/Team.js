@@ -96,13 +96,16 @@ class Team extends React.Component{
     axios
       .post(`${process.env.REACT_APP_SERVER}/teams`, request)
       .then(response => {
-        console.log(response);
+        this.setState({
+          teamId: response.data._id
+        });
       })
       .catch(err => {console.log(err)})
 
       this.toggleTeamNameModal();
   }
 
+  // deletes a team from the database
   deleteTeamFromDB = async (teamId) => {
     try {
       axios
@@ -115,6 +118,15 @@ class Team extends React.Component{
     } catch (err) {
       console.log(err)
     }
+  }
+
+  // clears team and teamId state to prep for a new team
+  newTeam = () => {
+    this.setState({
+      team: [],
+      teamId: undefined,
+      teamName: 'missingName'
+    })
   }
 
   handleInputChange = (event) => {
@@ -139,7 +151,7 @@ class Team extends React.Component{
 
   render(){
     return(
-      <Container style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%'}}>
+      <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%'}}>
 
         {/* placeholder team member before adding pokemon to team */}
         <Container id='team_member_placeholder'>
@@ -229,17 +241,23 @@ class Team extends React.Component{
         </Modal>
 
         {/* buttons at bottom */}
-        <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
-          <Button onClick={this.toggleTypeCoverageModal}>
+        <Container style={{ position: 'absolute', bottom: '0%', width: '100%'}}>
+          <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
+          <Button size='sm' onClick={this.toggleTypeCoverageModal}>
             Type Coverage
           </Button>
-          <Button onClick={this.toggleTeamNameModal}>
+          <Button size='sm' onClick={this.newTeam}>
+            New Team
+          </Button>
+          <Button size='sm' onClick={this.toggleTeamNameModal}>
             Save Team
           </Button>
-          <Button onClick={this.listTeamsFromDB}>
+          <Button size='sm' onClick={this.listTeamsFromDB}>
             Load Team
-          </Button>
-        </div>
+          </Button>            
+          </Container>
+
+        </Container>
 
       </Container>
 
