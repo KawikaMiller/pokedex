@@ -177,9 +177,15 @@ class Team extends React.Component{
   }
 
   handleInputChange = (event) => {
-    this.setState({
-      teamName: event.target.value
-    })
+    if (!event.target.value) {
+      this.setState({
+        teamName: 'missingName'
+      })
+    } else {
+      this.setState({
+        teamName: event.target.value
+      })      
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -202,6 +208,7 @@ class Team extends React.Component{
 
         {/* placeholder team member before adding pokemon to team */}
         <Container id='team_member_placeholder'>
+          <h5>Search Result</h5>
           {this.props.searchResult ? 
           <PlaceholderTeamMember addTeamMember={this.props.addTeamMember} searchResult={this.props.searchResult} key='PlaceholderTeamMember' 
           />
@@ -210,6 +217,11 @@ class Team extends React.Component{
         
         {/* displays all team members */}
         <Container id='team_members'>
+          <Container>
+            <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
+              {`Team Name: ${this.state.teamName}`}
+            </h5>
+          </Container>
           {this.state.team.length > 0 ?
           this.state.team.map((element, idx) => <TeamMember pokemon={element} removeTeamMember={() => this.props.removeTeamMember(idx)} />)
           : null }
@@ -336,11 +348,6 @@ class Team extends React.Component{
 
         {/* buttons at bottom */}
         <Container style={{ position: 'absolute', bottom: '0%', width: '100%'}}>
-          <Container>
-            <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
-              {`Team Name: ${this.state.teamName}`}
-            </h5>
-          </Container>
           <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
             <Button size='sm' onClick={this.toggleTypeCoverageModal}>
               Type Coverage

@@ -100,6 +100,22 @@ main {
   border-radius: 2.5% 2.5% 5% 2.5%;
 }
 
+.base_stat {
+    display: flex;
+    justify-content: space-between; 
+    text-align: start; 
+    padding: 0 0.5rem;
+    align-items: baseline;
+}
+
+div.base_stat_progressbar.progress {
+  background-color: #a1f36a; 
+  height: 1.3vh; 
+  margin: 0.75vh; 
+  width: 60%; 
+  float: right;
+}
+
 #pokedex-display-border::after {
   content: "";
   width: 95%;
@@ -131,20 +147,31 @@ main {
 }
 
 #pokedex-info {
-  color:#e0ffa7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color:rgb(0, 94, 0);
   padding: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: #82da48;
+  width: 45%;
+  height: 30%;
+}
+
+#pokedex-info :nth-child(2n+2)+div {
+  background-color: rgba(31, 103, 0, 0.149);
+}
+
+#pokedex-info h4 {
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid #198754;
 }
 
 #pokedex {
   min-height: 88vh;
   color: white;
-}
-
-#pokedex-info {
-  margin-top: 0.5rem;
-  background-color: #86d352;
-  width: 50%;
-  height: 35%;
 }
 
 .progress {
