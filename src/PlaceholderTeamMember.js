@@ -54,18 +54,13 @@ class PlaceholderTeamMember extends React.Component{
   render(){
     return(
       <Card className='member0'>
-
-        <Card.Header className='team_member_header'>
-          <Button size='sm' onClick={() => this.props.addTeamMember(this.state.pokemon)} >+ Add {this.props.searchResult.name[0].toUpperCase() + this.props.searchResult.name.slice(1)}</Button>
-        </Card.Header>
-        
         <Card.Body className='team_member_body'>
           {/* shows sprite and level */}
             <section id='placeholder_sprite'>
               <Card.Img 
                 variant='top' 
                 src={this.props.searchResult.sprite.front_default}
-                style={{backgroundColor: 'white', borderRadius: '50%'}}
+                style={{backgroundColor: 'white', borderRadius: '50%', width: '90%'}}
               >
               </Card.Img>
               <p style={{margin: '0'}}>Lv. {this.state.pokemon.level}</p>
@@ -78,9 +73,15 @@ class PlaceholderTeamMember extends React.Component{
             level={100} 
             key={`${this.state.pokemon.name}_stats`}
             updateStatValues={this.updateStatValues}
-            updateBattleInfo={this.updateBattleInfo} 
+            updateBattleInfo={this.updateBattleInfo}
+            addTeamMember={() => this.props.addTeamMember(this.state.pokemon)} 
+            name={this.props.searchResult.name[0].toUpperCase() + this.props.searchResult.name.slice(1)}
           />
         </Card.Body>
+
+        {/* <Card.Footer className='team_member_footer'>
+          <Button size='sm' onClick={() => this.props.addTeamMember(this.state.pokemon)} >+ Add {this.props.searchResult.name[0].toUpperCase() + this.props.searchResult.name.slice(1)}</Button>
+        </Card.Footer> */}
       </Card>
     )
   }

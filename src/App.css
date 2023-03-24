@@ -175,7 +175,8 @@ color: white !important;
   color: white !important;
 }
 
-.card-header.team_member_header {
+.card-header.team_member_header,
+.card-footer.team_member_footer {
   text-align: left;
   display: flex;
   justify-content: space-between;
@@ -184,6 +185,10 @@ color: white !important;
 
 .card-header.team_member_header > * {
   margin: 0;
+}
+
+.card-footer.team_member_footer {
+  justify-content: flex-end;
 }
 
 div.team_member.card {
@@ -231,6 +236,15 @@ div.placeholder_buttons {
   justify-content: flex-end;
   align-items: center;
   width: 30%;
+}
+
+#placeholder_sprite,
+.stats_sub_phys,
+.stats_sub_spec  {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .stats_sub_phys, .stats_sub_spec {

@@ -23,7 +23,7 @@ class Team extends React.Component{
       loadedTeams: [],
       showTypeCoverage: false,
       showLoadedTeams: false,
-      showTeamName: false,
+      showSaveTeamModal: false,
     }
   }
 
@@ -42,9 +42,9 @@ class Team extends React.Component{
   }
 
   // handles hiding and showing the modal for naming a team when saving
-  toggleTeamNameModal = async () => {
+  toggleSaveTeamModal = async () => {
 
-    if (this.state.showTeamName === false) {
+    if (this.state.showSaveTeamModal === false) {
       try {
         let response = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
         this.setState({
@@ -56,7 +56,7 @@ class Team extends React.Component{
     }
 
     this.setState({
-      showTeamName: !this.state.showTeamName
+      showSaveTeamModal: !this.state.showSaveTeamModal
     })
   }
 
@@ -113,10 +113,10 @@ class Team extends React.Component{
       })
       .catch(err => {console.log(err)})
 
-      this.toggleTeamNameModal();
+      this.toggleSaveTeamModal();
   }
 
-  //overwrites an existing team in the database
+  // overwrites an existing team in the database
   overwriteTeamInDB = async (event) => {
     event.preventDefault();
 
@@ -147,7 +147,7 @@ class Team extends React.Component{
       })
       .catch(err => {console.log(err)})
 
-      this.toggleTeamNameModal();
+      this.toggleSaveTeamModal();
 
   }
 
@@ -230,67 +230,70 @@ class Team extends React.Component{
         </Modal>
 
         {/* displays input to name a team before saving */}
-        <Modal show={this.state.showTeamName} onHide={this.toggleTeamNameModal} centered>
-          <Modal.Header>Save Your Team</Modal.Header>
-          <Modal.Body>
+        <Modal show={this.state.showSaveTeamModal} onHide={this.toggleSaveTeamModal} centered>
+          <Modal.Header>Save Your Team</Modal.Header>          
+          {this.state.team.length > 0 ? 
+            <Modal.Body>
+              <Container style={{margin: '1rem 0'}}>
+                <Form onSubmit={this.saveTeamToDB}>
+                  <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                    <h5>Create A New Team</h5>
+                    <Button size='sm' type='submit'>
+                      Submit
+                    </Button>                
+                  </div>
+                  <Form.Group id='save_team_form'>
+                    <Form.Label>Team Name</Form.Label>
+                    <Form.Control 
+                      type='text' 
+                      minLength={1} 
+                      maxLength={15} 
+                      id='team_form_name'
+                      placeholder='Enter team name..'
+                      onChange={this.handleInputChange}
+                    />
+                  </Form.Group>
+                </Form>              
+              </Container>
+              <br></br>
+              <Container style={{margin: '1rem 0'}}>
+                <Form onSubmit={this.overwriteTeamInDB}>
+                  <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                    <h5>Overwrite An Existing Team</h5>
+                    <Button size='sm' type='submit'>
+                      Submit
+                    </Button>                
+                  </div>
+                  <Form.Group id='save_team_form'>
+                    <Form.Label>Team Name</Form.Label>
+                    <Form.Control 
+                      type='text' 
+                      minLength={1} 
+                      maxLength={15} 
+                      id='team_form_name'
+                      placeholder='Enter team name..'
+                      onChange={this.handleInputChange}
+                    />
+                    <Form.Text className="text-muted">
+                      Leave this blank to keep same team name
+                    </Form.Text>
+                    <br></br>
+                    <Form.Label>Team to Overwrite</Form.Label>
+                    <Form.Select id='existing_team'>
+                      {this.state.loadedTeams.map(element => (
+                        <option value={element.id}>{element.teamName}</option>
+                      ))}
+                    </Form.Select>                  
+                  </Form.Group>
+                </Form>
+              </Container>
+            </Modal.Body>
+          : 
+            <Modal.Body>
+              <h6>Please add at least one member to your team</h6>
+            </Modal.Body>}
 
-            <Container style={{margin: '1rem 0'}}>
 
-              <Form onSubmit={this.saveTeamToDB}>
-                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                  <h5>Create A New Team</h5>
-                  <Button size='sm' type='submit'>
-                    Submit
-                  </Button>                
-                </div>
-                <Form.Group id='save_team_form'>
-                  <Form.Label>Team Name</Form.Label>
-                  <Form.Control 
-                    type='text' 
-                    minLength={1} 
-                    maxLength={15} 
-                    id='team_form_name'
-                    placeholder='Enter team name..'
-                    onChange={this.handleInputChange}
-                  />
-                </Form.Group>
-              </Form>              
-            </Container>
-            <br></br>
-            <Container style={{margin: '1rem 0'}}>
-
-              <Form onSubmit={this.overwriteTeamInDB}>
-                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                  <h5>Overwrite An Existing Team</h5>
-                  <Button size='sm' type='submit'>
-                    Submit
-                  </Button>                
-                </div>
-                <Form.Group id='save_team_form'>
-                  <Form.Label>Team Name</Form.Label>
-                  <Form.Control 
-                    type='text' 
-                    minLength={1} 
-                    maxLength={15} 
-                    id='team_form_name'
-                    placeholder='Enter team name..'
-                    onChange={this.handleInputChange}
-                  />
-                  <Form.Text className="text-muted">
-                    Leave this blank to keep same team name
-                  </Form.Text>
-                  <br></br>
-                  <Form.Label>Team to Overwrite</Form.Label>
-                  <Form.Select id='existing_team'>
-                    {this.state.loadedTeams.map(element => (
-                      <option value={element.id}>{element.teamName}</option>
-                    ))}
-                  </Form.Select>                  
-                </Form.Group>
-              </Form>
-            </Container>
-
-          </Modal.Body>
         </Modal>
 
         {/* "Load Team" | displays list of saved teams */}
@@ -309,12 +312,15 @@ class Team extends React.Component{
                   <Accordion.Item eventKey={idx}>
                     <Accordion.Header>{element.teamName}</Accordion.Header>
                     <Accordion.Body>
-                      <Button onClick={() => this.loadTeam(element.id)}>
-                        Load Team
-                      </Button>
-                      <Button onClick={() => this.deleteTeamFromDB(element.id)}>
-                        Delete Team
-                      </Button>
+                      <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                        <Button onClick={() => this.loadTeam(element.id)}>
+                          Load Team
+                        </Button>
+                        <Button variant='danger' onClick={() => this.deleteTeamFromDB(element.id)}>
+                          Delete Team
+                        </Button>                        
+                      </div>
+
                     </Accordion.Body>
                   </Accordion.Item>
                 ))
@@ -332,7 +338,7 @@ class Team extends React.Component{
         <Container style={{ position: 'absolute', bottom: '0%', width: '100%'}}>
           <Container>
             <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
-              {`Team Name: ${this.state.teamName} | Team Id: ${this.state.teamId}`}
+              {`Team Name: ${this.state.teamName}`}
             </h5>
           </Container>
           <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
@@ -342,7 +348,7 @@ class Team extends React.Component{
             <Button size='sm' onClick={this.newTeam}>
               New Team
             </Button>
-            <Button size='sm' onClick={this.toggleTeamNameModal}>
+            <Button size='sm' onClick={this.toggleSaveTeamModal}>
               Save Team
             </Button>
             <Button size='sm' onClick={this.listTeamsFromDB}>

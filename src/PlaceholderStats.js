@@ -163,6 +163,14 @@ class PlaceholderStats extends React.Component{
           >
             IV/EV
           </Button>
+
+          <Button 
+            style={{ margin: '0.5rem 0', padding: '0'}}
+            variant='success' 
+            onClick={this.props.addTeamMember} 
+          >
+          + To Team
+          </Button>
         </div>
       </Container>
 

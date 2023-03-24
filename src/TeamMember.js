@@ -171,7 +171,7 @@ class TeamMember extends React.Component {
               </Button>
 
               <Button size='sm' onClick={this.handleToggleMovesModal}>
-                Moves
+                Battle
               </Button>
             </div>
 
