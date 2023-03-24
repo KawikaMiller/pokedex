@@ -204,11 +204,11 @@ class Team extends React.Component{
 
   render(){
     return(
-      <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%'}}>
+      <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%',}}>
 
         {/* placeholder team member before adding pokemon to team */}
         <Container id='team_member_placeholder'>
-          <h5>Search Result</h5>
+          {this.props.searchResult ? <h5>Search Result</h5> : <h5>Please Search For A Pokemon</h5>}
           {this.props.searchResult ? 
           <PlaceholderTeamMember addTeamMember={this.props.addTeamMember} searchResult={this.props.searchResult} key='PlaceholderTeamMember' 
           />

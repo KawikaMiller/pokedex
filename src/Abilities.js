@@ -15,7 +15,7 @@ class Abilities extends React.Component{
 
   render() {
     return(
-      <Accordion defaultActiveKey='0'>
+      <Accordion defaultActiveKey={0}>
         {this.props.abilities ? 
           this.props.abilities.map((abilityData, idx) => 
             <Ability

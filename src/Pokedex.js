@@ -67,26 +67,29 @@ class Pokedex extends React.Component {
               </Container>
 
                 {/*green box that displays pokemon stats */}
-              <Container id='pokedex-info'>
+              <Container id='pokedex-bottom-ui'>
 
-                {/* displays pokemon name */}
-                {this.props.searchResult ? 
-                  <h4>
-                    {this.props.searchResult.name[0].toUpperCase() + 
-                    this.props.searchResult.name.slice(1)}
-                  </h4> 
-                  : null
-                }
-                
-                {/* displays pokemon base stats */}
-                {this.props.searchResult ? 
-                  <BaseStats 
-                    stats={this.props.searchResult.stats} 
-                    key={`${this.props.searchResult.name}_basestats`}
-                  />
-                  : null
-                }
+                <Container id='pokedex-info'>
+                  {/* displays pokemon name */}
+                  {this.props.searchResult ? 
+                    <h4>
+                      {this.props.searchResult.name[0].toUpperCase() + 
+                      this.props.searchResult.name.slice(1)}
+                    </h4> 
+                    : null
+                  }
+                  {/* displays pokemon base stats */}
+                  {this.props.searchResult ? 
+                    <BaseStats 
+                      stats={this.props.searchResult.stats} 
+                      key={`${this.props.searchResult.name}_basestats`}
+                    />
+                    : null
+                  }
+                </Container
+                >
               </Container>
+
             </Card.Body>
           </Card>
           

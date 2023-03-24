@@ -146,6 +146,11 @@ div.base_stat_progressbar.progress {
   overflow: hidden;
 }
 
+#pokedex-bottom-ui {
+  display: flex;
+  justify-content: center;
+}
+
 #pokedex-info {
   display: flex;
   flex-direction: column;
@@ -166,7 +171,7 @@ div.base_stat_progressbar.progress {
 #pokedex-info h4 {
   margin: 0;
   padding: 0.5rem 0;
-  border-bottom: 2px solid #198754;
+  border-bottom: 2px solid rgba(31, 103, 0, 0.149);
 }
 
 #pokedex {

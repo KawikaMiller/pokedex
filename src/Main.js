@@ -44,7 +44,7 @@ class Main extends React.Component{
     })
   }
 
-  newHandleSearch = async (event) => {
+  handleSearch = async (event) => {
     // prevents page from reloading on  search 'submit'
     event.preventDefault();
     // sets 'searchError' to null, just in case there was a previous error
@@ -75,6 +75,48 @@ class Main extends React.Component{
           response.data.moves.forEach(element => {
             element.version_group_details.forEach(vgDetail => {
               if (vgDetail.version_group.name === 'sword-shield') {
+                moveArr.push(new Move(
+                  element.move.name,
+                  vgDetail.level_learned_at,
+                  vgDetail.move_learn_method.name,
+                ))
+              }
+            })
+          })
+        }
+        // if there are no moves from gen8, get gen7 moves. etc.
+        if (moveArr.length === 0) {
+          response.data.moves.forEach(element => {
+            element.version_group_details.forEach(vgDetail => {
+              if (vgDetail.version_group.name === 'sun-moon') {
+                moveArr.push(new Move(
+                  element.move.name,
+                  vgDetail.level_learned_at,
+                  vgDetail.move_learn_method.name,
+                ))
+              }
+            })
+          })
+        }
+
+        if (moveArr.length === 0) {
+          response.data.moves.forEach(element => {
+            element.version_group_details.forEach(vgDetail => {
+              if (vgDetail.version_group.name === 'x-y') {
+                moveArr.push(new Move(
+                  element.move.name,
+                  vgDetail.level_learned_at,
+                  vgDetail.move_learn_method.name,
+                ))
+              }
+            })
+          })
+        }
+
+        if (moveArr.length === 0) {
+          response.data.moves.forEach(element => {
+            element.version_group_details.forEach(vgDetail => {
+              if (vgDetail.version_group.name === 'black-2-white-2') {
                 moveArr.push(new Move(
                   element.move.name,
                   vgDetail.level_learned_at,
@@ -175,7 +217,7 @@ class Main extends React.Component{
   render() {
     return(
       <Container>
-        <SearchBar handleSearch={this.newHandleSearch} handleInputChange={this.handleInputChange} />
+        <SearchBar handleSearch={this.handleSearch} handleInputChange={this.handleInputChange} />
         <Pokedex searchResult={this.state.searchResult} />
       </Container>
     )
