@@ -42,7 +42,19 @@ class Team extends React.Component{
   }
 
   // handles hiding and showing the modal for naming a team when saving
-  toggleTeamNameModal = () => {
+  toggleTeamNameModal = async () => {
+
+    if (this.state.showTeamName === false) {
+      try {
+        let response = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
+        this.setState({
+          loadedTeams: response.data,
+        })
+      } catch(error) {
+        console.log(error, ` | error getting teams from database`)
+      }
+    }
+
     this.setState({
       showTeamName: !this.state.showTeamName
     })
@@ -102,6 +114,41 @@ class Team extends React.Component{
       .catch(err => {console.log(err)})
 
       this.toggleTeamNameModal();
+  }
+
+  //overwrites an existing team in the database
+  overwriteTeamInDB = async (event) => {
+    event.preventDefault();
+
+    let request;
+
+    // if there is no change to the team name, then we do not update it on the db
+    if (!event.target.team_form_name.value) {
+      request = {
+        pokemon: this.state.team,
+        id: event.target.existing_team.value
+      }
+    }
+    // if a new team name has been supplied, then we update the team name in the db
+    else {
+      request = {
+        teamName: event.target.team_form_name.value,
+        pokemon: this.state.team,
+        id: event.target.existing_team.value
+      }      
+    }
+
+    axios
+      .put(`${process.env.REACT_APP_SERVER}/teams/${event.target.existing_team.value}`, request)
+      .then(response => {
+        this.setState({
+          teamId: response.data._id
+        })
+      })
+      .catch(err => {console.log(err)})
+
+      this.toggleTeamNameModal();
+
   }
 
   // deletes a team from the database
@@ -186,26 +233,67 @@ class Team extends React.Component{
         <Modal show={this.state.showTeamName} onHide={this.toggleTeamNameModal} centered>
           <Modal.Header>Save Your Team</Modal.Header>
           <Modal.Body>
-            <Form onSubmit={this.saveTeamToDB}>
-              <Form.Group id='save_team_form'>
-                <Form.Label>Team Name</Form.Label>
-                <Form.Control 
-                  type='text' 
-                  min={1} 
-                  max={15} 
-                  id='team_form_name'
-                  placeholder='Enter team name..'
-                  onChange={this.handleInputChange}
-                />
-              </Form.Group>
-              <Button type='submit' onClick={this.saveTeamToDB}>
-                Submit
-              </Button>
-            </Form>
+
+            <Container style={{margin: '1rem 0'}}>
+
+              <Form onSubmit={this.saveTeamToDB}>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <h5>Create A New Team</h5>
+                  <Button size='sm' type='submit'>
+                    Submit
+                  </Button>                
+                </div>
+                <Form.Group id='save_team_form'>
+                  <Form.Label>Team Name</Form.Label>
+                  <Form.Control 
+                    type='text' 
+                    minLength={1} 
+                    maxLength={15} 
+                    id='team_form_name'
+                    placeholder='Enter team name..'
+                    onChange={this.handleInputChange}
+                  />
+                </Form.Group>
+              </Form>              
+            </Container>
+            <br></br>
+            <Container style={{margin: '1rem 0'}}>
+
+              <Form onSubmit={this.overwriteTeamInDB}>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <h5>Overwrite An Existing Team</h5>
+                  <Button size='sm' type='submit'>
+                    Submit
+                  </Button>                
+                </div>
+                <Form.Group id='save_team_form'>
+                  <Form.Label>Team Name</Form.Label>
+                  <Form.Control 
+                    type='text' 
+                    minLength={1} 
+                    maxLength={15} 
+                    id='team_form_name'
+                    placeholder='Enter team name..'
+                    onChange={this.handleInputChange}
+                  />
+                  <Form.Text className="text-muted">
+                    Leave this blank to keep same team name
+                  </Form.Text>
+                  <br></br>
+                  <Form.Label>Team to Overwrite</Form.Label>
+                  <Form.Select id='existing_team'>
+                    {this.state.loadedTeams.map(element => (
+                      <option value={element.id}>{element.teamName}</option>
+                    ))}
+                  </Form.Select>                  
+                </Form.Group>
+              </Form>
+            </Container>
+
           </Modal.Body>
         </Modal>
 
-        {/* displays list of saved teams */}
+        {/* "Load Team" | displays list of saved teams */}
         <Modal
           centered
           className='loaded_teams_list'
