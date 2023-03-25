@@ -122,26 +122,56 @@ class TeamMember extends React.Component {
     ]
   }
 
-  getNatureMultiplier = (natureName) => {
+  getNatureMultiplier = (natureName, statIdx) => {
+
+    let statName;
+
+    switch (this.state.pokemon.stats[statIdx].stat.name) {
+      case 'hp' :
+        statName = 'HP';
+        break;
+      case 'attack' :
+        statName = 'ATK';
+        break;
+      case 'defense' :
+        statName = 'DEF';
+        break;
+      case 'special-attack' :
+        statName = 'SP.ATK';
+        break;
+      case 'special-defense' :
+        statName = 'SP.DEF';
+        break;
+      case 'speed' :
+        statName = 'SPD';
+        break;
+      default : 
+        console.log('no valid stat name found')
+    }
+
+    console.log(statName)
+
     let nature = this.boostNatures.find(nature => nature.name.toLowerCase() === natureName.toLowerCase());
     let natureMultiplier = 1;
 
     // nature will be undefined if pokemon has a neutral nature (nature that does not buff/debuff any stat)
     if (nature) {
-      if (nature.buff === this.state.statName) {
+      if (nature.buff === statName) {
         natureMultiplier = 1.1;
-      } else if (nature.debuff === this.state.statName) {
+      } else if (nature.debuff === statName) {
         natureMultiplier = 0.9;
       }      
     }
-
+    // console.log(natureMultiplier);
     return natureMultiplier;
   }
 
   calculateStatTotal = (statIdx, iv, ev, lvl, nature) => {
-    const natureMultiplier = this.getNatureMultiplier(nature)
+    const natureMultiplier = this.getNatureMultiplier(nature, statIdx);
+    // console.log(natureMultiplier)
 
     const statValue = Math.floor(((Math.floor(((2 * this.state.pokemon.stats[statIdx].base_stat + iv + Math.floor(ev / 4)) * lvl) / 100)) + 5) * natureMultiplier);
+    // console.log(statValue)
 
     return statValue;
   }
@@ -241,9 +271,13 @@ class TeamMember extends React.Component {
     newPokemon.level = parseInt(event.target.level.value)
     newPokemon.nature = event.target.nature.value
 
+    console.log(newPokemon)
+
     this.setState({
       pokemon: newPokemon
     })
+
+    console.log(this.state.pokemon)
 
     this.handleToggleIvEvModal();
   }

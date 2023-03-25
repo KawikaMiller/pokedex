@@ -270,7 +270,6 @@ class Stat extends React.Component {
         />
         </>
         }
-        {this.props.updateStatValue(this.props.idx, this.state.statTotal)}
       </Container>
     )
   }
