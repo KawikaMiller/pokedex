@@ -9,21 +9,23 @@ class PlaceholderStats extends React.Component{
   constructor(props){
     super(props);
 
-    // initial stats in props do not have IV or EV property/values, creating the properties and assigning default values
-    let newStats = this.props.stats;
-    newStats.forEach(element => {
-      element.iv = 31;
-      element.ev = 0;
-    })
-
     this.state = {
       level: this.props.level,
-      stats: newStats,
+      stats: this.props.stats,
       nature: 'bashful',
       showMovesModal: false,
       showIvEvModal: false,
       disableSubmit: false,
     }
+
+    this.statValues = [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
   }
 
   // prevents EVs from totaling over 510
@@ -81,16 +83,42 @@ class PlaceholderStats extends React.Component{
 
     newStats[5].iv = parseInt(event.target.iv_spd.value)
     newStats[5].ev = parseInt(event.target.ev_spd.value)
+
     // sends updated stat values back to placeholder component
-    this.props.updateStatValues(newStats, event.target.level.value, event.target.nature.value);
+    this.props.updateStats(newStats, event.target.level.value, event.target.nature.value);
 
     this.setState({
       level: parseInt(event.target.level.value),
       stats: newStats,
       nature: event.target.nature.value
     })
+
+    // this.updateAllStatValues();
   
     this.handleHideIvEvModal();
+  }
+
+  updateAllStatValues = () => {
+    // let newStats = this.state.stats;
+
+    // newStats[0].stat_value = this.statValues[0];
+    // newStats[1].stat_value = this.statValues[1];
+    // newStats[2].stat_value = this.statValues[2];
+    // newStats[3].stat_value = this.statValues[3];
+    // newStats[4].stat_value = this.statValues[4];
+    // newStats[5].stat_value = this.statValues[5];
+
+    // console.log(newStats)
+
+    // this.props.updateStats(newStats, this.state.level, this.state.nature)
+  }
+
+  // I know this is the not the proper way to do this but I can't figure out how to get it to update correctly otherwise
+  updateStatValue = (statIdx, statValue) => {
+    // this.statValues[statIdx] = statValue;
+    
+    // eslint-disable-next-line
+    this.state.stats[statIdx].stat_value = statValue;
   }
 
   sortMoves = (arr) => {
@@ -127,25 +155,43 @@ class PlaceholderStats extends React.Component{
         <div className='stats_sub_phys'>
           <Stat 
             stat={this.state.stats[0]} 
-            level={this.state.level} />
+            level={this.state.level}
+            nature={this.state.nature}
+            updateStatValue={this.updateStatValue}
+            idx={0} />
           <Stat 
             stat={this.state.stats[1]} 
-            level={this.state.level} />
+            level={this.state.level}
+            nature={this.state.nature}
+            updateStatValue={this.updateStatValue}
+            idx={1} />
           <Stat 
             stat={this.state.stats[2]} 
-            level={this.state.level} />
+            level={this.state.level}
+            nature={this.state.nature}
+            updateStatValue={this.updateStatValue}
+            idx={2} />
         </div>
 
         <div className='stats_sub_spec'>
           <Stat 
             stat={this.state.stats[3]} 
-            level={this.state.level} />
+            level={this.state.level}
+            nature={this.state.nature}
+            updateStatValue={this.updateStatValue}
+            idx={3} />
           <Stat 
             stat={this.state.stats[4]} 
-            level={this.state.level} />
+            level={this.state.level}
+            nature={this.state.nature}
+            updateStatValue={this.updateStatValue}
+            idx={4} />
           <Stat 
             stat={this.state.stats[5]} 
-            level={this.state.level} />
+            level={this.state.level}
+            nature={this.state.nature}
+            updateStatValue={this.updateStatValue}
+            idx={5} />
         </div>
 
         <div className='placeholder_buttons'>

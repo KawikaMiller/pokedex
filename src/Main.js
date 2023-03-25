@@ -126,6 +126,22 @@ class Main extends React.Component{
             })
           })
         }
+
+        // removes 'effort' property from response and replaces with 'ev', add 'stat_value' property
+        let oldStats = response.data.stats;
+        let newStats = [];
+
+        oldStats.forEach(element => {
+          let newStat = {
+            base_stat: element.base_stat,
+            ev: 0,
+            iv: 31,
+            stat: element.stat,
+            stat_value: 1,
+          }
+          newStats.push(newStat)
+        })
+
         // create pokemon object which will ultimately be what is returned/sent as response
         let pokemon = new Pokemon(
           response.data.name,
@@ -135,7 +151,7 @@ class Main extends React.Component{
           response.data.abilities,
           moveArr,
           response.data.sprites,
-          response.data.stats,
+          newStats,
           response.data.types,
         )
         return pokemon;

@@ -161,8 +161,8 @@ class TeamMember extends React.Component {
               >
               </Card.Img>
               <p style={{margin: '0'}}>Lv. {this.props.pokemon.level}</p>
-            </section>
-          {/* shows stats */}
+          </section>
+          {/* shows buttons to edit pokemon info */}
           <section className='team_member_info' style={{width: '100%'}}>
 
             <div className='team_member_edit_buttons' style={{display: 'flex', justifyContent: 'space-around', padding: '0.25rem'}}>
