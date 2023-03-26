@@ -1,14 +1,14 @@
 import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from './Main';
+import Header from './Header';
+import Footer from './Footer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <header>
-        Pokedex App
-      </header>
+      <Header />
       <BrowserRouter>
         <main>
           <Routes>
@@ -17,9 +17,7 @@ function App() {
           </Routes>
         </main>
       </BrowserRouter>
-      <footer>
-        Author: Kawika Miller | github.com/KMArtwork
-      </footer>
+      <Footer />
     </div>
   );
 }
