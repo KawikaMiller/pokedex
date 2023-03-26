@@ -1,3 +1,4 @@
+// referenced when determining how nature affects stats
 export const natureModifiers = [
   {
     name: 'Lonely',
@@ -100,7 +101,7 @@ export const natureModifiers = [
     debuff: 'SP.DEF',  
   }
 ]
-
+// determines how nature affects stats
 export const getNatureModifier = (natureModifiersArr, pokemonNature, affectedStatName) => {
   // nature will be undefined if pokemon has a neutral nature (nature that does not buff/debuff any stat)
   let nature = natureModifiersArr.find(nature => nature.name.toLowerCase() === pokemonNature);

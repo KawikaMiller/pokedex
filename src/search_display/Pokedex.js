@@ -1,15 +1,13 @@
 import React from "react";
-// import axios from "axios";
-
+// react-bootstrap components
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import Button from "react-bootstrap/Button";
-import RightCard from "./RightCard";
+// react components
+import RightCard from "../RightCard";
 import PokemonDisplay from "./PokemonDisplay";
 import BaseStats from "./BaseStats";
-// import { AbilityInfo, AbilityArr } from "./lib/pokemon";
-// import SideTabs from "./SideTabs";
 
 class Pokedex extends React.Component {
   constructor(props) {
@@ -27,7 +25,7 @@ class Pokedex extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <Container id='pokedex-container'>
         
         <CardGroup id='pokedex' >
@@ -86,8 +84,7 @@ class Pokedex extends React.Component {
                     />
                     : null
                   }
-                </Container
-                >
+                </Container>
               </Container>
 
             </Card.Body>

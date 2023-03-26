@@ -1,10 +1,10 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
-import Learnset from "./Learnset";
+import Learnset from "./moves_abilities/Learnset";
 import Container from 'react-bootstrap/Container';
-import Abilities from "./Abilities";
-import Team from "./Team";
+import Abilities from "./moves_abilities/Abilities";
+import Team from "./teambuilder/Team";
 // import Button from 'react-bootstrap/Button';
 
 class RightCard extends React.Component {

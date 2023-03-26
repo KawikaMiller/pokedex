@@ -2,7 +2,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
-import { calculateStatTotal, calculateHpTotal, getNatureModifier, natureModifiers } from './lib/calcStats';
+import { calculateStatTotal, calculateHpTotal, getNatureModifier, natureModifiers } from '../lib/calcStats';
 
 class Stat extends React.Component {
   constructor(props){

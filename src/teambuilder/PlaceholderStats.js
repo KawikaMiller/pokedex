@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
-import { calculateStatTotal, calculateHpTotal, } from './lib/calcStats';
+import { calculateStatTotal, calculateHpTotal, } from '../lib/calcStats';
 
 class PlaceholderStats extends React.Component{
   constructor(props){

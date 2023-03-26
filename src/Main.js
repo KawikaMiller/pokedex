@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import SearchBar from "./SearchBar";
-import Pokedex from "./Pokedex";
+import Pokedex from "./search_display/Pokedex";
 import Container from "react-bootstrap/Container";
 import { Pokemon, Move } from "./lib/pokemon";
 
