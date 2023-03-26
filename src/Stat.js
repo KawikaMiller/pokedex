@@ -10,7 +10,7 @@ class Stat extends React.Component {
       IV: this.props.stat.iv,
       EV: this.props.stat.ev,
       level: this.props.level,
-      statName: this.props.stat.stat.name,
+      statName: this.props.stat.name,
       statTotal: 0,
       nature: 1, //change this later
       natureName: this.props.nature
@@ -174,7 +174,7 @@ class Stat extends React.Component {
   }
 
   abbreviateStatName = () => {
-    switch (this.props.stat.stat.name) {
+    switch (this.props.stat.name) {
       case 'hp' :
         this.setState({
           statName: 'HP',

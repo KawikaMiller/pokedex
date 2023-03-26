@@ -6,6 +6,8 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
+import { calculateStatTotal, calculateHpTotal } from './lib/calcStats';
+
 class TeamMember extends React.Component {
   constructor(props){
     super(props);
@@ -17,170 +19,6 @@ class TeamMember extends React.Component {
       showNicknameModal: false,
       disableSubmit: false,
     }
-
-    this.boostNatures = [
-      {
-        name: 'Lonely',
-        buff: 'ATK',
-        debuff: 'DEF',  
-      },
-      {
-        name: 'Adamant',
-        buff: 'ATK',
-        debuff: 'SP.ATK',  
-      },
-      {
-        name: 'Naughty',
-        buff: 'ATK',
-        debuff: 'SP.DEF',  
-      },
-      {
-        name: 'Brave',
-        buff: 'ATK',
-        debuff: 'SPD',  
-      },
-      {
-        name: 'Bold',
-        buff: 'DEF',
-        debuff: 'ATK',  
-      },
-      {
-        name: 'Impish',
-        buff: 'DEF',
-        debuff: 'SP.ATK',  
-      },
-      {
-        name: 'Lax',
-        buff: 'DEF',
-        debuff: 'SP.DEF',  
-      },
-      {
-        name: 'Relaxed',
-        buff: 'DEF',
-        debuff: 'SPD',  
-      },
-      {
-        name: 'Modest',
-        buff: 'SP.ATK',
-        debuff: 'ATK',  
-      },
-      {
-        name: 'Mild',
-        buff: 'SP.ATK',
-        debuff: 'DEF',  
-      },
-      {
-        name: 'Rash',
-        buff: 'SP.ATK',
-        debuff: 'SP.DEF',  
-      },
-      {
-        name: 'Quiet',
-        buff: 'SP.ATK',
-        debuff: 'SPD',  
-      },
-      {
-        name: 'Calm',
-        buff: 'SP.DEF',
-        debuff: 'ATK',  
-      },
-      {
-        name: 'Gentle',
-        buff: 'SP.DEF',
-        debuff: 'DEF',  
-      },
-      {
-        name: 'Careful',
-        buff: 'SP.DEF',
-        debuff: 'SP.ATK',  
-      },
-      {
-        name: 'Sassy',
-        buff: 'SP.DEF',
-        debuff: 'SPD',  
-      },
-      {
-        name: 'Timid',
-        buff: 'SPD',
-        debuff: 'ATK',  
-      },
-      {
-        name: 'Hasty',
-        buff: 'SPD',
-        debuff: 'DEF',  
-      },
-      {
-        name: 'Jolly',
-        buff: 'SPD',
-        debuff: 'SP.ATK',  
-      },
-      {
-        name: 'Naive',
-        buff: 'SPD',
-        debuff: 'SP.DEF',  
-      }
-    ]
-  }
-
-  getNatureMultiplier = (natureName, statIdx) => {
-
-    let statName;
-
-    switch (this.state.pokemon.stats[statIdx].stat.name) {
-      case 'hp' :
-        statName = 'HP';
-        break;
-      case 'attack' :
-        statName = 'ATK';
-        break;
-      case 'defense' :
-        statName = 'DEF';
-        break;
-      case 'special-attack' :
-        statName = 'SP.ATK';
-        break;
-      case 'special-defense' :
-        statName = 'SP.DEF';
-        break;
-      case 'speed' :
-        statName = 'SPD';
-        break;
-      default : 
-        console.log('no valid stat name found')
-    }
-
-    console.log(statName)
-
-    let nature = this.boostNatures.find(nature => nature.name.toLowerCase() === natureName.toLowerCase());
-    let natureMultiplier = 1;
-
-    // nature will be undefined if pokemon has a neutral nature (nature that does not buff/debuff any stat)
-    if (nature) {
-      if (nature.buff === statName) {
-        natureMultiplier = 1.1;
-      } else if (nature.debuff === statName) {
-        natureMultiplier = 0.9;
-      }      
-    }
-    // console.log(natureMultiplier);
-    return natureMultiplier;
-  }
-
-  calculateStatTotal = (statIdx, iv, ev, lvl, nature) => {
-    const natureMultiplier = this.getNatureMultiplier(nature, statIdx);
-    // console.log(natureMultiplier)
-
-    const statValue = Math.floor(((Math.floor(((2 * this.state.pokemon.stats[statIdx].base_stat + iv + Math.floor(ev / 4)) * lvl) / 100)) + 5) * natureMultiplier);
-    // console.log(statValue)
-
-    return statValue;
-  }
-
-  calculateHpTotal = (statIdx, iv, ev, lvl) => {
-
-    const hpValue = Math.floor(((2 * this.state.pokemon.stats[statIdx].base_stat + iv + Math.floor(ev / 4)) * lvl) / 100) + lvl + 10;
-
-    return hpValue;
   }
 
   handleFormChange = (event) => {
@@ -246,38 +84,74 @@ class TeamMember extends React.Component {
 
     newPokemon.stats[0].iv = parseInt(event.target.iv_hp.value)
     newPokemon.stats[0].ev = parseInt(event.target.ev_hp.value)
-    newPokemon.stats[0].stat_value = this.calculateHpTotal(0, parseInt(event.target.iv_hp.value), parseInt(event.target.ev_hp.value), parseInt(event.target.level.value) )
+    newPokemon.stats[0].stat_value = calculateHpTotal(
+      this.state.pokemon.stats[0].base_stat, 
+      parseInt(event.target.iv_hp.value), 
+      parseInt(event.target.ev_hp.value), 
+      parseInt(event.target.level.value)
+    )
 
     newPokemon.stats[1].iv = parseInt(event.target.iv_atk.value)
     newPokemon.stats[1].ev = parseInt(event.target.ev_atk.value)
-    newPokemon.stats[1].stat_value = this.calculateStatTotal(1, parseInt(event.target.iv_atk.value), parseInt(event.target.ev_atk.value), parseInt(event.target.level.value), event.target.nature.value)
+    newPokemon.stats[1].stat_value = calculateStatTotal(
+      this.state.pokemon.stats[1].name,
+      this.state.pokemon.stats[1].base_stat, 
+      parseInt(event.target.iv_atk.value), 
+      parseInt(event.target.ev_atk.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     newPokemon.stats[2].iv = parseInt(event.target.iv_def.value)
     newPokemon.stats[2].ev = parseInt(event.target.ev_def.value)
-    newPokemon.stats[2].stat_value = this.calculateStatTotal(2, parseInt(event.target.iv_def.value), parseInt(event.target.ev_def.value), parseInt(event.target.level.value), event.target.nature.value)
+    newPokemon.stats[2].stat_value = calculateStatTotal(
+      this.state.pokemon.stats[2].name,
+      this.state.pokemon.stats[2].base_stat, 
+      parseInt(event.target.iv_def.value), 
+      parseInt(event.target.ev_def.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     newPokemon.stats[3].iv = parseInt(event.target.iv_spatk.value)
     newPokemon.stats[3].ev = parseInt(event.target.ev_spatk.value)
-    newPokemon.stats[3].stat_value = this.calculateStatTotal(3, parseInt(event.target.iv_spatk.value), parseInt(event.target.ev_spatk.value), parseInt(event.target.level.value), event.target.nature.value)
+    newPokemon.stats[3].stat_value = calculateStatTotal(
+      this.state.pokemon.stats[3].name,
+      this.state.pokemon.stats[3].base_stat, 
+      parseInt(event.target.iv_spatk.value), 
+      parseInt(event.target.ev_spatk.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     newPokemon.stats[4].iv = parseInt(event.target.iv_spdef.value)
     newPokemon.stats[4].ev = parseInt(event.target.ev_spdef.value)
-    newPokemon.stats[4].stat_value = this.calculateStatTotal(4, parseInt(event.target.iv_spdef.value), parseInt(event.target.ev_spdef.value), parseInt(event.target.level.value), event.target.nature.value)
+    newPokemon.stats[4].stat_value = calculateStatTotal(
+      this.state.pokemon.stats[4].name,
+      this.state.pokemon.stats[4].base_stat, 
+      parseInt(event.target.iv_spdef.value), 
+      parseInt(event.target.ev_spdef.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     newPokemon.stats[5].iv = parseInt(event.target.iv_spd.value)
     newPokemon.stats[5].ev = parseInt(event.target.ev_spd.value)
-    newPokemon.stats[5].stat_value = this.calculateStatTotal(5, parseInt(event.target.iv_spd.value), parseInt(event.target.ev_spd.value), parseInt(event.target.level.value), event.target.nature.value)
+    newPokemon.stats[5].stat_value = calculateStatTotal(
+      this.state.pokemon.stats[5].name,
+      this.state.pokemon.stats[5].base_stat, 
+      parseInt(event.target.iv_spd.value), 
+      parseInt(event.target.ev_spd.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     newPokemon.level = parseInt(event.target.level.value)
     newPokemon.nature = event.target.nature.value
 
-    console.log(newPokemon)
-
     this.setState({
       pokemon: newPokemon
     })
-
-    console.log(this.state.pokemon)
 
     this.handleToggleIvEvModal();
   }
@@ -466,7 +340,7 @@ class TeamMember extends React.Component {
 
       {/* IVs, EVs, Level, Nature */}
       <Modal centered show={this.state.showIvEvModal} onHide={this.handleToggleIvEvModal}>
-        <Modal.Header>Edit IVs & EVs <span>EV totals must be 510 or less</span></Modal.Header>
+        <Modal.Header>Edit IVs & EVs</Modal.Header>
         <Modal.Body>
           <Form onSubmit={this.handleSubmitIvEvInfo} onChange={this.handleFormChange}>  
             <Container id='team_member_stats_edit'>
@@ -631,9 +505,10 @@ class TeamMember extends React.Component {
                 </Form.Group>
               </div>
             </Container>
-
-
-            <Button type='submit' disabled={this.state.disableSubmit}>Submit</Button>
+            <Container style={{display: 'flex', justifyContent: 'space-between'}}>
+              <Button type='submit' disabled={this.state.disableSubmit}>Submit</Button>
+              {this.state.disableSubmit ? <span>EV totals must be 510 or less</span> : null}              
+            </Container>
           </Form>
         </Modal.Body>
       </Modal>

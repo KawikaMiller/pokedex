@@ -126,21 +126,47 @@ class Main extends React.Component{
             })
           })
         }
-
-        // removes 'effort' property from response and replaces with 'ev', add 'stat_value' property
+       
         let oldStats = response.data.stats;
         let newStats = [];
-
+         // removes 'effort' property from response and replaces with 'ev', add 'stat_value' property
         oldStats.forEach(element => {
           let newStat = {
             base_stat: element.base_stat,
             ev: 0,
             iv: 31,
-            stat: element.stat,
+            name: element.stat.name,
+            url: element.stat.url,
             stat_value: 1,
           }
           newStats.push(newStat)
         })
+
+        // renames stat names to abbreviated, all caps names
+        newStats.forEach(element => {
+          switch(element.name) {
+            case 'hp' :
+             element.name = 'HP';
+             break;
+            case 'attack' :
+              element.name = 'ATK';
+              break;
+            case 'defense' :
+              element.name = 'DEF';
+              break;
+            case 'special-attack' :
+              element.name = 'SP.ATK';
+              break;
+            case 'special-defense' :
+              element.name = 'SP.DEF';
+              break;
+            case 'speed' :
+              element.name = 'SPEED';
+              break;
+            default :
+              console.log('error abbreviating stat name') 
+          }
+        }) 
 
         // create pokemon object which will ultimately be what is returned/sent as response
         let pokemon = new Pokemon(

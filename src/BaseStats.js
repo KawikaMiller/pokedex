@@ -16,7 +16,7 @@ class BaseStats extends React.Component{
         {this.props.stats.map((element, idx) => (
           <div 
             className="base_stat"
-            key={`${element.stat.name}_div`}
+            key={`${element.name}_div`}
           >
           <strong 
             style={{
@@ -24,31 +24,14 @@ class BaseStats extends React.Component{
               fontSize: '0.85rem',
               width: '35%'
             }} 
-            key={`${element.stat.name}_name`}
+            key={`${element.name}_name`}
           >
-            {element.stat.name === 'hp' ?
-            'HP ' 
-            :
-            element.stat.name === 'attack' ?
-            'ATK '
-            :
-            element.stat.name === 'defense' ?
-            'DEF '
-            :
-            element.stat.name === 'special-attack' ?
-            'SPATK '
-            :
-            element.stat.name === 'special-defense' ?
-            'SPDEF '
-            :
-            element.stat.name === 'speed' ?
-            'SPD '
-            :
-            null
-            }
+
+            {element.name}
             <span style={{float: 'right'}}>
               {element.base_stat}            
             </span>
+            
           </strong>
 
           <ProgressBar 
@@ -56,7 +39,7 @@ class BaseStats extends React.Component{
             max={255} 
             now={element.base_stat}
             variant='success'
-            key={`${element.stat.name}_basestat`}
+            key={`${element.name}_basestat`}
             className='base_stat_progressbar'            
           />
           
