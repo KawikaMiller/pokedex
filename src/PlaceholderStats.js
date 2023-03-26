@@ -5,6 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
+import { calculateStatTotal, calculateHpTotal, } from './lib/calcStats';
+
 class PlaceholderStats extends React.Component{
   constructor(props){
     super(props);
@@ -17,140 +19,6 @@ class PlaceholderStats extends React.Component{
       showIvEvModal: false,
       disableSubmit: false,
     }
-
-    this.boostNatures = [
-      {
-        name: 'Lonely',
-        buff: 'ATK',
-        debuff: 'DEF',  
-      },
-      {
-        name: 'Adamant',
-        buff: 'ATK',
-        debuff: 'SP.ATK',  
-      },
-      {
-        name: 'Naughty',
-        buff: 'ATK',
-        debuff: 'SP.DEF',  
-      },
-      {
-        name: 'Brave',
-        buff: 'ATK',
-        debuff: 'SPD',  
-      },
-      {
-        name: 'Bold',
-        buff: 'DEF',
-        debuff: 'ATK',  
-      },
-      {
-        name: 'Impish',
-        buff: 'DEF',
-        debuff: 'SP.ATK',  
-      },
-      {
-        name: 'Lax',
-        buff: 'DEF',
-        debuff: 'SP.DEF',  
-      },
-      {
-        name: 'Relaxed',
-        buff: 'DEF',
-        debuff: 'SPD',  
-      },
-      {
-        name: 'Modest',
-        buff: 'SP.ATK',
-        debuff: 'ATK',  
-      },
-      {
-        name: 'Mild',
-        buff: 'SP.ATK',
-        debuff: 'DEF',  
-      },
-      {
-        name: 'Rash',
-        buff: 'SP.ATK',
-        debuff: 'SP.DEF',  
-      },
-      {
-        name: 'Quiet',
-        buff: 'SP.ATK',
-        debuff: 'SPD',  
-      },
-      {
-        name: 'Calm',
-        buff: 'SP.DEF',
-        debuff: 'ATK',  
-      },
-      {
-        name: 'Gentle',
-        buff: 'SP.DEF',
-        debuff: 'DEF',  
-      },
-      {
-        name: 'Careful',
-        buff: 'SP.DEF',
-        debuff: 'SP.ATK',  
-      },
-      {
-        name: 'Sassy',
-        buff: 'SP.DEF',
-        debuff: 'SPD',  
-      },
-      {
-        name: 'Timid',
-        buff: 'SPD',
-        debuff: 'ATK',  
-      },
-      {
-        name: 'Hasty',
-        buff: 'SPD',
-        debuff: 'DEF',  
-      },
-      {
-        name: 'Jolly',
-        buff: 'SPD',
-        debuff: 'SP.ATK',  
-      },
-      {
-        name: 'Naive',
-        buff: 'SPD',
-        debuff: 'SP.DEF',  
-      }
-    ]
-  }
-
-  getNatureMultiplier = (natureName) => {
-    let nature = this.boostNatures.find(nature => nature.name.toLowerCase() === natureName.toLowerCase());
-    let natureMultiplier = 1;
-
-    // nature will be undefined if pokemon has a neutral nature (nature that does not buff/debuff any stat)
-    if (nature) {
-      if (nature.buff === this.state.statName) {
-        natureMultiplier = 1.1;
-      } else if (nature.debuff === this.state.statName) {
-        natureMultiplier = 0.9;
-      }      
-    }
-
-    return natureMultiplier;
-  }
-
-  calculateStatTotal = (statIdx, iv, ev, lvl, nature) => {
-    const natureMultiplier = this.getNatureMultiplier(nature)
-
-    const statValue = Math.floor(((Math.floor(((2 * this.state.stats[statIdx].base_stat + iv + Math.floor(ev / 4)) * lvl) / 100)) + 5) * natureMultiplier);
-
-    return statValue;
-  }
-
-  calculateHpTotal = (statIdx, iv, ev, lvl) => {
-
-    const hpValue = Math.floor(((2 * this.state.stats[statIdx].base_stat + iv + Math.floor(ev / 4)) * lvl) / 100) + lvl + 10;
-
-    return hpValue;
   }
 
   // prevents EVs from totaling over 510
@@ -193,27 +61,67 @@ class PlaceholderStats extends React.Component{
 
     newStats[0].iv = parseInt(event.target.iv_hp.value)
     newStats[0].ev = parseInt(event.target.ev_hp.value)
-    newStats[0].stat_value = this.calculateHpTotal(0, parseInt(event.target.iv_hp.value), parseInt(event.target.ev_hp.value), parseInt(event.target.level.value))
+    newStats[0].stat_value = calculateHpTotal(
+      this.state.stats[0].base_stat, 
+      parseInt(event.target.iv_hp.value), 
+      parseInt(event.target.ev_hp.value), 
+      parseInt(event.target.level.value)
+    )
 
     newStats[1].iv = parseInt(event.target.iv_atk.value)
     newStats[1].ev = parseInt(event.target.ev_atk.value)
-    newStats[1].stat_value = this.calculateStatTotal(1, parseInt(event.target.iv_atk.value), parseInt(event.target.ev_atk.value), parseInt(event.target.level.value), event.target.nature.value)
+    newStats[1].stat_value = calculateStatTotal(
+      this.state.stats[1].name,
+      this.state.stats[1].base_stat, 
+      parseInt(event.target.iv_atk.value), 
+      parseInt(event.target.ev_atk.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     newStats[2].iv = parseInt(event.target.iv_def.value)
     newStats[2].ev = parseInt(event.target.ev_def.value)
-    newStats[2].stat_value = this.calculateStatTotal(2, parseInt(event.target.iv_def.value), parseInt(event.target.ev_def.value), parseInt(event.target.level.value), event.target.nature.value)
+    newStats[2].stat_value = calculateStatTotal(
+      this.state.stats[2].name,
+      this.state.stats[2].base_stat, 
+      parseInt(event.target.iv_atk.value), 
+      parseInt(event.target.ev_atk.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     newStats[3].iv = parseInt(event.target.iv_spatk.value)
     newStats[3].ev = parseInt(event.target.ev_spatk.value)
-    newStats[3].stat_value = this.calculateStatTotal(3, parseInt(event.target.iv_spatk.value), parseInt(event.target.ev_spatk.value), parseInt(event.target.level.value), event.target.nature.value)
+    newStats[3].stat_value = calculateStatTotal(
+      this.state.stats[3].name,
+      this.state.stats[3].base_stat, 
+      parseInt(event.target.iv_atk.value), 
+      parseInt(event.target.ev_atk.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     newStats[4].iv = parseInt(event.target.iv_spdef.value)
     newStats[4].ev = parseInt(event.target.ev_spdef.value)
-    newStats[4].stat_value = this.calculateStatTotal(4, parseInt(event.target.iv_spdef.value), parseInt(event.target.ev_spdef.value), parseInt(event.target.level.value), event.target.nature.value)
+    newStats[4].stat_value = calculateStatTotal(
+      this.state.stats[4].name,
+      this.state.stats[4].base_stat, 
+      parseInt(event.target.iv_atk.value), 
+      parseInt(event.target.ev_atk.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     newStats[5].iv = parseInt(event.target.iv_spd.value)
     newStats[5].ev = parseInt(event.target.ev_spd.value)
-    newStats[5].stat_value = this.calculateStatTotal(5, parseInt(event.target.iv_spd.value), parseInt(event.target.ev_spd.value), parseInt(event.target.level.value), event.target.nature.value)
+    newStats[5].stat_value = calculateStatTotal(
+      this.state.stats[5].name,
+      this.state.stats[5].base_stat, 
+      parseInt(event.target.iv_atk.value), 
+      parseInt(event.target.ev_atk.value), 
+      parseInt(event.target.level.value), 
+      event.target.nature.value
+    )
 
     // sends updated stat values back to placeholder component
     this.props.updateStats(newStats, parseInt(event.target.level.value), event.target.nature.value);
