@@ -1,6 +1,8 @@
 import React from 'react'
 
 // import Container from 'react-bootstrap/Container'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub, faInstagram, faLinkedin} from '@fortawesome/free-brands-svg-icons'
 
 class Footer extends React.Component {
   constructor(props){
@@ -15,7 +17,25 @@ class Footer extends React.Component {
     return(
       <section id='footer'>
         <div id='pokeball_button_footer'></div>
-        <h5>Author: Kawika Miller | github.com/KMArtwork</h5>
+        <div id='footer_contact'>
+          <div id='footer_socials'>
+            <a href='https://www.github.com/KMArtwork'>
+              <FontAwesomeIcon 
+                icon={faGithub} 
+                size="2x" />
+            </a>
+            <a href='https://www.linkedin.com/in/kawikamiller/'>
+              <FontAwesomeIcon
+                icon={faLinkedin}
+                size="2x" />
+            </a>
+            <a href='https://www.instagram.com/k.m__art/'>
+              <FontAwesomeIcon
+                icon={faInstagram}
+                size="2x" />
+            </a>
+          </div>       
+        </div>
       </section>
     )
   }

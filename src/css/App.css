@@ -37,6 +37,29 @@
   position: sticky;
 }
 
+#header nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 1.5rem !important;
+  padding: 0 !important;
+}
+
+.navbar-nav a {
+  background-color: transparent !important;
+}
+
+#nav_left {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 30%;
+}
+
 #pokeball_button_outer {
   width: 6rem;
   height: 6rem;
@@ -63,11 +86,22 @@
   position: sticky;
 }
 
-#footer h5 {
+#footer_contact{
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   text-align: right;
   padding: 0 1rem;
   margin: 1rem;
+}
+
+#footer a {
+  color: var(--pokedex) !important;
+  margin: 0 0.5rem;
+}
+
+#footer a:hover{
+  color: blue !important;
 }
 
 #pokeball_button_footer {
@@ -78,6 +112,10 @@
   background-color: var(--background);
   position: absolute;
   bottom: 60%;
+}
+
+main {
+  margin: 5rem 0 !important;
 }
 
 .App {
