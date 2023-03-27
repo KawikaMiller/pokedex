@@ -79,6 +79,9 @@ class RightCard extends React.Component {
           <Nav.Item>
             <Nav.Link eventKey='1' onClick={() => {this.changeTab(1)}}>Team Builder</Nav.Link>
           </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey='2' onClick={() => {this.changeTab(2)}}>Items</Nav.Link>
+          </Nav.Item>
         </Nav>
       </Card.Header> 
       
@@ -87,7 +90,7 @@ class RightCard extends React.Component {
 
         {/* if activeKey is 0, displays moves and abilities */}
         {this.state.activeKey === 0 ?
-          <>
+          <Container id='learnset_and_abilities'>
             {/* displays all the moves, categorized by learn method */}
             <Container id="moves_container">
               {
@@ -113,7 +116,7 @@ class RightCard extends React.Component {
                   null  
               }
             </Container>
-          </> 
+          </Container> 
           : null
         }
 
