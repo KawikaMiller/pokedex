@@ -294,7 +294,7 @@ div.base_stat_progressbar.progress {
 
 /* right side card  */
 
-#moves_container {
+#learnset_container {
   max-height: 57vh;
   overflow-Y: hidden;
 }

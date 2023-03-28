@@ -74,7 +74,8 @@ class Pokedex extends React.Component {
                       {this.props.searchResult.name[0].toUpperCase() + 
                       this.props.searchResult.name.slice(1)}
                     </h4> 
-                    : null
+                    : 
+                    <h4>missingName</h4>
                   }
                   {/* displays pokemon base stats */}
                   {this.props.searchResult ? 
@@ -82,11 +83,23 @@ class Pokedex extends React.Component {
                       stats={this.props.searchResult.stats} 
                       key={`${this.props.searchResult.name}_basestats`}
                     />
-                    : null
+                    :
+                    <BaseStats
+                      stats={
+                        [
+                          {name: 'HP', base_stat: undefined},
+                          {name: 'ATK', base_stat: undefined},
+                          {name: 'DEF', base_stat: undefined},
+                          {name: 'SP.ATK', base_stat: undefined},
+                          {name: 'SP.DEF', base_stat: undefined},
+                          {name: 'SPD', base_stat: undefined}
+                        ]
+                      }
+                      key={`placeholder_basestats`}
+                    />
                   }
                 </Container>
               </Container>
-
             </Card.Body>
           </Card>
           

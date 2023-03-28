@@ -161,7 +161,7 @@ class Main extends React.Component{
               element.name = 'SP.DEF';
               break;
             case 'speed' :
-              element.name = 'SPEED';
+              element.name = 'SPD';
               break;
             default :
               console.log('error abbreviating stat name') 
