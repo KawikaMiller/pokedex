@@ -44,7 +44,24 @@ class Main extends React.Component{
     })
   }
 
-  handleSearch = async (event) => {
+  handleNextPokemon = (event) => {
+    if (this.state.searchResult) {
+      this.handleSearch(event, this.state.searchResult.id + 1);      
+    } else {
+      this.handleSearch(event, 1)
+    }
+  }
+
+  handlePreviousPokemon = (event) => {
+    if (this.state.searchResult) {
+      this.handleSearch(event, this.state.searchResult.id - 1);      
+    } else {
+      this.handleSearch(event, 1)
+    }
+  }
+
+  // handles API calls to pokeapi for various information about a pokemon
+  handleSearch = async (event, searchQuery = this.state.searchInput) => {
     // prevents page from reloading on  search 'submit'
     event.preventDefault();
     // sets 'searchError' to null, just in case there was a previous error
@@ -53,7 +70,7 @@ class Main extends React.Component{
     })
     // query pokeapi for a pokemon's information
     axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${this.state.searchInput}`)
+      .get(`https://pokeapi.co/api/v2/pokemon/${searchQuery}`)
       .then(response => {
         // declare empty arr
         let moveArr = [];
@@ -98,7 +115,7 @@ class Main extends React.Component{
             })
           })
         }
-
+        // gen 7 (X and Y)
         if (moveArr.length === 0) {
           response.data.moves.forEach(element => {
             element.version_group_details.forEach(vgDetail => {
@@ -112,7 +129,7 @@ class Main extends React.Component{
             })
           })
         }
-
+        // gen 6 (Black and White)
         if (moveArr.length === 0) {
           response.data.moves.forEach(element => {
             element.version_group_details.forEach(vgDetail => {
@@ -127,9 +144,10 @@ class Main extends React.Component{
           })
         }
        
+        // reshaping the 'stats' property on the pokemon object
         let oldStats = response.data.stats;
         let newStats = [];
-         // removes 'effort' property from response and replaces with 'ev', add 'stat_value' property
+         // removes 'effort' property from response and replaces with 'ev', uncouples 'name' and 'url', add 'stat_value' property
         oldStats.forEach(element => {
           let newStat = {
             base_stat: element.base_stat,
@@ -182,9 +200,9 @@ class Main extends React.Component{
         )
         return pokemon;
       })
-      .then(response => {
-        // gets supplemental move information for each move, such as power, accuracy, etc.
-        response.moves.forEach(async move => {
+      // gets supplemental move information for each move, such as power, accuracy, etc.
+      .then(pokemon => {
+        pokemon.moves.forEach(async move => {
           try {
             let request = {
               url: `https://pokeapi.co/api/v2/move/${move.name}`,
@@ -203,11 +221,12 @@ class Main extends React.Component{
             console.log(err)
           }
         })
-        // "response" is the pokemon object created in previous .then
-        return response;
+        // "pokemon" is the pokemon object created in previous .then
+        return pokemon;
       })
-      .then(response => {
-        response.types.forEach(async element => {
+      // gets type effectiveness (i.e. what types a pokemon is weak to, resistant to, immune to)
+      .then(pokemon => {
+        pokemon.types.forEach(async element => {
           try{
             let res = await axios(element.type.url);
 
@@ -231,11 +250,29 @@ class Main extends React.Component{
           }
         })
 
-        return response;
+        return pokemon;
       })
-      .then(response => {
-        //gets ability descriptions
-        response.abilities.forEach(async element => {
+      // gets every generation of pokedex entries
+      .then (async pokemon => {
+        try {
+          let response = await axios(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`);
+          response.data.flavor_text_entries.forEach(element => {
+            if (element.language.name === 'en') {
+              let description = {
+                version: element.version.name,
+                description: element.flavor_text
+              }
+              pokemon.descriptions.push(description);
+            }
+          })
+        } catch(err) {
+          console.log(err)
+        }
+        return pokemon;
+      })
+      //gets ability descriptions
+      .then(pokemon => {
+        pokemon.abilities.forEach(async element => {
           try{
             let res = await axios(element.ability.url);
             element.description = res.data.effect_entries[1].effect;
@@ -243,9 +280,9 @@ class Main extends React.Component{
             console.log(err)
           }
         })
-        // Now that moves and abilities have been updated with supplemental info we set the searchResult state to response (the instantiated Pokemon object)
+        // Now that moves and abilities have been updated with supplemental info we set the searchResult state to pokemon (the instantiated Pokemon object)
         this.setState({
-          searchResult: response
+          searchResult: pokemon
         })
       })
       .catch(error => {
@@ -259,8 +296,15 @@ class Main extends React.Component{
   render() {
     return(
       <Container>
-        <SearchBar handleSearch={this.handleSearch} handleInputChange={this.handleInputChange} />
-        <Pokedex searchResult={this.state.searchResult} />
+        <SearchBar 
+          handleSearch={this.handleSearch} 
+          handleInputChange={this.handleInputChange} 
+        />
+        <Pokedex 
+          searchResult={this.state.searchResult}
+          handleNextPokemon={this.handleNextPokemon}
+          handlePreviousPokemon={this.handlePreviousPokemon}
+        />
       </Container>
     )
   }

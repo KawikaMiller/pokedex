@@ -13,6 +13,7 @@ export class Pokemon {
     this.battleAbility = '';
     this.battleMoves = [];
     this.heldItem = '';
+    this.descriptions = [];
   }
 }
 

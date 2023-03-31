@@ -58,47 +58,65 @@ class Pokedex extends React.Component {
                 </Container>
               </Container>
 
-              <Container id='shiny-toggle'>
-                {/* <Button style={{borderRadius: "50%", width: '7vh', height: '7vh', backgroundColor: 'darkslategray', border: 'none'}} ></Button> */}
-                <Button style={{backgroundColor: 'red', borderColor: 'red'}}></Button>
-                <Button></Button>
-              </Container>
-
                 {/*green box that displays pokemon stats */}
               <Container id='pokedex-bottom-ui'>
-
-                <Container id='pokedex-info'>
-                  {/* displays pokemon name */}
-                  {this.props.searchResult ? 
-                    <h4>
-                      {this.props.searchResult.name[0].toUpperCase() + 
-                      this.props.searchResult.name.slice(1)}
-                    </h4> 
-                    : 
-                    <h4>missingName</h4>
-                  }
-                  {/* displays pokemon base stats */}
-                  {this.props.searchResult ? 
-                    <BaseStats 
-                      stats={this.props.searchResult.stats} 
-                      key={`${this.props.searchResult.name}_basestats`}
-                    />
-                    :
-                    <BaseStats
-                      stats={
-                        [
-                          {name: 'HP', base_stat: undefined},
-                          {name: 'ATK', base_stat: undefined},
-                          {name: 'DEF', base_stat: undefined},
-                          {name: 'SP.ATK', base_stat: undefined},
-                          {name: 'SP.DEF', base_stat: undefined},
-                          {name: 'SPD', base_stat: undefined}
-                        ]
-                      }
-                      key={`placeholder_basestats`}
-                    />
-                  }
+                
+                <Container id='bottom-ui-circlebutton'>
+                  <Container id='circlebutton'></Container>
                 </Container>
+
+                <Container id='bottom-ui-center'>
+
+                  <Container id='bottom-ui-red-blue'>
+                    <Button></Button>
+                    <Button></Button>
+                  </Container>
+
+                  <Container id='bottom-ui-pokedex-info'>
+                    {/* displays pokemon name
+                    {this.props.searchResult ? 
+                      <h4>
+                        {this.props.searchResult.name[0].toUpperCase() + 
+                        this.props.searchResult.name.slice(1)}
+                      </h4> 
+                      : 
+                      <h4>missingName</h4>
+                    } */}
+                    {/* displays pokemon base stats */}
+                    {this.props.searchResult ? 
+                      <BaseStats 
+                        stats={this.props.searchResult.stats} 
+                        key={`${this.props.searchResult.name}_basestats`}
+                      />
+                      :
+                      <BaseStats
+                        stats={
+                          [
+                            {name: 'HP', base_stat: undefined},
+                            {name: 'ATK', base_stat: undefined},
+                            {name: 'DEF', base_stat: undefined},
+                            {name: 'SP.ATK', base_stat: undefined},
+                            {name: 'SP.DEF', base_stat: undefined},
+                            {name: 'SPD', base_stat: undefined}
+                          ]
+                        }
+                        key={`placeholder_basestats`}
+                      />
+                    }
+                  </Container>     
+
+                </Container>
+
+
+
+                <Container id='bottom-ui-dpad'>
+                    <div id='dpad-up'></div>
+                    <div id='dpad-left' onClick={this.props.handlePreviousPokemon}></div>
+                    <div id='dpad-center'></div>
+                    <div id='dpad-right' onClick={this.props.handleNextPokemon}></div>
+                    <div id='dpad-down'></div>
+                </Container>
+
               </Container>
             </Card.Body>
           </Card>
