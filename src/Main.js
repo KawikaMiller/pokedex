@@ -217,6 +217,8 @@ class Main extends React.Component{
             move.priority = res.data.priority;
             move.dmgClass = res.data.damage_class.name;
             move.type = res.data.type.name;
+            move.effectChance = res.data.effect_chance;
+            move.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance)
           } catch (err) {
             console.log(err)
           }
