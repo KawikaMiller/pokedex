@@ -254,13 +254,14 @@ class Main extends React.Component{
       })
       // gets every generation of pokedex entries
       .then (async pokemon => {
+        
         try {
-          let response = await axios(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`);
+          let response = await axios(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name.split('-')[0]}`);
           response.data.flavor_text_entries.forEach(element => {
             if (element.language.name === 'en') {
               let description = {
                 version: element.version.name,
-                description: element.flavor_text
+                description: element.flavor_text.replace('', ' ')
               }
               pokemon.descriptions.push(description);
             }

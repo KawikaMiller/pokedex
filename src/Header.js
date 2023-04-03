@@ -17,7 +17,7 @@ class Header extends React.Component {
 
   render(){
     return(
-      <section id='header'>
+      <section id='header' onClick={this.props.transitionHeader}>
         <Navbar>
           <Nav id='nav_left'>
             <Navbar.Brand>Pokedex App</Navbar.Brand>

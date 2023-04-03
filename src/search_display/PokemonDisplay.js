@@ -5,7 +5,7 @@ class PokemonDisplay extends React.Component{
     super(props);
 
     this.state = {
-
+      
     }
   }
 
@@ -13,10 +13,16 @@ class PokemonDisplay extends React.Component{
     return(
       <>
         {this.props.id ?
-          <img 
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.props.id}.png`}
-            alt={`official artwork for ${this.props.name}`}
-          /> 
+            this.props.toggleShiny ? 
+              <img 
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${this.props.id}.png`}
+              alt={`official shiny artwork for ${this.props.name}`}
+              /> 
+            :
+              <img 
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.props.id}.png`}
+              alt={`official artwork for ${this.props.name}`}
+              /> 
           : null
         }
       </>

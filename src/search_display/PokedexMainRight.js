@@ -10,7 +10,31 @@ class PokedexMainRight extends React.Component {
     super(props);
 
     this.state = {
+      dexEntryId: 0,
+    }
+  }
 
+  nextDexEntry = () => {
+    if (this.state.dexEntryId === this.props.pokemon.descriptions.length - 1) {
+      this.setState({
+        dexEntryId: 0
+      })
+    } else {
+      this.setState({
+        dexEntryId: this.state.dexEntryId + 1
+      })      
+    }
+  }
+
+  previousDexEntry = () => {
+    if (this.state.dexEntryId === 0) {
+      this.setState({
+        dexEntryId: this.props.pokemon.descriptions.length - 1
+      })
+    } else {
+      this.setState({
+        dexEntryId: this.state.dexEntryId - 1
+      })      
     }
   }
 
@@ -18,9 +42,9 @@ class PokedexMainRight extends React.Component {
     return(
       <>
       {/* black rectangle near top for displaying text */}
-      <Container style={{width: '80%', height: '25%', backgroundColor: 'rgb(25, 25, 25)', marginTop: '6rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <p style={{padding: '0.5rem'}}>{this.props.pokemon ? 
-          this.props.pokemon.descriptions[6].description
+      <Container id='pokedex_entry'>
+        <p>{this.props.pokemon ? 
+          this.props.pokemon.descriptions[this.state.dexEntryId].description
         :
           null}
         </p>
@@ -28,14 +52,14 @@ class PokedexMainRight extends React.Component {
 
       {/* 10 blue buttons */}
       <Container style={{width: '80%', marginTop: '2rem', padding: '0'}}>
-        <CardGroup>
+        <CardGroup id='main_right_blue_buttons'>
 
           <Card bg='primary'>
-            <Card.Header>
-              1
+            <Card.Header onClick={this.nextDexEntry}>
+              ^
             </Card.Header>
-            <Card.Footer>
-              1
+            <Card.Footer onClick={this.previousDexEntry}>
+              ⌄
             </Card.Footer>
           </Card>
 

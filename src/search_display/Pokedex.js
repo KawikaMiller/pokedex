@@ -14,8 +14,15 @@ class Pokedex extends React.Component {
     super(props);
 
     this.state = {
-      searchResult: this.props.searchResult
+      searchResult: this.props.searchResult,
+      toggleShiny: false,
     }
+  }
+
+  handleToggleShiny = () => {
+    this.setState({
+      toggleShiny: !this.state.toggleShiny
+    })
   }
 
   componentDidMount() {
@@ -51,7 +58,8 @@ class Pokedex extends React.Component {
                       name={this.props.searchResult.name}
                       id={this.props.searchResult.id} 
                       sprites={this.props.searchResult.sprites} 
-                      key={`${this.props.searchResult.name}_display`} 
+                      key={`${this.props.searchResult.name}_display`}
+                      toggleShiny={this.state.toggleShiny} 
                     /> 
                     : null
                   }
@@ -69,7 +77,7 @@ class Pokedex extends React.Component {
 
                   <Container id='bottom-ui-red-blue'>
                     <Button></Button>
-                    <Button></Button>
+                    <Button onClick={this.handleToggleShiny}></Button>
                   </Container>
 
                   <Container id='bottom-ui-pokedex-info'>

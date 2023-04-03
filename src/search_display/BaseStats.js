@@ -22,10 +22,10 @@ class BaseStats extends React.Component{
               className="base_stat"
               key={`${element.name}_div`}
             >
-            <strong 
+            <strong
+              id='stat_label'
               style={{
                 margin: '0', 
-                fontSize: '0.85rem',
                 width: '35%'
               }} 
               key={`${element.name}_name`}
