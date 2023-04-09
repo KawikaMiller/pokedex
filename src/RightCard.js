@@ -1,11 +1,16 @@
 import React from "react";
+
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
-import Learnset from "./Learnset";
+
+
+import Learnset from "./moves_abilities/Learnset";
 import Container from 'react-bootstrap/Container';
-import Abilities from "./Abilities";
-import Team from "./Team";
-// import Button from 'react-bootstrap/Button';
+import Abilities from "./moves_abilities/Abilities";
+import Team from "./teambuilder/Team";
+import PokedexMainRight from "./search_display/PokedexMainRight"
+
+
 
 class RightCard extends React.Component {
   constructor(props){
@@ -74,10 +79,16 @@ class RightCard extends React.Component {
       <Card.Header>
         <Nav variant='tabs' defaultActiveKey='0'>
           <Nav.Item>
-            <Nav.Link eventKey='0' onClick={() => {this.changeTab(0)}}>Moves & Abilities</Nav.Link>
+            <Nav.Link eventKey='0' onClick={() => {this.changeTab(0)}}>Main</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey='1' onClick={() => {this.changeTab(1)}}>Team Builder</Nav.Link>
+            <Nav.Link eventKey='1' onClick={() => {this.changeTab(1)}}>Moves & Abilities</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey='2' onClick={() => {this.changeTab(2)}}>Team Builder</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey='3' onClick={() => {this.changeTab(3)}}>Items</Nav.Link>
           </Nav.Item>
         </Nav>
       </Card.Header> 
@@ -85,11 +96,18 @@ class RightCard extends React.Component {
       {/* conditionally renders different components based on tab selected */}
       <Card.Body id="right_card_body">
 
-        {/* if activeKey is 0, displays moves and abilities */}
+        {/* if activeKey is 0, display a 'default' pokedex layout */}
         {this.state.activeKey === 0 ?
-          <>
+          <PokedexMainRight pokemon={this.props.searchResult} />
+        :   
+          false
+        }
+
+        {/* if activeKey is 1, displays moves and abilities */}
+        {this.state.activeKey === 1 ?
+          <Container id='learnset_and_abilities'>
             {/* displays all the moves, categorized by learn method */}
-            <Container id="moves_container">
+            <Container id="learnset_container">
               {
                 this.props.searchResult ?
                   <Learnset 
@@ -98,10 +116,9 @@ class RightCard extends React.Component {
                     key={`${this.props.searchResult.name}_moves`}
                   /> 
                 : 
-                  null
+                  <h4>Please search for a Pokemon</h4>
               }
-            </Container>
-            
+            </Container>          
             {/* displays the pokemon's abilities */}
             <Container id='abilities_container'>
               {
@@ -112,14 +129,14 @@ class RightCard extends React.Component {
                 : 
                   null  
               }
-            </Container>
-          </> 
+            </Container>           
+          </Container> 
           : null
         }
 
-        {/* if activeKey is 1, displays team builder */}
+        {/* if activeKey is 2, displays team builder */}
         {
-          this.state.activeKey === 1 ?
+          this.state.activeKey === 2 ?
               <Team 
                 searchResult={this.props.searchResult}
                 addTeamMember={this.addTeamMember}

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import SearchBar from "./SearchBar";
-import Pokedex from "./Pokedex";
+import Pokedex from "./search_display/Pokedex";
 import Container from "react-bootstrap/Container";
 import { Pokemon, Move } from "./lib/pokemon";
 
@@ -44,7 +44,81 @@ class Main extends React.Component{
     })
   }
 
-  handleSearch = async (event) => {
+  handleNextPokemon = (event) => {
+    if (this.state.searchResult) {
+      this.handleSearch(event, this.state.searchResult.id + 1);      
+    } else {
+      this.handleSearch(event, 1)
+    }
+  }
+
+  handlePreviousPokemon = (event) => {
+    if (this.state.searchResult) {
+      this.handleSearch(event, this.state.searchResult.id - 1);      
+    } else {
+      this.handleSearch(event, 1)
+    }
+  }
+
+  handleNextGen = (event) => {
+    // if a search has been made and returned a result, then cycle up by generations
+    if (this.state.searchResult) {
+    // if you're viewing pokemon within gen 1, move to gen 2
+      if (this.state.searchResult.id <= 151) {
+        this.handleSearch(event, 152)
+    // if you're viewing pokemon within gen 2, move to gen 3 & etc.
+      } else if (this.state.searchResult.id <= 251) {
+        this.handleSearch(event, 252)
+      } else if (this.state.searchResult.id <= 251) {
+        this.handleSearch(event, 252) 
+      } else if (this.state.searchResult.id <= 386) {
+        this.handleSearch(event, 387)
+      } else if (this.state.searchResult.id <= 493) {
+        this.handleSearch(event, 494)
+      } else if (this.state.searchResult.id <= 649) {
+        this.handleSearch(event, 650)
+      } else if (this.state.searchResult.id <= 721) {
+        this.handleSearch(event, 722)
+      } else if (this.state.searchResult.id <= 809) {
+        this.handleSearch(event, 810)
+      } else if (this.state.searchResult.id <= 905) {
+        this.handleSearch(event, 906)
+      } else if (this.state.searchResult.id <= 906) {
+        this.handleSearch(event, 1)
+      }
+    } else {this.handleSearch(event, 1)}
+  }
+
+  handlePreviousGen = (event) => {
+    // if a search has been made and returned a result, cycle back by generations
+    if (this.state.searchResult) {
+      // if within gen 9, move back to first starter of gen 8
+      if (this.state.searchResult.id >= 906) {
+        this.handleSearch(event, 810)
+      // if within gen 8, move back to first starter of gen 7 & etc.
+      } else if (this.state.searchResult.id >= 810) {
+        this.handleSearch(event, 722)
+      } else if (this.state.searchResult.id >= 722) {
+        this.handleSearch(event, 650) 
+      } else if (this.state.searchResult.id >= 650) {
+        this.handleSearch(event, 494)
+      } else if (this.state.searchResult.id >= 494) {
+        this.handleSearch(event, 387)
+      } else if (this.state.searchResult.id >= 387) {
+        this.handleSearch(event, 252)
+      } else if (this.state.searchResult.id >= 252) {
+        this.handleSearch(event, 152)
+      } else if (this.state.searchResult.id >= 152) {
+        this.handleSearch(event, 1)
+      } else if (this.state.searchResult.id >= 1) {
+        this.handleSearch(event, 906)
+      }
+    // if no search has been made, move to gen 9
+    } else {this.handleSearch(event, 906)}
+  }
+
+  // handles API calls to pokeapi for various information about a pokemon
+  handleSearch = async (event, searchQuery = this.state.searchInput) => {
     // prevents page from reloading on  search 'submit'
     event.preventDefault();
     // sets 'searchError' to null, just in case there was a previous error
@@ -53,7 +127,7 @@ class Main extends React.Component{
     })
     // query pokeapi for a pokemon's information
     axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${this.state.searchInput}`)
+      .get(`https://pokeapi.co/api/v2/pokemon/${searchQuery}`)
       .then(response => {
         // declare empty arr
         let moveArr = [];
@@ -98,7 +172,7 @@ class Main extends React.Component{
             })
           })
         }
-
+        // gen 7 (X and Y)
         if (moveArr.length === 0) {
           response.data.moves.forEach(element => {
             element.version_group_details.forEach(vgDetail => {
@@ -112,7 +186,7 @@ class Main extends React.Component{
             })
           })
         }
-
+        // gen 6 (Black and White)
         if (moveArr.length === 0) {
           response.data.moves.forEach(element => {
             element.version_group_details.forEach(vgDetail => {
@@ -126,21 +200,48 @@ class Main extends React.Component{
             })
           })
         }
-
-        // removes 'effort' property from response and replaces with 'ev', add 'stat_value' property
+       
+        // reshaping the 'stats' property on the pokemon object
         let oldStats = response.data.stats;
         let newStats = [];
-
+         // removes 'effort' property from response and replaces with 'ev', uncouples 'name' and 'url', add 'stat_value' property
         oldStats.forEach(element => {
           let newStat = {
             base_stat: element.base_stat,
             ev: 0,
             iv: 31,
-            stat: element.stat,
+            name: element.stat.name,
+            url: element.stat.url,
             stat_value: 1,
           }
           newStats.push(newStat)
         })
+
+        // renames stat names to abbreviated, all caps names
+        newStats.forEach(element => {
+          switch(element.name) {
+            case 'hp' :
+             element.name = 'HP';
+             break;
+            case 'attack' :
+              element.name = 'ATK';
+              break;
+            case 'defense' :
+              element.name = 'DEF';
+              break;
+            case 'special-attack' :
+              element.name = 'SP.ATK';
+              break;
+            case 'special-defense' :
+              element.name = 'SP.DEF';
+              break;
+            case 'speed' :
+              element.name = 'SPD';
+              break;
+            default :
+              console.log('error abbreviating stat name') 
+          }
+        }) 
 
         // create pokemon object which will ultimately be what is returned/sent as response
         let pokemon = new Pokemon(
@@ -156,9 +257,9 @@ class Main extends React.Component{
         )
         return pokemon;
       })
-      .then(response => {
-        // gets supplemental move information for each move, such as power, accuracy, etc.
-        response.moves.forEach(async move => {
+      // gets supplemental move information for each move, such as power, accuracy, etc.
+      .then(pokemon => {
+        pokemon.moves.forEach(async move => {
           try {
             let request = {
               url: `https://pokeapi.co/api/v2/move/${move.name}`,
@@ -173,15 +274,18 @@ class Main extends React.Component{
             move.priority = res.data.priority;
             move.dmgClass = res.data.damage_class.name;
             move.type = res.data.type.name;
+            move.effectChance = res.data.effect_chance;
+            move.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance)
           } catch (err) {
             console.log(err)
           }
         })
-        // "response" is the pokemon object created in previous .then
-        return response;
+        // "pokemon" is the pokemon object created in previous .then
+        return pokemon;
       })
-      .then(response => {
-        response.types.forEach(async element => {
+      // gets type effectiveness (i.e. what types a pokemon is weak to, resistant to, immune to)
+      .then(pokemon => {
+        pokemon.types.forEach(async element => {
           try{
             let res = await axios(element.type.url);
 
@@ -205,11 +309,30 @@ class Main extends React.Component{
           }
         })
 
-        return response;
+        return pokemon;
       })
-      .then(response => {
-        //gets ability descriptions
-        response.abilities.forEach(async element => {
+      // gets every generation of pokedex entries
+      .then (async pokemon => {
+        
+        try {
+          let response = await axios(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name.split('-')[0]}`);
+          response.data.flavor_text_entries.forEach(element => {
+            if (element.language.name === 'en') {
+              let description = {
+                version: element.version.name,
+                description: element.flavor_text.replace('', ' ')
+              }
+              pokemon.descriptions.push(description);
+            }
+          })
+        } catch(err) {
+          console.log(err)
+        }
+        return pokemon;
+      })
+      //gets ability descriptions
+      .then(pokemon => {
+        pokemon.abilities.forEach(async element => {
           try{
             let res = await axios(element.ability.url);
             element.description = res.data.effect_entries[1].effect;
@@ -217,9 +340,9 @@ class Main extends React.Component{
             console.log(err)
           }
         })
-        // Now that moves and abilities have been updated with supplemental info we set the searchResult state to response (the instantiated Pokemon object)
+        // Now that moves and abilities have been updated with supplemental info we set the searchResult state to pokemon (the instantiated Pokemon object)
         this.setState({
-          searchResult: response
+          searchResult: pokemon
         })
       })
       .catch(error => {
@@ -233,8 +356,17 @@ class Main extends React.Component{
   render() {
     return(
       <Container>
-        <SearchBar handleSearch={this.handleSearch} handleInputChange={this.handleInputChange} />
-        <Pokedex searchResult={this.state.searchResult} />
+        <SearchBar 
+          handleSearch={this.handleSearch} 
+          handleInputChange={this.handleInputChange} 
+        />
+        <Pokedex 
+          searchResult={this.state.searchResult}
+          handleNextPokemon={this.handleNextPokemon}
+          handlePreviousPokemon={this.handlePreviousPokemon}
+          handleNextGen={this.handleNextGen}
+          handlePreviousGen={this.handlePreviousGen}
+        />
       </Container>
     )
   }

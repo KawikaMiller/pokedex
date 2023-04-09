@@ -217,7 +217,7 @@ class Team extends React.Component{
         
         {/* displays all team members */}
         <Container id='team_members'>
-          <Container>
+          <Container style={{padding: '0'}}>
             <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
               {`Team Name: ${this.state.teamName}`}
             </h5>
