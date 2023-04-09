@@ -170,10 +170,10 @@ class PokedexMainRight extends React.Component {
 
           <Card bg='primary'>
             <Card.Header onClick={this.nextDexEntry}>
-              Dex ^
+              Gen +
             </Card.Header>
             <Card.Footer onClick={this.previousDexEntry}>
-              Dex ⌄
+              Gen -
             </Card.Footer>
           </Card>
 

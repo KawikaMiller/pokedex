@@ -70,7 +70,12 @@ class Pokedex extends React.Component {
               <Container id='pokedex-bottom-ui'>
                 
                 <Container id='bottom-ui-circlebutton'>
-                  <Container id='circlebutton'></Container>
+                  <Container id='circlebutton' onClick={() => {
+                    let audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${this.props.searchResult.name.toLowerCase()}.mp3`);
+                    audio.play();
+                  }}>
+                    
+                  </Container>
                 </Container>
 
                 <Container id='bottom-ui-center'>

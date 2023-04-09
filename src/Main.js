@@ -1,31 +1,14 @@
+// dependencies
 import React from "react";
 import axios from "axios";
+// bootstrap components
+import Container from "react-bootstrap/Container";
+// my components & classes
 import SearchBar from "./SearchBar";
 import Pokedex from "./search_display/Pokedex";
-import Container from "react-bootstrap/Container";
 import { Pokemon, Move } from "./lib/pokemon";
 
-// class Move {
-//   constructor(
-//     name=undefined, 
-//     levelLearned=undefined, 
-//     learnMethod=undefined,
-//     power=undefined, 
-//     accuracy=undefined, 
-//     pp=undefined, 
-//     dmgClass=undefined, 
-//     type=undefined,
-//     ){
-//     this.name = name;
-//     this.levelLearned = levelLearned;
-//     this.learnMethod = learnMethod;
-//     this.power = power;
-//     this.accuracy = accuracy;
-//     this.pp = pp;
-//     this.dmgClass = dmgClass;
-//     this.type = type;
-//   }
-// }
+
 
 class Main extends React.Component{
   constructor(props){
@@ -35,6 +18,7 @@ class Main extends React.Component{
       searchInput: '',
       searchResult: null,
       searchError: null,
+      cache: {},
     }
   }
 
@@ -125,6 +109,13 @@ class Main extends React.Component{
     this.setState({
       searchError: null
     })
+    let cacheKey = this.state.searchInput;
+    if (this.state.cache[cacheKey]){
+      this.setState({
+        searchResult: this.state.cache[cacheKey]
+      })
+    }
+    else {
     // query pokeapi for a pokemon's information
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${searchQuery}`)
@@ -255,6 +246,17 @@ class Main extends React.Component{
           newStats,
           response.data.types,
         )
+        pokemon.height = {
+          m: response.data.height / 10,
+          ft: parseInt((response.data.height / 3.048).toFixed(2))
+        };
+        pokemon.weight = {
+          kg: response.data.weight / 10,
+          lb: parseInt((response.data.weight / 4.536).toFixed(2))
+        };
+        if (response.data.forms.length > 1) {
+          pokemon.forms = response.data.forms;
+        }
         return pokemon;
       })
       // gets supplemental move information for each move, such as power, accuracy, etc.
@@ -325,6 +327,9 @@ class Main extends React.Component{
               pokemon.descriptions.push(description);
             }
           })
+          if (!pokemon.forms) {
+            pokemon.forms = response.data.varieties;            
+          }
         } catch(err) {
           console.log(err)
         }
@@ -340,9 +345,14 @@ class Main extends React.Component{
             console.log(err)
           }
         })
-        // Now that moves and abilities have been updated with supplemental info we set the searchResult state to pokemon (the instantiated Pokemon object)
+        // Now that moves and abilities have been updated with supplemental info we set the searchResult state to pokemon (the instantiated Pokemon object) and add the pokemon to the cache
+        // cache needs to be moved to backend once front end is finished
+        // also need to use server to make proxy requests to pokeapi > api call needs to be moved to the backend and front end needs to make a call to the server
+        let newCache = this.state.cache;
+        newCache[cacheKey] = pokemon;
         this.setState({
-          searchResult: pokemon
+          searchResult: pokemon,
+          cache: newCache
         })
       })
       .catch(error => {
@@ -351,6 +361,7 @@ class Main extends React.Component{
           searchError: error
         })
       })
+    }
   }
 
   render() {
