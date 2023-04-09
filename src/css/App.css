@@ -368,7 +368,7 @@ div.base_stat_progressbar.progress {
 }
 
 #stat_label {
-  font-size: 0.65rem;
+  font-size: 0.55rem;
 }
 
 #main_right_blue_buttons {
@@ -422,7 +422,7 @@ div.base_stat_progressbar.progress {
   line-height: 2rem;
   overflow-y: scroll;
   width: 80%;
-  height: 25%;
+  height: 200px;
   background-color: rgb(25, 25, 25); 
   margin-top: 5rem;
   padding: 0.5rem; 
@@ -434,13 +434,14 @@ div.base_stat_progressbar.progress {
 
 #pokedex_entry p {
   margin: 0;
-  /* height: 100%; */
+  position:absolute;
 }
 
 #entry_details {
   height: 80%;
   vertical-align: middle;
   padding-top: 1rem;
+  margin: 0;
 }
 
 #entry_header {

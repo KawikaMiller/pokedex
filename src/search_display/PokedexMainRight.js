@@ -16,6 +16,7 @@ class PokedexMainRight extends React.Component {
       screenId: 0,
       dexEntryId: 0,
       moveEntryId: 0,
+      abilityEntryId: 0,
       sortedMoves: [],
       movesSorted: false,
     }
@@ -103,6 +104,34 @@ class PokedexMainRight extends React.Component {
     }
   }
 
+  nextAbilityEntry = () => {
+    this.changeScreen(2)
+
+    if (this.state.abilityEntryId === this.props.pokemon.abilities.length - 1) {
+      this.setState({
+        abilityEntryId: 0
+      })
+    } else {
+      this.setState({
+        abilityEntryId: this.state.abilityEntryId + 1
+      })      
+    }
+  }
+
+  previousAbilityEntry = () => {
+    this.changeScreen(2)
+
+    if (this.state.abilityEntryId === 0) {
+      this.setState({
+        abilityEntryId: this.props.pokemon.abilities.length - 1
+      })
+    } else {
+      this.setState({
+        abilityEntryId: this.state.abilityEntryId - 1
+      })      
+    }
+  }
+
   render() {
     return(
       <>
@@ -111,16 +140,24 @@ class PokedexMainRight extends React.Component {
         {this.state.screenId === 0 && this.props.pokemon ?
           <PokedexEntry
             header1={this.props.pokemon.name[0].toUpperCase() + this.props.pokemon.name.slice(1)}
-            header2={this.props.pokemon.id.toString().padStart(3, '0')}
-            details={this.props.pokemon.descriptions[this.state.dexEntryId].description}
+            header2={this.props.pokemon.descriptions.length ? this.props.pokemon.descriptions[this.state.dexEntryId].version : 'PokeAPI Error'}
+            header3={this.props.pokemon.id.toString().padStart(3, '0')}
+            details={this.props.pokemon.descriptions.length ? this.props.pokemon.descriptions[this.state.dexEntryId].description : 'PokeAPI Error' }
           />        
         :
         this.state.screenId === 1 && this.props.pokemon ?
           <PokedexEntry 
             header1={this.state.sortedMoves[this.state.moveEntryId].name}
-            header2={this.state.sortedMoves[this.state.moveEntryId].dmgClass}
+            header3={this.state.sortedMoves[this.state.moveEntryId].dmgClass}
             details={this.state.sortedMoves[this.state.moveEntryId].description}
           />
+        :
+        this.state.screenId === 2 && this.props.pokemon ?
+        <PokedexEntry 
+          header1={this.props.pokemon.abilities[this.state.abilityEntryId].ability.name}
+          header3={this.props.pokemon.abilities[this.state.abilityEntryId].is_hidden ? null : 'Hidden Ability'}
+          details={this.props.pokemon.abilities[this.state.abilityEntryId].description}
+        />
         :
           'Please Search for a Pokemon'
         }
@@ -150,10 +187,10 @@ class PokedexMainRight extends React.Component {
           </Card>
 
           <Card bg='primary'>
-            <Card.Header>
+            <Card.Header onClick={this.nextAbilityEntry}>
               Abilty +
             </Card.Header>
-            <Card.Footer>
+            <Card.Footer onClick={this.previousAbilityEntry}>
               Ability -
             </Card.Footer>
           </Card>

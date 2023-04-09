@@ -60,6 +60,56 @@ class Main extends React.Component{
     }
   }
 
+  handleNextGen = (event) => {
+    if (this.state.searchResult) {
+      if (this.state.searchResult.id <= 151) {
+        this.handleSearch(event, 152)
+      } else if (this.state.searchResult.id <= 251) {
+        this.handleSearch(event, 252)
+      } else if (this.state.searchResult.id <= 251) {
+        this.handleSearch(event, 252) 
+      } else if (this.state.searchResult.id <= 386) {
+        this.handleSearch(event, 387)
+      } else if (this.state.searchResult.id <= 493) {
+        this.handleSearch(event, 494)
+      } else if (this.state.searchResult.id <= 649) {
+        this.handleSearch(event, 650)
+      } else if (this.state.searchResult.id <= 721) {
+        this.handleSearch(event, 722)
+      } else if (this.state.searchResult.id <= 809) {
+        this.handleSearch(event, 810)
+      } else if (this.state.searchResult.id <= 905) {
+        this.handleSearch(event, 906)
+      } else if (this.state.searchResult.id <= 906) {
+        this.handleSearch(event, 1)
+      }
+    } else {this.handleSearch(event, 1)}
+  }
+
+  handlePreviousGen = (event) => {
+    if (this.state.searchResult) {
+      if (this.state.searchResult.id >= 906) {
+        this.handleSearch(event, 810)
+      } else if (this.state.searchResult.id >= 810) {
+        this.handleSearch(event, 722)
+      } else if (this.state.searchResult.id >= 722) {
+        this.handleSearch(event, 650) 
+      } else if (this.state.searchResult.id >= 650) {
+        this.handleSearch(event, 494)
+      } else if (this.state.searchResult.id >= 494) {
+        this.handleSearch(event, 387)
+      } else if (this.state.searchResult.id >= 387) {
+        this.handleSearch(event, 252)
+      } else if (this.state.searchResult.id >= 252) {
+        this.handleSearch(event, 152)
+      } else if (this.state.searchResult.id >= 152) {
+        this.handleSearch(event, 1)
+      } else if (this.state.searchResult.id >= 1) {
+        this.handleSearch(event, 906)
+      }
+    } else {this.handleSearch(event, 906)}
+  }
+
   // handles API calls to pokeapi for various information about a pokemon
   handleSearch = async (event, searchQuery = this.state.searchInput) => {
     // prevents page from reloading on  search 'submit'
@@ -307,6 +357,8 @@ class Main extends React.Component{
           searchResult={this.state.searchResult}
           handleNextPokemon={this.handleNextPokemon}
           handlePreviousPokemon={this.handlePreviousPokemon}
+          handleNextGen={this.handleNextGen}
+          handlePreviousGen={this.handlePreviousGen}
         />
       </Container>
     )

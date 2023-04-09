@@ -81,15 +81,6 @@ class Pokedex extends React.Component {
                   </Container>
 
                   <Container id='bottom-ui-pokedex-info'>
-                    {/* displays pokemon name
-                    {this.props.searchResult ? 
-                      <h4>
-                        {this.props.searchResult.name[0].toUpperCase() + 
-                        this.props.searchResult.name.slice(1)}
-                      </h4> 
-                      : 
-                      <h4>missingName</h4>
-                    } */}
                     {/* displays pokemon base stats */}
                     {this.props.searchResult ? 
                       <BaseStats 
@@ -118,11 +109,11 @@ class Pokedex extends React.Component {
 
 
                 <Container id='bottom-ui-dpad'>
-                    <div id='dpad-up'></div>
+                    <div id='dpad-up' onClick={this.props.handleNextGen}></div>
                     <div id='dpad-left' onClick={this.props.handlePreviousPokemon}></div>
                     <div id='dpad-center'></div>
                     <div id='dpad-right' onClick={this.props.handleNextPokemon}></div>
-                    <div id='dpad-down'></div>
+                    <div id='dpad-down' onClick={this.props.handlePreviousGen}></div>
                 </Container>
 
               </Container>
