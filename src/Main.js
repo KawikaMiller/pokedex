@@ -61,9 +61,12 @@ class Main extends React.Component{
   }
 
   handleNextGen = (event) => {
+    // if a search has been made and returned a result, then cycle up by generations
     if (this.state.searchResult) {
+    // if you're viewing pokemon within gen 1, move to gen 2
       if (this.state.searchResult.id <= 151) {
         this.handleSearch(event, 152)
+    // if you're viewing pokemon within gen 2, move to gen 3 & etc.
       } else if (this.state.searchResult.id <= 251) {
         this.handleSearch(event, 252)
       } else if (this.state.searchResult.id <= 251) {
@@ -87,9 +90,12 @@ class Main extends React.Component{
   }
 
   handlePreviousGen = (event) => {
+    // if a search has been made and returned a result, cycle back by generations
     if (this.state.searchResult) {
+      // if within gen 9, move back to first starter of gen 8
       if (this.state.searchResult.id >= 906) {
         this.handleSearch(event, 810)
+      // if within gen 8, move back to first starter of gen 7 & etc.
       } else if (this.state.searchResult.id >= 810) {
         this.handleSearch(event, 722)
       } else if (this.state.searchResult.id >= 722) {
@@ -107,6 +113,7 @@ class Main extends React.Component{
       } else if (this.state.searchResult.id >= 1) {
         this.handleSearch(event, 906)
       }
+    // if no search has been made, move to gen 9
     } else {this.handleSearch(event, 906)}
   }
 
