@@ -16,12 +16,25 @@ class Pokedex extends React.Component {
     this.state = {
       searchResult: this.props.searchResult,
       toggleShiny: false,
+      toggleForm: false,
+      formApiId: null,
+      formIdx: 0,
     }
   }
 
   handleToggleShiny = () => {
     this.setState({
       toggleShiny: !this.state.toggleShiny
+    })
+  }
+
+  handleToggleForm = () => {
+    let newApiIdx = this.state.formIdx + 1;
+    if (newApiIdx >= this.props.searchResult.forms.length) {
+      newApiIdx = 0;
+    }
+    this.setState({
+      formIdx: newApiIdx
     })
   }
 
@@ -56,7 +69,7 @@ class Pokedex extends React.Component {
                   {this.props.searchResult ?
                     <PokemonDisplay 
                       name={this.props.searchResult.name}
-                      id={this.props.searchResult.id} 
+                      id={this.props.searchResult.forms[this.state.formIdx].apiId} 
                       sprites={this.props.searchResult.sprites} 
                       key={`${this.props.searchResult.name}_display`}
                       toggleShiny={this.state.toggleShiny} 
@@ -81,7 +94,7 @@ class Pokedex extends React.Component {
                 <Container id='bottom-ui-center'>
 
                   <Container id='bottom-ui-red-blue'>
-                    <Button></Button>
+                    <Button variant="success" onClick={this.handleToggleForm}></Button>
                     <Button onClick={this.handleToggleShiny}></Button>
                   </Container>
 

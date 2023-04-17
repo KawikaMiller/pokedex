@@ -29,6 +29,7 @@ class Main extends React.Component{
   }
 
   handleNextPokemon = (event) => {
+    console.log('next pokemon')
     if (this.state.searchResult) {
       this.handleSearch(event, this.state.searchResult.id + 1);      
     } else {
@@ -37,6 +38,7 @@ class Main extends React.Component{
   }
 
   handlePreviousPokemon = (event) => {
+    console.log('prev pokemon')
     if (this.state.searchResult) {
       this.handleSearch(event, this.state.searchResult.id - 1);      
     } else {
@@ -45,6 +47,7 @@ class Main extends React.Component{
   }
 
   handleNextGen = (event) => {
+    console.log('next generation')
     // if a search has been made and returned a result, then cycle up by generations
     if (this.state.searchResult) {
     // if you're viewing pokemon within gen 1, move to gen 2
@@ -74,6 +77,7 @@ class Main extends React.Component{
   }
 
   handlePreviousGen = (event) => {
+    console.log('previous generation')
     // if a search has been made and returned a result, cycle back by generations
     if (this.state.searchResult) {
       // if within gen 9, move back to first starter of gen 8
@@ -109,7 +113,7 @@ class Main extends React.Component{
     this.setState({
       searchError: null
     })
-    let cacheKey = this.state.searchInput;
+    let cacheKey = null // this.state.searchInput;
     if (this.state.cache[cacheKey]){
       this.setState({
         searchResult: this.state.cache[cacheKey]
@@ -254,8 +258,16 @@ class Main extends React.Component{
           kg: response.data.weight / 10,
           lb: parseInt((response.data.weight / 4.536).toFixed(2))
         };
+        pokemon.forms = [];
         if (response.data.forms.length > 1) {
-          pokemon.forms = response.data.forms;
+          response.data.forms.forEach(form => {
+            let f = {
+              name: form.name,
+              url: form.url,
+              apiId: form.url.match(/[^v]\d+/)[0].slice(1)
+            }
+            pokemon.forms.push(f);
+          })
         }
         return pokemon;
       })
@@ -327,8 +339,15 @@ class Main extends React.Component{
               pokemon.descriptions.push(description);
             }
           })
-          if (!pokemon.forms) {
-            pokemon.forms = response.data.varieties;            
+          if (pokemon.forms.length === 0) {
+            response.data.varieties.forEach(form => {
+              let f = {
+                name: form.pokemon.name,
+                url: form.pokemon.url,
+                apiId: form.pokemon.url.match(/[^v]\d+/)[0].slice(1),
+              }
+              pokemon.forms.push(f)
+            })           
           }
         } catch(err) {
           console.log(err)
@@ -348,11 +367,11 @@ class Main extends React.Component{
         // Now that moves and abilities have been updated with supplemental info we set the searchResult state to pokemon (the instantiated Pokemon object) and add the pokemon to the cache
         // cache needs to be moved to backend once front end is finished
         // also need to use server to make proxy requests to pokeapi > api call needs to be moved to the backend and front end needs to make a call to the server
-        let newCache = this.state.cache;
-        newCache[cacheKey] = pokemon;
+        // let newCache = this.state.cache;
+        // newCache[cacheKey] = pokemon;
         this.setState({
           searchResult: pokemon,
-          cache: newCache
+          // cache: newCache
         })
       })
       .catch(error => {
