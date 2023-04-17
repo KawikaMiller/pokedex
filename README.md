@@ -3,13 +3,59 @@
 **Author**: Kawika Miller
 
 **Version**: 1.0.6 
-<!-- (increment the patch/fix version number if you make more commits past your first submission) -->
 
 ## Overview
-This application will allow a user to query the pokeapi and view the results in a kanto-pokedex-styled ui.
+This application will allow a user to query the PokeAPI and view the results in a kanto-pokedex-styled UI.
+
+*There are weird scaling/sizing issues with the React-Bootstrap components that still need to be addressed. Therefore, this app works/looks best if your web browser window is at full size*
+
+![Main Screen](./screenshots/mainscreen.JPG)
+
+- When you first load the app you will be greeted with this screen. Go ahead and search for a pokemon and the result should load!
+  - *Because of how the PokeAPI works, there are a few Pokemon that need to be searched with a hyphenated query. (e.g. Searching for "Giratina" will not return any search results, but searching for "Giratina-origin" will work. I am in the early stages of working on a fix for this but until then you can search for these edge cases using a hyphenated search OR using their pokedex number*)
+
+![Main Screen Search Result](./screenshots/searchresult.JPG)
+- After you've made your search you will see something similar to the screenshot above. 
+
+- Some of these buttons aren't just for show!
+  - Click on the grey circle button on the left to hear the pokemon's cry
+  - The green button will toggle between the different forms a pokemon has if applicable (e.g. seasonal / regional / etc.)
+    - There are a few edge cases where the PokeAPI is inconsistent with how they handle this information so you may run into some strange bugs depending on which pokemon you search. (search for 'Unown' for an example!)
+    - I know it's actually supposed to be red but that makes it hard to see in its current state
+  - The blue button will toggle between the shiny version of that pokemon and the normal version
+  - The D-pad's left and right buttons will go back and forward by 1 pokedex number respectively.
+  - The D-pad's up and down buttons will go forward and back by 1 generation. (e.g. if you're on Pikachu and you click up, it will take you to the Chikorita - the start of Gen 2. If you're on Pichu and you click down it will take you to Bulbasaur)
+  - The `gen+` and `gen-` buttons cycle through each generation's pokedex entry for a given pokemon.
+  - The `move+` and `move-` buttons cycle through each of the Pokemon's moves and gives a brief description of what the move does
+  - The `ability+` and `ability-` buttons cycle through each of the Pokemon's abilities and gives a brief description of what the ability does.
+
+![Moves and Abilities Tab](./screenshots/moves%26abilities.JPG)
+
+If you click the `Moves and Abilities` tab on the right, you can view a more detailed breakdown of each of the Pokemon's moves and abilities.
+
+![Team Builder](./screenshots/teambuilder.JPG)
+
+If you click on the `Team Builder` tab on the right, you can create your own Pokemon team.
+
+- The `Search Result` section allows you to modify the pokemon's IVs and EVs, their four moves you will use for battle, as well as their ability and held item before committing them to your team.
+
+- You can always edit these values after they've been added to your team as well or remove them from the team completely.
+
+- You can view your current team's defenseive type coverage with the `Type Coverage` button at the bottom
+
+- The `New Team` button will clear your entire team
+
+- The `Save Team` and `Load Team` button do work but the back end repo hasn't been pushed up to GitHub yet so they won't actually do anything if you run this locally.
+  - Currently, they save everything to a database being hosted on MongoDB Atlas
+  - There's also no separation of pokemon teams based on login credentials so all saved teams get thrown into one singular DB - I need to reconfigure this and set the backend up properly so that people can use Auth0 to login with their google accounts and only be able to access their own saved teams.
+  - Also thinking of setting this up to use a PostgreSQL database instead of MongoDB
+
+The `Items` tab is still being worked on.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+If you are running this locally all you need to do is run `npm start` in your terminal from the root of this directory.
+
+*Deployed version of the app TBD*
 
 ## Architecture
 This application utilizes JavaScript, React, and React-Bootstrap
@@ -41,7 +87,6 @@ This application utilizes JavaScript, React, and React-Bootstrap
 2023-03-22 : Able to delete a team from the database
 
 ## Credit and Collaborations
-
 
 ------
 
