@@ -48,7 +48,6 @@ class Pokedex extends React.Component {
     if(prevProps !== this.props) {
       this.setState({
         searchResult: this.props.searchResult,
-        toggleShiny: false,
         formIdx: 0,
       })
     }
@@ -79,7 +78,8 @@ class Pokedex extends React.Component {
                   {this.props.searchResult ?
                     <PokemonDisplay 
                       name={this.props.searchResult.name}
-                      id={this.props.searchResult.forms[this.state.formIdx].apiId} 
+                      id={this.props.searchResult.forms[this.state.formIdx].apiId}
+                      formIdx={this.state.formIdx} 
                       sprites={this.props.searchResult.sprites} 
                       key={`${this.props.searchResult.name}_display`}
                       toggleShiny={this.state.toggleShiny} 
