@@ -12,10 +12,10 @@ import BaseStats from "./BaseStats";
 class Pokedex extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log('POKEDEX CONSTRUCTOR PROPS: ', props)
     this.state = {
       searchResult: this.props.searchResult,
-      toggleShiny: false,
+      toggleShiny: this.props.handleShinyToggle,
       toggleForm: false,
       formApiId: null,
       formIdx: 0,
@@ -42,6 +42,16 @@ class Pokedex extends React.Component {
     this.setState({
       searchResult: this.props.searchResult
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps !== this.props) {
+      this.setState({
+        searchResult: this.props.searchResult,
+        toggleShiny: false,
+        formIdx: 0,
+      })
+    }
   }
 
   render() {
@@ -79,15 +89,13 @@ class Pokedex extends React.Component {
                 </Container>
               </Container>
 
-                {/*green box that displays pokemon stats */}
               <Container id='pokedex-bottom-ui'>
                 
                 <Container id='bottom-ui-circlebutton'>
                   <Container id='circlebutton' onClick={() => {
                     let audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${this.props.searchResult.name.toLowerCase()}.mp3`);
                     audio.play();
-                  }}>
-                    
+                  }}>                   
                   </Container>
                 </Container>
 
@@ -123,8 +131,6 @@ class Pokedex extends React.Component {
                   </Container>     
 
                 </Container>
-
-
 
                 <Container id='bottom-ui-dpad'>
                     <div id='dpad-up' onClick={this.props.handleNextGen}></div>

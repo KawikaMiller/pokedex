@@ -8,6 +8,7 @@ class PokemonDisplay extends React.Component{
       idModifier: null,
     }
   }
+  
   render() {
     return(
       <>

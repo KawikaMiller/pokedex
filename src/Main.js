@@ -105,6 +105,23 @@ class Main extends React.Component{
     } else {this.handleSearch(event, 906)}
   }
 
+  handleSearchQueryEdgeCases = (searchQuery) => {
+    switch (searchQuery) {
+      case 'wormadam':
+        return 'wormadam-plant';
+      case 'basculin':
+        return 'basculin-red-striped';
+      case 'darmanitan':
+        return 'darmanitan-standard';
+      case 'zygarde':
+        return 'zygarde-50';
+      case 'giratina':
+        return 'giratina-altered';
+      default:
+        return searchQuery;
+    }
+  }
+
   // handles API calls to pokeapi for various information about a pokemon
   handleSearch = async (event, searchQuery = this.state.searchInput) => {
     // prevents page from reloading on  search 'submit'
@@ -113,6 +130,7 @@ class Main extends React.Component{
     this.setState({
       searchError: null
     })
+    searchQuery = this.handleSearchQueryEdgeCases(searchQuery);
     let cacheKey = null // this.state.searchInput;
     if (this.state.cache[cacheKey]){
       this.setState({
