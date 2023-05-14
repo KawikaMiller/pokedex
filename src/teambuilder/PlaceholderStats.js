@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Stat from './Stat';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -139,11 +139,17 @@ function PlaceholderStats(props) {
     handleHideMovesModal()
   }
 
-  componentDidUpdate = (prevProps) => {
-    if (prevProps !== props) {
-      return true;
-    }
-  }
+
+  useEffect(() => {
+    props = props;
+  },
+  props)
+
+  // componentDidUpdate = (prevProps) => {
+  //   if (prevProps !== props) {
+  //     return true;
+  //   }
+  // }
 
     return(
       <>

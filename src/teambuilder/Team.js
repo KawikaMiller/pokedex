@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import TeamMember from './TeamMember';
 import PlaceholderTeamMember from './PlaceholderTeamMember';
@@ -63,7 +63,7 @@ function Team (props){
       let response = await axios.get(
         `${process.env.REACT_APP_SERVER}/team?id=${teamId}`
       )
-      updateTeam(response.data.pokemon);
+      props.updateTeam(response.data.pokemon);
       setTeamName(response.data.teamName);
       setTeamId(response.data._id);
     } catch (err) {
@@ -152,26 +152,38 @@ function Team (props){
     }
   }
 
-  const componentDidUpdate = (prevProps) => {
-    if (prevProps !== props) {
-      setTeam(props.team)
-    }
-  }
 
-  const componentDidMount = () => {
-    setTeam(props.team);
-  }
+  useEffect(() => {
+    setTeam(props.team)
+  }, props)
+
+
+  useEffect(() => {
+    setTeam(props.team)
+  }, [])
+
 
     return(
       <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%',}}>
 
         {/* placeholder team member before adding pokemon to team */}
         <Container id='team_member_placeholder'>
-          {props.searchResult ? <h5>Search Result</h5> : <h5>Please Search For A Pokemon</h5>}
+
           {props.searchResult ? 
-          <PlaceholderTeamMember addTeamMember={props.addTeamMember} searchResult={props.searchResult} key='PlaceholderTeamMember' 
+          <h5>Search Result</h5> 
+          : 
+          <h5>Please Search For A Pokemon</h5>
+          }
+
+          {props.searchResult ? 
+          <PlaceholderTeamMember 
+          addTeamMember={props.addTeamMember} 
+          searchResult={props.searchResult} key='PlaceholderTeamMember' 
           />
-          : null }
+          : 
+          null
+          }
+          
         </Container>
         
         {/* displays all team members */}

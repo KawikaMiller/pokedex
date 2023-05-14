@@ -25,6 +25,7 @@ function RightCard (props){
     if (team.length === 6) {
       // add modal pop up, 'team is full'
     } else {
+      console.log('yoge')
       setTeam([...team, pokemon])
     }
   }
