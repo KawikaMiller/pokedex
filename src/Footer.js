@@ -1,19 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // import Container from 'react-bootstrap/Container'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faInstagram, faLinkedin} from '@fortawesome/free-brands-svg-icons'
 
-class Footer extends React.Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-
-    }
-  }
-
-  render(){
+function Footer(props) {
+  
     return(
       <section id='footer'>
         <div id='pokeball_button_footer'></div>
@@ -38,7 +30,7 @@ class Footer extends React.Component {
         </div>
       </section>
     )
-  }
+
 }
 
 export default Footer;

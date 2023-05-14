@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-class TypeChartRow extends React.Component{
-  constructor(props){
-    super(props);
+function TypeChartRow (props){
 
-    this.typeEffectiveness = [
+  const [typeEffectiveness, setTypeEffectiveness] = useState([]);
+
+  setTypeEffectiveness([
       {
         type: 'normal',
         effectiveness: 1
@@ -77,19 +77,15 @@ class TypeChartRow extends React.Component{
         type: 'fairy',
         effectiveness: 1
       },
-    ]
+    ])
 
-    this.determineTypeEffectiveness();
+    determineTypeEffectiveness();
 
-    this.state = {
-    }
-  }
+  const determineTypeEffectiveness = () => {
 
-  determineTypeEffectiveness = () => {
-
-    this.props.typeInfo.forEach(element => {
+    props.typeInfo.forEach(element => {
       element.doubleDamageFrom.forEach(item => {
-        this.typeEffectiveness.forEach(thing => {
+        typeEffectiveness.forEach(thing => {
           if (thing.type.toLowerCase() === item.toLowerCase()) {
             thing.effectiveness *= 2;
           }
@@ -97,9 +93,9 @@ class TypeChartRow extends React.Component{
       })
     })
 
-    this.props.typeInfo.forEach(element => {
+    props.typeInfo.forEach(element => {
       element.halfDamageFrom.forEach(item => {
-        this.typeEffectiveness.forEach(thing => {
+        typeEffectiveness.forEach(thing => {
           if(thing.type.toLowerCase() === item.toLowerCase()) {
             thing.effectiveness /= 2;
           }
@@ -107,9 +103,9 @@ class TypeChartRow extends React.Component{
       })
     })
 
-    this.props.typeInfo.forEach(element => {
+    props.typeInfo.forEach(element => {
       element.noDamageFrom.forEach(item => {
-        this.typeEffectiveness.forEach(thing => {
+        typeEffectiveness.forEach(thing => {
           if(thing.type.toLowerCase() === item.toLowerCase()) {
             thing.effectiveness = 0;
           }
@@ -118,31 +114,27 @@ class TypeChartRow extends React.Component{
     })
   }
 
-  componentDidMount() {
-    this.setState({
-      typeEffectiveness: this.typeEffectiveness
-    })
+  const componentDidMount = () => {
+    setTypeEffectiveness(typeEffectiveness)
   }
 
-  render(){
-    return(
-      <tr key={`${this.props.typeInfo.name}_typechart_row`}>
-        <td key={`${this.props.typeInfo.name}_label`}>
-          <strong>
-            {`${this.props.pokemonName[0].toUpperCase()}${this.props.pokemonName.slice(1).toLowerCase()}`}
-          </strong>
-        </td>
-        {
-          this.state.typeEffectiveness ? 
-            this.state.typeEffectiveness.map(element => (
-              <td>{`${element.effectiveness}x`}</td>
-            )) 
-          : 
-            null 
-        }
-      </tr>
-    )
-  }
+  return(
+    <tr key={`${props.typeInfo.name}_typechart_row`}>
+      <td key={`${props.typeInfo.name}_label`}>
+        <strong>
+          {`${props.pokemonName[0].toUpperCase()}${props.pokemonName.slice(1).toLowerCase()}`}
+        </strong>
+      </td>
+      {
+        typeEffectiveness ? 
+          typeEffectiveness.map(element => (
+            <td>{`${element.effectiveness}x`}</td>
+          )) 
+        : 
+          null 
+      }
+    </tr>
+  )
 }
 
 export default TypeChartRow

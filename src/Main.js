@@ -1,5 +1,5 @@
 // dependencies
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 // bootstrap components
 import Container from "react-bootstrap/Container";
@@ -10,102 +10,95 @@ import { Pokemon, Move } from "./lib/pokemon";
 
 
 
-class Main extends React.Component{
-  constructor(props){
-    super(props);
+function Main (props){
 
-    this.state = {
-      searchInput: '',
-      searchResult: null,
-      searchError: null,
-      cache: {},
-    }
+  const [searchInput, setSearchInput] = useState('');
+  const [searchError, setSearchError] = useState(null);
+  const [searchResult, setSearchResult] = useState(null);
+  const [cache, setCache] = useState({});
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value.toLowerCase())
   }
 
-  handleInputChange = (event) => {
-    this.setState({
-      searchInput: event.target.value.toLowerCase()
-    })
-  }
-
-  handleNextPokemon = (event) => {
-    console.log('next pokemon')
-    if (this.state.searchResult) {
-      this.handleSearch(event, this.state.searchResult.id + 1);      
+  const handleNextPokemon = (event) => {
+    // console.log('next pokemon')
+    if (searchResult) {
+      handleSearch(event, searchResult.id + 1);      
     } else {
-      this.handleSearch(event, 1)
+      handleSearch(event, 1)
     }
   }
 
-  handlePreviousPokemon = (event) => {
-    console.log('prev pokemon')
-    if (this.state.searchResult) {
-      this.handleSearch(event, this.state.searchResult.id - 1);      
+  const handlePreviousPokemon = (event) => {
+    // console.log('prev pokemon')
+    if (searchResult) {
+      handleSearch(event, searchResult.id - 1);      
     } else {
-      this.handleSearch(event, 1)
+      handleSearch(event, 1)
     }
   }
 
-  handleNextGen = (event) => {
-    console.log('next generation')
+  const handleNextGen = (event) => {
+    // console.log('next generation')
     // if a search has been made and returned a result, then cycle up by generations
-    if (this.state.searchResult) {
+    if (searchResult) {
     // if you're viewing pokemon within gen 1, move to gen 2
-      if (this.state.searchResult.id <= 151) {
-        this.handleSearch(event, 152)
+      if (searchResult.id <= 151) {
+        handleSearch(event, 152)
     // if you're viewing pokemon within gen 2, move to gen 3 & etc.
-      } else if (this.state.searchResult.id <= 251) {
-        this.handleSearch(event, 252)
-      } else if (this.state.searchResult.id <= 251) {
-        this.handleSearch(event, 252) 
-      } else if (this.state.searchResult.id <= 386) {
-        this.handleSearch(event, 387)
-      } else if (this.state.searchResult.id <= 493) {
-        this.handleSearch(event, 494)
-      } else if (this.state.searchResult.id <= 649) {
-        this.handleSearch(event, 650)
-      } else if (this.state.searchResult.id <= 721) {
-        this.handleSearch(event, 722)
-      } else if (this.state.searchResult.id <= 809) {
-        this.handleSearch(event, 810)
-      } else if (this.state.searchResult.id <= 905) {
-        this.handleSearch(event, 906)
-      } else if (this.state.searchResult.id <= 906) {
-        this.handleSearch(event, 1)
+      } else if (searchResult.id <= 251) {
+        handleSearch(event, 252)
+      } else if (searchResult.id <= 251) {
+        handleSearch(event, 252) 
+      } else if (searchResult.id <= 386) {
+        handleSearch(event, 387)
+      } else if (searchResult.id <= 493) {
+        handleSearch(event, 494)
+      } else if (searchResult.id <= 649) {
+        handleSearch(event, 650)
+      } else if (searchResult.id <= 721) {
+        handleSearch(event, 722)
+      } else if (searchResult.id <= 809) {
+        handleSearch(event, 810)
+      } else if (searchResult.id <= 905) {
+        handleSearch(event, 906)
+      } else if (searchResult.id <= 906) {
+        handleSearch(event, 1)
       }
-    } else {this.handleSearch(event, 1)}
+    } else {handleSearch(event, 1)}
   }
 
-  handlePreviousGen = (event) => {
+  const handlePreviousGen = (event) => {
     console.log('previous generation')
     // if a search has been made and returned a result, cycle back by generations
-    if (this.state.searchResult) {
+    if (searchResult) {
       // if within gen 9, move back to first starter of gen 8
-      if (this.state.searchResult.id >= 906) {
-        this.handleSearch(event, 810)
+      if (searchResult.id >= 906) {
+        handleSearch(event, 810)
       // if within gen 8, move back to first starter of gen 7 & etc.
-      } else if (this.state.searchResult.id >= 810) {
-        this.handleSearch(event, 722)
-      } else if (this.state.searchResult.id >= 722) {
-        this.handleSearch(event, 650) 
-      } else if (this.state.searchResult.id >= 650) {
-        this.handleSearch(event, 494)
-      } else if (this.state.searchResult.id >= 494) {
-        this.handleSearch(event, 387)
-      } else if (this.state.searchResult.id >= 387) {
-        this.handleSearch(event, 252)
-      } else if (this.state.searchResult.id >= 252) {
-        this.handleSearch(event, 152)
-      } else if (this.state.searchResult.id >= 152) {
-        this.handleSearch(event, 1)
-      } else if (this.state.searchResult.id >= 1) {
-        this.handleSearch(event, 906)
+      } else if (searchResult.id >= 810) {
+        handleSearch(event, 722)
+      } else if (searchResult.id >= 722) {
+        handleSearch(event, 650) 
+      } else if (searchResult.id >= 650) {
+        handleSearch(event, 494)
+      } else if (searchResult.id >= 494) {
+        handleSearch(event, 387)
+      } else if (searchResult.id >= 387) {
+        handleSearch(event, 252)
+      } else if (searchResult.id >= 252) {
+        handleSearch(event, 152)
+      } else if (searchResult.id >= 152) {
+        handleSearch(event, 1)
+      } else if (searchResult.id >= 1) {
+        handleSearch(event, 906)
       }
     // if no search has been made, move to gen 9
-    } else {this.handleSearch(event, 906)}
+    } else {handleSearch(event, 906)}
   }
 
-  handleSearchQueryEdgeCases = (searchQuery) => {
+  const handleSearchQueryEdgeCases = (searchQuery) => {
     switch (searchQuery) {
       case 'wormadam':
         return 'wormadam-plant';
@@ -123,19 +116,18 @@ class Main extends React.Component{
   }
 
   // handles API calls to pokeapi for various information about a pokemon
-  handleSearch = async (event, searchQuery = this.state.searchInput) => {
+  const handleSearch = async (event, searchQuery = searchInput) => {
     // prevents page from reloading on  search 'submit'
     event.preventDefault();
     // sets 'searchError' to null, just in case there was a previous error
-    this.setState({
-      searchError: null
-    })
-    searchQuery = this.handleSearchQueryEdgeCases(searchQuery);
-    let cacheKey = null // this.state.searchInput;
-    if (this.state.cache[cacheKey]){
-      this.setState({
-        searchResult: this.state.cache[cacheKey]
-      })
+    setSearchError(null);
+
+    searchQuery = handleSearchQueryEdgeCases(searchQuery);
+
+    let cacheKey = null // searchInput;
+
+    if (cache[cacheKey]){
+      setCache(cache[cacheKey])
     }
     else {
     // query pokeapi for a pokemon's information
@@ -385,39 +377,32 @@ class Main extends React.Component{
         // Now that moves and abilities have been updated with supplemental info we set the searchResult state to pokemon (the instantiated Pokemon object) and add the pokemon to the cache
         // cache needs to be moved to backend once front end is finished
         // also need to use server to make proxy requests to pokeapi > api call needs to be moved to the backend and front end needs to make a call to the server
-        // let newCache = this.state.cache;
+        // let newCache = cache;
         // newCache[cacheKey] = pokemon;
-        this.setState({
-          searchResult: pokemon,
-          // cache: newCache
-        })
+        setSearchResult(pokemon)
       })
       .catch(error => {
         // if there is an error with the request, set state of searchError to the error received
-        this.setState({
-          searchError: error
-        })
+        setSearchError(error)
       })
     }
   }
 
-  render() {
     return(
       <Container>
         <SearchBar 
-          handleSearch={this.handleSearch} 
-          handleInputChange={this.handleInputChange} 
+          handleSearch={handleSearch} 
+          handleInputChange={handleInputChange} 
         />
         <Pokedex 
-          searchResult={this.state.searchResult}
-          handleNextPokemon={this.handleNextPokemon}
-          handlePreviousPokemon={this.handlePreviousPokemon}
-          handleNextGen={this.handleNextGen}
-          handlePreviousGen={this.handlePreviousGen}
+          searchResult={searchResult}
+          handleNextPokemon={handleNextPokemon}
+          handlePreviousPokemon={handlePreviousPokemon}
+          handleNextGen={handleNextGen}
+          handlePreviousGen={handlePreviousGen}
         />
       </Container>
     )
-  }
 }
 
 export default Main;

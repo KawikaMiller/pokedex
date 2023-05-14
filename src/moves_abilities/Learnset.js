@@ -1,138 +1,101 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 // import Button from 'react-bootstrap/Button';
 import MoveList from './MoveList';
 
-class Learnset extends React.Component {
-  constructor(props){
-    super(props);
+function Learnset (props) {
+  const [levelUpMoves, setLevelUpMoves] = useState([]);
+  const [tmMoves, setTmMoves] = useState([]);
+  const [tutorMoves, setTutorMoves] = useState([]);
+  const [eggMoves, setEggMoves] = useState([]);
 
-    this.state = {
-      levelUpMoves: [],
-      tmMoves: [],
-      tutorMoves: [],
-      eggMoves: [],
-    }
-  }
 
   // parse moves by learn method
-  parseLevelUpMoves = () => {
-    let levelUpArr = [];
+  const parseLevelUpMoves = () => {
 
-    this.props.moves.forEach(move => {
-      if (move.learnMethod === 'level-up') {
-        levelUpArr.push(move);
+    props.moves.forEach(move => {
+      if (move.learnMethod === 'level-up' && !levelUpMoves.includes(move)) {
+        setLevelUpMoves(levelUpMoves.push(move))
       }
     })
 
-    // this.sortMovesByLevel(levelUpArr);
-
-    this.setState({levelUpMoves: levelUpArr})
   }
 
-  parseTmMoves = () => {
-    let tmArr = [];
+  const parseTmMoves = () => {
 
-    this.props.moves.forEach(move => {
-      if (move.learnMethod === 'machine') {
-        tmArr.push(move);
+    props.moves.forEach(move => {
+      if (move.learnMethod === 'machine' && !tmMoves.includes(move)) {
+        setTmMoves(tmMoves.push(move))
       }
     })
 
-    // this.sortMovesByName(tmArr);
-
-    this.setState({tmMoves: tmArr})
   }
 
-  parseTutorMoves = () => {
-    let tutorArr = [];
+  const parseTutorMoves = () => {
 
-    this.props.moves.forEach(move => {
-      if (move.learnMethod === 'tutor') {
-        tutorArr.push(move);
+    props.moves.forEach(move => {
+      if (move.learnMethod === 'tutor' && !tutorMoves.includes(move)) {
+        setTutorMoves(tutorMoves.push(move))
       }
     })
 
-    // this.sortMovesByName(tutorArr);
-
-    this.setState({tutorMoves: tutorArr})
   }
 
-  parseEggMoves = () => {
-    let eggArr = [];
+  const parseEggMoves = () => {
 
-    this.props.moves.forEach(move => {
-      if (move.learnMethod === 'egg') {
-        eggArr.push(move);
+    props.moves.forEach(move => {
+      if (move.learnMethod === 'egg' && !eggMoves.includes(move)) {
+        setEggMoves(eggMoves.push(move))
       }
     })
 
-    // this.sortMovesByName(eggArr);
-
-    this.setState({eggMoves: eggArr})
   }
 
   // this runs all four previous parse methods
-  parseMoves = () => {
-    this.parseEggMoves();
-    this.parseLevelUpMoves();
-    this.parseTmMoves();
-    this.parseTutorMoves();
+  const parseMoves = () => {
+    parseEggMoves();
+    parseLevelUpMoves();
+    parseTmMoves();
+    parseTutorMoves();
   }
 
-  // handles state change & move parsing during react lifecycle
-  componentDidMount() {
-    this.parseMoves();
-    setTimeout(() => this.setState({
-      levelUpMoves: this.state.levelUpMoves,
-      tmMoves: this.state.tmMoves,
-      tutorMoves: this.state.tutorMoves,
-      eggMoves: this.state.eggMoves,
-    }), 500)
-  }
+  // handles state change & move parsing during react lifecycle || simulates 'componentDidMount'
+  useEffect(() => {
+    parseMoves();
+    setTimeout(() => {
+      setLevelUpMoves(levelUpMoves);
+      setTmMoves(tmMoves);
+      setTutorMoves(tutorMoves);
+      setEggMoves(eggMoves);
+    }, 10)
+  }, [])
 
-  render(){
-    return(
-      <Accordion defaultActiveKey='0'>
-        
-        {/* level up moves */}
-        <Accordion.Item eventKey='0'>
-          <MoveList moves={this.state.levelUpMoves} header="Level-Up Moves" />
-        </Accordion.Item>
+  return(
+    <Accordion defaultActiveKey='0'>
+      
+      {/* level up moves */}
+      <Accordion.Item eventKey='0'>
+        <MoveList moves={levelUpMoves} header="Level-Up Moves" pokemonName={props.pokemonName} />
+      </Accordion.Item>
 
-        {/* tm moves */}
-        <Accordion.Item eventKey='1'>
-          <MoveList moves={this.state.tmMoves} header="TM Moves" />
-        </Accordion.Item>
+      {/* tm moves */}
+      <Accordion.Item eventKey='1'>
+        <MoveList moves={tmMoves} header="TM Moves" pokemonName={props.pokemonName} />
+      </Accordion.Item>
 
-        {/* tutor moves */}
-        <Accordion.Item eventKey='2'>
-          <MoveList moves={this.state.tutorMoves} header="Tutor Moves" />
-        </Accordion.Item>
-        
-        {/* egg moves */}
-        <Accordion.Item eventKey='3'>
-          <MoveList moves={this.state.eggMoves} header="Egg Moves" />
-        </Accordion.Item>
+      {/* tutor moves */}
+      <Accordion.Item eventKey='2'>
+        <MoveList moves={tutorMoves} header="Tutor Moves" pokemonName={props.pokemonName} />
+      </Accordion.Item>
+      
+      {/* egg moves */}
+      <Accordion.Item eventKey='3'>
+        <MoveList moves={eggMoves} header="Egg Moves" pokemonName={props.pokemonName} />
+      </Accordion.Item>
 
-      </Accordion>
-    )
-  }
+    </Accordion>
+  )
 }
 
 export default Learnset;
-
-  // filterDuplicateMoves = (arr) => {
-  //   let filteredArr = [];
-
-  //   for (let i = 0; i < arr.length; i++) {
-  //     if (!arr[i + 1]){
-        
-  //     }
-  //     else if (arr[i].name !== arr[i + 1].name) {
-  //       filteredArr = [arr[i], ...filteredArr];
-  //     }
-  //   }
-  //   return filteredArr;
-  // }

@@ -1,130 +1,114 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 import { calculateStatTotal, calculateHpTotal, getNatureModifier, natureModifiers } from '../lib/calcStats';
 
-class Stat extends React.Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      IV: this.props.stat.iv,
-      EV: this.props.stat.ev,
-      level: this.props.level,
-      statName: this.props.stat.name,
-      statTotal: 0,
-      nature: 1, //change this later
-      natureName: this.props.nature
-    }
-  }
+function Stat (props) {
+  const [IV, setIV] = useState(props.stat.iv);
+  const [EV, setEV] = useState(props.stat.ev);
+  const [level, setLevel] = useState(props.level);
+  const [statName, setStatName] = useState(props.stat.name);
+  const [statTotal, setStatTotal] = useState(0);
+  const [nature, setNature] = useState(1); // change this later
+  const [natureName, setNatureName] = useState(props.nature);
 
   // getHpTotal and getStatTotal only exist to make the rest of the code easier to read
-  getHpTotal = () => {
+  const getHpTotal = () => {
     return calculateHpTotal(
-      this.props.stat.base_stat,
-      this.props.stat.iv,
-      this.props.stat.ev,
-      this.props.level,
+      props.stat.base_stat,
+      props.stat.iv,
+      props.stat.ev,
+      props.level,
     )
   }
 
-  getStatTotal = () => {
+  const getStatTotal = () => {
     return calculateStatTotal(
-      this.props.stat.name,
-      this.props.stat.base_stat,
-      this.props.stat.iv,
-      this.props.stat.ev,
-      this.props.level,
-      this.props.nature
+      props.stat.name,
+      props.stat.base_stat,
+      props.stat.iv,
+      props.stat.ev,
+      props.level,
+      props.nature
     )
   }
 
-  calculateMaxStatTotal = () => {
-    const natureMultiplier = getNatureModifier(natureModifiers, this.props.nature, this.props.stat.name);
+  const calculateMaxStatTotal = () => {
+    const natureMultiplier = getNatureModifier(natureModifiers, props.nature, props.stat.name);
 
-    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.props.level) / 100)) + 5) * natureMultiplier)
+    return Math.floor(((Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(255 / 4)) * props.level) / 100)) + 5) * natureMultiplier)
   }
 
-  calculateMinStatTotal = () => {
-    const natureMultiplier = getNatureModifier(natureModifiers, this.props.nature, this.props.stat.name);
+  const calculateMinStatTotal = () => {
+    const natureMultiplier = getNatureModifier(natureModifiers, props.nature, props.stat.name);
 
-    return Math.floor(((Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.props.level) / 100)) + 5) * natureMultiplier)
+    return Math.floor(((Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(0 / 4)) * props.level) / 100)) + 5) * natureMultiplier)
   }
 
-  calculateMaxHpTotal = () => {
-    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(255 / 4)) * this.props.level) / 100) + this.props.level + 10
+  const calculateMaxHpTotal = () => {
+    return Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(255 / 4)) * props.level) / 100) + props.level + 10
   }
 
-  calculateMinHpTotal = () => {
-    return Math.floor(((2 * this.props.stat.base_stat + this.props.stat.iv + Math.floor(0 / 4)) * this.props.level) / 100) + this.props.level + 10
+  const calculateMinHpTotal = () => {
+    return Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(0 / 4)) * props.level) / 100) + props.level + 10
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props && this.state.statName === 'HP') {
-      this.setState({
-        level: this.props.level,
-        IV: this.props.stat.iv,
-        EV: this.props.stat.ev,
-        statTotal: this.getHpTotal(),
-        natureName: this.props.nature
-      })
+  const componentDidUpdate = (prevProps) => {
+    if (prevProps !== props && statName === 'HP') {
+      setLevel(props.level);
+      setIV(props.stat.iv);
+      setEV(props.stat.ev);
+      setStatTotal(getHpTotal());
+      setNatureName(props.nature);
     }
-    else if(prevProps !== this.props && this.state.statName !== 'HP') {
-      this.setState({
-        level: this.props.level,
-        IV: this.props.stat.iv,
-        EV: this.props.stat.ev,
-        statTotal: this.getStatTotal(),
-        natureName: this.props.nature
-      })
+    else if(prevProps !== props && statName !== 'HP') {
+      setLevel(props.level);
+      setIV(props.stat.iv);
+      setEV(props.stat.ev);
+      setStatTotal(getStatTotal());
+      setNatureName(props.nature);
     }
   }
 
-  componentDidMount() {
-    if (this.props.stat.name === 'HP') {
-      this.setState({
-        statTotal: this.getHpTotal()
-      })
-    } else if (this.props.stat.name !== 'HP') {
-      this.setState({
-        statTotal: this.getStatTotal()
-      })
+  const componentDidMount = () => {
+    if (props.stat.name === 'HP') {
+      setStatTotal(getHpTotal())
+    } else if (props.stat.name !== 'HP') {
+      setStatTotal(getStatTotal())
     }
   }
 
-  render() {
     return(
       <Container 
         style={{textAlign: 'left', padding: '0', marginTop: '0'}} 
-        key={`${this.state.statName}_container`}
+        key={`${statName}_container`}
       >
-        {this.state.statName === 'HP' ?
+        {statName === 'HP' ?
         <>
-          {this.state.statName} : {this.getHpTotal()} / {this.calculateMaxHpTotal()}
+          {statName} : {getHpTotal()} / {calculateMaxHpTotal()}
           <ProgressBar 
             style={{height: '0.5vh', width: '90%'}} 
-            now={this.getHpTotal()} 
-            max={this.calculateMaxHpTotal()} 
-            min={this.calculateMinHpTotal()}
-            key={`${this.state.statName}_${this.state.statTotal}`}
+            now={getHpTotal()} 
+            max={calculateMaxHpTotal()} 
+            min={calculateMinHpTotal()}
+            key={`${statName}_${statTotal}`}
           />
         </>         
         :
         <>
-        {this.state.statName} : {this.getStatTotal()} / {this.calculateMaxStatTotal()}
+        {statName} : {getStatTotal()} / {calculateMaxStatTotal()}
         <ProgressBar 
           style={{height: '0.5vh', width: '90%'}} 
-          now={this.getStatTotal()} 
-          max={this.calculateMaxStatTotal()} 
-          min={this.calculateMinStatTotal()}
-          key={`${this.state.statName}_${this.state.statTotal}`}
+          now={getStatTotal()} 
+          max={calculateMaxStatTotal()} 
+          min={calculateMinStatTotal()}
+          key={`${statName}_${statTotal}`}
         />
         </>
         }
       </Container>
     )
-  }
 }
 
 export default Stat;

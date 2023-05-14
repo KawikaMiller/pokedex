@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
@@ -63,17 +63,23 @@ class MoveList extends React.Component{
     if (this.props.moves.length > 0) {
       return this.props.moves
         .map(element => (
-        <tr key={`${this.props.pokemonName}_${element.name}_row`}>
-          <td key={`${this.props.pokemonName}_${element.name}_levelLearned`}>{element.levelLearned}</td>
-          <td key={`${this.props.pokemonName}_${element.name}`}>{element.name}</td>
-          <td key={`${this.props.pokemonName}_${element.name}_power`}>{element.power}</td>
-          <td key={`${this.props.pokemonName}_${element.name}_accuracy`}>{element.accuracy}</td>
-          <td key={`${this.props.pokemonName}_${element.name}_pp`}>{element.pp}</td>
-          <td key={`${this.props.pokemonName}_${element.name}_dmgClass`}>{element.dmgClass}</td>
-          <td key={`${this.props.pokemonName}_${element.name}_type`}>{element.type}</td>
+        <tr>
+          <td>{element.levelLearned}</td>
+          <td>{element.name}</td>
+          <td>{element.power}</td>
+          <td>{element.accuracy}</td>
+          <td>{element.pp}</td>
+          <td>{element.dmgClass}</td>
+          <td>{element.type}</td>
         </tr>
         ))
     } else return null;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      return true;
+    }
   }
 
   render() {
@@ -112,44 +118,3 @@ class MoveList extends React.Component{
 }
 
 export default MoveList;
-
-  // old methods, no longer used but preserved for backup just in case
-
-  // sortMovesByLevel = (arr) => {
-  //   arr.sort((a,b) => {
-  //     if(a.levelLearned < b.levelLearned){
-  //       return -1;
-  //     } else if (a.levelLearned > b.levelLearned) {
-  //       return 1;
-  //     } else return 0;
-  //   })
-  // }
-
-  // handleToggleLevelSort = () => {
-  //   if (this.state.sortedByLevel) {
-  //     this.setState({
-  //       sortedByLevel: true,
-  //       sortedByName: false,
-  //       sortedByPower: false,
-  //       sortedByAccuracy: false,
-  //       sortedByPP: false,
-  //       sortedByDmgClass: false,
-  //       sortedByType: false,
-  //     })
-  //     this.props.moves.reverse();
-  //   }
-  //   else {
-  //     this.setState({
-  //       sortedByLevel: true,
-  //       sortedByName: false,
-  //       sortedByPower: false,
-  //       sortedByAccuracy: false,
-  //       sortedByPP: false,
-  //       sortedByDmgClass: false,
-  //       sortedByType: false,
-  //     })
-
-  //     this.sortMoves(this.props.moves, 'levelLearned');
-
-  //   }
-  // }

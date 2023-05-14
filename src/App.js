@@ -46,6 +46,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Main />} />
             <Route path='/new' element={<p>test</p>} />
+            <Route path='/callback' element={<Main />} />
           </Routes>
         </main>
       </BrowserRouter>

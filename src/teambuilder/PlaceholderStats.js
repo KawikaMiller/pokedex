@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Stat from './Stat';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -7,22 +7,16 @@ import Container from 'react-bootstrap/Container';
 
 import { calculateStatTotal, calculateHpTotal, } from '../lib/calcStats';
 
-class PlaceholderStats extends React.Component{
-  constructor(props){
-    super(props);
-
-    this.state = {
-      level: this.props.level,
-      stats: this.props.stats,
-      nature: 'bashful',
-      showMovesModal: false,
-      showIvEvModal: false,
-      disableSubmit: false,
-    }
-  }
+function PlaceholderStats(props) {
+  const [level, setLevel] = useState(props.level);
+  const [stats, setStats] = useState(props.stats);
+  const [nature, setNature] = useState('bashful');
+  const [showMovesModal, setShowMovesModal] = useState(false);
+  const [showIvEvModal, setShowIvEvModal] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
 
   // prevents EVs from totaling over 510
-  handleFormChange = (event) => {
+  const handleFormChange = (event) => {
     if (
       parseInt(event.target.form[1].value) +
       parseInt(event.target.form[3].value) +
@@ -30,39 +24,31 @@ class PlaceholderStats extends React.Component{
       parseInt(event.target.form[7].value )+
       parseInt(event.target.form[9].value) +
       parseInt(event.target.form[11].value) > 510 ) {
-        this.setState({
-          disableSubmit: true
-        })
+        setDisableSubmit(true)
       } else {
-        this.setState({
-          disableSubmit: false
-        })
+        setDisableSubmit(false)
       }
   }
 
   // toggles visibility of edit stats modal
-  handleHideIvEvModal = () => {
-    this.setState({
-      showIvEvModal: !this.state.showIvEvModal
-    })
+  const handleHideIvEvModal = () => {
+    setShowIvEvModal(!showIvEvModal)
   }
 
-  handleHideMovesModal = () => {
-    this.setState({
-      showMovesModal: !this.state.showMovesModal
-    })
+  const handleHideMovesModal = () => {
+    setShowMovesModal(!showMovesModal)
   }
 
   // gets form information and updates stats in this component and parent component
-  handleEditStats = (event) => {
+  const handleEditStats = (event) => {
     event.preventDefault();
 
-    let newStats = this.state.stats;
+    let newStats = stats;
 
     newStats[0].iv = parseInt(event.target.iv_hp.value)
     newStats[0].ev = parseInt(event.target.ev_hp.value)
     newStats[0].stat_value = calculateHpTotal(
-      this.state.stats[0].base_stat, 
+      stats[0].base_stat, 
       parseInt(event.target.iv_hp.value), 
       parseInt(event.target.ev_hp.value), 
       parseInt(event.target.level.value)
@@ -71,8 +57,8 @@ class PlaceholderStats extends React.Component{
     newStats[1].iv = parseInt(event.target.iv_atk.value)
     newStats[1].ev = parseInt(event.target.ev_atk.value)
     newStats[1].stat_value = calculateStatTotal(
-      this.state.stats[1].name,
-      this.state.stats[1].base_stat, 
+      stats[1].name,
+      stats[1].base_stat, 
       parseInt(event.target.iv_atk.value), 
       parseInt(event.target.ev_atk.value), 
       parseInt(event.target.level.value), 
@@ -82,8 +68,8 @@ class PlaceholderStats extends React.Component{
     newStats[2].iv = parseInt(event.target.iv_def.value)
     newStats[2].ev = parseInt(event.target.ev_def.value)
     newStats[2].stat_value = calculateStatTotal(
-      this.state.stats[2].name,
-      this.state.stats[2].base_stat, 
+      stats[2].name,
+      stats[2].base_stat, 
       parseInt(event.target.iv_atk.value), 
       parseInt(event.target.ev_atk.value), 
       parseInt(event.target.level.value), 
@@ -93,8 +79,8 @@ class PlaceholderStats extends React.Component{
     newStats[3].iv = parseInt(event.target.iv_spatk.value)
     newStats[3].ev = parseInt(event.target.ev_spatk.value)
     newStats[3].stat_value = calculateStatTotal(
-      this.state.stats[3].name,
-      this.state.stats[3].base_stat, 
+      stats[3].name,
+      stats[3].base_stat, 
       parseInt(event.target.iv_atk.value), 
       parseInt(event.target.ev_atk.value), 
       parseInt(event.target.level.value), 
@@ -104,8 +90,8 @@ class PlaceholderStats extends React.Component{
     newStats[4].iv = parseInt(event.target.iv_spdef.value)
     newStats[4].ev = parseInt(event.target.ev_spdef.value)
     newStats[4].stat_value = calculateStatTotal(
-      this.state.stats[4].name,
-      this.state.stats[4].base_stat, 
+      stats[4].name,
+      stats[4].base_stat, 
       parseInt(event.target.iv_atk.value), 
       parseInt(event.target.ev_atk.value), 
       parseInt(event.target.level.value), 
@@ -115,8 +101,8 @@ class PlaceholderStats extends React.Component{
     newStats[5].iv = parseInt(event.target.iv_spd.value)
     newStats[5].ev = parseInt(event.target.ev_spd.value)
     newStats[5].stat_value = calculateStatTotal(
-      this.state.stats[5].name,
-      this.state.stats[5].base_stat, 
+      stats[5].name,
+      stats[5].base_stat, 
       parseInt(event.target.iv_atk.value), 
       parseInt(event.target.ev_atk.value), 
       parseInt(event.target.level.value), 
@@ -124,18 +110,16 @@ class PlaceholderStats extends React.Component{
     )
 
     // sends updated stat values back to placeholder component
-    this.props.updateStats(newStats, parseInt(event.target.level.value), event.target.nature.value);
+    props.updateStats(newStats, parseInt(event.target.level.value), event.target.nature.value);
 
-    this.setState({
-      level: parseInt(event.target.level.value),
-      stats: newStats,
-      nature: event.target.nature.value
-    })
+    setLevel(parseInt(event.target.level.value));
+    setStats(newStats);
+    setNature(event.target.nature.value)
   
-    this.handleHideIvEvModal();
+    handleHideIvEvModal();
   }
 
-  sortMoves = (arr) => {
+  const sortMoves = (arr) => {
     arr.sort((a,b) => {
       if(a.name < b.name){
         return -1;
@@ -145,69 +129,68 @@ class PlaceholderStats extends React.Component{
     })
   }
 
-  handleSubmitBattleInfo = (event) => {
+  const handleSubmitBattleInfo = (event) => {
     event.preventDefault();
 
     const battleMovesArr = [event.target.move_1.value, event.target.move_2.value, event.target.move_3.value, event.target.move_4.value]
 
-    this.props.updateBattleInfo(battleMovesArr, event.target.battle_ability.value, event.target.held_item.value)
+    props.updateBattleInfo(battleMovesArr, event.target.battle_ability.value, event.target.held_item.value)
 
-    this.handleHideMovesModal()
+    handleHideMovesModal()
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
+  componentDidUpdate = (prevProps) => {
+    if (prevProps !== props) {
       return true;
     }
   }
 
-  render() {
     return(
       <>
       <Container className='team_member_stats' >
 
         <div className='stats_sub_phys'>
           <Stat 
-            stat={this.state.stats[0]} 
-            level={this.state.level}
-            nature={this.state.nature} />
+            stat={stats[0]} 
+            level={level}
+            nature={nature} />
           <Stat 
-            stat={this.state.stats[1]} 
-            level={this.state.level}
-            nature={this.state.nature} />
+            stat={stats[1]} 
+            level={level}
+            nature={nature} />
           <Stat 
-            stat={this.state.stats[2]} 
-            level={this.state.level}
-            nature={this.state.nature} />
+            stat={stats[2]} 
+            level={level}
+            nature={nature} />
         </div>
 
         <div className='stats_sub_spec'>
           <Stat 
-            stat={this.state.stats[3]} 
-            level={this.state.level}
-            nature={this.state.nature} />
+            stat={stats[3]} 
+            level={level}
+            nature={nature} />
           <Stat 
-            stat={this.state.stats[4]} 
-            level={this.state.level}
-            nature={this.state.nature} />
+            stat={stats[4]} 
+            level={level}
+            nature={nature} />
           <Stat 
-            stat={this.state.stats[5]} 
-            level={this.state.level}
-            nature={this.state.nature} />
+            stat={stats[5]} 
+            level={level}
+            nature={nature} />
         </div>
 
         <div className='placeholder_buttons'>
 
           <Button
             style={{ margin: '0.5rem 0', padding: '0'}}
-            onClick={this.handleHideMovesModal}
+            onClick={handleHideMovesModal}
           >
             Moves
           </Button>
 
           <Button 
             style={{ margin: '0.5rem 0', padding: '0'}}
-            onClick={this.handleHideIvEvModal}
+            onClick={handleHideIvEvModal}
           >
             IV/EV
           </Button>
@@ -215,27 +198,27 @@ class PlaceholderStats extends React.Component{
           <Button 
             style={{ margin: '0.5rem 0', padding: '0'}}
             variant='success' 
-            onClick={this.props.addTeamMember} 
+            onClick={props.addTeamMember} 
           >
           + To Team
           </Button>
         </div>
       </Container>
 
-      <Modal centered show={this.state.showMovesModal} onHide={this.handleHideMovesModal} >
-        {this.sortMoves(this.props.moves)}
+      <Modal centered show={showMovesModal} onHide={handleHideMovesModal} >
+        {sortMoves(props.moves)}
         <Modal.Header>
           Battle Info
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={this.handleSubmitBattleInfo}>
+          <Form onSubmit={handleSubmitBattleInfo}>
             <Form.Group id='battle_moves' className='battle_moves_form'>
               <Container style={{display: 'flex', flexDirection: 'column'}}>
                 <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
                   <div>
                     <Form.Label>Ability</Form.Label>
                     <Form.Select id='battle_ability'>
-                      {this.props.abilities.map(element => (
+                      {props.abilities.map(element => (
                         <option value={element.name}>{element.ability.name}</option>
                       ))}
                     </Form.Select>
@@ -253,7 +236,7 @@ class PlaceholderStats extends React.Component{
                   <div>
                     <Form.Label>Move 1</Form.Label>
                     <Form.Select id='move_1'>
-                      {this.props.moves.map(element => (
+                      {props.moves.map(element => (
                         <option value={element.name}>{element.name}</option>
                       ))}
                     </Form.Select>                    
@@ -262,7 +245,7 @@ class PlaceholderStats extends React.Component{
                   <div>
                     <Form.Label>Move 2</Form.Label>
                     <Form.Select id="move_2">
-                      {this.props.moves.map(element => (
+                      {props.moves.map(element => (
                         <option value={element.name}>{element.name}</option>
                       ))}
                     </Form.Select>                     
@@ -273,7 +256,7 @@ class PlaceholderStats extends React.Component{
                   <div>
                     <Form.Label>Move 3</Form.Label>
                     <Form.Select id='move_3'>
-                      {this.props.moves.map(element => (
+                      {props.moves.map(element => (
                         <option value={element.name}>{element.name}</option>
                       ))}
                     </Form.Select>                    
@@ -282,7 +265,7 @@ class PlaceholderStats extends React.Component{
                   <div>
                     <Form.Label>Move 4</Form.Label>
                     <Form.Select id='move_4'>
-                      {this.props.moves.map(element => (
+                      {props.moves.map(element => (
                         <option value={element.name}>{element.name}</option>
                       ))}
                     </Form.Select>                     
@@ -301,10 +284,10 @@ class PlaceholderStats extends React.Component{
       </Modal>
 
       {/* handles editing stat IV and EV values */}
-      <Modal centered show={this.state.showIvEvModal} onHide={this.handleHideIvEvModal}>
+      <Modal centered show={showIvEvModal} onHide={handleHideIvEvModal}>
         <Modal.Header>Edit IVs & EVs <span>EV totals must be 510 or less</span></Modal.Header>
         <Modal.Body>
-          <Form onSubmit={this.handleEditStats} onChange={this.handleFormChange}>  
+          <Form onSubmit={handleEditStats} onChange={handleFormChange}>  
             <Container id='team_member_stats_edit'>
               {/* HP, ATK, DEF */}
               <div id='hp_phys'>
@@ -315,14 +298,14 @@ class PlaceholderStats extends React.Component{
                   <Form.Control 
                     type="number" 
                     id='iv_hp' 
-                    placeholder={this.state.stats[0].iv ? this.state.stats[0].iv : 'IVs'}
-                    defaultValue={this.state.stats[0].iv ? this.state.stats[0].iv : 0} 
+                    placeholder={stats[0].iv ? stats[0].iv : 'IVs'}
+                    defaultValue={stats[0].iv ? stats[0].iv : 0} 
                     min='0' max='31' ></Form.Control>
                   <Form.Control 
                     type="number" 
                     id='ev_hp' 
-                    placeholder={this.state.stats[0].ev ? this.state.stats[0].ev : 'EVs'}
-                    defaultValue={this.state.stats[0].ev ? this.state.stats[0].ev : 0} 
+                    placeholder={stats[0].ev ? stats[0].ev : 'EVs'}
+                    defaultValue={stats[0].ev ? stats[0].ev : 0} 
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
 
@@ -332,14 +315,14 @@ class PlaceholderStats extends React.Component{
                   <Form.Control 
                     type="number" 
                     id='iv_atk' 
-                    placeholder={this.state.stats[1].iv ? this.state.stats[1].iv : 'IVs'}
-                    defaultValue={this.state.stats[1].iv ? this.state.stats[1].iv : 0} 
+                    placeholder={stats[1].iv ? stats[1].iv : 'IVs'}
+                    defaultValue={stats[1].iv ? stats[1].iv : 0} 
                     min='0' max='31' ></Form.Control>
                   <Form.Control 
                     type="number" 
                     id='ev_atk' 
-                    placeholder={this.state.stats[1].ev ? this.state.stats[1].ev : 'EVs'}
-                    defaultValue={this.state.stats[1].ev ? this.state.stats[1].ev : 0} 
+                    placeholder={stats[1].ev ? stats[1].ev : 'EVs'}
+                    defaultValue={stats[1].ev ? stats[1].ev : 0} 
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
 
@@ -349,14 +332,14 @@ class PlaceholderStats extends React.Component{
                   <Form.Control 
                     type="number" 
                     id='iv_def' 
-                    placeholder={this.state.stats[2].iv ? this.state.stats[2].iv : 'IVs'}
-                    defaultValue={this.state.stats[2].iv ? this.state.stats[2].iv : 0} 
+                    placeholder={stats[2].iv ? stats[2].iv : 'IVs'}
+                    defaultValue={stats[2].iv ? stats[2].iv : 0} 
                     min='0' max='31' ></Form.Control>
                   <Form.Control 
                     type="number" 
                     id='ev_def' 
-                    placeholder={this.state.stats[2].ev ? this.state.stats[2].ev : 'EVs'}
-                    defaultValue={this.state.stats[2].ev ? this.state.stats[2].ev : 0}  
+                    placeholder={stats[2].ev ? stats[2].ev : 'EVs'}
+                    defaultValue={stats[2].ev ? stats[2].ev : 0}  
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
               </div>
@@ -370,14 +353,14 @@ class PlaceholderStats extends React.Component{
                   <Form.Control 
                     type="number" 
                     id='iv_spatk' 
-                    placeholder={this.state.stats[3].iv ? this.state.stats[3].iv : 'IVs'}
-                    defaultValue={this.state.stats[3].iv ? this.state.stats[3].iv : 0} 
+                    placeholder={stats[3].iv ? stats[3].iv : 'IVs'}
+                    defaultValue={stats[3].iv ? stats[3].iv : 0} 
                     min='0' max='31' ></Form.Control>
                   <Form.Control 
                     type="number" 
                     id='ev_spatk' 
-                    placeholder={this.state.stats[3].ev ? this.state.stats[3].ev : 'EVs'}
-                    defaultValue={this.state.stats[3].ev ? this.state.stats[3].ev : 0} 
+                    placeholder={stats[3].ev ? stats[3].ev : 'EVs'}
+                    defaultValue={stats[3].ev ? stats[3].ev : 0} 
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
 
@@ -387,14 +370,14 @@ class PlaceholderStats extends React.Component{
                   <Form.Control 
                     type="number" 
                     id='iv_spdef' 
-                    placeholder={this.state.stats[4].iv ? this.state.stats[4].iv : 'IVs'}
-                    defaultValue={this.state.stats[4].iv ? this.state.stats[4].iv : 0} 
+                    placeholder={stats[4].iv ? stats[4].iv : 'IVs'}
+                    defaultValue={stats[4].iv ? stats[4].iv : 0} 
                     min='0' max='31' ></Form.Control>
                   <Form.Control 
                     type="number" 
                     id='ev_spdef' 
-                    placeholder={this.state.stats[4].ev ? this.state.stats[4].ev : 'EVs'}
-                    defaultValue={this.state.stats[4].ev ? this.state.stats[4].ev : 0} 
+                    placeholder={stats[4].ev ? stats[4].ev : 'EVs'}
+                    defaultValue={stats[4].ev ? stats[4].ev : 0} 
                     min='0' max='255'></Form.Control>
                 </Form.Group>
 
@@ -404,14 +387,14 @@ class PlaceholderStats extends React.Component{
                   <Form.Control 
                     type="number" 
                     id='iv_spd' 
-                    placeholder={this.state.stats[5].iv ? this.state.stats[5].iv : 'IVs'}
-                    defaultValue={this.state.stats[5].iv ? this.state.stats[5].iv : 0} 
+                    placeholder={stats[5].iv ? stats[5].iv : 'IVs'}
+                    defaultValue={stats[5].iv ? stats[5].iv : 0} 
                     min='0' max='31' ></Form.Control>
                   <Form.Control 
                     type="number" 
                     id='ev_spd' 
-                    placeholder={this.state.stats[5].ev ? this.state.stats[5].ev : 'EVs'}
-                    defaultValue={this.state.stats[5].ev ? this.state.stats[5].ev : 0} 
+                    placeholder={stats[5].ev ? stats[5].ev : 'EVs'}
+                    defaultValue={stats[5].ev ? stats[5].ev : 0} 
                     min='0' max='255' ></Form.Control>
                 </Form.Group>
               </div>
@@ -425,8 +408,8 @@ class PlaceholderStats extends React.Component{
                   <Form.Control 
                     type="number" 
                     id='level' 
-                    placeholder={this.state.level ? this.state.level : 'Level'}
-                    defaultValue={this.state.level ? this.state.level : 100} 
+                    placeholder={level ? level : 'Level'}
+                    defaultValue={level ? level : 100} 
                     min='1' max='100' ></Form.Control>
                 </Form.Group>
               </div>
@@ -436,7 +419,7 @@ class PlaceholderStats extends React.Component{
                   <Form.Label>Nature</Form.Label>
                   <Form.Select 
                     id='nature' 
-                    defaultValue={this.state.nature ? this.state.nature : 'bashful'} 
+                    defaultValue={nature ? nature : 'bashful'} 
                   >
                     <option value='adamant'>Adamant</option>
                     <option value='bashful'>Bashful</option>
@@ -469,13 +452,12 @@ class PlaceholderStats extends React.Component{
             </Container>
 
 
-            <Button type='submit' disabled={this.state.disableSubmit}>Submit</Button>
+            <Button type='submit' disabled={disableSubmit}>Submit</Button>
           </Form>
         </Modal.Body>
       </Modal>
     </>
     )
-  }
 }
 
 export default PlaceholderStats;

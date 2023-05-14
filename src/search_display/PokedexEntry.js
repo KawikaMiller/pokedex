@@ -1,29 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class PokedexEntry extends React.Component {
-  constructor(props) {
-    super(props);
+function PokedexEntry (props) {
 
-    this.state = {
-
-    }
-  }
-
-  render() {
-    return(
-      <>
-        <div id='entry_header'>
-          <p>{this.props.header1}</p>
-          <p>{this.props.header2}</p>
-          <p>{this.props.header3}</p>
-        </div>
-        <p id='entry_details'>
-          {this.props.details}
-        </p>      
-      </>
-
-    )
-  }
+  return(
+    <>
+      <div id='entry_header'>
+        <p>{props.header1}</p>
+        <p>{props.header2}</p>
+        <p>{props.header3}</p>
+      </div>
+      <p id='entry_details'>
+        {props.details}
+      </p>      
+    </>
+  )
 }
 
 export default PokedexEntry;
