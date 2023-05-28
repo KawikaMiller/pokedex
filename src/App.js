@@ -1,14 +1,18 @@
 import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import ReactDOM from 'react-dom';
-
 import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { findDOMNode } from 'react-dom';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import pokeReducer from './reduxStore';
+
+let pokeStore = configureStore({
+  reducer: pokeReducer
+})
 
 const transitionHeader = () => {
   const header = document.getElementById('header');
@@ -39,19 +43,22 @@ const transitionHeader = () => {
 
 function App() {
   return (
-    <div className="App">
-      <Header transitionHeader={transitionHeader} />
-      <BrowserRouter>
-        <main id='main'>
-          <Routes>
-            <Route path='/' element={<Main />} />
-            <Route path='/new' element={<p>test</p>} />
-            <Route path='/callback' element={<Main />} />
-          </Routes>
-        </main>
-      </BrowserRouter>
-      <Footer />
-    </div>
+    <Provider store={pokeStore}>
+      <div className="App">
+        <Header transitionHeader={transitionHeader} />
+        <BrowserRouter>
+          <main id='main'>
+            <Routes>
+              <Route path='/' element={<Main />} />
+              <Route path='/new' element={<p>test</p>} />
+              <Route path='/callback' element={<Main />} />
+            </Routes>
+          </main>
+        </BrowserRouter>
+        <Footer />
+      </div>      
+    </Provider>
+
   );
 }
 

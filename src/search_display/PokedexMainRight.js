@@ -89,7 +89,7 @@ function PokedexMainRight (props) {
     changeScreen(2)
 
     if (abilityEntryId === 0) {
-      setAbilityEntryId(abilities.length - 1)
+      setAbilityEntryId(props.pokemon.abilities.length - 1)
     } else {
       setAbilityEntryId(abilityEntryId - 1)    
     }
