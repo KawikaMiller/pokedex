@@ -5,7 +5,7 @@ const pokeSlice = createSlice({
   initialState: {
     searchInput: '',
     pokemon: undefined,
-    showShiny: true,
+    showShiny: false,
     formIdx: 0,
   },
   reducers: {

@@ -11,19 +11,15 @@ import BaseStats from "./BaseStats";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import pokeSlice from "../reduxStore/pokeSlice";
+import { fetchPokemonData } from "../reduxStore/helperFuncs";
 
 function Pokedex (props) {
   const state = useSelector(state => state.pokemon)
   const dispatch = useDispatch();
-  let { toggleShiny, changeFormIdx } = pokeSlice.actions
+  let { toggleShiny, changeFormIdx, setPokemon } = pokeSlice.actions
 
-  // const [toggleShiny, setToggleShiny] = useState(props.handleShinyToggle);
-  const [toggleForm, setToggleForm] = useState(false);
-  const [formApiId, setFormApiId] = useState(null);
-  const [formIdx, setFormIdx] = useState(0);
 
   const handleToggleShiny = () => {
-    // setToggleShiny(!toggleShiny)
     dispatch(toggleShiny(!state.showShiny))
   }
 
@@ -33,28 +29,110 @@ function Pokedex (props) {
       newApiIdx = 0;
     }
     dispatch(changeFormIdx(newApiIdx))
-    // setFormIdx(newApiIdx)
   }
 
+  const handleNextPokemon = (event) => {
+    // console.log('next pokemon')
+    if (state.pokemon.name) {
+      dispatch(fetchPokemonData(event, state.pokemon.id + 1))
+      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+    } else {
+      dispatch(fetchPokemonData(event, 1))
+      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+    }
+  }
 
-  // 'componentDidMount'
-  useEffect(() => {
-    // old code, keeping for recordkeeping / just in case
-    // setSearchResult(props.searchResult)
-  }, 
-  [])
+  const handlePreviousPokemon = (event) => {
+    // console.log('prev pokemon')
+    if (state.pokemon) {
+      dispatch(fetchPokemonData(event, state.pokemon.id - 1))
+      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})      
+    } else {
+      dispatch(fetchPokemonData(event, 1))
+      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+    }
+  }
 
+  const handleNextGen = (event) => {
+    // console.log('next generation')
+    // if a search has been made and returned a result, then cycle up by generations
+    if (state.pokemon) {
+    // if you're viewing pokemon within gen 1, move to gen 2
+      if (state.pokemon.id <= 151) {
+        dispatch(fetchPokemonData(event, 152))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+    // if you're viewing pokemon within gen 2, move to gen 3 & etc.
+      } else if (state.pokemon.id <= 251) {
+        dispatch(fetchPokemonData(event, 252))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+      } else if (state.pokemon.id <= 251) {
+        dispatch(fetchPokemonData(event, 252))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})         
+      } else if (state.pokemon.id <= 386) {
+        dispatch(fetchPokemonData(event, 387))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+      } else if (state.pokemon.id <= 493) {
+        dispatch(fetchPokemonData(event, 494))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})                
+      } else if (state.pokemon.id <= 649) {
+        dispatch(fetchPokemonData(event, 650))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+      } else if (state.pokemon.id <= 721) {
+        dispatch(fetchPokemonData(event, 722))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+      } else if (state.pokemon.id <= 809) {
+        dispatch(fetchPokemonData(event, 810))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+      } else if (state.pokemon.id <= 905) {
+        dispatch(fetchPokemonData(event, 906))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+      } else if (state.pokemon.id <= 906) {
+        dispatch(fetchPokemonData(event, 1))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+      }
+    } else {fetchPokemonData(event, 1)}
+  }
 
-  // 'componentDidUpdate'
-  useEffect(() => {
-    // old code, keeping for recordkeeping / just in case
-    // setSearchResult(props.searchResult);
-    // setFormIdx(0);
-  }, 
-  [props])
-
-
-
+  const handlePreviousGen = (event) => {
+    console.log('previous generation')
+    // if a search has been made and returned a result, cycle back by generations
+    if (state.pokemon) {
+      // if within gen 9, move back to first starter of gen 8
+      if (state.pokemon.id >= 906) {
+        dispatch(fetchPokemonData(event, 810))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      // if within gen 8, move back to first starter of gen 7 & etc.
+      } else if (state.pokemon.id >= 810) {
+        dispatch(fetchPokemonData(event, 722))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      } else if (state.pokemon.id >= 722) {
+        dispatch(fetchPokemonData(event, 650))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      } else if (state.pokemon.id >= 650) {
+        dispatch(fetchPokemonData(event, 494))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      } else if (state.pokemon.id >= 494) {
+        dispatch(fetchPokemonData(event, 387))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      } else if (state.pokemon.id >= 387) {
+        dispatch(fetchPokemonData(event, 252))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      } else if (state.pokemon.id >= 252) {
+        dispatch(fetchPokemonData(event, 152))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      } else if (state.pokemon.id >= 152) {
+        dispatch(fetchPokemonData(event, 1))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      } else if (state.pokemon.id >= 1) {
+        dispatch(fetchPokemonData(event, 906))
+        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      }
+    // if no search has been made, move to gen 9
+    } else {
+      dispatch(fetchPokemonData(event, 906))
+      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+    }
+  }
 
   return (
     <Container id='pokedex-container'>
@@ -106,36 +184,19 @@ function Pokedex (props) {
 
                 <Container id='bottom-ui-pokedex-info'>
                   {/* displays pokemon base stats */}
-                  {state.pokemon ? 
-                    <BaseStats 
-                      stats={state.pokemon.stats} 
-                      key={`${state.pokemon.name}_basestats`}
-                    />
-                    :
-                    <BaseStats
-                      stats={
-                        [
-                          {name: 'HP', base_stat: undefined},
-                          {name: 'ATK', base_stat: undefined},
-                          {name: 'DEF', base_stat: undefined},
-                          {name: 'SP.ATK', base_stat: undefined},
-                          {name: 'SP.DEF', base_stat: undefined},
-                          {name: 'SPD', base_stat: undefined}
-                        ]
-                      }
-                      key={`placeholder_basestats`}
-                    />
-                  }
+                  <BaseStats 
+                      key={`${state.pokemon?.name}_basestats`}
+                  />
                 </Container>     
 
               </Container>
 
               <Container id='bottom-ui-dpad'>
-                  <div id='dpad-up' onClick={props.handleNextGen}></div>
-                  <div id='dpad-left' onClick={props.handlePreviousPokemon}></div>
+                  <div id='dpad-up' onClick={handleNextGen}></div>
+                  <div id='dpad-left' onClick={handlePreviousPokemon}></div>
                   <div id='dpad-center'></div>
-                  <div id='dpad-right' onClick={props.handleNextPokemon}></div>
-                  <div id='dpad-down' onClick={props.handlePreviousGen}></div>
+                  <div id='dpad-right' onClick={handleNextPokemon}></div>
+                  <div id='dpad-down' onClick={handlePreviousGen}></div>
               </Container>
 
             </Container>

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import sprites from '../lib/sprites'
 
 function PokemonDisplay (props){
   const state = useSelector(state => state.pokemon)
-  const dispatch = useDispatch();
-  // let { toggleShiny } = pokeSlice.actions
 
   const [missingSprites, setMissingSprites] = useState(null);
 
@@ -60,12 +58,6 @@ function PokemonDisplay (props){
               /> 
         : 
           null
-        
-        // if it is, check if we need to get missing sprites
-
-        // if we do, then we need to cycle between the default sprite from pokeapi and the supplemental sprites from our imported module
-
-        // if we don't need missing sprites, display the info from pokeapi
       }
     </>
   )
