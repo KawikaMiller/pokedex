@@ -25,18 +25,17 @@ function PokemonDisplay (props){
   return(
     <>
       {
-        // is props.id valid?
         state.pokemon ? 
           missingSprites ? 
             state.formIdx === 0 ? 
               state.showShiny ? 
                 <img 
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${state.pokemon.id}.png`}
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${state.pokemon.forms[state.formIdx].apiId}.png`}
                 alt={`official shiny artwork for ${state.pokemon.name}`}
                 /> 
               : 
                 <img 
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${state.pokemon.id}.png`}
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${state.pokemon.forms[state.formIdx].apiId}.png`}
                 alt={`official artwork for ${state.pokemon.name}`}
                 /> 
             : 
@@ -51,12 +50,12 @@ function PokemonDisplay (props){
           : 
             state.showShiny ? 
               <img 
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${state.pokemon.id}.png`}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${state.pokemon.forms[state.formIdx].apiId}.png`}
               alt={`official shiny artwork for ${state.pokemon.name}`}
               /> 
             : 
               <img 
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${state.pokemon.id}.png`}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${state.pokemon.forms[state.formIdx].apiId}.png`}
               alt={`official artwork for ${state.pokemon.name}`}
               /> 
         : 

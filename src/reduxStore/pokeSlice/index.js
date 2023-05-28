@@ -17,6 +17,9 @@ const pokeSlice = createSlice({
     },
     toggleShiny(state, action){
       state.showShiny = action.payload;
+    },
+    changeFormIdx(state, action){
+      state.formIdx = action.payload;
     }
   }
 })

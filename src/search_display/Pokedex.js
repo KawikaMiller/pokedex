@@ -15,7 +15,7 @@ import pokeSlice from "../reduxStore/pokeSlice";
 function Pokedex (props) {
   const state = useSelector(state => state.pokemon)
   const dispatch = useDispatch();
-  let { toggleShiny } = pokeSlice.actions
+  let { toggleShiny, changeFormIdx } = pokeSlice.actions
 
   // const [toggleShiny, setToggleShiny] = useState(props.handleShinyToggle);
   const [toggleForm, setToggleForm] = useState(false);
@@ -28,11 +28,12 @@ function Pokedex (props) {
   }
 
   const handleToggleForm = () => {
-    let newApiIdx = formIdx + 1;
+    let newApiIdx = state.formIdx + 1;
     if (newApiIdx >= state.pokemon.forms.length) {
       newApiIdx = 0;
     }
-    setFormIdx(newApiIdx)
+    dispatch(changeFormIdx(newApiIdx))
+    // setFormIdx(newApiIdx)
   }
 
 
@@ -78,12 +79,7 @@ function Pokedex (props) {
               <Container id='pokedex-display'>
                 {state.pokemon ?
                   <PokemonDisplay 
-                    name={state.pokemon.name}
-                    id={state.pokemon.forms[formIdx].apiId}
-                    formIdx={formIdx} 
-                    sprites={state.pokemon.sprites} 
                     key={`${state.pokemon.name}_display`}
-                    toggleShiny={toggleShiny} 
                   /> 
                   : null
                 }
