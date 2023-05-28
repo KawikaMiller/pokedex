@@ -1,57 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import sprites from '../lib/sprites'
 
 function PokemonDisplay (props){
+  const state = useSelector(state => state.pokemon)
+  const dispatch = useDispatch();
+  // let { toggleShiny } = pokeSlice.actions
+
   const [missingSprites, setMissingSprites] = useState(null);
 
-  const getMissingSprite = () => {
-    if (sprites[props.name]) {
-      setMissingSprites(sprites[props.name])
+  const getMissingSprites = () => {
+    if (sprites[state.pokemon.name]) {
+      setMissingSprites(sprites[state.pokemon.name])
     } else {
       setMissingSprites(null)
     }
   }
 
-  const componentDidMount = () => {
-    getMissingSprite();
-  }
+  useEffect(() => {
+    getMissingSprites();
+  }, [])
+
 
   return(
     <>
       {
         // is props.id valid?
-        props.id ? 
+        state.pokemon ? 
           missingSprites ? 
-            props.formIdx === 0 ? 
-              props.toggleShiny ? 
+            state.formIdx === 0 ? 
+              state.showShiny ? 
                 <img 
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${props.id}.png`}
-                alt={`official shiny artwork for ${props.name}`}
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${state.pokemon.id}.png`}
+                alt={`official shiny artwork for ${state.pokemon.name}`}
                 /> 
               : 
                 <img 
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${props.id}.png`}
-                alt={`official artwork for ${props.name}`}
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${state.pokemon.id}.png`}
+                alt={`official artwork for ${state.pokemon.name}`}
                 /> 
             : 
-              props.toggleShiny ? 
+              state.showShiny ? 
                 <img
-                src={missingSprites[props.formIdx - 1]}
+                src={missingSprites[state.formIdx - 1]}
                 /> 
               : 
                 <img
-                src={missingSprites[props.formIdx - 1]}
+                src={missingSprites[state.formIdx - 1]}
                 /> 
           : 
-            props.toggleShiny ? 
+            state.showShiny ? 
               <img 
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${props.id}.png`}
-              alt={`official shiny artwork for ${props.name}`}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${state.pokemon.id}.png`}
+              alt={`official shiny artwork for ${state.pokemon.name}`}
               /> 
             : 
               <img 
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${props.id}.png`}
-              alt={`official artwork for ${props.name}`}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${state.pokemon.id}.png`}
+              alt={`official artwork for ${state.pokemon.name}`}
               /> 
         : 
           null

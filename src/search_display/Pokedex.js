@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // react-bootstrap components
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -8,36 +8,51 @@ import Button from "react-bootstrap/Button";
 import RightCard from "../RightCard";
 import PokemonDisplay from "./PokemonDisplay";
 import BaseStats from "./BaseStats";
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import pokeSlice from "../reduxStore/pokeSlice";
 
 function Pokedex (props) {
-  const [searchResult, setSearchResult] = useState(props.searchResult);
-  const [toggleShiny, setToggleShiny] = useState(props.handleShinyToggle);
+  const state = useSelector(state => state.pokemon)
+  const dispatch = useDispatch();
+  let { toggleShiny } = pokeSlice.actions
+
+  // const [toggleShiny, setToggleShiny] = useState(props.handleShinyToggle);
   const [toggleForm, setToggleForm] = useState(false);
   const [formApiId, setFormApiId] = useState(null);
   const [formIdx, setFormIdx] = useState(0);
 
   const handleToggleShiny = () => {
-    setToggleShiny(!toggleShiny)
+    // setToggleShiny(!toggleShiny)
+    dispatch(toggleShiny(!state.showShiny))
   }
 
   const handleToggleForm = () => {
     let newApiIdx = formIdx + 1;
-    if (newApiIdx >= props.searchResult.forms.length) {
+    if (newApiIdx >= state.pokemon.forms.length) {
       newApiIdx = 0;
     }
     setFormIdx(newApiIdx)
   }
 
-  const componentDidMount = () => {
-    setSearchResult(props.searchResult)
-  }
 
-  const componentDidUpdate = (prevProps) => {
-    if(prevProps !== props) {
-      setSearchResult(props.searchResult);
-      setFormIdx(0);
-    }
-  }
+  // 'componentDidMount'
+  useEffect(() => {
+    // old code, keeping for recordkeeping / just in case
+    // setSearchResult(props.searchResult)
+  }, 
+  [])
+
+
+  // 'componentDidUpdate'
+  useEffect(() => {
+    // old code, keeping for recordkeeping / just in case
+    // setSearchResult(props.searchResult);
+    // setFormIdx(0);
+  }, 
+  [props])
+
+
 
 
   return (
@@ -61,13 +76,13 @@ function Pokedex (props) {
             {/* displays pokemon picture */}
             <Container id='pokedex-display-border'>
               <Container id='pokedex-display'>
-                {props.searchResult ?
+                {state.pokemon ?
                   <PokemonDisplay 
-                    name={props.searchResult.name}
-                    id={props.searchResult.forms[formIdx].apiId}
+                    name={state.pokemon.name}
+                    id={state.pokemon.forms[formIdx].apiId}
                     formIdx={formIdx} 
-                    sprites={props.searchResult.sprites} 
-                    key={`${props.searchResult.name}_display`}
+                    sprites={state.pokemon.sprites} 
+                    key={`${state.pokemon.name}_display`}
                     toggleShiny={toggleShiny} 
                   /> 
                   : null
@@ -79,7 +94,8 @@ function Pokedex (props) {
               
               <Container id='bottom-ui-circlebutton'>
                 <Container id='circlebutton' onClick={() => {
-                  let audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${props.searchResult.name.toLowerCase()}.mp3`);
+                  let audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${state.pokemon.name.toLowerCase()}.mp3`);
+                  audio.volume = 0.1;
                   audio.play();
                 }}>                   
                 </Container>
@@ -94,10 +110,10 @@ function Pokedex (props) {
 
                 <Container id='bottom-ui-pokedex-info'>
                   {/* displays pokemon base stats */}
-                  {props.searchResult ? 
+                  {state.pokemon ? 
                     <BaseStats 
-                      stats={props.searchResult.stats} 
-                      key={`${props.searchResult.name}_basestats`}
+                      stats={state.pokemon.stats} 
+                      key={`${state.pokemon.name}_basestats`}
                     />
                     :
                     <BaseStats
@@ -131,7 +147,7 @@ function Pokedex (props) {
         </Card>
         
         {/* right side card */}
-        <RightCard searchResult={props.searchResult}/>
+        <RightCard searchResult={state.pokemon}/>
 
       </CardGroup>
     </Container>

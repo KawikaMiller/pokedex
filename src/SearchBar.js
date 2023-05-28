@@ -14,7 +14,6 @@ function SearchBar (props) {
     let { handleSearchInputChange, setPokemon } = pokeSlice.actions
 
     const handleSearch = (event) => {
-      // console.log(state)
       dispatch(fetchPokemonData(event, state.searchInput))
       .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
     }
@@ -22,7 +21,7 @@ function SearchBar (props) {
     return(
       <Container>
         <Form 
-          onSubmit={props.handleSearch} 
+          onSubmit={handleSearch} 
           style={{display:'flex'}}
         >
           <Form.Control 

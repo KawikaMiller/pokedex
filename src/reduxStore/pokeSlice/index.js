@@ -4,16 +4,19 @@ const pokeSlice = createSlice({
   name: 'pokemon',
   initialState: {
     searchInput: '',
-    pokemon: {}
+    pokemon: undefined,
+    showShiny: true,
+    formIdx: 0,
   },
   reducers: {
     handleSearchInputChange(state, action){
-      console.log('HANDLE SEARCH: ', action.payload)
       state.searchInput = action.payload
     },
     setPokemon(state, action){
-      console.log('setPokemon reducer hit', action.payload)
       state.pokemon = action.payload.pokemon;
+    },
+    toggleShiny(state, action){
+      state.showShiny = action.payload;
     }
   }
 })
