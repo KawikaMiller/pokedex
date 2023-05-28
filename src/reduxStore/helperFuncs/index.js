@@ -49,6 +49,7 @@
                 pp: undefined, 
                 dmgClass: undefined, 
                 type: undefined,
+                description: '',
               })
             }
           })
@@ -67,6 +68,7 @@
                   pp: undefined, 
                   dmgClass: undefined, 
                   type: undefined,
+                  description: '',
                 })
               }
             })
@@ -86,6 +88,7 @@
                   pp: undefined, 
                   dmgClass: undefined, 
                   type: undefined,
+                  description: '',
                 })
               }
             })
@@ -105,6 +108,7 @@
                   pp: undefined, 
                   dmgClass: undefined, 
                   type: undefined,
+                  description: '',
                 })
               }
             })
@@ -124,12 +128,13 @@
                   pp: undefined, 
                   dmgClass: undefined, 
                   type: undefined,
+                  description: '',
                 })
               }
             })
           })
         }
-       
+
         // reshaping the 'stats' property on the pokemon object
         let oldStats = response.data.stats;
         let newStats = [];
@@ -185,6 +190,7 @@
           newStats,
           response.data.types,
         )
+
         pokemon.height = {
           m: response.data.height / 10,
           ft: parseInt((response.data.height / 3.048).toFixed(2))
@@ -204,39 +210,51 @@
             pokemon.forms.push(f);
           })
         }
+
+        let newAbilities = [];
+        pokemon.abilities.forEach(ability => {
+          let newObj = {};
+          newObj.name = ability.ability.name;
+          newObj.url = ability.ability.url;
+          newObj.is_hidden = ability.is_hidden;
+          newObj.slot = ability.slot;
+          newObj.description = '';
+          newAbilities.push(newObj);
+        })
+
+        pokemon.abilities = newAbilities;
+
         return pokemon;
       })
 
       // gets supplemental move information for each move, such as power, accuracy, etc.
       .then(pokemon => {
-        pokemon.moves.forEach(async move => {
+        // spread operators to avoid 'TypeError: object is not extensible / object is read only' errors
+        let newPokemon = {...pokemon};
+        newPokemon.moves.forEach(async move => {
           try {
-            let request = {
-              url: `https://pokeapi.co/api/v2/move/${move.name}`,
-              method: 'GET'
-            }
-            
-            let res = await axios(request);
-            let newMove = {...move};
+            let res = await axios(`https://pokeapi.co/api/v2/move/${move.name}`);
 
-            newMove.power = res.data.power;
-            newMove.accuracy = res.data.accuracy;
-            newMove.pp = res.data.pp;
-            newMove.priority = res.data.priority;
-            newMove.dmgClass = res.data.damage_class.name;
-            newMove.type = res.data.type.name;
-            newMove.effectChance = res.data.effect_chance;
-            newMove.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance) || res.data.effect_entries[0].effect.replace('$effect_chance', res.data.effect_chance)
+            move.power = res.data.power;
+            move.accuracy = res.data.accuracy;
+            move.pp = res.data.pp;
+            move.priority = res.data.priority;
+            move.dmgClass = res.data.damage_class.name;
+            move.type = res.data.type.name;
+            move.effectChance = res.data.effect_chance;
 
-            move = newMove;
+            if(!res.data.effect_entries[0]?.short_effect){
+              move.description = 'pokeAPI missing this information';
+            } else {
+              move.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance)              
+            };
 
           } catch (err) {
-            console.log(err)
-          }
+            console.log(move, err)
+          };
         })
-
-        // "pokemon" is the pokemon object created in previous .then
-        return pokemon;
+        
+        return newPokemon;
       })
 
       // gets type effectiveness (i.e. what types a pokemon is weak to, resistant to, immune to)
@@ -298,22 +316,40 @@
       })
 
       //gets ability descriptions
-      .then(pokemon => {
-        pokemon.abilities.forEach(async element => {
-          try{
-            let res = await axios(element.ability.url);
-            // need to do following line to prevent TypeError: 'obj is not extensible'
-            let newEl = {...element};
-            newEl.description = res.data.effect_entries[1].effect;
-            element = newEl;
-          } catch (err) {
-            console.log(err)
-          }
+      .then(async pokemon => {
+        let newPokemon = {...pokemon};
+        let newAbilities = [];
+
+        pokemon.abilities.forEach(async (ability, idx) => {
+          let newAbility = {...ability};
+
+          axios(ability.url)
+          .then(response => {
+            newAbility.description = response.data.effect_entries[1].effect;
+            return newAbility;
+          })
+          .then(response => {
+            newAbilities = [...newAbilities, response]
+          })
+          .then(response => {
+            newPokemon.abilities = newAbilities;
+          })
+          .catch(e => {
+            console.log(e)
+          })
+          .finally(response => {
+            console.log(newPokemon.abilities);
+            return newPokemon;            
+          })
         })
-        return pokemon;
+        return newPokemon;
       })
-      .catch(error => {
-        console.error(error)
+      .then(response => {
+        // console.log(response)
+        return response;
+      })
+      .catch(e => {
+        console.log(e)
       })
     return response
   }

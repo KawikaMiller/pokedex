@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import dexSlice from '../reduxStore/dexSlice';
+import pokeSlice from '../reduxStore/pokeSlice';
+import teamSlice from '../reduxStore/teamSlice';
 
 import Card from "react-bootstrap/Card"
 import { CardGroup } from "react-bootstrap";
@@ -9,116 +13,117 @@ import PokedexEntry from './PokedexEntry';
 import { sortMoves } from '../lib/movesLib';
 
 function PokedexMainRight (props) {
-  const [screenId, setScreenId] = useState(0);
-  const [dexEntryId, setDexEntryId] = useState(0);
-  const [moveEntryId, setMoveEntryId] = useState(0);
-  const [abilityEntryId, setAbilityEntryId] = useState(0);
+  const dexState = useSelector(state => state.pokedex);
+  const pokeState = useSelector(state => state.pokemon);
+  const dispatch = useDispatch();
+
+  let { setActiveScreen, setDexIdx, setAbilityIdx, setMoveIdx } = dexSlice.actions;
+
   const [sortedMoves, setSortedMoves] = useState([]);
   const [movesSorted, setMovesSorted] = useState(false);
 
-  const changeScreen = (screenID) => {
-    if (screenId !== screenID) {
-      setScreenId(screenID)  
+  const changeScreen = (screenId) => {
+    if(dexState.activeScreen !== screenId){
+      dispatch(setActiveScreen(screenId))      
     }
   }
 
   const nextDexEntry = () => {
-    changeScreen(0)
-    if (dexEntryId === props.pokemon.descriptions.length - 1) {
-      setDexEntryId(0)
+    changeScreen(0);
+    
+    if (dexState.dexIdx === pokeState.pokemon.descriptions.length - 1) {
+      dispatch(setDexIdx(0))
     } else {
-      setDexEntryId(dexEntryId + 1)     
+      dispatch(setDexIdx(dexState.dexIdx + 1))
     }
   }
 
   const previousDexEntry = () => {
-    changeScreen(0)
+    changeScreen(0);
 
-    if (dexEntryId === 0) {
-      setDexEntryId(props.pokemon.descriptions.length - 1)
+    if (dexState.dexIdx === 0) {
+      dispatch(setDexIdx(pokeState.pokemon.descriptions.length - 1))
     } else {
-      setDexEntryId(dexEntryId - 1)   
+      dispatch(setDexIdx(dexState.dexIdx - 1))
     }
   }
 
   const nextMoveEntry = () => {
-    changeScreen(1)
+    changeScreen(1);
 
-    if (props.pokemon || !movesSorted ) {
-      let moves = props.pokemon.moves
-      sortMoves(moves, 'name');
-      setSortedMoves(moves);
-      setMovesSorted(true);
-    }
-
-    if (moveEntryId === sortedMoves.length - 1) {
-      setMoveEntryId(0)
+    if (dexState.moveIdx === sortedMoves.length - 1) {
+      console.log(sortedMoves);
+      dispatch(setMoveIdx(0))
     } else {
-      setMoveEntryId(moveEntryId + 1)    
+      console.log(sortedMoves);
+      dispatch(setMoveIdx(dexState.moveIdx + 1))  
     }
   }
 
   const previousMoveEntry = () => {
-    changeScreen(1)
+    changeScreen(1);
 
-    if (props.pokemon || !movesSorted ) {
-      let moves = props.pokemon.moves
-      sortMoves(moves, 'name');
-      setSortedMoves(moves);
-      setMovesSorted(true);
-    }
-
-    if (moveEntryId === 0) {
-      setMoveEntryId(sortedMoves.length - 1)
+    if (dexState.moveIdx === 0) {
+      dispatch(setMoveIdx(sortedMoves.length - 1));
     } else {
-      setMoveEntryId(moveEntryId - 1)    
+      dispatch(setMoveIdx(dexState.moveIdx - 1)); 
     }
   }
 
   const nextAbilityEntry = () => {
-    changeScreen(2)
+    changeScreen(2);
 
-    if (abilityEntryId === props.pokemon.abilities.length - 1) {
-      setAbilityEntryId(0)
+    if (dexState.abilityIdx === pokeState.pokemon.abilities.length - 1) {
+      dispatch(setAbilityIdx(0));
     } else {
-      setAbilityEntryId(abilityEntryId + 1)   
+      dispatch(setAbilityIdx(dexState.abilityIdx + 1))
     }
   }
 
   const previousAbilityEntry = () => {
-    changeScreen(2)
+    changeScreen(2);
 
-    if (abilityEntryId === 0) {
-      setAbilityEntryId(props.pokemon.abilities.length - 1)
+    if (dexState.abilityIdx === 0) {
+      dispatch(setAbilityIdx(pokeState.pokemon.abilities.length - 1))
     } else {
-      setAbilityEntryId(abilityEntryId - 1)    
+      dispatch(setAbilityIdx(dexState.abilityIdx - 1)); 
     }
   }
+
+  useEffect(() => {
+    if (pokeState.pokemon?.moves !== undefined){
+      let moves = pokeState.pokemon.moves
+      sortMoves(moves, 'name');
+      setSortedMoves(moves);
+      setMovesSorted(true);      
+    }
+  }, [pokeState.pokemon])
 
   return(
     <>
     {/* black rectangle near top for displaying text */}
+    {console.log(pokeState.pokemon)}
     <Container id='pokedex_entry_container'>
-      {screenId === 0 && props.pokemon ?
+      {dexState.activeScreen === 0 && pokeState.pokemon ?
         <PokedexEntry
-          header1={props.pokemon.name[0].toUpperCase() + props.pokemon.name.slice(1)}
-          header2={props.pokemon.descriptions.length ? props.pokemon.descriptions[dexEntryId].version : 'PokeAPI Error'}
-          header3={props.pokemon.id.toString().padStart(3, '0')}
-          details={props.pokemon.descriptions.length ? props.pokemon.descriptions[dexEntryId].description : 'PokeAPI Error' }
+          header1={pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1)}
+          header2={pokeState.pokemon.descriptions.length ? pokeState.pokemon.descriptions[dexState.dexIdx].version : 'PokeAPI Error'}
+          header3={pokeState.pokemon.id.toString().padStart(3, '0')}
+          details={pokeState.pokemon.descriptions.length ? pokeState.pokemon.descriptions[dexState.dexIdx].description : 'PokeAPI Error' }
         />        
       :
-      screenId === 1 && props.pokemon ?
+      dexState.activeScreen === 1 && pokeState.pokemon ?
         <PokedexEntry 
-          header1={sortedMoves[moveEntryId].name}
-          header3={sortedMoves[moveEntryId].dmgClass}
-          details={sortedMoves[moveEntryId].description}
+          header1={sortedMoves[dexState.moveIdx].name}
+          header3={sortedMoves[dexState.moveIdx].dmgClass}
+          details={sortedMoves[dexState.moveIdx].description}
         />
       :
-      screenId === 2 && props.pokemon ?
+      dexState.activeScreen === 2 && pokeState.pokemon ?
       <PokedexEntry 
-        header1={props.pokemon.abilities[abilityEntryId].ability.name}
-        header3={props.pokemon.abilities[abilityEntryId].is_hidden ? null : 'Hidden Ability'}
-        details={props.pokemon.abilities[abilityEntryId].description}
+        header1={pokeState.pokemon.abilities[dexState.abilityIdx].name}
+        header3={pokeState.pokemon.abilities[dexState.abilityIdx].is_hidden ? null : 'Hidden Ability'}
+        details={pokeState.pokemon.abilities[dexState.abilityIdx].description}
       />
       :
         'Please Search for a Pokemon'
