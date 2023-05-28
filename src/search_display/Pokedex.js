@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 // react-bootstrap components
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";

@@ -17,7 +17,9 @@ function PokemonDisplay (props){
 
   useEffect(() => {
     getMissingSprites();
-  }, [])
+  }, 
+  // eslint-disable-next-line
+  [])
 
 
   return(
@@ -40,10 +42,12 @@ function PokemonDisplay (props){
               state.showShiny ? 
                 <img
                 src={missingSprites[state.formIdx - 1]}
+                alt="placeholder description"
                 /> 
               : 
                 <img
                 src={missingSprites[state.formIdx - 1]}
+                alt="placeholder description"
                 /> 
           : 
             state.showShiny ? 

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
-import pokeSlice from "../reduxStore/pokeSlice";
 import { useSelector } from "react-redux";
 
 function BaseStats (props){

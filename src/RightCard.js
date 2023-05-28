@@ -10,8 +10,6 @@ import Abilities from "./moves_abilities/Abilities";
 import Team from "./teambuilder/Team";
 import PokedexMainRight from "./search_display/PokedexMainRight"
 
-
-
 function RightCard (props){
   const [activeKey, setActiveKey] = useState(0);
   const [team, setTeam] = useState([]);
