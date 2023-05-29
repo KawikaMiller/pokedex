@@ -70,18 +70,17 @@ function RightCard (props){
         </Nav>
       </Card.Header> 
       
-      {/* conditionally renders different components based on tab selected */}
       <Card.Body id="right_card_body">
-
-        {/* if activeKey is 0, display a 'default' pokedex layout */}
         {activeKey === 0 ?
+        // if activeKey is 0, display a 'default' pokedex layout
           <PokedexMainRight />
         :   
           false
         }
 
-        {/* if activeKey is 1, displays moves and abilities */}
+        
         {activeKey === 1 ?
+        // if activeKey is 1, displays moves and abilities
           <Container id='learnset_and_abilities'>
 
             <Container id="learnset_container">
@@ -110,9 +109,9 @@ function RightCard (props){
           null
         }
 
-        {/* if activeKey is 2, displays team builder */}
         {
           activeKey === 2 ?
+          // if activeKey is 2, displays team builder
               <Team 
                 searchResult={props.searchResult}
                 addTeamMember={addTeamMember}

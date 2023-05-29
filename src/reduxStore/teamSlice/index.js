@@ -7,17 +7,20 @@ const teamSlice = createSlice({
     roster: [],
   },
   reducers: {
-    setTeamName(state, action){
-      state.searchInput = action.payload
+    setTeamsName(state, action){
+      state.name = action.payload
     },
     addToRoster(state, action){
-      state.pokemon = action.payload.pokemon;
+      state.roster = action.payload.pokemon;
     },
     removeFromRoster(state, action){
-      state.pokemon = action.payload.pokemon;
+      state.roster = action.payload.pokemon;
     },
     clearRoster(state, action){
-      state.pokemon = action.payload.pokemon;
+      state.roster = action.payload.pokemon;
+    },
+    overwriteRoster(state, action){
+      state.roster = action.payload.pokemon;
     },
   }
 })

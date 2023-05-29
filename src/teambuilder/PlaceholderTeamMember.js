@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import PlaceholderStats from './PlaceholderStats';
 
+import { useSelector, useDispatch } from 'react-redux';
+import teamSlice from '../reduxStore/teamSlice';
+import pokeSlice from '../reduxStore/pokeSlice';
+
 function PlaceholderTeamMember (props){
-  props.searchResult.level = 100;
-  const [pokemon, setPokemon] = useState(props.searchResult)
+  const pokeState = useSelector(state => state.pokemon);
+  const teamState = useSelector(state => state.team);
+  let dispatch = useDispatch();
+
+  let { modifyProperty } = pokeSlice.actions;
+
+  dispatch(modifyProperty({
+    property: 'level',
+    value: 100
+  }))
+  // pokeState.pokemon.level = 100;
+  const [pokemon, setPokemon] = useState(pokeState.pokemon)
 
   const updateStats = (newStats, newLevel, newNature) => {
     let newPokemon = pokemon;
@@ -27,12 +41,13 @@ function PlaceholderTeamMember (props){
   }
 
 // updates and rerenders when props change | props change when searching a new pokemon
-  const componentDidUpdate = (prevProps) => {
-    if (prevProps !== props) {
-      props.searchResult.level = 100;
-      setPokemon(props.searchResult);
-    }
-  }
+  useEffect(() => {
+    dispatch(modifyProperty({
+      property: 'level',
+      value: 100
+    }));
+    setPokemon(pokeState.pokemon);
+  }, [pokeState.pokemon])
 
     return(
       <Card className='member0'>
@@ -41,7 +56,7 @@ function PlaceholderTeamMember (props){
             <section id='placeholder_sprite'>
               <Card.Img 
                 variant='top' 
-                src={props.searchResult.sprite.front_default}
+                src={pokeState.pokemon.sprite.front_default}
                 style={{backgroundColor: 'white', borderRadius: '50%', width: '90%'}}
               >
               </Card.Img>
@@ -59,7 +74,7 @@ function PlaceholderTeamMember (props){
             updateStats={updateStats}
             updateBattleInfo={updateBattleInfo}
             addTeamMember={() => props.addTeamMember(pokemon)} 
-            name={props.searchResult.name[0].toUpperCase() + props.searchResult.name.slice(1)}
+            name={pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1)}
           />
         </Card.Body>
       </Card>

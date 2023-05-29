@@ -20,6 +20,9 @@ const pokeSlice = createSlice({
     },
     changeFormIdx(state, action){
       state.formIdx = action.payload;
+    },
+    modifyProperty(state, action){
+      state.pokemon[action.payload.property] = action.payload.value;
     }
   }
 })

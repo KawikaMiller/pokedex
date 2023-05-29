@@ -12,6 +12,9 @@ import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 
+import { useSelector } from 'react-redux';
+import teamSlice from '../reduxStore/teamSlice';
+
 function Team (props){
   const [team, setTeam] = useState(props.team);
   const [teamName, setTeamName] = useState('missingName');
@@ -20,6 +23,11 @@ function Team (props){
   const [showTypeCoverage, setShowTypeCoverage] = useState(false);
   const [showLoadedTeams, setShowLoadedTeams] = useState(false);
   const [showSaveTeamModal, setShowSaveTeamModal] = useState(false);
+
+  const pokeState = useSelector(state => state.pokemon);
+  const teamState = useSelector(state => state.team);
+
+  let { addToRoster, removeFromRoster, clearRoster, overwriteRoster, setTeamsName } = teamSlice.actions;
 
   // handles hiding and showing the type coverage chart
   const toggleTypeCoverageModal = () => {
@@ -155,7 +163,7 @@ function Team (props){
 
   useEffect(() => {
     setTeam(props.team)
-  }, props)
+  }, [props])
 
 
   useEffect(() => {
@@ -169,16 +177,16 @@ function Team (props){
         {/* placeholder team member before adding pokemon to team */}
         <Container id='team_member_placeholder'>
 
-          {props.searchResult ? 
+          {pokeState.pokemon?.name ? 
           <h5>Search Result</h5> 
           : 
           <h5>Please Search For A Pokemon</h5>
           }
 
-          {props.searchResult ? 
+          {pokeState.pokemon?.name ? 
           <PlaceholderTeamMember 
           addTeamMember={props.addTeamMember} 
-          searchResult={props.searchResult} key='PlaceholderTeamMember' 
+          searchResult={pokeState.pokemon} key='PlaceholderTeamMember' 
           />
           : 
           null
@@ -187,7 +195,7 @@ function Team (props){
         </Container>
         
         {/* displays all team members */}
-        <Container id='team_members'>
+        {/* <Container id='team_members'>
           <Container style={{padding: '0'}}>
             <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
               {`Team Name: ${teamName}`}
@@ -196,10 +204,10 @@ function Team (props){
           {team.length > 0 ?
           team.map((element, idx) => <TeamMember pokemon={element} removeTeamMember={() => props.removeTeamMember(idx)} />)
           : null }
-        </Container>
+        </Container> */}
         
         {/* displays team type coverage chart */}
-        <Modal
+        {/* <Modal
           className='team_type_chart_modal' 
           centered 
           size='xl' 
@@ -210,10 +218,10 @@ function Team (props){
           <Modal.Body>
             <TeamTypeChart key='team_type_chart' team={team} />
           </Modal.Body>
-        </Modal>
+        </Modal> */}
 
         {/* displays input to name a team before saving */}
-        <Modal show={showSaveTeamModal} onHide={toggleSaveTeamModal} centered>
+        {/* <Modal show={showSaveTeamModal} onHide={toggleSaveTeamModal} centered>
           <Modal.Header>Save Your Team</Modal.Header>          
           {team.length > 0 ? 
             <Modal.Body>
@@ -277,10 +285,10 @@ function Team (props){
             </Modal.Body>}
 
 
-        </Modal>
+        </Modal> */}
 
         {/* "Load Team" | displays list of saved teams */}
-        <Modal
+        {/* <Modal
           centered
           className='loaded_teams_list'
           show={showLoadedTeams}
@@ -315,10 +323,10 @@ function Team (props){
           </Modal.Body>
 
           <Modal.Footer>Footer</Modal.Footer>
-        </Modal>
+        </Modal> */}
 
         {/* buttons at bottom */}
-        <Container style={{ position: 'absolute', bottom: '0%', width: '100%'}}>
+        {/* <Container style={{ position: 'absolute', bottom: '0%', width: '100%'}}>
           <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
             <Button size='sm' onClick={toggleTypeCoverageModal}>
               Type Coverage
@@ -334,7 +342,7 @@ function Team (props){
             </Button>            
           </Container>
 
-        </Container>
+        </Container> */}
 
       </Container>
 

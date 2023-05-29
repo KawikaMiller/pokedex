@@ -143,7 +143,7 @@ function PlaceholderStats(props) {
   useEffect(() => {
     props = props;
   },
-  props)
+ [props])
 
   // componentDidUpdate = (prevProps) => {
   //   if (prevProps !== props) {
@@ -212,7 +212,7 @@ function PlaceholderStats(props) {
       </Container>
 
       <Modal centered show={showMovesModal} onHide={handleHideMovesModal} >
-        {sortMoves(props.moves)}
+        {/* {sortMoves(props.moves)} */}
         <Modal.Header>
           Battle Info
         </Modal.Header>
@@ -224,8 +224,8 @@ function PlaceholderStats(props) {
                   <div>
                     <Form.Label>Ability</Form.Label>
                     <Form.Select id='battle_ability'>
-                      {props.abilities.map(element => (
-                        <option value={element.name}>{element.ability.name}</option>
+                      {props.abilities.map(ability => (
+                        <option value={ability.name}>{ability.name}</option>
                       ))}
                     </Form.Select>
                   </div>
