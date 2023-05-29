@@ -1,6 +1,6 @@
 import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-import Ability from './Ability';
+import Ability from '../Ability/Ability';
 import { useSelector } from 'react-redux';
 
 function Abilities (props){

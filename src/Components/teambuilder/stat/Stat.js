@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
-import { calculateStatTotal, calculateHpTotal, getNatureModifier, natureModifiers } from '../lib/calcStats';
+import { calculateStatTotal, calculateHpTotal, getNatureModifier, natureModifiers } from '../../../lib/calcStats';
 
 import { useSelector, useDispatch } from 'react-redux';
-import pokeSlice from '../reduxStore/pokeSlice';
+import pokeSlice from '../../../reduxStore/pokeSlice';
 
 function Stat (props) {
   const [statTotal, setStatTotal] = useState(0);

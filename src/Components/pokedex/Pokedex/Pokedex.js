@@ -5,13 +5,13 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import Button from "react-bootstrap/Button";
 // react components
-import RightCard from "../RightCard";
-import PokemonDisplay from "./PokemonDisplay";
-import BaseStats from "./BaseStats";
+import RightCard from "../RightCard/RightCard";
+import PokemonDisplay from "../Display/PokemonDisplay";
+import BaseStats from "../BaseStats/BaseStats";
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import pokeSlice from "../reduxStore/pokeSlice";
-import { fetchPokemon } from "../reduxStore/helperFuncs";
+import pokeSlice from "../../../reduxStore/pokeSlice";
+import { fetchPokemon } from "../../../reduxStore/helperFuncs";
 
 function Pokedex (props) {
   const state = useSelector(state => state.pokemon)

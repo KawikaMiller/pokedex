@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 // import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 // import Button from 'react-bootstrap/Button';
-import MoveList from './MoveList';
+import MoveList from '../MoveList/MoveList';
 
 import { useSelector, useDispatch } from 'react-redux';
-import pokeSlice from '../reduxStore/pokeSlice';
-import dexSlice from '../reduxStore/dexSlice';
+import pokeSlice from '../../../reduxStore/pokeSlice';
+import dexSlice from '../../../reduxStore/dexSlice';
 
 function Learnset (props) {
   const [levelUpMoves, setLevelUpMoves] = useState([]);

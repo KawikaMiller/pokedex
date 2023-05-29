@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/Container";
 import { useDispatch, useSelector } from 'react-redux';
-import pokeSlice from './reduxStore/pokeSlice';
-import { fetchPokemon, supplementMoveData, fetchTypeEffectiveness, fetchPokedexEntries,fetchAbilityDescriptions,  } from './reduxStore/helperFuncs';
+import pokeSlice from '../../../reduxStore/pokeSlice';
+import { fetchPokemon, supplementMoveData, fetchTypeEffectiveness, fetchPokedexEntries,fetchAbilityDescriptions,  } from '../../../reduxStore/helperFuncs';
 // import axios from 'axios';
 
 

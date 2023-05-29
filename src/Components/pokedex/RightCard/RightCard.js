@@ -4,14 +4,14 @@ import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
 
 
-import Learnset from "./moves_abilities/Learnset";
+import Learnset from "../../moves/LearnSet/Learnset";
 import Container from 'react-bootstrap/Container';
-import Abilities from "./moves_abilities/Abilities";
-import Team from "./teambuilder/Team";
-import PokedexMainRight from "./search_display/PokedexMainRight"
+import Abilities from "../../abilities/Abilities/Abilities";
+import Team from "../../teambuilder/roster/Team/Team";
+import PokedexMainRight from "../RightMain/PokedexMainRight"
 import { useSelector, useDispatch } from "react-redux";
-import pokeSlice from "./reduxStore/pokeSlice";
-import dexSlice from "./reduxStore/dexSlice";
+import pokeSlice from "../../../reduxStore/pokeSlice";
+import dexSlice from "../../../reduxStore/dexSlice";
 
 function RightCard (props){
   const [activeKey, setActiveKey] = useState(0);

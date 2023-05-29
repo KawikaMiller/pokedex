@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
-import PlaceholderStats from './PlaceholderStats';
+import PlaceholderStats from '../Stat/PlaceholderStats';
 
 import { useSelector, useDispatch } from 'react-redux';
-import teamSlice from '../reduxStore/teamSlice';
-import pokeSlice from '../reduxStore/pokeSlice';
+import teamSlice from '../../../../reduxStore/teamSlice';
+import pokeSlice from '../../../../reduxStore/pokeSlice';
+
 
 function PlaceholderTeamMember (props){
   const pokeState = useSelector(state => state.pokemon);
@@ -23,15 +24,6 @@ function PlaceholderTeamMember (props){
     dispatch(setPokemon(newPokemon));
   }
 
-// updates and rerenders when props change | props change when searching a new pokemon
-  // useEffect(() => {
-  //   dispatch(modifyProperty({
-  //     property: 'level',
-  //     value: 100
-  //   }));
-  //   dispatch(setPokemon(pokeState.pokemon));
-  // }, [pokeState.pokemon])
-    console.log(pokeState.pokemon)
     return(
       <Card className='member0'>
         <Card.Body className='team_member_body'>

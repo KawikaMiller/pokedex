@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-import TeamMember from './TeamMember';
-import PlaceholderTeamMember from './PlaceholderTeamMember';
-import TeamTypeChart from './TeamTypeChart';
+import TeamMember from '../../teammember/TeamMember';
+import PlaceholderTeamMember from '../../placeholder/TeamMember/PlaceholderTeamMember';
+import TeamTypeChart from '../TypeChart/TeamTypeChart';
 // import { Move } from './lib/pokemon';
 
 import Button from 'react-bootstrap/Button';
@@ -13,7 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 
 import { useSelector } from 'react-redux';
-import teamSlice from '../reduxStore/teamSlice';
+import teamSlice from '../../../../reduxStore/teamSlice';
 
 function Team (props){
   const [team, setTeam] = useState(props.team);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import sprites from '../lib/sprites'
+import sprites from '../../../lib/sprites'
 
 function PokemonDisplay (props){
   const state = useSelector(state => state.pokemon)

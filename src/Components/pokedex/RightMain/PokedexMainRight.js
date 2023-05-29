@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import dexSlice from '../reduxStore/dexSlice';
-import pokeSlice from '../reduxStore/pokeSlice';
-import teamSlice from '../reduxStore/teamSlice';
+import dexSlice from '../../../reduxStore/dexSlice';
+import pokeSlice from '../../../reduxStore/pokeSlice';
+import teamSlice from '../../../reduxStore/teamSlice';
 
 import Card from "react-bootstrap/Card"
 import { CardGroup } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-import PokedexEntry from './PokedexEntry';
-import { sortMoves } from '../lib/movesLib';
+import PokedexEntry from '../Entry/PokedexEntry';
+import { sortMoves } from '../../../lib/movesLib';
 
 function PokedexMainRight (props) {
   const dexState = useSelector(state => state.pokedex);
