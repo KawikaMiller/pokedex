@@ -18,6 +18,121 @@
         return searchQuery;
     }
   }
+
+  export const supplementMoveData = (pokemon) => async () => {
+    // spread operators to avoid 'TypeError: object is not extensible / object is read only' errors
+    let newPokemon = {...pokemon};
+    newPokemon.moves.forEach(async move => {
+      try {
+        let res = await axios(`https://pokeapi.co/api/v2/move/${move.name}`);
+
+        move.power = res.data.power;
+        move.accuracy = res.data.accuracy;
+        move.pp = res.data.pp;
+        move.priority = res.data.priority;
+        move.dmgClass = res.data.damage_class.name;
+        move.type = res.data.type.name;
+        move.effectChance = res.data.effect_chance;
+
+        if(!res.data.effect_entries[0]?.short_effect){
+          move.description = 'pokeAPI missing this information';
+        } else {
+          move.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance)              
+        };
+
+      } catch (err) {
+        console.log(move, err)
+      };
+    })
+    
+    return newPokemon;
+  }
+
+  export const fetchTypeEffectiveness = (pokemon) => async () => {
+    pokemon.types.forEach(async element => {
+      try{
+        let res = await axios(element.type.url);
+
+        element.doubleDamageFrom = [];
+        element.halfDamageFrom = [];
+        element.noDamageFrom = [];
+
+        res.data.damage_relations.double_damage_from.forEach(async item => {
+          element.doubleDamageFrom.push(item.name)
+        });
+
+        res.data.damage_relations.half_damage_from.forEach(async item => {
+          element.halfDamageFrom.push(item.name)
+        });
+
+        res.data.damage_relations.no_damage_from.forEach(async item => {
+          element.noDamageFrom.push(item.name)
+        })
+      } catch(err) {
+        console.log(err)
+      }
+    })
+
+    return pokemon;
+  }
+
+  export const fetchPokedexEntries = (pokemon) => async () => {
+    try {
+      let response = await axios(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name.split('-')[0]}`);
+      response.data.flavor_text_entries.forEach(element => {
+        if (element.language.name === 'en') {
+          let description = {
+            version: element.version.name,
+            description: element.flavor_text.replace('', ' ')
+          }
+          pokemon.descriptions.push(description);
+        }
+      })
+      if (pokemon.forms.length === 0) {
+        response.data.varieties.forEach(form => {
+          let f = {
+            name: form.pokemon.name,
+            url: form.pokemon.url,
+            apiId: form.pokemon.url.match(/[^v]\d+/)[0].slice(1),
+          }
+          pokemon.forms.push(f)
+        })           
+      }
+    } catch(err) {
+      console.log(err)
+    }
+    return pokemon;
+  }
+
+  export const fetchAbilityDescriptions = (pokemon) => async () => {
+    let newPokemon = {...pokemon};
+    let newAbilities = [];
+
+    pokemon.abilities.forEach(async (ability, idx) => {
+      let newAbility = {...ability};
+
+      axios(ability.url)
+      .then(response => {
+        newAbility.description = response.data.effect_entries[1].effect;
+        return newAbility;
+      })
+      .then(response => {
+        newAbilities = [...newAbilities, response]
+      })
+      .then(response => {
+        newPokemon.abilities = newAbilities;
+      })
+      .catch(e => {
+        console.log(e)
+      })
+      .finally(response => {
+        console.log(newPokemon.abilities);
+        return newPokemon;            
+      })
+    });
+
+    return newPokemon;
+  }
   
   // handles API calls to pokeapi for various information about a pokemon
   export const fetchPokemonData = (event, searchQuery) => async () => {
@@ -320,28 +435,19 @@
         let newPokemon = {...pokemon};
         let newAbilities = [];
 
-        pokemon.abilities.forEach(async (ability, idx) => {
-          let newAbility = {...ability};
-
-          axios(ability.url)
-          .then(response => {
+        try {
+          for (const ability of pokemon.abilities){
+            let newAbility = {...ability};
+            let response = await axios(ability.url);
             newAbility.description = response.data.effect_entries[1].effect;
-            return newAbility;
-          })
-          .then(response => {
-            newAbilities = [...newAbilities, response]
-          })
-          .then(response => {
+            newAbilities = [...newAbilities, newAbility];
             newPokemon.abilities = newAbilities;
-          })
-          .catch(e => {
-            console.log(e)
-          })
-          .finally(response => {
-            console.log(newPokemon.abilities);
-            return newPokemon;            
-          })
-        })
+          }
+        }
+        catch(e){
+          console.error(e)
+        }
+
         return newPokemon;
       })
       .then(response => {
