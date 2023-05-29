@@ -3,14 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 const dexSlice = createSlice({
   name: 'pokedex',
   initialState: {
-    activeScreen: 0,
+    mainScreenIdx: 0,
+    dexTabIdx: 0,
     dexIdx: 0,
     moveIdx: 0,
     abilityIdx: 0,
   },
   reducers: {
-    setActiveScreen(state, action){
-      state.activeScreen = action.payload
+    setMainScreenIdx(state, action){
+      state.mainScreenIdx = action.payload
+    },
+    setDexTabIdx(state, action){
+      state.dexTabIdx = action.payload
     },
     setDexIdx(state, action){
       state.dexIdx = action.payload

@@ -2,7 +2,6 @@
 export const sortMoves = (arr, property) => {
   let moves = [...arr];
   moves.sort((a,b) => {
-    // console.log(a);
     if(a[property] < b[property]){
       return -1;
     } else if (a[property] > b[property]) {

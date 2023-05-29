@@ -16,7 +16,7 @@ function Ability (props){
 
   return(
       <Accordion.Item eventKey={props.eventKey}>
-        <Accordion.Header>{props.ability.ability.name}</Accordion.Header>
+        <Accordion.Header>{props.ability.name}</Accordion.Header>
         <Accordion.Body style={{overflowY: 'scroll', maxHeight: '9vh'}}>{description}</Accordion.Body>
       </Accordion.Item>
   )

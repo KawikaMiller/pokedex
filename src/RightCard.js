@@ -70,7 +70,7 @@ function RightCard (props){
 
         {/* if activeKey is 0, display a 'default' pokedex layout */}
         {activeKey === 0 ?
-          <PokedexMainRight pokemon={props.searchResult} />
+          <PokedexMainRight />
         :   
           false
         }

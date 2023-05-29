@@ -17,14 +17,14 @@ function PokedexMainRight (props) {
   const pokeState = useSelector(state => state.pokemon);
   const dispatch = useDispatch();
 
-  let { setActiveScreen, setDexIdx, setAbilityIdx, setMoveIdx } = dexSlice.actions;
+  let { setMainScreenIdx, setDexIdx, setAbilityIdx, setMoveIdx } = dexSlice.actions;
 
   const [sortedMoves, setSortedMoves] = useState([]);
   const [movesSorted, setMovesSorted] = useState(false);
 
   const changeScreen = (screenId) => {
-    if(dexState.activeScreen !== screenId){
-      dispatch(setActiveScreen(screenId))      
+    if(dexState.mainScreenIdx !== screenId){
+      dispatch(setMainScreenIdx(screenId))      
     }
   }
 
@@ -50,6 +50,7 @@ function PokedexMainRight (props) {
 
   const nextMoveEntry = () => {
     changeScreen(1);
+    console.log('next move', dexState.mainScreenIdx);
 
     if (dexState.moveIdx === sortedMoves.length - 1) {
       console.log(sortedMoves);
@@ -102,33 +103,12 @@ function PokedexMainRight (props) {
   return(
     <>
     {/* black rectangle near top for displaying text */}
-    {console.log(pokeState.pokemon)}
     <Container id='pokedex_entry_container'>
-      {dexState.activeScreen === 0 && pokeState.pokemon ?
-        <PokedexEntry
-          header1={pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1)}
-          header2={pokeState.pokemon.descriptions.length ? pokeState.pokemon.descriptions[dexState.dexIdx].version : 'PokeAPI Error'}
-          header3={pokeState.pokemon.id.toString().padStart(3, '0')}
-          details={pokeState.pokemon.descriptions.length ? pokeState.pokemon.descriptions[dexState.dexIdx].description : 'PokeAPI Error' }
-        />        
-      :
-      dexState.activeScreen === 1 && pokeState.pokemon ?
-        <PokedexEntry 
-          header1={sortedMoves[dexState.moveIdx].name}
-          header3={sortedMoves[dexState.moveIdx].dmgClass}
-          details={sortedMoves[dexState.moveIdx].description}
-        />
-      :
-      dexState.activeScreen === 2 && pokeState.pokemon ?
-      <PokedexEntry 
-        header1={pokeState.pokemon.abilities[dexState.abilityIdx].name}
-        header3={pokeState.pokemon.abilities[dexState.abilityIdx].is_hidden ? null : 'Hidden Ability'}
-        details={pokeState.pokemon.abilities[dexState.abilityIdx].description}
-      />
+      {pokeState.pokemon?.name ?
+        <PokedexEntry sortedMoves={sortedMoves} />
       :
         'Please Search for a Pokemon'
       }
-
     </Container>
 
     {/* 10 blue buttons */}

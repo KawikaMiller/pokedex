@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // react-bootstrap components
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -11,7 +11,7 @@ import BaseStats from "./BaseStats";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import pokeSlice from "../reduxStore/pokeSlice";
-import { fetchPokemonData } from "../reduxStore/helperFuncs";
+import { fetchPokemon } from "../reduxStore/helperFuncs";
 
 function Pokedex (props) {
   const state = useSelector(state => state.pokemon)
@@ -34,10 +34,10 @@ function Pokedex (props) {
   const handleNextPokemon = (event) => {
     // console.log('next pokemon')
     if (state.pokemon.name) {
-      dispatch(fetchPokemonData(event, state.pokemon.id + 1))
+      dispatch(fetchPokemon(event, state.pokemon.id + 1))
       .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
     } else {
-      dispatch(fetchPokemonData(event, 1))
+      dispatch(fetchPokemon(event, 1))
       .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
     }
   }
@@ -45,10 +45,10 @@ function Pokedex (props) {
   const handlePreviousPokemon = (event) => {
     // console.log('prev pokemon')
     if (state.pokemon) {
-      dispatch(fetchPokemonData(event, state.pokemon.id - 1))
+      dispatch(fetchPokemon(event, state.pokemon.id - 1))
       .then(response => {dispatch(setPokemon({pokemon: {...response}}))})      
     } else {
-      dispatch(fetchPokemonData(event, 1))
+      dispatch(fetchPokemon(event, 1))
       .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
     }
   }
@@ -59,38 +59,38 @@ function Pokedex (props) {
     if (state.pokemon) {
     // if you're viewing pokemon within gen 1, move to gen 2
       if (state.pokemon.id <= 151) {
-        dispatch(fetchPokemonData(event, 152))
+        dispatch(fetchPokemon(event, 152))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
     // if you're viewing pokemon within gen 2, move to gen 3 & etc.
       } else if (state.pokemon.id <= 251) {
-        dispatch(fetchPokemonData(event, 252))
+        dispatch(fetchPokemon(event, 252))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
       } else if (state.pokemon.id <= 251) {
-        dispatch(fetchPokemonData(event, 252))
+        dispatch(fetchPokemon(event, 252))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})         
       } else if (state.pokemon.id <= 386) {
-        dispatch(fetchPokemonData(event, 387))
+        dispatch(fetchPokemon(event, 387))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
       } else if (state.pokemon.id <= 493) {
-        dispatch(fetchPokemonData(event, 494))
+        dispatch(fetchPokemon(event, 494))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})                
       } else if (state.pokemon.id <= 649) {
-        dispatch(fetchPokemonData(event, 650))
+        dispatch(fetchPokemon(event, 650))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
       } else if (state.pokemon.id <= 721) {
-        dispatch(fetchPokemonData(event, 722))
+        dispatch(fetchPokemon(event, 722))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
       } else if (state.pokemon.id <= 809) {
-        dispatch(fetchPokemonData(event, 810))
+        dispatch(fetchPokemon(event, 810))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
       } else if (state.pokemon.id <= 905) {
-        dispatch(fetchPokemonData(event, 906))
+        dispatch(fetchPokemon(event, 906))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
       } else if (state.pokemon.id <= 906) {
-        dispatch(fetchPokemonData(event, 1))
+        dispatch(fetchPokemon(event, 1))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
       }
-    } else {fetchPokemonData(event, 1)}
+    } else {fetchPokemon(event, 1)}
   }
 
   const handlePreviousGen = (event) => {
@@ -99,37 +99,37 @@ function Pokedex (props) {
     if (state.pokemon) {
       // if within gen 9, move back to first starter of gen 8
       if (state.pokemon.id >= 906) {
-        dispatch(fetchPokemonData(event, 810))
+        dispatch(fetchPokemon(event, 810))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
       // if within gen 8, move back to first starter of gen 7 & etc.
       } else if (state.pokemon.id >= 810) {
-        dispatch(fetchPokemonData(event, 722))
+        dispatch(fetchPokemon(event, 722))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
       } else if (state.pokemon.id >= 722) {
-        dispatch(fetchPokemonData(event, 650))
+        dispatch(fetchPokemon(event, 650))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
       } else if (state.pokemon.id >= 650) {
-        dispatch(fetchPokemonData(event, 494))
+        dispatch(fetchPokemon(event, 494))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
       } else if (state.pokemon.id >= 494) {
-        dispatch(fetchPokemonData(event, 387))
+        dispatch(fetchPokemon(event, 387))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
       } else if (state.pokemon.id >= 387) {
-        dispatch(fetchPokemonData(event, 252))
+        dispatch(fetchPokemon(event, 252))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
       } else if (state.pokemon.id >= 252) {
-        dispatch(fetchPokemonData(event, 152))
+        dispatch(fetchPokemon(event, 152))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
       } else if (state.pokemon.id >= 152) {
-        dispatch(fetchPokemonData(event, 1))
+        dispatch(fetchPokemon(event, 1))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
       } else if (state.pokemon.id >= 1) {
-        dispatch(fetchPokemonData(event, 906))
+        dispatch(fetchPokemon(event, 906))
         .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
       }
     // if no search has been made, move to gen 9
     } else {
-      dispatch(fetchPokemonData(event, 906))
+      dispatch(fetchPokemon(event, 906))
       .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
     }
   }
