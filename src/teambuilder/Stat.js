@@ -57,20 +57,6 @@ function Stat (props) {
     return Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(0 / 4)) * pokeState.pokemon.level) / 100) + pokeState.pokemon.level + 10
   }
 
-  // useEffect(() => {
-  //   if (props.stat.name === 'HP') {
-  //     setIV(props.stat.iv);
-  //     setEV(props.stat.ev);
-  //     setStatTotal(getHpTotal());
-  //   }
-  //   else if(props.stat.name !== 'HP') {
-  //     setIV(props.stat.iv);
-  //     setEV(props.stat.ev);
-  //     setStatTotal(getStatTotal());
-  //   }
-  // }, [props])
-
-
   useEffect(() => {
     if (props.stat.name === 'HP') {
       setStatTotal(getHpTotal())

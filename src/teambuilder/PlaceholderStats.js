@@ -143,6 +143,7 @@ function PlaceholderStats(props) {
     handleHideMovesModal()
   }
 
+  // sorts moves on component mount
   useEffect(() => {
     let sortedMoves = [...pokeState.pokemon.moves];
     sortMoves(sortedMoves);
@@ -187,7 +188,7 @@ function PlaceholderStats(props) {
           <Button 
             style={{ margin: '0.5rem 0', padding: '0'}}
             variant='success' 
-            onClick={() => addToRoster(pokeState.pokemon)} 
+            onClick={() => dispatch(addToRoster(pokeState.pokemon))} 
           >
           + To Team
           </Button>

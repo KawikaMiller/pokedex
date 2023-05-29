@@ -243,8 +243,8 @@ function TeamMember (props) {
                 <div>
                   <Form.Label>Ability</Form.Label>
                   <Form.Select id='battle_ability'>
-                    {props.pokemon.abilities.map(element => (
-                      <option value={element.name}>{element.ability.name}</option>
+                    {props.pokemon.abilities.map(ability => (
+                      <option value={ability.name}>{ability.name}</option>
                     ))}
                   </Form.Select>
                 </div>

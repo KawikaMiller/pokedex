@@ -195,16 +195,16 @@ function Team (props){
         </Container>
         
         {/* displays all team members */}
-        {/* <Container id='team_members'>
+        <Container id='team_members'>
           <Container style={{padding: '0'}}>
             <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
               {`Team Name: ${teamName}`}
             </h5>
           </Container>
-          {team.length > 0 ?
-          team.map((element, idx) => <TeamMember pokemon={element} removeTeamMember={() => props.removeTeamMember(idx)} />)
+          {teamState.roster.length > 0 ?
+          teamState.roster.map((element, idx) => <TeamMember pokemon={element} removeTeamMember={() => props.removeTeamMember(idx)} />)
           : null }
-        </Container> */}
+        </Container>
         
         {/* displays team type coverage chart */}
         {/* <Modal
