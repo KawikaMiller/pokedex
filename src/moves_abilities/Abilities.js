@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Ability from './Ability';
-
+import { useSelector } from 'react-redux';
 
 function Abilities (props){
-  const [abilities, setAbilities] = useState([])
+  const pokeState = useSelector(state => state.pokemon)
 
   return(
     <Accordion defaultActiveKey={0}>
-      {props.abilities ? 
-        props.abilities.map((abilityData, idx) => 
+      {pokeState.pokemon.abilities ? 
+        pokeState.pokemon.abilities.map((abilityData, idx) => 
           <Ability
             ability={abilityData}
             eventKey={idx} 
-            key={`ability_${idx}`}
+            key={`${abilityData.name}`}
           />)
         : 
           'no abilities found'}

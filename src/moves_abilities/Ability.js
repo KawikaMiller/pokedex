@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 
 function Ability (props){
   const [description, setDescription] = useState('default');
 
-  const componentDidMount = () => {
+  useEffect(() => {
     setDescription(props.ability.description)
-  }
+  }, [])
 
-  const componentDidUpdate = (prevProps) => {
-    if(prevProps !== props) {
-      setDescription(props.ability.description)
-    }
-  }
+  useEffect(() => {
+    setDescription(props.ability.description)
+  }, [props])
 
   return(
       <Accordion.Item eventKey={props.eventKey}>

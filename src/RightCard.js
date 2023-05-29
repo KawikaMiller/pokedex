@@ -9,10 +9,15 @@ import Container from 'react-bootstrap/Container';
 import Abilities from "./moves_abilities/Abilities";
 import Team from "./teambuilder/Team";
 import PokedexMainRight from "./search_display/PokedexMainRight"
+import { useSelector, useDispatch } from "react-redux";
+import pokeSlice from "./reduxStore/pokeSlice";
+import dexSlice from "./reduxStore/dexSlice";
 
 function RightCard (props){
   const [activeKey, setActiveKey] = useState(0);
   const [team, setTeam] = useState([]);
+
+  const pokeState = useSelector(state => state.pokemon);
 
   // handles changing the activeKey state property
   const changeTab = (tabIndex) => {
@@ -78,32 +83,31 @@ function RightCard (props){
         {/* if activeKey is 1, displays moves and abilities */}
         {activeKey === 1 ?
           <Container id='learnset_and_abilities'>
-            {/* displays all the moves, categorized by learn method */}
+
             <Container id="learnset_container">
               {
-                props.searchResult ?
+                pokeState.pokemon?.name ?
                   <Learnset 
-                    moves={props.searchResult.moves} 
-                    pokemonName={props.searchResult.name} 
-                    key={`${props.searchResult.name}_moves`}
+                    key={`${pokeState.pokemon.name}_moves`}
                   /> 
                 : 
                   <h4>Please search for a Pokemon</h4>
               }
-            </Container>          
-            {/* displays the pokemon's abilities */}
+            </Container>
+
             <Container id='abilities_container'>
               {
                 props.searchResult ? 
-                  <Abilities 
-                    abilities={props.searchResult.abilities} 
+                  <Abilities
+                    key={`${pokeState.pokemon.name}_abilities`} 
                   />
                 : 
                   null  
               }
             </Container>           
           </Container> 
-          : null
+        : 
+          null
         }
 
         {/* if activeKey is 2, displays team builder */}
