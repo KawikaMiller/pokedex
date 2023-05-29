@@ -9,7 +9,7 @@ import Container from 'react-bootstrap/Container';
 import pokeSlice from '../../reduxStore/pokeSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
-function EditPokemon(){
+function EditPokemon(props){
   const [disableSubmit, setDisableSubmit] = useState(false);
 
   const pokeState = useSelector(state => state.pokemon);
@@ -21,7 +21,7 @@ function EditPokemon(){
 
     dispatch(modifyProperty({
       property: 'level',
-      value: event.target.level.value
+      value: parseInt(event.target.level.value)
     }))
 
     dispatch(modifyProperty({
@@ -50,23 +50,25 @@ function EditPokemon(){
       newStats = [...newStats, {...stat}]
     }
 
-    newStats[0].iv = event.target.iv_hp.value
-    newStats[0].ev = event.target.ev_hp.value
-    newStats[1].iv = event.target.iv_atk.value
-    newStats[1].ev = event.target.ev_atk.value
-    newStats[2].iv = event.target.iv_def.value
-    newStats[2].ev = event.target.ev_def.value
-    newStats[3].iv = event.target.iv_spatk.value
-    newStats[3].ev = event.target.ev_spatk.value
-    newStats[4].iv = event.target.iv_spdef.value
-    newStats[4].ev = event.target.ev_spdef.value
-    newStats[5].iv = event.target.iv_spd.value
-    newStats[5].ev = event.target.ev_spd.value
+    newStats[0].iv = parseInt(event.target.iv_hp.value)
+    newStats[0].ev = parseInt(event.target.ev_hp.value)
+    newStats[1].iv = parseInt(event.target.iv_atk.value)
+    newStats[1].ev = parseInt(event.target.ev_atk.value)
+    newStats[2].iv = parseInt(event.target.iv_def.value)
+    newStats[2].ev = parseInt(event.target.ev_def.value)
+    newStats[3].iv = parseInt(event.target.iv_spatk.value)
+    newStats[3].ev = parseInt(event.target.ev_spatk.value)
+    newStats[4].iv = parseInt(event.target.iv_spdef.value)
+    newStats[4].ev = parseInt(event.target.ev_spdef.value)
+    newStats[5].iv = parseInt(event.target.iv_spd.value)
+    newStats[5].ev = parseInt(event.target.ev_spd.value)
 
     dispatch(modifyProperty({
       property: 'stats',
       value: newStats
     }))
+
+    props.toggleModal();
   }
 
   const checkIvEvLimit = (event) => {
@@ -91,10 +93,8 @@ function EditPokemon(){
     } else return 0;
   })
 
-  console.log(pokeState.pokemon)
-
   return(
-    <Modal centered show={true} size='lg' >
+    <Modal centered show={props.showEditModal} size='lg'>
 
     <Modal.Header> Edit Pokemon </Modal.Header>
 
@@ -125,7 +125,7 @@ function EditPokemon(){
                       defaultValue={pokeState.pokemon.nature ? pokeState.pokemon.nature : 'bashful'} 
                     >
                       {natureModifiers.map(nature => (
-                        <option value={nature.name}>{nature.name}</option>
+                        <option value={nature.name.toLowerCase()}>{nature.name}</option>
                       ))}
                     </Form.Select>
                 </div>
