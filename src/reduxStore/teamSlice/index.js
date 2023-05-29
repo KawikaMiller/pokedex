@@ -11,7 +11,7 @@ const teamSlice = createSlice({
       state.name = action.payload
     },
     addToRoster(state, action){
-      state.roster = action.payload.pokemon;
+      state.roster = [...state.roster, action.payload];
     },
     removeFromRoster(state, action){
       state.roster = action.payload.pokemon;

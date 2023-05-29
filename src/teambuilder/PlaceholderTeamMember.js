@@ -11,44 +11,27 @@ function PlaceholderTeamMember (props){
   const teamState = useSelector(state => state.team);
   let dispatch = useDispatch();
 
-  let { modifyProperty } = pokeSlice.actions;
-
-  dispatch(modifyProperty({
-    property: 'level',
-    value: 100
-  }))
-  // pokeState.pokemon.level = 100;
-  const [pokemon, setPokemon] = useState(pokeState.pokemon)
-
-  const updateStats = (newStats, newLevel, newNature) => {
-    let newPokemon = pokemon;
-
-    newPokemon.stats = newStats;
-    newPokemon.level = newLevel;
-    newPokemon.nature = newNature;
-
-    setPokemon(newPokemon);
-  }
+  let { modifyProperty, setPokemon } = pokeSlice.actions;
 
   const updateBattleInfo = (battleMovesArr, battleAbility, heldItem) => {
-    let newPokemon = pokemon;
+    let newPokemon = {...pokeState.pokemon};
 
     newPokemon.battleMoves = battleMovesArr;
     newPokemon.battleAbility = battleAbility;
     newPokemon.heldItem = heldItem;
 
-    setPokemon(newPokemon)
+    dispatch(setPokemon(newPokemon));
   }
 
 // updates and rerenders when props change | props change when searching a new pokemon
-  useEffect(() => {
-    dispatch(modifyProperty({
-      property: 'level',
-      value: 100
-    }));
-    setPokemon(pokeState.pokemon);
-  }, [pokeState.pokemon])
-
+  // useEffect(() => {
+  //   dispatch(modifyProperty({
+  //     property: 'level',
+  //     value: 100
+  //   }));
+  //   dispatch(setPokemon(pokeState.pokemon));
+  // }, [pokeState.pokemon])
+    console.log(pokeState.pokemon)
     return(
       <Card className='member0'>
         <Card.Body className='team_member_body'>
@@ -60,22 +43,10 @@ function PlaceholderTeamMember (props){
                 style={{backgroundColor: 'white', borderRadius: '50%', width: '90%'}}
               >
               </Card.Img>
-              <p style={{margin: '0'}}>Lv. {pokemon.level}</p>
+              <p style={{margin: '0'}}>Lv. {pokeState.pokemon.level}</p>
             </section>
 
-          {/* shows stats */}
-          <PlaceholderStats
-            moves={pokemon.moves}
-            abilities={pokemon.abilities} 
-            stats={pokemon.stats}
-            nature={pokemon.nature}
-            level={100} 
-            key={`${pokemon.name}_stats`}
-            updateStats={updateStats}
-            updateBattleInfo={updateBattleInfo}
-            addTeamMember={() => props.addTeamMember(pokemon)} 
-            name={pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1)}
-          />
+          <PlaceholderStats key={`${pokeState.pokemon.name}_stats`} />
         </Card.Body>
       </Card>
     )

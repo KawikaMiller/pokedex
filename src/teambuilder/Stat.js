@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 import { calculateStatTotal, calculateHpTotal, getNatureModifier, natureModifiers } from '../lib/calcStats';
 
+import { useSelector, useDispatch } from 'react-redux';
+import pokeSlice from '../reduxStore/pokeSlice';
+
 function Stat (props) {
-  const [IV, setIV] = useState(props.stat.iv);
-  const [EV, setEV] = useState(props.stat.ev);
-  const [level, setLevel] = useState(props.level);
-  const [statName, setStatName] = useState(props.stat.name);
   const [statTotal, setStatTotal] = useState(0);
-  const [nature, setNature] = useState(1); // change this later
-  const [natureName, setNatureName] = useState(props.nature);
+  const [IV, setIV] = useState(props.stat.iv)
+  const [EV, setEV] = useState(props.stat.ev)
+
+  const pokeState = useSelector(state => state.pokemon);
+  const teamState = useSelector(state => state.team);
+  let dispatch = useDispatch();
 
   // getHpTotal and getStatTotal only exist to make the rest of the code easier to read
   const getHpTotal = () => {
@@ -19,7 +22,7 @@ function Stat (props) {
       props.stat.base_stat,
       props.stat.iv,
       props.stat.ev,
-      props.level,
+      pokeState.pokemon.level,
     )
   }
 
@@ -29,83 +32,80 @@ function Stat (props) {
       props.stat.base_stat,
       props.stat.iv,
       props.stat.ev,
-      props.level,
-      props.nature
+      pokeState.pokemon.level,
+      pokeState.pokemon.nature
     )
   }
 
   const calculateMaxStatTotal = () => {
-    const natureMultiplier = getNatureModifier(natureModifiers, props.nature, props.stat.name);
+    const natureMultiplier = getNatureModifier(natureModifiers, pokeState.pokemon.nature, props.stat.name);
 
-    return Math.floor(((Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(255 / 4)) * props.level) / 100)) + 5) * natureMultiplier)
+    return Math.floor(((Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(255 / 4)) * pokeState.pokemon.level) / 100)) + 5) * natureMultiplier)
   }
 
   const calculateMinStatTotal = () => {
-    const natureMultiplier = getNatureModifier(natureModifiers, props.nature, props.stat.name);
+    const natureMultiplier = getNatureModifier(natureModifiers, pokeState.pokemon.nature, props.stat.name);
 
-    return Math.floor(((Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(0 / 4)) * props.level) / 100)) + 5) * natureMultiplier)
+    return Math.floor(((Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(0 / 4)) * pokeState.pokemon.level) / 100)) + 5) * natureMultiplier)
   }
 
   const calculateMaxHpTotal = () => {
-    return Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(255 / 4)) * props.level) / 100) + props.level + 10
+    return Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(255 / 4)) * pokeState.pokemon.level) / 100) + pokeState.pokemon.level + 10
   }
 
   const calculateMinHpTotal = () => {
-    return Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(0 / 4)) * props.level) / 100) + props.level + 10
+    return Math.floor(((2 * props.stat.base_stat + props.stat.iv + Math.floor(0 / 4)) * pokeState.pokemon.level) / 100) + pokeState.pokemon.level + 10
   }
 
-  const componentDidUpdate = (prevProps) => {
-    if (prevProps !== props && statName === 'HP') {
-      setLevel(props.level);
-      setIV(props.stat.iv);
-      setEV(props.stat.ev);
-      setStatTotal(getHpTotal());
-      setNatureName(props.nature);
-    }
-    else if(prevProps !== props && statName !== 'HP') {
-      setLevel(props.level);
-      setIV(props.stat.iv);
-      setEV(props.stat.ev);
-      setStatTotal(getStatTotal());
-      setNatureName(props.nature);
-    }
-  }
+  // useEffect(() => {
+  //   if (props.stat.name === 'HP') {
+  //     setIV(props.stat.iv);
+  //     setEV(props.stat.ev);
+  //     setStatTotal(getHpTotal());
+  //   }
+  //   else if(props.stat.name !== 'HP') {
+  //     setIV(props.stat.iv);
+  //     setEV(props.stat.ev);
+  //     setStatTotal(getStatTotal());
+  //   }
+  // }, [props])
 
-  const componentDidMount = () => {
+
+  useEffect(() => {
     if (props.stat.name === 'HP') {
       setStatTotal(getHpTotal())
     } else if (props.stat.name !== 'HP') {
       setStatTotal(getStatTotal())
     }
-  }
+  }, [])
 
     return(
       <Container 
         style={{textAlign: 'left', padding: '0', marginTop: '0'}} 
-        key={`${statName}_container`}
+        key={`${props.stat.name}_container`}
       >
-        {statName === 'HP' ?
-        <>
-          {statName} : {getHpTotal()} / {calculateMaxHpTotal()}
+        {props.stat.name === 'HP' ?
+          <>
+            {props.stat.name} : {getHpTotal()} / {calculateMaxHpTotal()}
+            <ProgressBar 
+              style={{height: '0.5vh', width: '90%'}} 
+              now={getHpTotal()} 
+              max={calculateMaxHpTotal()} 
+              min={calculateMinHpTotal()}
+              key={`${props.stat.name}_${statTotal}`}
+            />
+          </>         
+        :
+          <>
+          {props.stat.name} : {getStatTotal()} / {calculateMaxStatTotal()}
           <ProgressBar 
             style={{height: '0.5vh', width: '90%'}} 
-            now={getHpTotal()} 
-            max={calculateMaxHpTotal()} 
-            min={calculateMinHpTotal()}
-            key={`${statName}_${statTotal}`}
+            now={getStatTotal()} 
+            max={calculateMaxStatTotal()} 
+            min={calculateMinStatTotal()}
+            key={`${props.stat.name}_${statTotal}`}
           />
-        </>         
-        :
-        <>
-        {statName} : {getStatTotal()} / {calculateMaxStatTotal()}
-        <ProgressBar 
-          style={{height: '0.5vh', width: '90%'}} 
-          now={getStatTotal()} 
-          max={calculateMaxStatTotal()} 
-          min={calculateMinStatTotal()}
-          key={`${statName}_${statTotal}`}
-        />
-        </>
+          </>
         }
       </Container>
     )
