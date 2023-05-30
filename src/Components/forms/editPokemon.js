@@ -7,21 +7,31 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
 import pokeSlice from '../../reduxStore/pokeSlice';
+import teamSlice from '../../reduxStore/teamSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 function EditPokemon(props){
   const [disableSubmit, setDisableSubmit] = useState(false);
 
   const pokeState = useSelector(state => state.pokemon);
+  const teamState = useSelector(state => state.team);
   let dispatch = useDispatch();
-  let { modifyProperty } = pokeSlice.actions
+  let { modifyProperty } = pokeSlice.actions;
+  let { modifyMemberProperty } = teamSlice.actions
 
-  const handleSubmitBattleInfo = (event) => {
+  console.log(props);
+
+  const handleSubmitToPokeState = (event) => {
     event.preventDefault();
 
     dispatch(modifyProperty({
       property: 'level',
       value: parseInt(event.target.level.value)
+    }))
+
+    dispatch(modifyProperty({
+      property: 'nickname',
+      value: event.target.pokemon_nickname.value,
     }))
 
     dispatch(modifyProperty({
@@ -71,6 +81,73 @@ function EditPokemon(props){
     props.toggleModal();
   }
 
+  const handleModifyTeamMember = (event, rosterIdx) => {
+    event.preventDefault();
+
+    dispatch(modifyMemberProperty({
+      property: 'level',
+      value: parseInt(event.target.level.value),
+      idx: props.idx
+    }))
+
+    dispatch(modifyMemberProperty({
+      property: 'nickname',
+      value: event.target.pokemon_nickname.value,
+      idx: props.idx
+    }))
+
+    dispatch(modifyMemberProperty({
+      property: 'nature',
+      value: event.target.nature.value,
+      idx: props.idx
+    }))
+
+    dispatch(modifyMemberProperty({
+      property: 'battleAbility',
+      value: event.target.battle_ability.value,
+      idx: props.idx
+    }))
+
+    dispatch(modifyMemberProperty({
+      property: 'heldItem',
+      value: event.target.held_item.value,
+      idx: props.idx
+    }))
+
+    dispatch(modifyMemberProperty({
+      property: 'battleMoves',
+      value: [event.target.move_1.value, event.target.move_2.value, event.target.move_3.value, event.target.move_4.value ],
+      idx: props.idx
+    }))
+
+    let newStats = [];
+
+    for(const stat of teamState.roster[rosterIdx].stats){
+      newStats = [...newStats, {...stat}]
+    }
+
+    newStats[0].iv = parseInt(event.target.iv_hp.value)
+    newStats[0].ev = parseInt(event.target.ev_hp.value)
+    newStats[1].iv = parseInt(event.target.iv_atk.value)
+    newStats[1].ev = parseInt(event.target.ev_atk.value)
+    newStats[2].iv = parseInt(event.target.iv_def.value)
+    newStats[2].ev = parseInt(event.target.ev_def.value)
+    newStats[3].iv = parseInt(event.target.iv_spatk.value)
+    newStats[3].ev = parseInt(event.target.ev_spatk.value)
+    newStats[4].iv = parseInt(event.target.iv_spdef.value)
+    newStats[4].ev = parseInt(event.target.ev_spdef.value)
+    newStats[5].iv = parseInt(event.target.iv_spd.value)
+    newStats[5].ev = parseInt(event.target.ev_spd.value)
+
+    dispatch(modifyMemberProperty({
+      property: 'stats',
+      value: newStats,
+      idx: props.idx
+    }))
+
+    props.toggleModal();
+  }
+
   const checkIvEvLimit = (event) => {
     if (
       parseInt(event.target.form[11].value) +
@@ -94,13 +171,18 @@ function EditPokemon(props){
   })
 
   return(
-    <Modal centered show={props.showEditModal} size='lg'>
+    <Modal centered show={props.showEditModal} size='lg' onHide={props.toggleModal}>
 
     <Modal.Header> Edit Pokemon </Modal.Header>
 
     <Modal.Body>
 
-        <Form onSubmit={handleSubmitBattleInfo}>
+        <Form 
+          onSubmit={props.idx === undefined ? 
+            handleSubmitToPokeState 
+          : 
+            (event) => {handleModifyTeamMember(event, props.idx)}
+          }>
 
           <Form.Group id='battle_moves' className='battle_moves_form'>
 
@@ -337,8 +419,26 @@ function EditPokemon(props){
 
           </Container>
             <div style={{margin: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-              <Button type='submit' disabled={disableSubmit ? true : false}>Save</Button>
-              {disableSubmit ? 'EVs cannot total more than 510' : null}
+              <Form.Group id='pokemon_nickname_form'>
+                <Form.Label>Nickname</Form.Label>
+                <Form.Control type='text' id='pokemon_nickname' minLength={1} maxLength={12} />
+                <Form.Text>Leave blank for no nickname</Form.Text>
+              </Form.Group>
+              
+              <div >
+                <Form.Group style={{display: 'flex', flexDirection: 'column'}}>
+                  <Form.Label style={{visibility: 'hidden'}}>SUBMIT</Form.Label>
+                  <Button type='submit' disabled={disableSubmit ? true : false}>Save</Button>
+                  {disableSubmit ? 
+                    <Form.Text>EVs cannot total more than 510</Form.Text>                     
+                  : 
+                    <Form.Text style={{visibility: 'hidden'}}>EVs cannot total more than 510</Form.Text>
+                  }
+                </Form.Group>
+
+              </div>
+
+              
             </div>
         </Form>
       </Modal.Body>

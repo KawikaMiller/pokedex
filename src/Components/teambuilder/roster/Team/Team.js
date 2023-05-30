@@ -202,7 +202,7 @@ function Team (props){
             </h5>
           </Container>
           {teamState.roster.length > 0 ?
-          teamState.roster.map((element, idx) => <TeamMember pokemon={element} removeTeamMember={() => props.removeTeamMember(idx)} />)
+          teamState.roster.map((element, idx) => <TeamMember pokemon={element} rosterIdx={idx} />)
           : null }
         </Container>
         

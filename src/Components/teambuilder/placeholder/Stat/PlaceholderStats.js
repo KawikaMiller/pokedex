@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Stat from '../../stat/Stat';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
-import { calculateStatTotal, calculateHpTotal, } from '../../../../lib/calcStats';
 
 import { useSelector, useDispatch } from 'react-redux';
 import pokeSlice from '../../../../reduxStore/pokeSlice';
 import teamSlice from '../../../../reduxStore/teamSlice';
-
 import EditPokemon from '../../../forms/editPokemon';
 
 function PlaceholderStats(props) {
   const [showEditModal, setShowEditModal] = useState(false);
-
   const pokeState = useSelector(state => state.pokemon);
   const dispatch = useDispatch();
   let { modifyProperty, setPokemon } = pokeSlice.actions
@@ -77,9 +72,11 @@ function PlaceholderStats(props) {
       </Container>
 
       {showEditModal ? 
-         <EditPokemon 
+         <EditPokemon
+          idx={undefined}
+          pokemon={pokeState.pokemon} 
           showEditModal={showEditModal}
-          toggleModal={() => {console.log('yo'); setShowEditModal(!showEditModal)}}  
+          toggleModal={() => setShowEditModal(!showEditModal)}  
         />
       : 
         null

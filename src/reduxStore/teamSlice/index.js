@@ -14,7 +14,7 @@ const teamSlice = createSlice({
       state.roster = [...state.roster, action.payload];
     },
     removeFromRoster(state, action){
-      state.roster = action.payload.pokemon;
+      state.roster = state.roster.filter((pokemon, idx) => idx !== action.payload);
     },
     clearRoster(state, action){
       state.roster = action.payload.pokemon;
@@ -22,6 +22,9 @@ const teamSlice = createSlice({
     overwriteRoster(state, action){
       state.roster = action.payload.pokemon;
     },
+    modifyMemberProperty(state, action){
+      state.roster[action.payload.idx][action.payload.property] = action.payload.value;
+    }
   }
 })
 
