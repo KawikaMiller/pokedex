@@ -172,13 +172,13 @@ function Team (props){
 
 
     return(
-      <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%',}}>
+      <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%',}}>
 
         {/* placeholder team member before adding pokemon to team */}
         <Container id='team_member_placeholder'>
 
           {pokeState.pokemon?.name ? 
-          <h5>Search Result</h5> 
+          null 
           : 
           <h5>Please Search For A Pokemon</h5>
           }
@@ -324,25 +324,6 @@ function Team (props){
 
           <Modal.Footer>Footer</Modal.Footer>
         </Modal> */}
-
-        {/* buttons at bottom */}
-        {/* <Container style={{ position: 'absolute', bottom: '0%', width: '100%'}}>
-          <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
-            <Button size='sm' onClick={toggleTypeCoverageModal}>
-              Type Coverage
-            </Button>
-            <Button size='sm' onClick={newTeam}>
-              New Team
-            </Button>
-            <Button size='sm' onClick={toggleSaveTeamModal}>
-              Save Team
-            </Button>
-            <Button size='sm' onClick={listTeamsFromDB}>
-              Load Team
-            </Button>            
-          </Container>
-
-        </Container> */}
 
       </Container>
 

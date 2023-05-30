@@ -26,6 +26,15 @@ function PlaceholderTeamMember (props){
 
     return(
       <Card className='member0'>
+        <Card.Header className='team_member_header'>
+          <h6>{
+            pokeState.pokemon.nickname ? 
+              pokeState.pokemon.nickname
+            :
+              (pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1))
+          }</h6>
+            {pokeState.pokemon.types.map(element => <p>{element.type.name}</p>)}
+        </Card.Header>
         <Card.Body className='team_member_body'>
           {/* shows sprite and level */}
             <section id='placeholder_sprite'>

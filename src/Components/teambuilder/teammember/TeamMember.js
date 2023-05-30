@@ -15,29 +15,11 @@ import { calculateStatTotal, calculateHpTotal, } from '../../../lib/calcStats';
 
 function TeamMember (props) {
 
-  const [pokemon, setPokemon] = useState(props.pokemon);
-  const [showNicknameModal, setShowNicknameModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
   const teamState = useSelector(state => state.team);
   let dispatch = useDispatch();
   let { removeFromRoster } = teamSlice.actions;
-
-  const handleToggleNicknameModal = () => {
-    setShowNicknameModal(!showNicknameModal)
-  }
-
-  const handleSubmitNickname = (event) => {
-    event.preventDefault()
-
-    let newPokemon = pokemon;
-
-    newPokemon.nickname = event.target.pokemon_nickname.value
-
-    setPokemon(newPokemon);
-
-    handleToggleNicknameModal()
-  }
 
   return(
     <>
@@ -85,9 +67,7 @@ function TeamMember (props) {
               <Button size='sm' onClick={() => setShowEditModal(!showEditModal)}>
                 Edit
               </Button>
-            </div>
 
-            <div className='team_member_edit_buttons' style={{display: 'flex', justifyContent: 'space-around', padding: '0.25rem'}}>              
               <Button size='sm' variant='danger' onClick={() => dispatch(removeFromRoster(props.rosterIdx))}>
                 Remove
               </Button>
@@ -97,22 +77,6 @@ function TeamMember (props) {
           </section>
         </Card.Body>
       </Card>
-
-      {/* Edit pokemon's nickname */}
-      <Modal centered show={showNicknameModal} onHide={handleToggleNicknameModal}>
-        <Modal.Header>Edit Nickname</Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmitNickname}>
-            <Form.Group id='pokemon_nickname_form'>
-              <Form.Label>Nickname</Form.Label>
-              <Form.Control type='text' placeholder='Enter a nickname...' id='pokemon_nickname' minLength={1} maxLength={12} />
-              <Button type='submit'>
-                Submit
-              </Button>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-      </Modal>
 
       {showEditModal ? 
         <EditPokemon

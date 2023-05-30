@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
-
+import Button from "react-bootstrap/Button";
 
 import Learnset from "../../moves/LearnSet/Learnset";
 import Container from 'react-bootstrap/Container';
@@ -127,7 +127,26 @@ function RightCard (props){
       </Card.Body>
 
       <Card.Footer>
+        {activeKey === 2 ? 
 
+            <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
+              <Button size='sm' >
+                Type Coverage
+              </Button>
+              <Button size='sm' >
+                New Team
+              </Button>
+              <Button size='sm' >
+                Save Team
+              </Button>
+              <Button size='sm' >
+                Load Team
+              </Button>            
+            </Container>
+
+        :
+          null
+        }
       </Card.Footer>
     </Card>
     )
