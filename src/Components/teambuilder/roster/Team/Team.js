@@ -1,151 +1,23 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import TeamMember from '../../teammember/TeamMember';
 import PlaceholderTeamMember from '../../placeholder/TeamMember/PlaceholderTeamMember';
-import TeamTypeChart from '../TypeChart/TeamTypeChart';
-// import { Move } from './lib/pokemon';
 
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import Modal from 'react-bootstrap/Modal';
-import Accordion from 'react-bootstrap/Accordion';
 
 import { useSelector } from 'react-redux';
-import teamSlice from '../../../../reduxStore/teamSlice';
 
 function Team (props){
-  const [teamName, setTeamName] = useState('missingName');
-  const [teamId, setTeamId] = useState(undefined);
-  const [loadedTeams, setLoadedTeams] = useState([]);
-  const [showTypeCoverage, setShowTypeCoverage] = useState(false);
-  const [showLoadedTeams, setShowLoadedTeams] = useState(false);
-  const [showSaveTeamModal, setShowSaveTeamModal] = useState(false);
-
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
 
-  let { addToRoster, removeFromRoster, clearRoster, overwriteRoster, setTeamsName, setFetchedTeams } = teamSlice.actions;
-
-  // handles hiding and showing the list of teams able to be loaded
-  const toggleLoadedTeamsModal = () => {
-    setShowLoadedTeams(!showLoadedTeams)
-  }
-
-  // handles hiding and showing the modal for naming a team when saving
-  const toggleSaveTeamModal = async () => {
-
-    if (showSaveTeamModal === false) {
-      try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
-        setLoadedTeams(response.data)
-      } catch(error) {
-        console.log(error, ` | error getting teams from database`)
-      }
-    }
-
-    setShowSaveTeamModal(!showSaveTeamModal)
-  }
-
-  // gets all teams from the database > once authentication is implemented this will need to be refactored to only return the specific user's teams
-  const listTeamsFromDB = async () => {
-    try {
-      let response = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
-      setLoadedTeams(response.data)
-      toggleLoadedTeamsModal();
-    } catch(error) {
-      console.log(error, ` | error getting teams from database`)
-    }
-  }
-
-  // gets one specific team from the database
-  const loadTeam = async (teamId) => {
-    try {
-      let response = await axios.get(
-        `${process.env.REACT_APP_SERVER}/team?id=${teamId}`
-      )
-      props.updateTeam(response.data.pokemon);
-      setTeamName(response.data.teamName);
-      setTeamId(response.data._id);
-    } catch (err) {
-      console.log(err, ' | error loading team from database')
-    }
-
-    toggleLoadedTeamsModal()
-  }
-
-  // saves a new team to the database
-  const saveTeamToDB = (event) => {
-    event.preventDefault();
-
-    let request = {
-      teamName: teamName,
-      // pokemon: team
-    };
-
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/teams`, request)
-      .then(response => {
-        setTeamId(response.data._id);
-      })
-      .catch(err => {console.log(err)})
-
-      toggleSaveTeamModal();
-  }
-
-  // overwrites an existing team in the database
-  const overwriteTeamInDB = async (event) => {
-    event.preventDefault();
-
-    let request;
-
-    // if there is no change to the team name, then we do not update it on the db
-    if (!event.target.team_form_name.value) {
-      request = {
-        // pokemon: team,
-        id: event.target.existing_team.value
-      }
-    }
-    // if a new team name has been supplied, then we update the team name in the db
-    else {
-      request = {
-        teamName: event.target.team_form_name.value,
-        // pokemon: team,
-        id: event.target.existing_team.value
-      }      
-    }
-
-    axios
-      .put(`${process.env.REACT_APP_SERVER}/teams/${event.target.existing_team.value}`, request)
-      .then(response => {
-        setTeamId(response.data._id)
-      })
-      .catch(err => {console.log(err)})
-
-      toggleSaveTeamModal();
-  }
-
-  // deletes a team from the database
-  const deleteTeamFromDB = async (teamId) => {
-    try {
-      axios
-        .delete(`${process.env.REACT_APP_SERVER}/teams/${teamId}`);     
-    } catch (err) {
-      console.log(err)
-    } finally {
-      let response = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
-      setLoadedTeams(response.data)
-    }
-  }
-
-  const handleInputChange = (event) => {
-    if (!event.target.value) {
-      setTeamName('missingName');
-    } else {
-      setTeamName(event.target.value)   
-    }
-  }
+  // const handleInputChange = (event) => {
+  //   if (!event.target.value) {
+  //     setTeamName('missingName');
+  //   } else {
+  //     setTeamName(event.target.value)   
+  //   }
+  // }
 
     return(
       <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%',}}>
@@ -239,45 +111,6 @@ function Team (props){
 
 
         </Modal> */}
-
-        {/* "Load Team" | displays list of saved teams */}
-        {/* <Modal
-          centered
-          className='loaded_teams_list'
-          show={showLoadedTeams}
-          onHide={toggleLoadedTeamsModal}  
-        >
-          <Modal.Header>Your Teams</Modal.Header>
-
-          <Modal.Body>
-            <Accordion>
-              {loadedTeams.length > 0 ?
-                loadedTeams.map((element, idx) => (
-                  <Accordion.Item eventKey={idx}>
-                    <Accordion.Header>{element.teamName}</Accordion.Header>
-                    <Accordion.Body>
-                      <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                        <Button onClick={() => loadTeam(element.id)}>
-                          Load Team
-                        </Button>
-                        <Button variant='danger' onClick={() => deleteTeamFromDB(element.id)}>
-                          Delete Team
-                        </Button>                        
-                      </div>
-
-                    </Accordion.Body>
-                  </Accordion.Item>
-                ))
-              :
-                null
-              }
-            </Accordion>
-
-          </Modal.Body>
-
-          <Modal.Footer>Footer</Modal.Footer>
-        </Modal> */}
-
       </Container>
 
     )
