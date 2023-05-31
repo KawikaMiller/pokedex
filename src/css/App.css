@@ -574,12 +574,8 @@ div.placeholder_buttons {
 
 #team_member_stats_edit {
   display: flex;
-  justify-content: center;
-  padding: 0;
-}
-
-#team_member_stats_edit div {
-  width: 100%;
+  justify-content: space-between;
+  /* padding: 0; */
 }
 
 #team_member_stats_edit > *{
@@ -589,7 +585,19 @@ div.placeholder_buttons {
 #team_member_level_nature_edit {
   display: flex;
   justify-content: space-between;
-  padding: 0;
+  /* padding: 0; */
+}
+
+#hp_phys {
+  margin-left: 0;
+  margin-right: 0;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#hp_phys > * {
+  /* padding: 0 0.5rem; */
 }
 
 section.team_member_sprite {
