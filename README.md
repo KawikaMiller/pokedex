@@ -97,6 +97,8 @@ If you are running this locally then first run the command `npm i` to install al
 - Added 'Main' tab that mimics original Kanto pokedex layout
   - Use buttons to display every generation of pokedex entries
   - Toggle through moves and abilities
+- Implemented solution for various search query edge cases (e.g. 'wormadam-plant', 'giratina-altered', etc.)
+- Source missing sprites
 - Added ability to toggle between shiny and normal pokemon sprite
 - Added ability to toggle between various forms of a pokemon (e.g. seasonal, regional, mega, etc.)
 - Consolidated all edit pokemon forms into one form (i.e. Edit IV/EV, edit moves, edit nickname are now all in one form)
