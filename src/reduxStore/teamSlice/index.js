@@ -5,6 +5,7 @@ const teamSlice = createSlice({
   initialState: {
     name: 'missingName',
     roster: [],
+    showTypeChart: false,
   },
   reducers: {
     setTeamsName(state, action){
@@ -24,6 +25,9 @@ const teamSlice = createSlice({
     },
     modifyMemberProperty(state, action){
       state.roster[action.payload.idx][action.payload.property] = action.payload.value;
+    },
+    toggleTypeChart(state, action){
+      state.showTypeChart = !state.showTypeChart;
     }
   }
 })

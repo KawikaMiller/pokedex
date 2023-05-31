@@ -1,85 +1,81 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function TypeChartRow (props){
 
-  const [typeEffectiveness, setTypeEffectiveness] = useState([]);
-
-  setTypeEffectiveness([
-      {
-        type: 'normal',
-        effectiveness: 1
-      },
-      {
-        type: 'fire',
-        effectiveness: 1
-      },
-      {
-        type: 'water',
-        effectiveness: 1
-      },
-      {
-        type: 'grass',
-        effectiveness: 1
-      },
-      {
-        type: 'electric',
-        effectiveness: 1
-      },
-      {
-        type: 'flying',
-        effectiveness: 1
-      },
-      {
-        type: 'bug',
-        effectiveness: 1
-      },
-      {
-        type: 'rock',
-        effectiveness: 1
-      },
-      {
-        type: 'ground',
-        effectiveness: 1
-      },
-      {
-        type: 'fighting',
-        effectiveness: 1
-      },
-      {
-        type: 'steel',
-        effectiveness: 1
-      },
-      {
-        type: 'poison',
-        effectiveness: 1
-      },
-      {
-        type: 'ice',
-        effectiveness: 1
-      },
-      {
-        type: 'dragon',
-        effectiveness: 1
-      },
-      {
-        type: 'ghost',
-        effectiveness: 1
-      },
-      {
-        type: 'psychic',
-        effectiveness: 1
-      },
-      {
-        type: 'dark',
-        effectiveness: 1
-      },
-      {
-        type: 'fairy',
-        effectiveness: 1
-      },
-    ])
-
-    determineTypeEffectiveness();
+  const [typeEffectiveness, setTypeEffectiveness] = useState([
+    {
+      type: 'normal',
+      effectiveness: 1
+    },
+    {
+      type: 'fire',
+      effectiveness: 1
+    },
+    {
+      type: 'water',
+      effectiveness: 1
+    },
+    {
+      type: 'grass',
+      effectiveness: 1
+    },
+    {
+      type: 'electric',
+      effectiveness: 1
+    },
+    {
+      type: 'flying',
+      effectiveness: 1
+    },
+    {
+      type: 'bug',
+      effectiveness: 1
+    },
+    {
+      type: 'rock',
+      effectiveness: 1
+    },
+    {
+      type: 'ground',
+      effectiveness: 1
+    },
+    {
+      type: 'fighting',
+      effectiveness: 1
+    },
+    {
+      type: 'steel',
+      effectiveness: 1
+    },
+    {
+      type: 'poison',
+      effectiveness: 1
+    },
+    {
+      type: 'ice',
+      effectiveness: 1
+    },
+    {
+      type: 'dragon',
+      effectiveness: 1
+    },
+    {
+      type: 'ghost',
+      effectiveness: 1
+    },
+    {
+      type: 'psychic',
+      effectiveness: 1
+    },
+    {
+      type: 'dark',
+      effectiveness: 1
+    },
+    {
+      type: 'fairy',
+      effectiveness: 1
+    },
+  ]);
 
   const determineTypeEffectiveness = () => {
 
@@ -114,9 +110,12 @@ function TypeChartRow (props){
     })
   }
 
-  const componentDidMount = () => {
-    setTypeEffectiveness(typeEffectiveness)
-  }
+  determineTypeEffectiveness();
+
+  // useEffect(() => {
+  //   setTypeEffectiveness(typeEffectiveness)
+  // }, [])
+
 
   return(
     <tr key={`${props.typeInfo.name}_typechart_row`}>
