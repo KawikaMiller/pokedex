@@ -14,6 +14,8 @@ import pokeSlice from "../../../reduxStore/pokeSlice";
 import dexSlice from "../../../reduxStore/dexSlice";
 import teamSlice from "../../../reduxStore/teamSlice";
 import TeamTypeChart from "../../teambuilder/roster/TypeChart/TeamTypeChart";
+import { fetchTeamsFromServer, saveTeamToServer } from "../../../reduxStore/helperFuncs";
+import LoadedTeams from "../../teambuilder/modals/LoadedTeam";
 
 function RightCard (props){
   const [activeKey, setActiveKey] = useState(0);
@@ -23,20 +25,11 @@ function RightCard (props){
   const teamState = useSelector(state => state.team);
   const dispatch = useDispatch();
 
-  const { toggleTypeChart } = teamSlice.actions;
+  const { toggleTypeChart, setFetchedTeams, clearRoster, toggleLoadedTeams } = teamSlice.actions;
 
   // handles changing the activeKey state property
   const changeTab = (tabIndex) => {
     setActiveKey(tabIndex)
-  }
-
-  const addTeamMember = (pokemon) => {
-    if (team.length === 6) {
-      // add modal pop up, 'team is full'
-    } else {
-      console.log('yoge')
-      setTeam([...team, pokemon])
-    }
   }
 
   const updateTeam = (team) => {
@@ -51,8 +44,24 @@ function RightCard (props){
     setTeam(newTeam)
   }
   
-  const clearTeam = () => {
-    setTeam([])
+  const loadTeams = () => {
+    dispatch(fetchTeamsFromServer())
+    .then(response => {
+      console.log(response, '.then hit');
+      dispatch(setFetchedTeams(response.data))      
+    })
+    .then(dispatch(toggleLoadedTeams()))
+    .catch(err => console.error(err))
+  }
+
+  const saveTeam = (event) => {
+    event.preventDefault();
+
+    dispatch(saveTeamToServer(teamState.teamName, teamState.roster, teamState.id))
+    .then(response => console.log('Team Saved', response))
+    .catch(error => console.error('Unable to save team', error))
+
+
   }
   
     return(
@@ -122,11 +131,6 @@ function RightCard (props){
             activeKey === 2 ?
             // if activeKey is 2, displays team builder
               <Team 
-                searchResult={props.searchResult}
-                addTeamMember={addTeamMember}
-                removeTeamMember={removeTeamMember}
-                clearTeam={clearTeam}
-                updateTeam={updateTeam} 
                 team={team}
               />
             : 
@@ -141,13 +145,13 @@ function RightCard (props){
               <Button size='sm' onClick={() => dispatch(toggleTypeChart())}>
                 Type Coverage
               </Button>
-              <Button size='sm' >
+              <Button size='sm' onClick={() => dispatch(clearRoster())}>
                 New Team
               </Button>
-              <Button size='sm' >
+              <Button size='sm' onClick={saveTeam}>
                 Save Team
               </Button>
-              <Button size='sm' >
+              <Button size='sm' onClick={loadTeams}>
                 Load Team
               </Button>         
             </Container>
@@ -157,7 +161,8 @@ function RightCard (props){
         </Card.Footer>
     </Card>
 
-    {teamState.showTypeChart ? <TeamTypeChart /> : null}  
+    {teamState.showTypeChart ? <TeamTypeChart /> : null}
+    {teamState.showLoadedTeams ? <LoadedTeams /> : null}  
     </>
     
     )

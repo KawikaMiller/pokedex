@@ -3,13 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const teamSlice = createSlice({
   name: 'team',
   initialState: {
-    name: 'missingName',
+    teamName: 'missingName',
+    id: undefined,
     roster: [],
+    fetchedTeams: [],
     showTypeChart: false,
+    showLoadedTeams: false
   },
   reducers: {
     setTeamsName(state, action){
-      state.name = action.payload
+      state.teamName = action.payload
     },
     addToRoster(state, action){
       state.roster = [...state.roster, action.payload];
@@ -18,16 +21,26 @@ const teamSlice = createSlice({
       state.roster = state.roster.filter((pokemon, idx) => idx !== action.payload);
     },
     clearRoster(state, action){
-      state.roster = action.payload.pokemon;
+      state.roster = [];
     },
     overwriteRoster(state, action){
-      state.roster = action.payload.pokemon;
+      state.roster = action.payload;
     },
     modifyMemberProperty(state, action){
       state.roster[action.payload.idx][action.payload.property] = action.payload.value;
     },
     toggleTypeChart(state, action){
       state.showTypeChart = !state.showTypeChart;
+    },
+    setFetchedTeams(state, action){
+      state.fetchedTeams = action.payload;
+    },
+    toggleLoadedTeams(state, action){
+      state.showLoadedTeams = !state.showLoadedTeams;
+    },
+    setRoster(state, action){
+      state.roster = action.payload.pokemon;
+      state.teamName = action.payload.teamName
     }
   }
 })

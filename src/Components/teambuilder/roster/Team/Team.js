@@ -16,7 +16,6 @@ import { useSelector } from 'react-redux';
 import teamSlice from '../../../../reduxStore/teamSlice';
 
 function Team (props){
-  const [team, setTeam] = useState(props.team);
   const [teamName, setTeamName] = useState('missingName');
   const [teamId, setTeamId] = useState(undefined);
   const [loadedTeams, setLoadedTeams] = useState([]);
@@ -27,12 +26,7 @@ function Team (props){
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
 
-  let { addToRoster, removeFromRoster, clearRoster, overwriteRoster, setTeamsName } = teamSlice.actions;
-
-  // handles hiding and showing the type coverage chart
-  const toggleTypeCoverageModal = () => {
-    setShowTypeCoverage(!showTypeCoverage)
-  }
+  let { addToRoster, removeFromRoster, clearRoster, overwriteRoster, setTeamsName, setFetchedTeams } = teamSlice.actions;
 
   // handles hiding and showing the list of teams able to be loaded
   const toggleLoadedTeamsModal = () => {
@@ -87,7 +81,7 @@ function Team (props){
 
     let request = {
       teamName: teamName,
-      pokemon: team
+      // pokemon: team
     };
 
     axios
@@ -109,7 +103,7 @@ function Team (props){
     // if there is no change to the team name, then we do not update it on the db
     if (!event.target.team_form_name.value) {
       request = {
-        pokemon: team,
+        // pokemon: team,
         id: event.target.existing_team.value
       }
     }
@@ -117,7 +111,7 @@ function Team (props){
     else {
       request = {
         teamName: event.target.team_form_name.value,
-        pokemon: team,
+        // pokemon: team,
         id: event.target.existing_team.value
       }      
     }
@@ -145,13 +139,6 @@ function Team (props){
     }
   }
 
-  // clears team and teamId state to prep for a new team
-  const newTeam = () => {
-    props.clearTeam();
-    setTeamId(undefined);
-    setTeamName('missingName');
-  }
-
   const handleInputChange = (event) => {
     if (!event.target.value) {
       setTeamName('missingName');
@@ -160,17 +147,6 @@ function Team (props){
     }
   }
 
-
-  useEffect(() => {
-    setTeam(props.team)
-  }, [props])
-
-
-  useEffect(() => {
-    setTeam(props.team)
-  }, [])
-
-
     return(
       <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%',}}>
 
@@ -178,47 +154,24 @@ function Team (props){
         <Container id='team_member_placeholder'>
 
           {pokeState.pokemon?.name ? 
-          null 
+            <PlaceholderTeamMember key='PlaceholderTeamMember' /> 
           : 
-          <h5>Please Search For A Pokemon</h5>
+            <h5>Please Search For A Pokemon</h5>
           }
 
-          {pokeState.pokemon?.name ? 
-          <PlaceholderTeamMember 
-          addTeamMember={props.addTeamMember} 
-          searchResult={pokeState.pokemon} key='PlaceholderTeamMember' 
-          />
-          : 
-          null
-          }
-          
         </Container>
         
         {/* displays all team members */}
         <Container id='team_members'>
           <Container style={{padding: '0'}}>
             <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
-              {`Team Name: ${teamName}`}
+              {`Team Name: ${teamState.teamName}`}
             </h5>
           </Container>
           {teamState.roster.length > 0 ?
           teamState.roster.map((element, idx) => <TeamMember pokemon={element} rosterIdx={idx} />)
           : null }
         </Container>
-        
-        {/* displays team type coverage chart */}
-        {/* <Modal
-          className='team_type_chart_modal' 
-          centered 
-          size='xl' 
-          show={showTypeCoverage} 
-          onHide={toggleTypeCoverageModal}
-        >
-          <Modal.Header>Team Type Coverage</Modal.Header>
-          <Modal.Body>
-            <TeamTypeChart key='team_type_chart' team={team} />
-          </Modal.Body>
-        </Modal> */}
 
         {/* displays input to name a team before saving */}
         {/* <Modal show={showSaveTeamModal} onHide={toggleSaveTeamModal} centered>
