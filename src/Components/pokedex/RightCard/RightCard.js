@@ -32,18 +32,6 @@ function RightCard (props){
     setActiveKey(tabIndex)
   }
 
-  const updateTeam = (team) => {
-    setTeam(team)
-  }
-
-  const removeTeamMember = (idx) => {
-    let newTeam = team;
-    
-    newTeam.splice(idx, 1);
-
-    setTeam(newTeam)
-  }
-  
   const loadTeams = () => {
     dispatch(fetchTeamsFromServer())
     .then(response => {
@@ -59,14 +47,10 @@ function RightCard (props){
     dispatch(saveTeamToServer(teamState.teamName, teamState.roster, teamState.id))
     .then(response => console.log('Team Saved', response))
     .catch(error => console.error('Unable to save team', error))
-
-
   }
   
     return(
       <>
-      
-
       <Card bg='danger' style={{justifyContent: 'space-evenly'}}>    
       
         {/* tabs for different functionality of the pokedex */}
@@ -113,7 +97,7 @@ function RightCard (props){
 
               <Container id='abilities_container'>
                 {
-                  props.searchResult ? 
+                  pokeState.pokemon?.name ? 
                     <Abilities
                       key={`${pokeState.pokemon.name}_abilities`} 
                     />
@@ -129,9 +113,7 @@ function RightCard (props){
           {
             activeKey === 2 ?
             // if activeKey is 2, displays team builder
-              <Team 
-                team={team}
-              />
+              <Team />
             : 
               null
           }

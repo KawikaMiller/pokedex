@@ -11,7 +11,7 @@ import BaseStats from "../BaseStats/BaseStats";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import pokeSlice from "../../../reduxStore/pokeSlice";
-import { fetchPokemon } from "../../../reduxStore/helperFuncs";
+import { fetchPokemon, supplementMoveData, fetchTypeEffectiveness, fetchPokedexEntries, fetchAbilityDescriptions } from "../../../reduxStore/helperFuncs";
 
 function Pokedex (props) {
   const state = useSelector(state => state.pokemon)
@@ -31,24 +31,21 @@ function Pokedex (props) {
     dispatch(changeFormIdx(newApiIdx))
   }
 
-  const handleNextPokemon = (event) => {
-    // console.log('next pokemon')
+  const handleAdjacentPokemon = (event, int) => {
+    dispatch(changeFormIdx(0));
     if (state.pokemon.name) {
-      dispatch(fetchPokemon(event, state.pokemon.id + 1))
+      dispatch(fetchPokemon(event, state.pokemon.id + int))
+      .then(response => dispatch(supplementMoveData(response)))
+      .then(response => dispatch(fetchTypeEffectiveness(response)))
+      .then(response => dispatch(fetchPokedexEntries(response)))
+      .then(response => dispatch(fetchAbilityDescriptions(response)))
       .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
     } else {
       dispatch(fetchPokemon(event, 1))
-      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
-    }
-  }
-
-  const handlePreviousPokemon = (event) => {
-    // console.log('prev pokemon')
-    if (state.pokemon) {
-      dispatch(fetchPokemon(event, state.pokemon.id - 1))
-      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})      
-    } else {
-      dispatch(fetchPokemon(event, 1))
+      .then(response => dispatch(supplementMoveData(response)))
+      .then(response => dispatch(fetchTypeEffectiveness(response)))
+      .then(response => dispatch(fetchPokedexEntries(response)))
+      .then(response => dispatch(fetchAbilityDescriptions(response)))
       .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
     }
   }
@@ -193,9 +190,9 @@ function Pokedex (props) {
 
               <Container id='bottom-ui-dpad'>
                   <div id='dpad-up' onClick={handleNextGen}></div>
-                  <div id='dpad-left' onClick={handlePreviousPokemon}></div>
+                  <div id='dpad-left' onClick={(event) => handleAdjacentPokemon(event, -1)}></div>
                   <div id='dpad-center'></div>
-                  <div id='dpad-right' onClick={handleNextPokemon}></div>
+                  <div id='dpad-right' onClick={(event) => handleAdjacentPokemon(event, 1)}></div>
                   <div id='dpad-down' onClick={handlePreviousGen}></div>
               </Container>
 
@@ -203,8 +200,7 @@ function Pokedex (props) {
           </Card.Body>
         </Card>
         
-        {/* right side card */}
-        <RightCard searchResult={state.pokemon}/>
+        <RightCard />
 
       </CardGroup>
     </Container>
