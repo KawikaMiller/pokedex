@@ -47,7 +47,6 @@ function RightCard (props){
   const loadTeams = () => {
     dispatch(fetchTeamsFromServer())
     .then(response => {
-      console.log(response, '.then hit');
       dispatch(setFetchedTeams(response.data))      
     })
     .then(dispatch(toggleLoadedTeams()))

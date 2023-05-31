@@ -5,23 +5,31 @@ import Button from "react-bootstrap/Button";
 
 import { useSelector, useDispatch } from "react-redux";
 import teamSlice from "../../../../reduxStore/teamSlice";
-import { loadTeamToClient } from "../../../../reduxStore/helperFuncs";
+import { loadTeamToClient, deleteTeamInServer } from "../../../../reduxStore/helperFuncs";
 
 function LoadedTeams() {
 
   const teamState = useSelector(state => state.team);
   const dispatch = useDispatch();
-  const {toggleLoadedTeams, setRoster} = teamSlice.actions;
+  const {toggleLoadedTeams, setRoster, setFetchedTeams} = teamSlice.actions;
 
   const loadTeam = (teamId) => {
     dispatch(loadTeamToClient(teamId))
     .then(response => {
       dispatch(setRoster(response.data))
     })
-    .then(response => {
+    .then(() => {
       dispatch(toggleLoadedTeams());
     })
     .catch(err => console.error(err));
+  }
+
+  const deleteTeam = (teamId) => {
+    dispatch(deleteTeamInServer(teamId))
+    .then(response => {
+      dispatch(setFetchedTeams(response.data))
+    })
+    .catch(err => console.error(err))
   }
 
   return(
@@ -44,7 +52,7 @@ function LoadedTeams() {
                       <Button onClick={() => loadTeam(element.id)}>
                         Load Team
                       </Button>
-                      <Button variant='danger' >
+                      <Button variant='danger' onClick={() => deleteTeam(element.id)}>
                         Delete Team
                       </Button>                        
                     </div>

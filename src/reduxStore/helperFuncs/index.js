@@ -374,15 +374,25 @@
     if(teamId){
       res = axios
         .put(`${process.env.REACT_APP_SERVER}/teams/${teamId}`, request)
-        .then(response => console.log('Team Overwritten: ', response))
         .catch(err => console.error('Could not overwrite team: ', err))
     } else {
       res = axios
         .post(`${process.env.REACT_APP_SERVER}/teams`, request)
-        .then(response => {console.log('New Team Saved! ', response)})
         .catch(err => {console.log('Could not save new team', err)})      
     }
 
     return res;
 
+  }
+
+  export const deleteTeamInServer = (teamId) => async () => {
+    let response;
+
+    response = axios
+      .delete(`${process.env.REACT_APP_SERVER}/teams/${teamId}`)
+      .then(() => axios.get(`${process.env.REACT_APP_SERVER}/teams`))
+      .catch(err => console.log(err))
+
+    return response;
+    
   }
