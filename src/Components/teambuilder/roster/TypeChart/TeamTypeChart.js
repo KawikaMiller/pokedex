@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 // import Accordion from 'react-bootstrap/Accordion';
 // import Button from 'react-bootstrap/Button';
@@ -38,7 +38,8 @@ function TeamTypeChart (props) {
   return(
     teamState.roster.length > 0 ?
     <Modal centered show={teamState.showTypeChart} onHide={() => dispatch(toggleTypeChart())} size={'xl'}>
-      <Container>
+      <Modal.Header>Type Effectiveness Chart</Modal.Header>
+      <Modal.Body>
         <Table id='team_type_chart_table' striped bordered hover size='sm'>
           <thead key='type_chart_tablehead'>
             <tr key='type_chart_headers' id='type_chart_headers' style={{margin: '0.25rem'}}>
@@ -55,7 +56,10 @@ function TeamTypeChart (props) {
             ))}
           </tbody>
         </Table>
-      </Container>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={() => dispatch(toggleTypeChart())}>Close</Button>
+      </Modal.Footer>
     </Modal>  
     : 
       null
