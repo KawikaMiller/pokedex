@@ -8,7 +8,16 @@ const userSlice = createSlice({
     isLoggedIn: false,
   },
   reducers: {
- 
+    userLogin(state, action){
+      state.username = action.payload.username;
+      state.userId = action.payload.id;
+      state.isLoggedIn = true;
+    },
+    userLogout(state, action){
+      state.username = 'missingUser';
+      state.userId = undefined;
+      state.isLoggedIn = false;
+    }
   }
 })
 

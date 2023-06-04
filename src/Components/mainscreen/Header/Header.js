@@ -15,12 +15,6 @@ function Header (props) {
 
   const userState = useSelector(state => state.user);
 
-  // const handleLogin = async () => {
-  //   let response = await axios.get(`http://localhost:3001/login`, {headers: {'Access-Control-Allow-Origin': 'http://localhost:3000/' }});
-  //   console.log(response);
-  // }
-
- 
   return(
     <section id='header' /*onClick={this.props.transitionHeader}*/ >
       <Navbar>
