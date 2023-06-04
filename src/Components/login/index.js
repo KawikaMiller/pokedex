@@ -19,9 +19,12 @@ function Login ({isLoggedIn}) {
     let credentials = base64.encode(`${event.target[0].value}:${event.target[1].value}`)
     axios
       .post(`${process.env.REACT_APP_SERVER}/login`, {}, {
-        headers: {'Authorization': `Basic ${credentials}`}
+        headers: {'Authorization': `Basic ${credentials}`},
+        withCredentials: true,
+        credentials: 'include'
       })
       .then(response => {
+        console.log(response.cookie);
         dispatch(userLogin({
           username: response.data.user.username,
           id: response.data.user._id
@@ -36,7 +39,10 @@ function Login ({isLoggedIn}) {
   const handleSignUp = (event) => {
     let credentials = base64.encode(`${event.target.form[0].value}:${event.target.form[1].value}`)
     axios
-    .post(`${process.env.REACT_APP_SERVER}/signup`, {credentials})
+    .post(`${process.env.REACT_APP_SERVER}/signup`, {credentials}, {
+      withCredentials: true,
+      credentials: 'include'
+    })
     .then(response => console.log(response))
   }
 

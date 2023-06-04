@@ -340,9 +340,11 @@
   export const fetchTeamsFromServer = () => async () => {
     let allTeams;
     try {
-      allTeams = await axios.get(`${process.env.REACT_APP_SERVER}/teams`);
-      // setLoadedTeams(allTeams.data)
-      // toggleLoadedTeamsModal();
+      allTeams = await axios.get(`${process.env.REACT_APP_SERVER}/teams`, {
+        withCredentials: true,
+        credentials: 'include'
+      });
+      console.log(allTeams);
     } catch(error) {
       console.log(error, ` | error getting teams from database`)
     }
@@ -363,10 +365,11 @@
     return response;
   }
 
-  export const saveTeamToServer = (teamName, roster, teamId) => async () => {
+  export const saveTeamToServer = (teamName, roster, teamId, username) => async () => {
     let request = {
       teamName: teamName,
-      pokemon: roster
+      pokemon: roster,
+      trainer: username
     };
 
     let res = 'test';
@@ -377,7 +380,10 @@
         .catch(err => console.error('Could not overwrite team: ', err))
     } else {
       res = axios
-        .post(`${process.env.REACT_APP_SERVER}/teams`, request)
+        .post(`${process.env.REACT_APP_SERVER}/teams`, request, {
+          withCredentials: true,
+          credentials: 'include'
+        })
         .catch(err => {console.log('Could not save new team', err)})      
     }
 
