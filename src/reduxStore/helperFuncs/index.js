@@ -353,16 +353,16 @@
   }
 
   export const loadTeamToClient = (teamId) => async () => {
-    let response;
+    let foundTeam;
     try {
-      response = await axios.get(
-        `${process.env.REACT_APP_SERVER}/team?id=${teamId}`
-      )
+      foundTeam = await axios.get(`${process.env.REACT_APP_SERVER}/team?id=${teamId}`, {
+        withCredentials: true,
+        credentials: 'include'
+      })
     } catch (err) {
       console.error(err, ' | error loading team from database')
     }
-
-    return response;
+    return foundTeam;
   }
 
   export const saveTeamToServer = (teamName, roster, teamId, username) => async () => {
@@ -376,7 +376,10 @@
 
     if(teamId){
       res = axios
-        .put(`${process.env.REACT_APP_SERVER}/teams/${teamId}`, request)
+        .put(`${process.env.REACT_APP_SERVER}/teams/${teamId}`, request, {
+          withCredentials: true,
+          credentials: 'include'
+        })
         .catch(err => console.error('Could not overwrite team: ', err))
     } else {
       res = axios
@@ -394,9 +397,16 @@
   export const deleteTeamInServer = (teamId) => async () => {
     let response;
 
+    console.log('DELETE REQUEST FOR TEAM: ', teamId)
     response = axios
-      .delete(`${process.env.REACT_APP_SERVER}/teams/${teamId}`)
-      .then(() => axios.get(`${process.env.REACT_APP_SERVER}/teams`))
+      .delete(`${process.env.REACT_APP_SERVER}/teams/${teamId}`, {
+        withCredentials: true,
+        credentials: 'include'
+      })
+      .then(() => axios.get(`${process.env.REACT_APP_SERVER}/teams`, {
+        withCredentials: true,
+        credentials: 'include'
+      }))
       .catch(err => console.log(err))
 
     return response;

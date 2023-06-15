@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 
@@ -10,6 +10,7 @@ import userSlice from "../../reduxStore/userSlice";
 
 function Login ({isLoggedIn}) {
 
+  const [userIsTaken, setUserIsTaken] = useState(false);
   const userState = useSelector(state => state.user);
   const dispatch = useDispatch();
   let {userLogin, userLogout} = userSlice.actions;
@@ -24,7 +25,6 @@ function Login ({isLoggedIn}) {
         credentials: 'include'
       })
       .then(response => {
-        console.log(response.cookie);
         dispatch(userLogin({
           username: response.data.user.username,
           id: response.data.user._id
@@ -43,7 +43,17 @@ function Login ({isLoggedIn}) {
       withCredentials: true,
       credentials: 'include'
     })
-    .then(response => console.log(response))
+    .then(response => {
+      if (response.status === 205){
+        setUserIsTaken(true)
+      } else {
+        setUserIsTaken(false);
+        dispatch(userLogin({
+          username: response.data.user,
+          id: response.data._id
+        }))
+      }
+    })
   }
 
   return(
@@ -77,6 +87,13 @@ function Login ({isLoggedIn}) {
                 size='sm'
               />              
             </section>
+            {userIsTaken ? 
+              <section>
+                <Form.Text>Username is already taken</Form.Text>
+              </section> 
+            : 
+              null
+            }
             <section style={{display: 'flex', justifyContent: 'space-evenly'}}>
               <Button type="submit">Log In</Button>
               <Button onClick={handleSignUp}>Sign Up</Button>              

@@ -39,8 +39,9 @@ const teamSlice = createSlice({
       state.showLoadedTeams = !state.showLoadedTeams;
     },
     setRoster(state, action){
+      state.id = action.payload._id;
       state.roster = action.payload.pokemon;
-      state.teamName = action.payload.teamName
+      state.teamName = action.payload.teamName;
     }
   }
 })

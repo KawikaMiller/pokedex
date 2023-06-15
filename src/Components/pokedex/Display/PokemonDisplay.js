@@ -25,7 +25,6 @@ function PokemonDisplay (props){
   return(
     
     <>
-    {console.log(state)}
       {
         state.pokemon ? 
           missingSprites ? 

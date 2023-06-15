@@ -53,8 +53,6 @@ function RightCard (props){
       alert('User must be logged in to save a team')
       console.error('User must be logged in to save a team');
     }
-
-
   }
   
     return(
