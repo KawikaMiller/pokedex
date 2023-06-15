@@ -23,6 +23,7 @@ function RightCard (props){
 
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
+  const userState = useSelector(state => state.user)
   const dispatch = useDispatch();
 
   const { toggleTypeChart, setFetchedTeams, clearRoster, toggleLoadedTeams } = teamSlice.actions;
@@ -44,9 +45,14 @@ function RightCard (props){
   const saveTeam = (event) => {
     event.preventDefault();
 
-    dispatch(saveTeamToServer(teamState.teamName, teamState.roster, teamState.id))
-    .then(response => console.log('Team Saved', response))
-    .catch(error => console.error('Unable to save team', error))
+    if(userState.username){
+      dispatch(saveTeamToServer(teamState.teamName, teamState.roster, teamState.id, userState.username))
+      .then(response => console.log('Team Saved', response))
+      .catch(error => console.error('Unable to save team', error))      
+    } else {
+      alert('User must be logged in to save a team')
+      console.error('User must be logged in to save a team');
+    }
   }
   
     return(
