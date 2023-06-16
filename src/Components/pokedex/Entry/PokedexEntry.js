@@ -31,6 +31,8 @@ function PokedexEntry ({ sortedMoves }) {
       header3 = pokeState.pokemon?.abilities[dexState.abilityIdx].is_hidden ? null : 'Hidden Ability';
       details = pokeState.pokemon?.abilities[dexState.abilityIdx].description;
       break;
+    default:
+      break;
   }
 
   return(

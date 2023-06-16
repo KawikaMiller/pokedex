@@ -4,17 +4,11 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 
 import { calculateStatTotal, calculateHpTotal, getNatureModifier, natureModifiers } from '../../../lib/calcStats';
 
-import { useSelector, useDispatch } from 'react-redux';
-import pokeSlice from '../../../reduxStore/pokeSlice';
+import { useSelector } from 'react-redux';
 
 function Stat (props) {
   const [statTotal, setStatTotal] = useState(0);
-  const [IV, setIV] = useState(props.stat.iv)
-  const [EV, setEV] = useState(props.stat.ev)
-
   const pokeState = useSelector(state => state.pokemon);
-  const teamState = useSelector(state => state.team);
-  let dispatch = useDispatch();
 
   // getHpTotal and getStatTotal only exist to make the rest of the code easier to read
   const getHpTotal = () => {
@@ -63,7 +57,7 @@ function Stat (props) {
     } else if (props.stat.name !== 'HP') {
       setStatTotal(getStatTotal())
     }
-  }, [])
+  }, [])//eslint-disable-line
 
     return(
       <Container 

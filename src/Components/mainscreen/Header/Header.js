@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
-import axios from 'axios';
+import React from 'react'
 
 // import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Button from 'react-bootstrap/Button';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Login from '../../login';
 
 // import { useAuth0 } from '@auth0/auth0-react';

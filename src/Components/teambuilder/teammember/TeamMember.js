@@ -2,22 +2,15 @@ import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
 
-import { useSelector, useDispatch } from 'react-redux';
-import pokeSlice from '../../../reduxStore/pokeSlice';
+import { useDispatch } from 'react-redux';
 import teamSlice from '../../../reduxStore/teamSlice';
 import EditPokemon from '../../forms/editPokemon';
-
-import { calculateStatTotal, calculateHpTotal, } from '../../../lib/calcStats';
 
 function TeamMember (props) {
 
   const [showEditModal, setShowEditModal] = useState(false);
 
-  const teamState = useSelector(state => state.team);
   let dispatch = useDispatch();
   let { removeFromRoster } = teamSlice.actions;
 

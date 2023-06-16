@@ -13,7 +13,7 @@ function PlaceholderStats(props) {
   const [showEditModal, setShowEditModal] = useState(false);
   const pokeState = useSelector(state => state.pokemon);
   const dispatch = useDispatch();
-  let { modifyProperty, setPokemon } = pokeSlice.actions
+  let { modifyProperty } = pokeSlice.actions
   let { addToRoster } = teamSlice.actions
 
   const sortMoves = (arr) => {
@@ -34,7 +34,7 @@ function PlaceholderStats(props) {
       property: 'moves', 
       value: sortedMoves
     }));
-  }, [])
+  }, []) //eslint-disable-line
 
     return(
       <>

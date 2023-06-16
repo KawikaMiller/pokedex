@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
 import PlaceholderStats from '../Stat/PlaceholderStats';
 
-import { useSelector, useDispatch } from 'react-redux';
-import teamSlice from '../../../../reduxStore/teamSlice';
-import pokeSlice from '../../../../reduxStore/pokeSlice';
+import { useSelector, /*useDispatch*/ } from 'react-redux';
+// import pokeSlice from '../../../../reduxStore/pokeSlice';
 
 
 function PlaceholderTeamMember (props){
   const pokeState = useSelector(state => state.pokemon);
-  const teamState = useSelector(state => state.team);
-  let dispatch = useDispatch();
+  // let dispatch = useDispatch();
 
-  let { modifyProperty, setPokemon } = pokeSlice.actions;
+  // let { setPokemon } = pokeSlice.actions;
 
-  const updateBattleInfo = (battleMovesArr, battleAbility, heldItem) => {
-    let newPokemon = {...pokeState.pokemon};
+  // const updateBattleInfo = (battleMovesArr, battleAbility, heldItem) => {
+  //   let newPokemon = {...pokeState.pokemon};
 
-    newPokemon.battleMoves = battleMovesArr;
-    newPokemon.battleAbility = battleAbility;
-    newPokemon.heldItem = heldItem;
+  //   newPokemon.battleMoves = battleMovesArr;
+  //   newPokemon.battleAbility = battleAbility;
+  //   newPokemon.heldItem = heldItem;
 
-    dispatch(setPokemon(newPokemon));
-  }
+  //   dispatch(setPokemon(newPokemon));
+  // }
 
     return(
       <Card className='member0'>

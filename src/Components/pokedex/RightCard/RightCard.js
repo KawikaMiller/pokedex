@@ -10,8 +10,6 @@ import Abilities from "../../abilities/Abilities/Abilities";
 import Team from "../../teambuilder/roster/Team/Team";
 import PokedexMainRight from "../RightMain/PokedexMainRight"
 import { useSelector, useDispatch } from "react-redux";
-import pokeSlice from "../../../reduxStore/pokeSlice";
-import dexSlice from "../../../reduxStore/dexSlice";
 import teamSlice from "../../../reduxStore/teamSlice";
 import TeamTypeChart from "../../teambuilder/roster/TypeChart/TeamTypeChart";
 import { fetchTeamsFromServer, saveTeamToServer } from "../../../reduxStore/helperFuncs";
@@ -19,7 +17,6 @@ import LoadedTeams from "../../teambuilder/modals/LoadedTeam";
 
 function RightCard (props){
   const [activeKey, setActiveKey] = useState(0);
-  const [team, setTeam] = useState([]);
 
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);

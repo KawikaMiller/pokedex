@@ -239,7 +239,7 @@ function EditPokemon(props){
                   <Form.Select id='move_1'>
                     {pokeState.pokemon.moves.map((element, idx) => {
                       if (element.name === pokeState.pokemon.moves[idx - 1]?.name){
-                        return;
+                        return null;
                       } else {
                         return <option value={element.name}>{element.name}</option>;
                       }
@@ -252,7 +252,7 @@ function EditPokemon(props){
                   <Form.Select id="move_2">
                     {pokeState.pokemon.moves.map((element, idx) => {
                       if (element.name === pokeState.pokemon.moves[idx - 1]?.name){
-                        return;
+                        return null;
                       } else {
                         return <option value={element.name}>{element.name}</option>;
                       }
@@ -267,7 +267,7 @@ function EditPokemon(props){
                   <Form.Select id='move_3'>
                     {pokeState.pokemon.moves.map((element, idx) => {
                       if (element.name === pokeState.pokemon.moves[idx - 1]?.name){
-                        return;
+                        return null;
                       } else {
                         return <option value={element.name}>{element.name}</option>;
                       }
@@ -280,7 +280,7 @@ function EditPokemon(props){
                   <Form.Select id='move_4'>
                     {pokeState.pokemon.moves.map((element, idx) => {
                       if (element.name === pokeState.pokemon.moves[idx - 1]?.name){
-                        return;
+                        return null;
                       } else {
                         return <option value={element.name}>{element.name}</option>;
                       }

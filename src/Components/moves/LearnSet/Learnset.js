@@ -4,9 +4,7 @@ import Accordion from 'react-bootstrap/Accordion';
 // import Button from 'react-bootstrap/Button';
 import MoveList from '../MoveList/MoveList';
 
-import { useSelector, useDispatch } from 'react-redux';
-import pokeSlice from '../../../reduxStore/pokeSlice';
-import dexSlice from '../../../reduxStore/dexSlice';
+import { useSelector } from 'react-redux';
 
 function Learnset (props) {
   const [levelUpMoves, setLevelUpMoves] = useState([]);
@@ -70,7 +68,7 @@ function Learnset (props) {
       setTutorMoves(tutorMoves);
       setEggMoves(eggMoves);
     }, 10)
-  }, [])
+  }, []) //eslint-disable-line
 
   return(
     <Accordion defaultActiveKey='0'>

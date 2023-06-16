@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import dexSlice from '../../../reduxStore/dexSlice';
-import pokeSlice from '../../../reduxStore/pokeSlice';
-import teamSlice from '../../../reduxStore/teamSlice';
 
 import Card from "react-bootstrap/Card"
 import { CardGroup } from "react-bootstrap";
@@ -20,7 +18,6 @@ function PokedexMainRight (props) {
   let { setMainScreenIdx, setDexIdx, setAbilityIdx, setMoveIdx } = dexSlice.actions;
 
   const [sortedMoves, setSortedMoves] = useState([]);
-  const [movesSorted, setMovesSorted] = useState(false);
 
   const changeScreen = (screenId) => {
     if(dexState.mainScreenIdx !== screenId){
@@ -95,8 +92,7 @@ function PokedexMainRight (props) {
     if (pokeState.pokemon?.moves !== undefined){
       let moves = pokeState.pokemon.moves
       sortMoves(moves, 'name');
-      setSortedMoves(moves);
-      setMovesSorted(true);      
+      setSortedMoves(moves);     
     }
   }, [pokeState.pokemon])
 

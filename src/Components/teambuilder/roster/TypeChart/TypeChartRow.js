@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 function TypeChartRow (props){
 
-  const [typeEffectiveness, setTypeEffectiveness] = useState([
+  const typeEffectiveness = [
     {
       type: 'normal',
       effectiveness: 1
@@ -75,7 +75,7 @@ function TypeChartRow (props){
       type: 'fairy',
       effectiveness: 1
     },
-  ]);
+  ];
 
   const determineTypeEffectiveness = () => {
 

@@ -6,7 +6,7 @@ function Ability (props){
 
   useEffect(() => {
     setDescription(props.ability.description)
-  }, [])
+  }, [])//eslint-disable-line
 
   useEffect(() => {
     setDescription(props.ability.description)

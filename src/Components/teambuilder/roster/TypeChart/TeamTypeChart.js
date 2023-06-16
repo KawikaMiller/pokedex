@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -10,7 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import teamSlice from '../../../../reduxStore/teamSlice';
 
 function TeamTypeChart (props) {
-  const [allTypes, setAllTypes] = useState([
+
+  const allTypes = [
           'Normal',
           'Fire',
           'Water',
@@ -29,7 +30,7 @@ function TeamTypeChart (props) {
           'Psychic',
           'Dark',
           'Fairy'
-        ])
+        ];
   
   const teamState = useSelector(state => state.team);
   const dispatch = useDispatch();
