@@ -109,5 +109,11 @@ If you are running this locally then first run the command `npm i` to install al
   - Refactor API calls to PokeAPI to be more modular
     - From one giant function to multiple smaller ones chained together with `.then`s
 
+2023-05-30 - 2023-06-19:
+  - Added user login / logout / signup functionality
+  - Add reauthentication on reload via cookies
+  - User will now be able to save their own teams and have them protected via login credentials (e.g. Users are only able to load/save/delete their own teams)
+  - App is deployed on netlify & render
+
 
 ## Credit and Collaborations

@@ -21,28 +21,34 @@
 
   export const supplementMoveData = (pokemon) => async () => {
     // spread operators to avoid 'TypeError: object is not extensible / object is read only' errors
+    console.log('supplementing move data with missing info...')
     let newPokemon = {...pokemon};
     let newMoves = [];
 
     try {
       for(let move of pokemon.moves){
-        let newMove = {...move};
-        let res = await axios(`https://pokeapi.co/api/v2/move/${move.name}`);
-        newMove.power = res.data.power;
-        newMove.accuracy = res.data.accuracy;
-        newMove.pp = res.data.pp;
-        newMove.priority = res.data.priority;
-        newMove.dmgClass = res.data.damage_class.name;
-        newMove.type = res.data.type.name;
-        newMove.effectChange = res.data.effect_chance;
+        console.log(`fetching ${move.name} data...`)
 
-        if(!res.data.effect_entries[0]?.short_effect){
-          newMove.description = 'pokeAPI missing this information';
-        } else {
-          newMove.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance)              
-        };
-        newMoves = [...newMoves, newMove];
-        newPokemon.moves = newMoves;
+        axios(`https://pokeapi.co/api/v2/move/${move.name}`)
+        .then(res => {
+          let newMove = {...move};
+          newMove.power = res.data.power;
+          newMove.accuracy = res.data.accuracy;
+          newMove.pp = res.data.pp;
+          newMove.priority = res.data.priority;
+          newMove.dmgClass = res.data.damage_class.name;
+          newMove.type = res.data.type.name;
+          newMove.effectChange = res.data.effect_chance;
+
+          if(!res.data.effect_entries[0]?.short_effect){
+            newMove.description = 'pokeAPI missing this information';
+          } else {
+            newMove.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance)              
+          };
+          newMoves = [...newMoves, newMove];
+          newPokemon.moves = newMoves;
+        })
+        .catch(e => console.error(e))
       }
 
     } 
@@ -53,6 +59,7 @@
   }
 
   export const fetchTypeEffectiveness = (pokemon) => async () => {
+    console.log('fetching type effectiveness...')
     pokemon.types.forEach(async element => {
       try{
         let res = await axios(element.type.url);
@@ -81,6 +88,7 @@
   }
 
   export const fetchPokedexEntries = (pokemon) => async () => {
+    console.log('fetching pokedex entries for all generations of this pokemon...')
     try {
       let response = await axios(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name.split('-')[0]}`);
       response.data.flavor_text_entries.forEach(element => {
@@ -109,6 +117,7 @@
   }
 
   export const fetchAbilityDescriptions = (pokemon) => async () => {
+    console.log('fetching ability descriptions...')
     let newPokemon = {...pokemon};
     let newAbilities = [];
 
@@ -129,7 +138,7 @@
   }
 
   export const fetchPokemon = (event, searchQuery) => async () => {
-
+    console.log('fetching initial pokemon data...')
     // prevents page from reloading on  search 'submit'
     event.preventDefault();
 

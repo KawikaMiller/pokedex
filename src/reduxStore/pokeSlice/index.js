@@ -13,6 +13,7 @@ const pokeSlice = createSlice({
       state.searchInput = action.payload
     },
     setPokemon(state, action){
+      console.log('setting pokemon in state!')
       state.pokemon = action.payload.pokemon;
     },
     toggleShiny(state, action){

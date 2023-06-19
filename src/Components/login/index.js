@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 
@@ -55,6 +55,22 @@ function Login ({isLoggedIn}) {
       }
     })
   }
+
+  useEffect(() => {
+    axios
+      .post(`${process.env.REACT_APP_SERVER}/reauthenticate`, {}, {
+        withCredentials: true,
+        credentials: 'include'
+      })
+      .then(response => {
+        if(response.data){
+          dispatch(userLogin({
+            username: response.data.username,
+            id: response.data._id
+          }))
+        }
+      })
+  },[])//eslint-disable-line
 
   return(
     <>
