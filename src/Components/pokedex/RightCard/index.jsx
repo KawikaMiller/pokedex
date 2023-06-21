@@ -139,7 +139,7 @@ function RightCard (props){
               </Button>         
             </Container>
           :
-            null
+            <Button style={{visibility: 'hidden'}} size="sm">Just Here For Footer Consistency</Button>
           }
         </Card.Footer>
     </Card>

@@ -82,7 +82,7 @@ function MoveList (props) {
   return(
     <>
     <Accordion.Header >{props.header}</Accordion.Header>
-    <Accordion.Body style={{overflowY: 'scroll', height:'35vh'}}>
+    <Accordion.Body style={{overflowY: 'scroll', height:'33vh'}}>
       <Table striped hover bordered>
         <thead>
           <tr>
