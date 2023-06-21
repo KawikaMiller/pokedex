@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 import InputGroup from "react-bootstrap/InputGroup";
@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from "axios";
 import base64 from 'base-64';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import userSlice from "../../../reduxStore/userSlice";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,9 +18,8 @@ function Login (props) {
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const userState = useSelector(state => state.user);
   const dispatch = useDispatch();
-  let {userLogin, userLogout} = userSlice.actions;
+  let { userLogin } = userSlice.actions;
 
   const handleLogin = (event) => {
     event.preventDefault();

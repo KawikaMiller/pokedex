@@ -8,7 +8,6 @@ import Button from 'react-bootstrap/Button'
 
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import Login from '../../forms/Login';
 import UserAuthModal from '../../forms/modals/UserAuth';
 import userSlice from '../../../reduxStore/userSlice';
 
@@ -71,7 +70,6 @@ function Header (props) {
             </NavDropdown>
           </Nav>            
           <div>
-            {/* <Login isLoggedIn={userState.isLoggedIn}/> */}
             {
               userState.isLoggedIn ? 
               <>
