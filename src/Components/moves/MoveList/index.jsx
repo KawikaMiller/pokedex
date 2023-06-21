@@ -1,39 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 
-class MoveList extends React.Component{
-  constructor(props){
-    super(props);
+function MoveList (props) {
 
-    this.state = {
-      moves: [],
-      sortedByLevel: false,
-      sortedByName: false,
-      sortedByPower: false,
-      sortedByAccuracy: false,
-      sortedByPP: false,
-      sortedByDmgClass: false,
-      sortedByType: false,
-    }
-  }
+  const [sortedByLevel, setSortedByLevel] = useState(false);
+  const [sortedByName, setSortedByName] = useState(false);
+  const [sortedByPower, setSortedByPower] = useState(false);
+  const [sortedByAccuracy, setSortedByAccuracy] = useState(false);
+  const [sortedByPP, setSortedByPP] = useState(false);
+  const [sortedByDmgClass, setSortedByDmgClass] = useState(false);
+  const [sortedByType, setSortedByType] = useState(false);
 
   // resets all "sortedBy" state properties to false | the correct property will be set to true in 'handleToggleSort'
-  setAllSortedToFalse = () => {
-    this.setState({
-      sortedByLevel: false,
-      sortedByName: false,
-      sortedByPower: false,
-      sortedByAccuracy: false,
-      sortedByPP: false,
-      sortedByDmgClass: false,
-      sortedByType: false,
-    })
+  const setAllSortedToFalse = () => {
+    setSortedByLevel(false);
+    setSortedByName(false);
+    setSortedByPower(false);
+    setSortedByAccuracy(false);
+    setSortedByPP(false);
+    setSortedByDmgClass(false);
+    setSortedByType(false);
   }
 
   // modular method for all properties
-  sortMoves = (arr, property) => {
+  const sortMoves = (arr, property) => {
     arr.sort((a,b) => {
       if(a[property] < b[property]){
         return -1;
@@ -44,24 +36,21 @@ class MoveList extends React.Component{
   }
 
   // one method that can handle all sorting
-  handleToggleSort = (thisStateSorted, statePropertyIndex, property) => {
-    let stateProperty = Object.keys(this.state)[statePropertyIndex];
+  const handleToggleSort = (thisStateSorted, setSorted, property) => {
+    // let stateProperty = Object.keys(this.state)[statePropertyIndex];
     if (thisStateSorted) {
-      this.setAllSortedToFalse();
-      this.props.moves.reverse();
+      setAllSortedToFalse();
+      props.moves.reverse();
     }
     else {
-      this.setState({
-        [stateProperty]: true
-      })
-
-      this.sortMoves(this.props.moves, property);
+      setSorted();
+      sortMoves(props.moves, property);
     }
   }
 
-  displayMoves = () => {
-    if (this.props.moves.length > 0) {
-      return this.props.moves
+  const displayMoves = () => {
+    if (props.moves.length > 0) {
+      return props.moves
         .map(element => (
         <tr>
           <td>{element.levelLearned}</td>
@@ -76,45 +65,56 @@ class MoveList extends React.Component{
     } else return null;
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-      return true;
+  useEffect(() => {
+    if(props.disableLevelLearned) {
+      if(Array.isArray(props.moves)){
+        sortMoves(props.moves, 'name')
+      }
     }
-  }
+    else{
+      if(Array.isArray(props.moves)){
+        sortMoves(props.moves, 'levelLearned')
+      }
+    }
 
-  render() {
-    return(
-      <>
-      <Accordion.Header >{this.props.header}</Accordion.Header>
-      <Accordion.Body style={{overflowY: 'scroll', maxHeight:'33vh'}}>
-        <Table striped hover bordered>
-          <thead>
-            <tr>
-              
-              <th><Button size='sm' onClick={() => this.handleToggleSort(this.state.sortedByLevel, 1, 'levelLearned')}>Level</Button></th>
+  }, [props])
 
-              <th><Button size='sm' onClick={() => this.handleToggleSort(this.state.sortedByName, 2, 'name')}>Name</Button></th>
+  return(
+    <>
+    <Accordion.Header >{props.header}</Accordion.Header>
+    <Accordion.Body style={{overflowY: 'scroll', height:'35vh'}}>
+      <Table striped hover bordered>
+        <thead>
+          <tr>
+            
+            {props.disableLevelLearned === true ? 
+              <th><Button disabled size='sm' onClick={() => handleToggleSort(sortedByLevel, () => setSortedByLevel(true), 'levelLearned')}>Level</Button></th>
+            : 
+              <th><Button size='sm' onClick={() => handleToggleSort(sortedByLevel, () => setSortedByLevel(true), 'levelLearned')}>Level</Button></th>
+            }
 
-              <th><Button size='sm' onClick={() => this.handleToggleSort(this.state.sortedByPower, 3, 'power')}>Power</Button></th>
 
-              <th><Button size='sm' onClick={() => this.handleToggleSort(this.state.sortedByAccuracy, 4, 'accuracy')}>Accuracy</Button></th>
+            <th><Button size='sm' onClick={() => handleToggleSort(sortedByName, () => setSortedByName(true), 'name')}>Name</Button></th>
 
-              <th><Button size='sm' onClick={() => this.handleToggleSort(this.state.sortedByPP, 5, 'pp')}>PP</Button></th>
+            <th><Button size='sm' onClick={() => handleToggleSort(sortedByPower, () => setSortedByPower(true), 'power')}>Power</Button></th>
 
-              <th><Button size='sm' onClick={() => this.handleToggleSort(this.state.sortedByDmgClass, 6, 'dmgClass')}>Damage</Button></th>
+            <th><Button size='sm' onClick={() => handleToggleSort(sortedByAccuracy, () => setSortedByAccuracy(true), 'accuracy')}>Acc</Button></th>
 
-              <th><Button size='sm' onClick={() => this.handleToggleSort(this.state.sortedByType, 7, 'type')}>Type</Button></th>
+            <th><Button size='sm' onClick={() => handleToggleSort(sortedByPP, () => setSortedByPP(true), 'pp')}>PP</Button></th>
 
-            </tr>
-          </thead>
-          <tbody>
-            {this.displayMoves()}
-          </tbody>
-        </Table>
-      </Accordion.Body>
-      </>
-    )
-  }
+            <th><Button size='sm' onClick={() => handleToggleSort(sortedByDmgClass, () => setSortedByDmgClass(true), 'dmgClass')}>Damage</Button></th>
+
+            <th><Button size='sm' onClick={() => handleToggleSort(sortedByType, () => setSortedByType(true), 'type')}>Type</Button></th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {displayMoves()}
+        </tbody>
+      </Table>
+    </Accordion.Body>
+    </>
+  )
 }
 
 export default MoveList;

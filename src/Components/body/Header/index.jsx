@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav';
@@ -18,7 +18,7 @@ function Header (props) {
 
   const dispatch = useDispatch();
   const userState = useSelector(state => state.user);
-  let { userLogout } = userSlice.actions
+  let { userLogout, userLogin } = userSlice.actions
 
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState(undefined);
@@ -40,6 +40,22 @@ function Header (props) {
       })
       .catch(err => console.err('Unable to logout at this time, please try again.'))
   }
+
+  useEffect(() => {
+    axios
+      .post(`${process.env.REACT_APP_SERVER}/reauthenticate`, {}, {
+        withCredentials: true,
+        credentials: 'include'
+      })
+      .then(response => {
+        if(response.data){
+          dispatch(userLogin({
+            username: response.data.username,
+            id: response.data._id
+          }))
+        }
+      })
+  },[])//eslint-disable-line
 
   return(
     <>

@@ -418,6 +418,7 @@ div.base_stat_progressbar.progress {
 
 #pokedex_entry_container {
   font-family: 'Press Start 2P', cursive;
+  color: white;
   font-size: 0.85rem;
   line-height: 2rem;
   overflow-y: scroll;
@@ -453,8 +454,12 @@ div.base_stat_progressbar.progress {
 }
 
 #learnset_container {
-  max-height: 57vh;
+  max-height: 100%;
   overflow-Y: hidden;
+}
+
+#abilities_container{
+  height: 25%;
 }
 
 .nav-link {
@@ -478,7 +483,7 @@ margin: 0 0.25rem;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .card-header.team_member_header,
@@ -596,9 +601,9 @@ div.placeholder_buttons {
   justify-content: space-between;
 }
 
-#hp_phys > * {
-  /* padding: 0 0.5rem; */
-}
+/* #hp_phys > * {
+  padding: 0 0.5rem;
+} */
 
 section.team_member_sprite {
   display: flex;
@@ -624,7 +629,7 @@ section.team_member_info {
 #right_card_body {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-content: center;
 }
 

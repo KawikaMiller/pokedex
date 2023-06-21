@@ -86,6 +86,16 @@ function RightCard (props){
           {activeKey === 1 ?
           // if activeKey is 1, displays moves and abilities
             <Container id='learnset_and_abilities'>
+              <Container id='abilities_container'>
+                {
+                  pokeState.pokemon?.name ? 
+                    <Abilities
+                      key={`${pokeState.pokemon.name}_abilities`} 
+                    />
+                  : 
+                    null  
+                }
+              </Container>                
 
               <Container id="learnset_container">
                 {
@@ -96,18 +106,7 @@ function RightCard (props){
                   : 
                     <h4>Please search for a Pokemon</h4>
                 }
-              </Container>
-
-              <Container id='abilities_container'>
-                {
-                  pokeState.pokemon?.name ? 
-                    <Abilities
-                      key={`${pokeState.pokemon.name}_abilities`} 
-                    />
-                  : 
-                    null  
-                }
-              </Container>           
+              </Container>         
             </Container> 
           : 
             null

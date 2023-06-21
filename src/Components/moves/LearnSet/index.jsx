@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
-// import Button from 'react-bootstrap/Button';
 import MoveList from '../MoveList';
+import '../../../css/learnset.css'
 
 import { useSelector } from 'react-redux';
 
@@ -11,6 +10,7 @@ function Learnset (props) {
   const [tmMoves, setTmMoves] = useState([]);
   const [tutorMoves, setTutorMoves] = useState([]);
   const [eggMoves, setEggMoves] = useState([]);
+  const [activeKey, setActiveKey] = useState('0');
 
   const pokeState = useSelector(state => state.pokemon);
 
@@ -59,6 +59,12 @@ function Learnset (props) {
     parseTutorMoves();
   }
 
+  const handleKeyChange = (key) => {
+    if(key !== null){
+      setActiveKey(key)
+    }
+  }
+
   // handles state change & move parsing during react lifecycle || simulates 'componentDidMount'
   useEffect(() => {
     parseMoves();
@@ -71,7 +77,7 @@ function Learnset (props) {
   }, []) //eslint-disable-line
 
   return(
-    <Accordion defaultActiveKey='0'>
+    <Accordion id='learnset' defaultActiveKey={'0'} activeKey={activeKey} onSelect={e => handleKeyChange(e)}>
       
       {/* level up moves */}
       <Accordion.Item eventKey='0'>
@@ -80,18 +86,28 @@ function Learnset (props) {
 
       {/* tm moves */}
       <Accordion.Item eventKey='1'>
-        <MoveList moves={tmMoves} header="TM Moves" />
+        <MoveList moves={tmMoves} header="TM Moves" disableLevelLearned={true} />
       </Accordion.Item>
 
       {/* tutor moves */}
-      <Accordion.Item eventKey='2'>
-        <MoveList moves={tutorMoves} header="Tutor Moves" />
-      </Accordion.Item>
+      {tutorMoves.length > 0 ? 
+        <Accordion.Item eventKey='2' onClick={(event) => console.log(event.tabIndex)}>
+          <MoveList moves={tutorMoves} header="Tutor Moves" disableLevelLearned={true} />
+        </Accordion.Item>
+      : 
+       null
+      }
+
       
       {/* egg moves */}
-      <Accordion.Item eventKey='3'>
-        <MoveList moves={eggMoves} header="Egg Moves" />
-      </Accordion.Item>
+      {eggMoves.length > 0 ?
+        <Accordion.Item eventKey='3'>
+          <MoveList moves={eggMoves} header="Egg Moves" disableLevelLearned={true} />
+        </Accordion.Item>
+      :
+        null      
+      }
+
 
     </Accordion>
   )

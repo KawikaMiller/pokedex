@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Stat from '../Stat';
+import Stat from '../../Stat';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 

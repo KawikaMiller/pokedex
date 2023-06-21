@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import PlaceholderStats from '../Stat';
+import PlaceholderStats from '../Stats';
 
 import { useSelector, /*useDispatch*/ } from 'react-redux';
 // import pokeSlice from '../../../../reduxStore/pokeSlice';
@@ -23,6 +23,7 @@ function PlaceholderTeamMember (props){
   // }
 
     return(
+      // <p>yo</p>
       <Card className='member0'>
         <Card.Header className='team_member_header'>
           <h6>{
@@ -34,7 +35,6 @@ function PlaceholderTeamMember (props){
             {pokeState.pokemon.types.map(element => <p>{element.type.name}</p>)}
         </Card.Header>
         <Card.Body className='team_member_body'>
-          {/* shows sprite and level */}
             <section id='placeholder_sprite'>
               <Card.Img 
                 variant='top' 

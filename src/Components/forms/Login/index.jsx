@@ -73,22 +73,6 @@ function Login (props) {
     setShowPassword(!showPassword);
   }
 
-  useEffect(() => {
-    axios
-      .post(`${process.env.REACT_APP_SERVER}/reauthenticate`, {}, {
-        withCredentials: true,
-        credentials: 'include'
-      })
-      .then(response => {
-        if(response.data){
-          dispatch(userLogin({
-            username: response.data.username,
-            id: response.data._id
-          }))
-        }
-      })
-  },[])//eslint-disable-line
-
   return(
     <div >
       <Form

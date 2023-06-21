@@ -1,0 +1,29 @@
+.accordion-button {
+  color: white;
+  background-color: rgb(197, 0, 0);
+}
+
+.accordion-button:not(.collapsed) {
+  color: white;
+  background-color: rgb(255, 0, 0);
+}
+
+.accordion-header {
+  color: white;
+  background-color: rgba(0,0,0,0%);
+}
+
+.accordion-item {
+  color: white;
+  background-color: rgba(31, 1, 1, 0.5);
+}
+
+.table {
+  --bs-table-color: white;
+  --bs-table-striped-color: white;
+  --bs-table-bg: rgba(0,0,0,0);
+  --bs-table-striped-bg: rgba(255, 255, 255, 30%);
+  --bs-table-hover-color: white;
+  --bs-table-hover-bg: red;
+  --bs-table-border-color: #fc6767;
+}

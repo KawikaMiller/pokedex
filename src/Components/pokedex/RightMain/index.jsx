@@ -111,7 +111,7 @@ function PokedexMainRight (props) {
     <Container style={{width: '80%', marginTop: '2rem', padding: '0'}}>
       <CardGroup id='main_right_blue_buttons'>
 
-        <Card bg='primary'>
+        <Card bg='primary' text='white'>
           <Card.Header onClick={nextDexEntry}>
             Dex +
           </Card.Header>
@@ -120,7 +120,7 @@ function PokedexMainRight (props) {
           </Card.Footer>
         </Card>
 
-        <Card bg='primary'>
+        <Card bg='primary' text='white'>
           <Card.Header onClick={nextMoveEntry}>
             Move +
           </Card.Header>
@@ -129,7 +129,7 @@ function PokedexMainRight (props) {
           </Card.Footer>
         </Card>
 
-        <Card bg='primary'>
+        <Card bg='primary' text='white'>
           <Card.Header onClick={nextAbilityEntry}>
             Abilty +
           </Card.Header>
@@ -138,7 +138,7 @@ function PokedexMainRight (props) {
           </Card.Footer>
         </Card>
 
-        <Card bg='primary'>
+        <Card bg='primary' text='white'>
           <Card.Header>
             4
           </Card.Header>
@@ -147,7 +147,7 @@ function PokedexMainRight (props) {
           </Card.Footer>
         </Card>
 
-        <Card bg='primary'>
+        <Card bg='primary' text='white'>
           <Card.Header>
             5
           </Card.Header>
