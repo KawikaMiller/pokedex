@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import pokeSlice from '../../../reduxStore/pokeSlice';
 import teamSlice from '../../../reduxStore/teamSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { calculateHpTotal, calculateStatTotal } from '../../../lib/calcStats';
 
 function EditPokemon(props){
   const [disableSubmit, setDisableSubmit] = useState(false);
@@ -62,16 +63,27 @@ function EditPokemon(props){
 
     newStats[0].iv = parseInt(event.target.iv_hp.value)
     newStats[0].ev = parseInt(event.target.ev_hp.value)
+    newStats[0].stat_value = calculateHpTotal(newStats[0].base_stat, newStats[0].iv, newStats[0].ev, parseInt(event.target.level.value) );
+
     newStats[1].iv = parseInt(event.target.iv_atk.value)
     newStats[1].ev = parseInt(event.target.ev_atk.value)
+    newStats[1].stat_value = calculateStatTotal(newStats[1].name, newStats[1].base_stat, newStats[1].iv, newStats[1].ev, parseInt(event.target.level.value), event.target.nature.value);
+
     newStats[2].iv = parseInt(event.target.iv_def.value)
     newStats[2].ev = parseInt(event.target.ev_def.value)
+    newStats[2].stat_value = calculateStatTotal(newStats[2].name, newStats[2].base_stat, newStats[2].iv, newStats[2].ev, parseInt(event.target.level.value), event.target.nature.value);
+
     newStats[3].iv = parseInt(event.target.iv_spatk.value)
     newStats[3].ev = parseInt(event.target.ev_spatk.value)
+    newStats[3].stat_value = calculateStatTotal(newStats[3].name, newStats[3].base_stat, newStats[3].iv, newStats[3].ev, parseInt(event.target.level.value), event.target.nature.value);
+
     newStats[4].iv = parseInt(event.target.iv_spdef.value)
     newStats[4].ev = parseInt(event.target.ev_spdef.value)
+    newStats[4].stat_value = calculateStatTotal(newStats[4].name, newStats[4].base_stat, newStats[4].iv, newStats[4].ev, parseInt(event.target.level.value), event.target.nature.value);
+
     newStats[5].iv = parseInt(event.target.iv_spd.value)
     newStats[5].ev = parseInt(event.target.ev_spd.value)
+    newStats[5].stat_value = calculateStatTotal(newStats[5].name, newStats[5].base_stat, newStats[5].iv, newStats[5].ev, parseInt(event.target.level.value), event.target.nature.value);
 
     dispatch(modifyProperty({
       property: 'stats',

@@ -21,17 +21,6 @@ function Team (props){
 
     return(
       <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%',}}>
-
-        {/* placeholder team member before adding pokemon to team */}
-        <Container id='team_member_placeholder'>
-
-          {pokeState.pokemon?.name ? 
-            <PlaceholderTeamMember key='PlaceholderTeamMember' /> 
-          : 
-            <h5>Please Search For A Pokemon</h5>
-          }
-
-        </Container>
         
         {/* displays all team members */}
         <Container id='team_members'>
@@ -44,6 +33,17 @@ function Team (props){
           teamState.roster.map((element, idx) => <TeamMember pokemon={element} rosterIdx={idx} />)
           : null }
         </Container>
+
+        {/* placeholder team member before adding pokemon to team */}
+        <Container id='team_member_placeholder'>
+
+          {pokeState.pokemon?.name ? 
+            <PlaceholderTeamMember key='PlaceholderTeamMember' /> 
+          : 
+            <h5>Please Search For A Pokemon</h5>
+          }
+
+        </Container>        
 
         {/* displays input to name a team before saving */}
         {/* <Modal show={showSaveTeamModal} onHide={toggleSaveTeamModal} centered>

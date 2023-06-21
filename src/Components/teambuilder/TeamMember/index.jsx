@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
 import teamSlice from '../../../reduxStore/teamSlice';
 import EditPokemon from '../../forms/EditPokemon';
+import TypeBadge from '../../type/Badge';
 
 function TeamMember (props) {
 
@@ -33,11 +34,14 @@ function TeamMember (props) {
         <Card.Header className='team_member_header'>
             <h6>{
               props.pokemon.nickname ? 
-              props.pokemon.nickname
+                props.pokemon.nickname
               :
-              (props.pokemon.name[0].toUpperCase() + props.pokemon.name.slice(1))
-              }</h6>
-            {props.pokemon.types.map(element => <p>{element.type.name}</p>)}
+                (props.pokemon.name[0].toUpperCase() + props.pokemon.name.slice(1))
+              }
+            </h6>
+              <span>
+                {props.pokemon.types.map(element => <TypeBadge type={element.type.name} />)}                
+              </span>
         </Card.Header>
 
         <Card.Body className='team_member_body'>
@@ -47,7 +51,6 @@ function TeamMember (props) {
               <Card.Img 
                 variant='top' 
                 src={props.pokemon.sprite.front_default}
-                style={{backgroundColor: 'white', borderRadius: '50%'}}
               >
               </Card.Img>
               <p style={{margin: '0'}}>Lv. {props.pokemon.level}</p>
@@ -66,7 +69,7 @@ function TeamMember (props) {
               </Button>
             </div>
 
-            <ProgressBar now={100} variant='success' style={{margin: '0.25rem'}}/>
+            <ProgressBar now={100} variant='success' style={{margin: '0.25rem'}} label={props.pokemon.stats[0].stat_value} />
           </section>
         </Card.Body>
       </Card>
