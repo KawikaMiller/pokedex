@@ -5,9 +5,9 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import Button from "react-bootstrap/Button";
 // react components
-import RightCard from "../RightCard/RightCard";
-import PokemonDisplay from "../Display/PokemonDisplay";
-import BaseStats from "../BaseStats/BaseStats";
+import RightCard from "../RightCard";
+import PokemonDisplay from "../Display";
+import BaseStats from "../BaseStats";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import pokeSlice from "../../../reduxStore/pokeSlice";

@@ -7,7 +7,7 @@ import { CardGroup } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-import PokedexEntry from '../Entry/PokedexEntry';
+import PokedexEntry from '../Entry';
 import { sortMoves } from '../../../lib/movesLib';
 
 function PokedexMainRight (props) {

@@ -3,8 +3,8 @@ import React from "react";
 // bootstrap components
 import Container from "react-bootstrap/Container";
 // my components & classes
-import SearchBar from "../SearchBar/SearchBar";
-import Pokedex from "../../pokedex/Pokedex/Pokedex";
+import SearchBar from "../SearchBar";
+import Pokedex from "../../pokedex/Pokedex";
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import PlaceholderStats from '../Stat/PlaceholderStats';
+import PlaceholderStats from '../Stat';
 
 import { useSelector, /*useDispatch*/ } from 'react-redux';
 // import pokeSlice from '../../../../reduxStore/pokeSlice';

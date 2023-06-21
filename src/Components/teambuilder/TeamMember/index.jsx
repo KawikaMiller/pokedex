@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 import { useDispatch } from 'react-redux';
 import teamSlice from '../../../reduxStore/teamSlice';
-import EditPokemon from '../../forms/editPokemon';
+import EditPokemon from '../../forms/EditPokemon';
 
 function TeamMember (props) {
 

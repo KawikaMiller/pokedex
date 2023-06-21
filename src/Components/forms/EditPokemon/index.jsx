@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { natureModifiers } from '../../lib/calcStats';
+import { natureModifiers } from '../../../lib/calcStats';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
-import pokeSlice from '../../reduxStore/pokeSlice';
-import teamSlice from '../../reduxStore/teamSlice';
+import pokeSlice from '../../../reduxStore/pokeSlice';
+import teamSlice from '../../../reduxStore/teamSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 function EditPokemon(props){

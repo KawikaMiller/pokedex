@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Stat from '../../stat/Stat';
+import Stat from '../Stat';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import pokeSlice from '../../../../reduxStore/pokeSlice';
 import teamSlice from '../../../../reduxStore/teamSlice';
-import EditPokemon from '../../../forms/editPokemon';
+import EditPokemon from '../../../forms/EditPokemon';
 
 function PlaceholderStats(props) {
   const [showEditModal, setShowEditModal] = useState(false);

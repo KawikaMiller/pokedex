@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 // import Button from 'react-bootstrap/Button';
-import MoveList from '../MoveList/MoveList';
+import MoveList from '../MoveList';
 
 import { useSelector } from 'react-redux';
 

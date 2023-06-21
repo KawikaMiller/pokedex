@@ -4,14 +4,14 @@ import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
 import Button from "react-bootstrap/Button";
 
-import Learnset from "../../moves/LearnSet/Learnset";
+import Learnset from "../../moves/LearnSet";
 import Container from 'react-bootstrap/Container';
-import Abilities from "../../abilities/Abilities/Abilities";
-import Team from "../../teambuilder/roster/Team/Team";
-import PokedexMainRight from "../RightMain/PokedexMainRight"
+import Abilities from "../../abilities/AbilitiesList";
+import Team from "../../teambuilder/roster/Team";
+import PokedexMainRight from "../RightMain"
 import { useSelector, useDispatch } from "react-redux";
 import teamSlice from "../../../reduxStore/teamSlice";
-import TeamTypeChart from "../../teambuilder/roster/TypeChart/TeamTypeChart";
+import TeamTypeChart from "../../teambuilder/roster/TypeChart";
 import { fetchTeamsFromServer, saveTeamToServer } from "../../../reduxStore/helperFuncs";
 import LoadedTeams from "../../teambuilder/modals/LoadedTeam";
 
