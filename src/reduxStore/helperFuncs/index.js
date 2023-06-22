@@ -353,7 +353,7 @@
         withCredentials: true,
         credentials: 'include'
       });
-      console.log(allTeams);
+      // console.log(allTeams);
     } catch(error) {
       console.log(error, ` | error getting teams from database`)
     }

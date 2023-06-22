@@ -6,10 +6,12 @@ import PlaceholderTeamMember from '../../placeholder/TeamMember';
 import Container from 'react-bootstrap/Container';
 
 import { useSelector } from 'react-redux';
+import SaveTeamModal from '../../modals/SaveTeam';
 
 function Team (props){
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
+
 
   // const handleInputChange = (event) => {
   //   if (!event.target.value) {
@@ -43,7 +45,9 @@ function Team (props){
             <h5>Please Search For A Pokemon</h5>
           }
 
-        </Container>        
+        </Container>
+
+        <SaveTeamModal showSaveTeamModal={props.showSaveTeamModal} setShowSaveTeamModal={props.setShowSaveTeamModal} />        
 
         {/* displays input to name a team before saving */}
         {/* <Modal show={showSaveTeamModal} onHide={toggleSaveTeamModal} centered>

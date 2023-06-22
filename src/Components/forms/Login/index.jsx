@@ -90,7 +90,7 @@ function Login (props) {
         />
         <br></br>
         <Form.Label>Password</Form.Label>
-        <InputGroup className={passwordFocus ? 'passwordFocus' : undefined}>
+        <InputGroup className='passwordFocus' >
           <Form.Control 
             type={showPassword ? 'text' : 'password'}
             id='password'

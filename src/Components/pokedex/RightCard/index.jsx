@@ -17,13 +17,14 @@ import LoadedTeams from "../../teambuilder/modals/LoadedTeam";
 
 function RightCard (props){
   const [activeKey, setActiveKey] = useState(0);
+  const [showSaveTeamModal, setShowSaveTeamModal] = useState(false);
 
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
   const userState = useSelector(state => state.user)
   const dispatch = useDispatch();
 
-  const { toggleTypeChart, setFetchedTeams, clearRoster, toggleLoadedTeams } = teamSlice.actions;
+  const { toggleTypeChart, setFetchedTeams, clearRoster, toggleLoadedTeams, toggleSaveTeam } = teamSlice.actions;
 
   // handles changing the activeKey state property
   const changeTab = (tabIndex) => {
@@ -36,6 +37,15 @@ function RightCard (props){
       dispatch(setFetchedTeams(response.data))      
     })
     .then(dispatch(toggleLoadedTeams()))
+    .catch(err => console.error(err))
+  }
+
+  const toggleSaveTeamModal = () => {
+    dispatch(fetchTeamsFromServer())
+    .then(response => {
+      dispatch(setFetchedTeams(response.data))
+    })
+    .then(dispatch(toggleSaveTeam()))
     .catch(err => console.error(err))
   }
 
@@ -119,7 +129,7 @@ function RightCard (props){
           {
             activeKey === 2 ?
             // if activeKey is 2, displays team builder
-              <Team />
+              <Team showSaveTeamModal={showSaveTeamModal} setShowSaveTeamModal={setShowSaveTeamModal} />
             : 
               null
           }
@@ -135,7 +145,7 @@ function RightCard (props){
               <Button size='sm' onClick={() => dispatch(clearRoster())}>
                 New Team
               </Button>
-              <Button size='sm' onClick={saveTeam}>
+              <Button size='sm' onClick={toggleSaveTeamModal}>
                 Save Team
               </Button>
               <Button size='sm' onClick={loadTeams}>
