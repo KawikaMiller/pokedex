@@ -11,12 +11,14 @@ import base64 from 'base-64';
 import { useDispatch } from "react-redux";
 import userSlice from "../../../reduxStore/userSlice";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import '../../../css/forms.css'
 
 function Login (props) {
 
   const [userIsTaken, setUserIsTaken] = useState(false);
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [passwordFocus, setPasswordFocus] = useState(false);
 
   const dispatch = useDispatch();
   let { userLogin } = userSlice.actions;
@@ -88,7 +90,7 @@ function Login (props) {
         />
         <br></br>
         <Form.Label>Password</Form.Label>
-        <InputGroup>
+        <InputGroup className={passwordFocus ? 'passwordFocus' : undefined}>
           <Form.Control 
             type={showPassword ? 'text' : 'password'}
             id='password'
@@ -96,8 +98,9 @@ function Login (props) {
             minLength='3'
             maxLength='20'
             size='sm'
+            onFocus={() => setPasswordFocus(!passwordFocus)}
           />     
-          <Button style={{width:'10%'}} onClick={togglePasswordVisibility}>
+          <Button size='sm' style={{width:'10%'}} onClick={togglePasswordVisibility} >
             <FontAwesomeIcon  
               icon={showPassword ? faEye : faEyeSlash}
             />
@@ -108,20 +111,20 @@ function Login (props) {
         {props.modalType === 'signup' ? 
           <>
             <Form.Label>Confirm Password</Form.Label>
-            <InputGroup>
-            <Form.Control 
-              type={showPassword ? 'text' : 'password'}
-              id='passwordCheck'
-              placeholder='Password'
-              minLength='3'
-              maxLength='20'
-              size='sm'
-            />     
-            <Button style={{width:'10%'}} onClick={togglePasswordVisibility}>
-              <FontAwesomeIcon  
-                icon={showPassword ? faEye : faEyeSlash}
-              />
-            </Button>   
+            <InputGroup >
+              <Form.Control 
+                type={showPassword ? 'text' : 'password'}
+                id='passwordCheck'
+                placeholder='Password'
+                minLength='3'
+                maxLength='20'
+                size='sm'
+              />     
+              <Button style={{width:'10%'}} onClick={togglePasswordVisibility}>
+                <FontAwesomeIcon  
+                  icon={showPassword ? faEye : faEyeSlash}
+                />
+              </Button>   
             </InputGroup>           
             <br></br>
           </>

@@ -93,10 +93,14 @@ function RightCard (props){
                       key={`${pokeState.pokemon.name}_abilities`} 
                     />
                   : 
-                    null  
+                  null  
                 }
               </Container>                
-
+                {pokeState.pokemon?.name ?
+                null
+                :
+                <h4>Please search for a Pokemon</h4>
+                }
               <Container id="learnset_container">
                 {
                   pokeState.pokemon?.name ?
@@ -104,7 +108,7 @@ function RightCard (props){
                       key={`${pokeState.pokemon.name}_moves`}
                     /> 
                   : 
-                    <h4>Please search for a Pokemon</h4>
+                  null
                 }
               </Container>         
             </Container> 

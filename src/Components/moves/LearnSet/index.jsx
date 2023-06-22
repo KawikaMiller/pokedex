@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import MoveList from '../MoveList';
-import '../../../css/learnset.css'
+import '../../../css/learnset.css';
 
 import { useSelector } from 'react-redux';
 
@@ -81,18 +81,27 @@ function Learnset (props) {
       
       {/* level up moves */}
       <Accordion.Item eventKey='0'>
-        <MoveList moves={levelUpMoves} header="Level-Up Moves" />
+        <Accordion.Header className='label'>Level-Up Moves</Accordion.Header>
+        <Accordion.Body >
+          <MoveList moves={levelUpMoves} />
+        </Accordion.Body>
       </Accordion.Item>
 
       {/* tm moves */}
       <Accordion.Item eventKey='1'>
-        <MoveList moves={tmMoves} header="TM Moves" disableLevelLearned={true} />
+        <Accordion.Header className='label'>TM Moves</Accordion.Header>
+        <Accordion.Body>
+          <MoveList moves={tmMoves} header="TM Moves" disableLevelLearned={true} />
+        </Accordion.Body>
       </Accordion.Item>
 
       {/* tutor moves */}
       {tutorMoves.length > 0 ? 
         <Accordion.Item eventKey='2' onClick={(event) => console.log(event.tabIndex)}>
-          <MoveList moves={tutorMoves} header="Tutor Moves" disableLevelLearned={true} />
+          <Accordion.Header className='label'>Tutor Moves</Accordion.Header>
+          <Accordion.Body>
+            <MoveList moves={tutorMoves} header="Tutor Moves" disableLevelLearned={true} />
+          </Accordion.Body>
         </Accordion.Item>
       : 
        null
@@ -102,7 +111,10 @@ function Learnset (props) {
       {/* egg moves */}
       {eggMoves.length > 0 ?
         <Accordion.Item eventKey='3'>
-          <MoveList moves={eggMoves} header="Egg Moves" disableLevelLearned={true} />
+          <Accordion.Header className='label'>Egg Moves</Accordion.Header>
+          <Accordion.Body>
+            <MoveList moves={eggMoves} header="Egg Moves" disableLevelLearned={true} />
+          </Accordion.Body>
         </Accordion.Item>
       :
         null      

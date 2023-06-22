@@ -1,6 +1,15 @@
 .accordion-button {
   color: rgba(255, 255, 255, 0.695);
   background-color: rgb(197, 0, 0);
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.label.accordion-header > .accordion-button {
+  padding: 0.25rem
 }
 
 .accordion-button:not(.collapsed) {
@@ -8,9 +17,33 @@
   background-color: rgb(255, 0, 0);
 }
 
+.accordion-button::after{
+  position: relative;
+  margin: 0;
+  align-self: center;
+}
+
 .accordion-header {
   color: white;
   background-color: rgba(0,0,0,0%);
+}
+
+.accordion-body {
+  overflow-y: scroll;
+  height: 33vh;
+}
+
+.move_description, .ability {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6vh;
+  max-height: 10vh;
+  overflow: auto;
+}
+
+.move_description > p {
+  margin: 0;
 }
 
 .accordion-item {
@@ -26,4 +59,15 @@
   --bs-table-hover-color: white;
   --bs-table-hover-bg: red;
   --bs-table-border-color: #fc6767;
+  margin-bottom: 0;
+}
+
+td, th {
+  max-width: 10px
+}
+
+th {
+  cursor: pointer;
+  justify-content: center;
+  padding: 8px 4px !important;
 }

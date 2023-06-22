@@ -453,13 +453,21 @@ div.base_stat_progressbar.progress {
   border-bottom: 1px solid white;
 }
 
+#learnset_and_abilities {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 #learnset_container {
-  max-height: 100%;
-  overflow-Y: hidden;
+  /* height: 52vh; */
+  /* overflow-Y: scroll; */
 }
 
 #abilities_container{
-  height: 25%;
+  /* height: 25%; */
+  margin: 1rem 0;
 }
 
 .nav-link {
@@ -477,13 +485,6 @@ margin: 0 0.25rem;
   background-color: #dc3545 !important;
   color: white !important;
   border-bottom-color: transparent !important;
-}
-
-#learnset_and_abilities {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .card-header.team_member_header,

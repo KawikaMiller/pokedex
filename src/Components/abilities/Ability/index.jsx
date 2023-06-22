@@ -14,8 +14,8 @@ function Ability (props){
 
   return(
       <Accordion.Item eventKey={props.eventKey}>
-        <Accordion.Header>{props.ability.name[0].toUpperCase() + props.ability.name.slice(1)}</Accordion.Header>
-        <Accordion.Body style={{overflowY: 'scroll', maxHeight: '9vh'}}>{description}</Accordion.Body>
+        <Accordion.Header className='label'>{props.ability.name[0].toUpperCase() + props.ability.name.slice(1)}</Accordion.Header>
+        <Accordion.Body className='ability'>{description}</Accordion.Body>
       </Accordion.Item>
   )
 }

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
+import '../../../css/learnset.css'
 
 function MoveList (props) {
 
@@ -37,7 +38,6 @@ function MoveList (props) {
 
   // one method that can handle all sorting
   const handleToggleSort = (thisStateSorted, setSorted, property) => {
-    // let stateProperty = Object.keys(this.state)[statePropertyIndex];
     if (thisStateSorted) {
       setAllSortedToFalse();
       props.moves.reverse();
@@ -51,69 +51,50 @@ function MoveList (props) {
   const displayMoves = () => {
     if (props.moves.length > 0) {
       return props.moves
-        .map(element => (
-        <tr>
-          <td>{element.levelLearned}</td>
-          <td>{element.name}</td>
-          <td>{element.power}</td>
-          <td>{element.accuracy}</td>
-          <td>{element.pp}</td>
-          <td>{element.dmgClass}</td>
-          <td>{element.type}</td>
-        </tr>
+        .map((element, idx) => (
+        <Accordion.Item eventKey={`${idx}`}>
+          <Accordion.Header>
+            <Table bordered>
+              <tbody>
+                <tr>
+                  <td>{element.levelLearned}</td>
+                  <td>{element.name}</td>
+                  <td>{element.power}</td>
+                  <td>{element.accuracy}</td>
+                  <td>{element.pp}</td>
+                  <td>{element.dmgClass}</td>
+                  <td>{element.type}</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Accordion.Header>
+          <Accordion.Body className='move_description'>
+            <p>{element.description}</p>
+          </Accordion.Body>
+        </Accordion.Item>
         ))
     } else return null;
   }
 
-  useEffect(() => {
-    if(props.disableLevelLearned) {
-      if(Array.isArray(props.moves)){
-        sortMoves(props.moves, 'name')
-      }
-    }
-    else{
-      if(Array.isArray(props.moves)){
-        sortMoves(props.moves, 'levelLearned')
-      }
-    }
-
-  }, [props])
-
   return(
-    <>
-    <Accordion.Header >{props.header}</Accordion.Header>
-    <Accordion.Body style={{overflowY: 'scroll', height:'33vh'}}>
-      <Table striped hover bordered>
+  <Accordion>
+    <Accordion.Item >
+      <Table bordered >
         <thead>
           <tr>
-            
-            {props.disableLevelLearned === true ? 
-              <th><Button disabled size='sm' onClick={() => handleToggleSort(sortedByLevel, () => setSortedByLevel(true), 'levelLearned')}>Level</Button></th>
-            : 
-              <th><Button size='sm' onClick={() => handleToggleSort(sortedByLevel, () => setSortedByLevel(true), 'levelLearned')}>Level</Button></th>
-            }
-
-
-            <th><Button size='sm' onClick={() => handleToggleSort(sortedByName, () => setSortedByName(true), 'name')}>Name</Button></th>
-
-            <th><Button size='sm' onClick={() => handleToggleSort(sortedByPower, () => setSortedByPower(true), 'power')}>Power</Button></th>
-
-            <th><Button size='sm' onClick={() => handleToggleSort(sortedByAccuracy, () => setSortedByAccuracy(true), 'accuracy')}>Acc</Button></th>
-
-            <th><Button size='sm' onClick={() => handleToggleSort(sortedByPP, () => setSortedByPP(true), 'pp')}>PP</Button></th>
-
-            <th><Button size='sm' onClick={() => handleToggleSort(sortedByDmgClass, () => setSortedByDmgClass(true), 'dmgClass')}>Damage</Button></th>
-
-            <th><Button size='sm' onClick={() => handleToggleSort(sortedByType, () => setSortedByType(true), 'type')}>Type</Button></th>
-
+            <th><Button disabled={props.disableLevelLearned ? true : false} variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByLevel, () => setSortedByLevel(true), 'levelLearned')}>Level</Button></th>
+            <th><Button variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByName, () => setSortedByName(true), 'name')}>Name</Button></th>
+            <th><Button variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByPower, () => setSortedByPower(true), 'power')}>Power</Button></th>
+            <th><Button variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByAccuracy, () => setSortedByAccuracy(true), 'accuracy')}>Acc</Button></th>
+            <th><Button variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByPP, () => setSortedByPP(true), 'pp')}>PP</Button></th>
+            <th><Button variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByDmgClass, () => setSortedByDmgClass(true), 'dmgClass')}>Dmg</Button></th>
+            <th><Button variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByType, () => setSortedByType(true), 'type')}>Type</Button></th>
           </tr>
         </thead>
-        <tbody>
-          {displayMoves()}
-        </tbody>
       </Table>
-    </Accordion.Body>
-    </>
+    </Accordion.Item>
+    {displayMoves()}
+  </Accordion>
   )
 }
 
