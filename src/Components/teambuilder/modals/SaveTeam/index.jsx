@@ -19,7 +19,6 @@ function SaveTeamModal(props){
   const { setTeamsName, setFetchedTeams, toggleSaveTeam } = teamSlice.actions
 
   const loadTeams = () => {
-    console.log('yo')
     dispatch(fetchTeamsFromServer())
     .then(response => {
       setFetchedTeams(response.data)
@@ -51,10 +50,11 @@ function SaveTeamModal(props){
       <Modal.Header>Save Your Team</Modal.Header>
       <Modal.Body style={{display: 'flex'}}>
         <Container>
-          <Form onSubmit={() => console.log('submit')}>
+          <Form id='teamSave'>
             <InputGroup size="sm">
               <InputGroup.Text>Team Name</InputGroup.Text>
               <Form.Control
+                name="teamName"
                 type="text"
                 placeholder="Team Name"
                 value={teamState.teamName}
@@ -102,7 +102,7 @@ function SaveTeamModal(props){
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button type='submit' onClick={(e) => console.log(e)}>Save New Team</Button>
+        <Button type='submit' onClick={saveTeam}>Save New Team</Button>
       </Modal.Footer>
     </Modal>
   )
