@@ -76,6 +76,7 @@ function SaveTeamModal(props){
                 <Accordion.Item eventKey={idx}>
                   <Accordion.Header>
                     {`${pokemon.nickname ? pokemon.nickname : pokemon.name}`}
+                    <Button size='sm' style={{visibility: 'hidden'}}>Hidden for style consistency</Button>
                   </Accordion.Header>
                   <Accordion.Body >
                     <Container style={{padding: '0', display: 'flex', justifyContent: 'space-between'}}>
@@ -105,15 +106,8 @@ function SaveTeamModal(props){
                             </tr>
                           </tbody>
                         </Table>
-                        {/* <p>Moves:</p>
-                        <p>{`${pokemon.battleMoves[0]}`}</p>
-                        <p>{`${pokemon.battleMoves[2]}`}</p>
-                        <p>{`${pokemon.battleMoves[1]}`}</p>
-                        <p>{`${pokemon.battleMoves[3]}`}</p>                         */}
                       </Container>
-
                     </Container>
-
                     <Table bordered striped>
                       <thead>
                         <tr>
@@ -170,6 +164,9 @@ function SaveTeamModal(props){
         </Container>
 
         <Container>
+          <InputGroup size='sm' id='savedTeams'>
+            <InputGroup.Text >Saved Teams</InputGroup.Text>
+          </InputGroup>
           <Accordion>
             {teamState.fetchedTeams.length > 0 ? 
               teamState.fetchedTeams.map((team, idx) => (

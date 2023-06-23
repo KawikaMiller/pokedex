@@ -53,7 +53,7 @@ function MoveList (props) {
       return props.moves
         .map((element, idx) => (
         <Accordion.Item eventKey={`${idx}`}>
-          <Accordion.Header>
+          <Accordion.Header className='accordion_move_header'>
             <Table bordered>
               <tbody>
                 <tr>

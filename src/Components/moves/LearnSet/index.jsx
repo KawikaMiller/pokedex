@@ -82,7 +82,7 @@ function Learnset (props) {
       {/* level up moves */}
       <Accordion.Item eventKey='0'>
         <Accordion.Header className='label'>Level-Up Moves</Accordion.Header>
-        <Accordion.Body >
+        <Accordion.Body className='accordion_body_movelist'>
           <MoveList moves={levelUpMoves} />
         </Accordion.Body>
       </Accordion.Item>
@@ -90,7 +90,7 @@ function Learnset (props) {
       {/* tm moves */}
       <Accordion.Item eventKey='1'>
         <Accordion.Header className='label'>TM Moves</Accordion.Header>
-        <Accordion.Body>
+        <Accordion.Body className='accordion_body_movelist'>
           <MoveList moves={tmMoves} header="TM Moves" disableLevelLearned={true} />
         </Accordion.Body>
       </Accordion.Item>
@@ -99,7 +99,7 @@ function Learnset (props) {
       {tutorMoves.length > 0 ? 
         <Accordion.Item eventKey='2' onClick={(event) => console.log(event.tabIndex)}>
           <Accordion.Header className='label'>Tutor Moves</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body className='accordion_body_movelist'>
             <MoveList moves={tutorMoves} header="Tutor Moves" disableLevelLearned={true} />
           </Accordion.Body>
         </Accordion.Item>
@@ -112,7 +112,7 @@ function Learnset (props) {
       {eggMoves.length > 0 ?
         <Accordion.Item eventKey='3'>
           <Accordion.Header className='label'>Egg Moves</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body className='accordion_body_movelist'>
             <MoveList moves={eggMoves} header="Egg Moves" disableLevelLearned={true} />
           </Accordion.Body>
         </Accordion.Item>

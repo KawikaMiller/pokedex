@@ -3,9 +3,18 @@
   background-color: rgb(197, 0, 0);
   margin: 0;
   padding: 0;
+}
+
+.accordion_move_header > .accordion-button {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+}
+
+.accordion_move_header > .accordion-button::after{
+  position: relative;
+  margin: 0;
+  align-self: center;
 }
 
 .label.accordion-header > .accordion-button {
@@ -17,20 +26,14 @@
   background-color: rgb(255, 0, 0);
 }
 
-.accordion-button::after{
-  position: relative;
-  margin: 0;
-  align-self: center;
-}
-
 .accordion-header {
   color: white;
   background-color: rgba(0,0,0,0%);
 }
 
-.accordion-body {
+.accordion-body.accordion_body_movelist {
   overflow-y: scroll;
-  height: 33vh;
+  height: 45vh;
 }
 
 .move_description, .ability {

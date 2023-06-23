@@ -120,7 +120,7 @@ function Login (props) {
                 maxLength='20'
                 size='sm'
               />     
-              <Button style={{width:'10%'}} onClick={togglePasswordVisibility}>
+              <Button size='sm' style={{width:'10%'}} onClick={togglePasswordVisibility}>
                 <FontAwesomeIcon  
                   icon={showPassword ? faEye : faEyeSlash}
                 />

@@ -1,3 +1,5 @@
+@import './modal.css';
+
 :root {
   box-sizing: border-box;
   --bug: #A8B820;

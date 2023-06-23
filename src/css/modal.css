@@ -1,0 +1,18 @@
+.modal-header{
+  background-color: #dc3545;
+  color: white;
+  border-bottom: 10px solid black;
+}
+
+.modal-body {
+  background-color: var(--background);
+}
+
+.modal-footer{
+  background-color: white;
+  border-top: 10px solid black;
+}
+
+td {
+  overflow-x: hidden;
+}
