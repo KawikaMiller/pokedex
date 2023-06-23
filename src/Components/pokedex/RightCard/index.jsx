@@ -12,8 +12,9 @@ import PokedexMainRight from "../RightMain"
 import { useSelector, useDispatch } from "react-redux";
 import teamSlice from "../../../reduxStore/teamSlice";
 import TeamTypeChart from "../../teambuilder/roster/TypeChart";
-import { fetchTeamsFromServer, saveTeamToServer } from "../../../reduxStore/helperFuncs";
+import { fetchTeamsFromServer } from "../../../reduxStore/helperFuncs";
 import LoadedTeams from "../../teambuilder/modals/LoadedTeam";
+import SaveTeamModal from "../../teambuilder/modals/SaveTeam";
 
 function RightCard (props){
   const [activeKey, setActiveKey] = useState(0);
@@ -21,7 +22,6 @@ function RightCard (props){
 
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
-  const userState = useSelector(state => state.user)
   const dispatch = useDispatch();
 
   const { toggleTypeChart, setFetchedTeams, clearRoster, toggleLoadedTeams, toggleSaveTeam } = teamSlice.actions;
@@ -49,18 +49,18 @@ function RightCard (props){
     .catch(err => console.error(err))
   }
 
-  const saveTeam = (event) => {
-    event.preventDefault();
+  // const saveTeam = (event) => {
+  //   event.preventDefault();
 
-    if(userState.username){
-      dispatch(saveTeamToServer(teamState.teamName, teamState.roster, teamState.id, userState.username))
-      .then(response => console.log('Team Saved', response))
-      .catch(error => console.error('Unable to save team', error))      
-    } else {
-      alert('User must be logged in to save a team')
-      console.error('User must be logged in to save a team');
-    }
-  }
+  //   if(userState.username){
+  //     dispatch(saveTeamToServer(teamState.teamName, teamState.roster, teamState.id, userState.username))
+  //     .then(response => console.log('Team Saved', response))
+  //     .catch(error => console.error('Unable to save team', error))      
+  //   } else {
+  //     alert('User must be logged in to save a team')
+  //     console.error('User must be logged in to save a team');
+  //   }
+  // }
   
     return(
       <>
@@ -159,7 +159,8 @@ function RightCard (props){
     </Card>
 
     {teamState.showTypeChart ? <TeamTypeChart /> : null}
-    {teamState.showLoadedTeams ? <LoadedTeams /> : null}  
+    {teamState.showLoadedTeams ? <LoadedTeams /> : null}
+    {teamState.showSaveTeam ? <SaveTeamModal /> : null}  
     </>
     
     )
