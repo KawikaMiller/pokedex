@@ -1,0 +1,44 @@
+.rightMain {
+  color: white;
+  margin: 0;
+  text-align: left;
+}
+
+.rightMain.container, #pokeInfo.container {
+  padding: 0;
+  margin: 0;
+}
+
+#pokeInfo {
+  width: 40%;
+  margin-right: 0.6rem !important;
+  padding: 0.25rem !important;
+  /* border-right: 1px solid white; */
+  background-color: rgba(0, 0, 0, 45%);
+}
+
+#pokeMovesAbilities > * {
+  margin: 0.5rem 0 !important;
+}
+
+.genus {
+  text-align: left;
+}
+
+h4 {
+  margin: 0;
+}
+
+.spread {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.centered {
+  text-align: center;
+}

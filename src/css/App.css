@@ -662,11 +662,6 @@ td, th {
   font-size: 0.825rem;
 }
 
-.accordion-body {
-  font-size: 0.825rem;
-  padding: 0.5rem 0.75rem !important;
-}
-
 .team_member_edit_buttons > * {
   width: 48% !important; 
 }

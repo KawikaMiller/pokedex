@@ -99,6 +99,16 @@
           }
           pokemon.descriptions.push(description);
         }
+      });
+      for(let i = 0; i < response.data.genera.length; i++){
+        let current = response.data.genera[i];
+        if (current.language.name === 'en'){
+          pokemon.genus = current.genus;
+          break;
+        }
+      };
+      response.data.egg_groups.forEach(element => {
+        pokemon.eggGroups.push(element.name);
       })
       if (pokemon.forms.length === 0) {
         response.data.varieties.forEach(form => {
@@ -109,7 +119,13 @@
           }
           pokemon.forms.push(f)
         })           
-      }
+      };
+      pokemon.hatchTime = response.data.hatch_counter;
+      pokemon.catchRate = response.data.capture_rate;
+      pokemon.genderRate = response.data.gender_rate;
+      pokemon.baseHappiness = response.data.base_happiness;
+      pokemon.growthRate = response.data.growth_rate;
+
     } catch(err) {
       console.log(err)
     }
@@ -255,6 +271,7 @@
         // reshaping the 'stats' property on the pokemon object
         let oldStats = response.data.stats;
         let newStats = [];
+        let evYields = [];
 
           // removes 'effort' property from response and replaces with 'ev', uncouples 'name' and 'url', add 'stat_value' property
         oldStats.forEach(element => {
@@ -267,6 +284,10 @@
             stat_value: 1,
           }
           newStats.push(newStat)
+          evYields.push({
+            name: element.stat.name,
+            yield: element.effort
+          })
         })
 
         // renames stat names to abbreviated, all caps names
@@ -293,7 +314,32 @@
             default :
               console.log('error abbreviating stat name') 
           }
-        }) 
+        })
+        
+        evYields.forEach(element => {
+          switch(element.name) {
+            case 'hp' :
+              element.name = 'HP';
+              break;
+            case 'attack' :
+              element.name = 'ATK';
+              break;
+            case 'defense' :
+              element.name = 'DEF';
+              break;
+            case 'special-attack' :
+              element.name = 'SP.ATK';
+              break;
+            case 'special-defense' :
+              element.name = 'SP.DEF';
+              break;
+            case 'speed' :
+              element.name = 'SPD';
+              break;
+            default :
+              console.log('error abbreviating stat name') 
+          }
+        })
 
         // create pokemon object which will ultimately be what is returned/sent as response
         let pokemon = new Pokemon(
@@ -307,6 +353,16 @@
           newStats,
           response.data.types,
         )
+
+        pokemon.genus = '';
+        pokemon.catchRate = 0;
+        pokemon.eggGroups = [];
+        pokemon.growthRate = '';
+        pokemon.genderRate = 0;
+        pokemon.hatchTime = 0;
+        pokemon.baseHappiness = 0;
+        pokemon.baseExpYield = response.data.base_experience;
+        pokemon.evYields = evYields;
 
         pokemon.height = {
           m: response.data.height / 10,

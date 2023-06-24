@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  padding: 0;
 }
 
 .accordion_move_header > .accordion-button::after{
@@ -33,7 +34,13 @@
 
 .accordion-body.accordion_body_movelist {
   overflow-y: scroll;
-  height: 45vh;
+  height: 30vh;
+  padding: 0;
+}
+
+.accordion-body {
+  font-size: 0.825rem;
+  /* padding: 0.5rem 0.75rem !important; */
 }
 
 .move_description, .ability {
@@ -52,6 +59,12 @@
 .accordion-item {
   color: white;
   background-color: rgba(31, 1, 1, 0.5);
+}
+
+.movelist_button {
+  padding: 0 0.25rem;
+  width: calc(100% - 0.25rem);
+  margin: 0.25rem 0;
 }
 
 .table {
