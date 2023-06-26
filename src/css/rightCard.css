@@ -2,6 +2,17 @@
   color: white;
   margin: 0;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.rightMain > * {
+  margin: 0.5rem 0;
+}
+
+.container {
+  /* border: 1px solid white; */
 }
 
 .rightMain.container, #pokeInfo.container {
@@ -21,8 +32,9 @@
   text-align: left;
 }
 
-h4 {
-  margin: 0;
+.cardLink a.nav-link {
+  padding: 0.25rem 0.5rem !important;
+  color: blue
 }
 
 p{
@@ -30,6 +42,30 @@ p{
   vertical-align: baseline !important;
   padding: 0;
   margin: 0;
+}
+
+.carousel.slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-inner {
+  width: 75%;
+}
+
+.carousel-item h6 {
+  text-align: center;
+}
+
+.carousel-control-next {
+  position: relative;
+  right: 0;
+}
+
+.carousel-control-prev {
+  position: absolute;
+  left: 0;
 }
 
 .spread {

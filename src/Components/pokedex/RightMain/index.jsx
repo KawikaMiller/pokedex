@@ -1,108 +1,131 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useSelector } from 'react-redux';
 import { ProgressBar } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
 
 import '../../../css/rightCard.css'
 import Learnset from '../../moves/LearnSet';
 import TypeBadge from '../../type/Badge';
 import Abilities from '../../abilities/AbilitiesList';
+import MoveList from '../../moves/MoveList';
 
 function PokedexMainRight (props) {
 
   const pokeState = useSelector(state => state.pokemon);
 
+  const [dexEntry, changeDexEntry] = useState(0);
+  const [activeKey, setActiveKey] = useState(0)
+
+  const handleChangeDexEntry = (value) => {
+    // reset back to 0 when at end of descriptions
+    if (dexEntry + value >= pokeState.pokemon.descriptions.length) {
+      changeDexEntry(0);
+    }
+    // cycle back to end of descriptions if trying to go 'previous' from 0
+    else if (dexEntry + value < 0) {
+      changeDexEntry(pokeState.pokemon.descriptions.length - 1)
+    }
+    else {
+      changeDexEntry(dexEntry + value)
+    }
+  }
+
   return(
-    <Container style={{display: 'flex', height: '100%'}} className='rightMain'>
+    <Container className='rightMain'>
 
-      <Card style={{height: 'inherit', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}} id='pokeInfo' text='white' border='white'>
-        <div>
-          <div className='spread'>
-            <h4>{pokeState.pokemon?.name[0].toUpperCase()+pokeState.pokemon?.name.slice(1)} </h4>
-            <p>{`#${pokeState.pokemon?.id.toString().padStart(4, '0')}`}</p>
+      <Container>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+          <div>
+            <h2>{pokeState.pokemon?.name}</h2>
+            <h6>{pokeState.pokemon?.genus}</h6>
           </div>
-          <p className='genus'>{pokeState.pokemon?.genus}</p>
-
-          <div className='spread'>
-            {pokeState.pokemon?.types.map(element => <TypeBadge type={element.type.name} />)}          
-          </div>        
-        </div>
-
-        <div>
-          <div className='spread'>
-            <div className='centered'>
-              <p className='underline'>Height</p>
-              <p>{pokeState.pokemon?.height.m}m</p>
-            </div>
-            <div className='centered'>
-              <p className='underline'>Weight</p>
-              <p>{pokeState.pokemon?.weight.kg}kg</p>
-            </div>
-          </div>
-          <div className='centered'>
-            <p className='underline'>Gender Ratio</p>
-            <ProgressBar now={100 - (100 * (pokeState.pokemon?.genderRate / 8))} style={{backgroundColor: 'hotpink', border: '1px solid white'}}/>
-            <p>♂ {100 - (100 * (pokeState.pokemon?.genderRate / 8))} | ♀{100 * pokeState.pokemon?.genderRate / 8}</p>
+          <div>
+            <h4 style={{textAlign: 'end'}}>{`# ${pokeState.pokemon?.id.toString().padStart(4, '0')}`}</h4>
+            {pokeState.pokemon?.types.map(element => <TypeBadge type={element.type.name} />)}
           </div>
         </div>
+      </Container>
 
+      <Container style={{height: '20vh', display: 'flex', flexDirection: 'column'}}>
 
-        <div className='centered'>
-          <p className='underline'>Egg Groups</p>
-          {pokeState.pokemon?.eggGroups.map((element, idx) => {
-            if(idx + 1 === pokeState.pokemon.eggGroups.length){
-              return ` ${element}`
-            } else {
-              return ` ${element} |`
-            }
-          })}
-        </div>
-        <div className='centered'>
-          <p className='underline'>Hatch Time</p>
-          <p>{pokeState.pokemon?.hatchTime} Cycles</p>
-        </div>
-        <div className='centered'>
-          <p className='underline'>Catch Rate</p>
-          <p>{pokeState.pokemon?.catchRate}</p>
-        </div>
-        <div className='centered'>
-          <p className='underline'>Level Rate</p>
-          <p>{pokeState.pokemon?.growthRate.name}</p>
-        </div>
-        <div className='centered'>
-          <p className='underline'>EV Yield</p>
-          <p>{pokeState.pokemon?.evYields.map(element => {
-            if(element.yield > 0){
-              return `${element.yield} ${element.name.toUpperCase()} `
-            } else {
-              return null;
-            }
-          })}</p>
-        </div>
-        <div className='centered'>
-          <p className='underline'>Base Exp Yield</p>
-          <p>{pokeState.pokemon?.baseExpYield}</p>
-        </div>
-      </Card>
+        <Card style={{height: '100%'}}>
 
-      <Container style={{display: 'flex', flexDirection: 'column', justifyContent:'space-between', padding: '0', margin: '0'}} id='pokeMovesAbilities'>
-        <Container style={{padding: '0', margin: '0', height: '100%', border: '1px solid white'}}>
-          <p>Pokedex Entries here</p>
-        </Container>
-        <Container style={{padding: '0', margin: '0'}}>
-          {
-            pokeState.pokemon?.name ? 
+          <Card.Header style={{ display: 'flex', justifyContent: 'flex-end'}}>
+            <Nav variant='tabs' defaultActiveKey={activeKey}>
+              <Nav.Item className='cardLink'>
+                <Nav.Link 
+                  eventKey={0}
+                  onClick={() => setActiveKey(0)}
+                >
+                  Dex
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item className='cardLink'>
+                <Nav.Link eventKey={1} onClick={() => setActiveKey(1)}>Bio</Nav.Link>
+              </Nav.Item>
+              <Nav.Item className='cardLink'>
+                <Nav.Link eventKey={2} onClick={() => setActiveKey(2)}>Ability</Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Card.Header>
+
+          <Card.Body style={{display: 'flex', justifyContent: 'space-between', padding: '0.5rem'}}>
+
+            {activeKey === 0 ?
+            
             <>
-              <br></br>
-              <Abilities key={`${pokeState.pokemon?.name}_abilities`}/>
-              <br></br>
-              <Learnset key={`${pokeState.pokemon?.name}_moves`}/>            
+              <Button onClick={() => handleChangeDexEntry(-1)}>{`<`}</Button>
+              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
+                <h6>Version: {pokeState.pokemon?.descriptions[dexEntry].version}</h6>
+                {pokeState.pokemon?.descriptions[dexEntry].description}
+              </div>
+              <Button onClick={() => handleChangeDexEntry(1)}>{`>`}</Button>            
             </>
+
             :
+
+            activeKey === 1 ?
+
+            <>
+            <p>{pokeState.pokemon?.catchRate}</p>
+            </>
+
+            :
+
+            activeKey === 2 ?
+
+            <p>{pokeState.pokemon?.abilities[0].name}</p>
+            
+            :
+
             null
-          }
-        </Container>
+              
+            }
+
+
+
+          </Card.Body>
+        </Card>
+
+      </Container>
+
+      {/* <Container>
+        {pokeState.pokemon?.name ? 
+          <Abilities />
+        :
+          null        
+        }
+      </Container> */}
+
+      <Container>
+        {pokeState.pokemon?.name ? 
+          <Learnset />
+        :
+          null        
+        }
       </Container>
 
     </Container>
