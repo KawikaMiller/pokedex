@@ -15,6 +15,20 @@
   /* border: 1px solid white; */
 }
 
+#details {
+  border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius);
+}
+
+#details .card-header {
+  background-color: red;
+  border-bottom: 5px solid black;
+}
+
+#details .card-body {
+  background-color: rgba(0, 0, 0, 85%);
+  color: white;
+}
+
 .rightMain.container, #pokeInfo.container {
   padding: 0;
   margin: 0;
@@ -32,12 +46,12 @@
   text-align: left;
 }
 
-.cardLink a.nav-link {
+.cardLink a.nav-link, .cardLink a.nav-link.active {
   padding: 0.25rem 0.5rem !important;
-  color: blue
+  border-bottom-color: black !important;
 }
 
-p{
+p, h6{
   text-align: center;
   vertical-align: baseline !important;
   padding: 0;
@@ -76,11 +90,21 @@ p{
 }
 
 .underline {
-  font-size: larger;
+  font-size: medium;
   font-weight: 500;
   text-decoration: underline;
 }
 
 .centered {
   text-align: center;
+}
+
+.spreadCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.spreadCol p:not(.underline), .spreadCol span {
+  font-size: small;
 }

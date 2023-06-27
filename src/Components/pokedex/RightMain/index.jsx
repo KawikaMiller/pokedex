@@ -17,7 +17,8 @@ function PokedexMainRight (props) {
   const pokeState = useSelector(state => state.pokemon);
 
   const [dexEntry, changeDexEntry] = useState(0);
-  const [activeKey, setActiveKey] = useState(0)
+  const [activeKey, setActiveKey] = useState(0);
+  const [abilityKey, setAbilityKey] = useState(0);
 
   const handleChangeDexEntry = (value) => {
     // reset back to 0 when at end of descriptions
@@ -30,6 +31,20 @@ function PokedexMainRight (props) {
     }
     else {
       changeDexEntry(dexEntry + value)
+    }
+  }
+
+  const handleChangeAbility = (value) => {
+    // reset back to 0 when at end of descriptions
+    if (abilityKey + value >= pokeState.pokemon.abilities.length) {
+      setAbilityKey(0);
+    }
+    // cycle back to end of descriptions if trying to go 'previous' from 0
+    else if (abilityKey + value < 0) {
+      setAbilityKey(pokeState.pokemon.abilities.length - 1)
+    }
+    else {
+      setAbilityKey(abilityKey + value)
     }
   }
 
@@ -51,23 +66,24 @@ function PokedexMainRight (props) {
 
       <Container style={{height: '20vh', display: 'flex', flexDirection: 'column'}}>
 
-        <Card style={{height: '100%'}}>
+        <Card id='details' style={{height: '100%'}}>
 
           <Card.Header style={{ display: 'flex', justifyContent: 'flex-end'}}>
             <Nav variant='tabs' defaultActiveKey={activeKey}>
               <Nav.Item className='cardLink'>
-                <Nav.Link 
-                  eventKey={0}
-                  onClick={() => setActiveKey(0)}
-                >
+                <Nav.Link eventKey={0}onClick={() => setActiveKey(0)}>
                   Dex
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className='cardLink'>
-                <Nav.Link eventKey={1} onClick={() => setActiveKey(1)}>Bio</Nav.Link>
+                <Nav.Link eventKey={1} onClick={() => setActiveKey(1)}>
+                  Bio
+                </Nav.Link>
               </Nav.Item>
               <Nav.Item className='cardLink'>
-                <Nav.Link eventKey={2} onClick={() => setActiveKey(2)}>Ability</Nav.Link>
+                <Nav.Link eventKey={2} onClick={() => setActiveKey(2)}>
+                  Ability
+                </Nav.Link>
               </Nav.Item>
             </Nav>
           </Card.Header>
@@ -90,14 +106,78 @@ function PokedexMainRight (props) {
             activeKey === 1 ?
 
             <>
-            <p>{pokeState.pokemon?.catchRate}</p>
+            <div className='centered spreadCol'>
+              <div>
+                <p className='underline'>Height & Weight</p>
+                <p>{pokeState.pokemon?.height.m} m | {pokeState.pokemon?.weight.kg} kg</p>              
+              </div>
+              <div>
+                <p className='underline'>Gender Ratio</p>
+                <p> {100 - (pokeState.pokemon?.genderRate / 8 * 100)} ♂ | {pokeState.pokemon?.genderRate / 8 * 100}% ♀</p>              
+              </div>              
+            </div>
+            
+            <div className='centered spreadCol'>
+              <div>
+                <p className='underline'>Catch Rate</p>
+                <p>{pokeState.pokemon?.catchRate}</p>              
+              </div>
+              <div>
+              <p className='underline'>Growth Rate</p>
+                <p>{pokeState.pokemon?.growthRate.name}</p>             
+              </div>
+            </div>
+
+            <div className='centered spreadCol'>
+              <div>
+                <p className='underline'>Egg Groups</p>
+                <span>
+                  {pokeState.pokemon?.eggGroups[0]}
+                  {pokeState.pokemon?.eggGroups[1] ?
+                    ` | ${pokeState.pokemon?.eggGroups[1]}`
+                  :
+                    null
+                  }
+                </span>             
+              </div>
+              <div>
+                <p className='underline'>Hatch Time</p>
+                <p>{pokeState.pokemon?.hatchTime} Cycles</p>     
+          
+              </div>              
+            </div>
+
+            <div className='centered spreadCol'>
+              <div>
+                <p className='underline'>XP Yield</p>
+                <p>{pokeState.pokemon?.baseExpYield} EXP</p>              
+              </div>
+              <div>
+                <p className='underline'>Ev Yield</p>
+                <span>
+                  {pokeState.pokemon?.evYields.map(stat => {
+                    if(stat.yield){
+                      return `${stat.name} ${stat.yield} `
+                    }
+                  })}
+                </span>
+              </div>              
+            </div>
+
             </>
 
             :
 
             activeKey === 2 ?
 
-            <p>{pokeState.pokemon?.abilities[0].name}</p>
+            <>
+              <Button onClick={() => handleChangeAbility(-1)}>{`<`}</Button>
+              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', textAlign: 'center'}}>
+                <h6>{pokeState.pokemon?.abilities[abilityKey].name}</h6>
+                {pokeState.pokemon?.abilities[abilityKey].description}
+              </div>
+              <Button onClick={() => handleChangeAbility(1)}>{`>`}</Button>            
+            </>
             
             :
 
