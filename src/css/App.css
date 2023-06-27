@@ -465,11 +465,6 @@ div.base_stat_progressbar.progress {
   justify-content: space-between;
 }
 
-#learnset_container {
-  /* height: 52vh; */
-  /* overflow-Y: scroll; */
-}
-
 #abilities_container{
   /* height: 25%; */
   margin: 1rem 0;

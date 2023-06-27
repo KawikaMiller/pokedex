@@ -12,10 +12,6 @@
   margin: 0.5rem 0;
 }
 
-.container {
-  /* border: 1px solid white; */
-}
-
 #details {
   border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius);
 }
