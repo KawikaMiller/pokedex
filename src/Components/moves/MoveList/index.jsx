@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
 import '../../../css/learnset.css'
+import '../../../css/movelist.css'
 
 function MoveList (props) {
 
@@ -13,6 +14,7 @@ function MoveList (props) {
   const [sortedByPP, setSortedByPP] = useState(false);
   const [sortedByDmgClass, setSortedByDmgClass] = useState(false);
   const [sortedByType, setSortedByType] = useState(false);
+  const [sortAsc, setSortAsc] = useState(false);
 
   // resets all "sortedBy" state properties to false | the correct property will be set to true in 'handleToggleSort'
   const setAllSortedToFalse = () => {
@@ -38,12 +40,14 @@ function MoveList (props) {
 
   // one method that can handle all sorting
   const handleToggleSort = (thisStateSorted, setSorted, property) => {
+    setAllSortedToFalse();
+    setSorted();
     if (thisStateSorted) {
-      setAllSortedToFalse();
+      setSortAsc(!sortAsc)
       props.moves.reverse();
     }
     else {
-      setSorted();
+      setSortAsc(false);
       sortMoves(props.moves, property);
     }
   }
@@ -77,18 +81,144 @@ function MoveList (props) {
   }
 
   return(
-  <Accordion>
-    <Accordion.Item >
-      <Table bordered >
+  <Accordion className='movelist_accordion'>
+    <Accordion.Item className='movelist_header' >
+      <Table>
         <thead>
           <tr>
-            <th><Button className='movelist_button' disabled={props.disableLevelLearned ? true : false} variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByLevel, () => setSortedByLevel(true), 'levelLearned')}>Level</Button></th>
-            <th><Button className='movelist_button' variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByName, () => setSortedByName(true), 'name')}>Name</Button></th>
-            <th><Button className='movelist_button' variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByPower, () => setSortedByPower(true), 'power')}>Power</Button></th>
-            <th><Button className='movelist_button' variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByAccuracy, () => setSortedByAccuracy(true), 'accuracy')}>Acc</Button></th>
-            <th><Button className='movelist_button' variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByPP, () => setSortedByPP(true), 'pp')}>PP</Button></th>
-            <th><Button className='movelist_button' variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByDmgClass, () => setSortedByDmgClass(true), 'dmgClass')}>Dmg</Button></th>
-            <th><Button className='movelist_button' variant='outline-light' size='sm' onClick={() => handleToggleSort(sortedByType, () => setSortedByType(true), 'type')}>Type</Button></th>
+            <th>
+              <Button 
+                className='movelist_button' 
+                disabled={props.disableLevelLearned ? true : false} 
+                variant='primary' 
+                size='sm' 
+                onClick={() => handleToggleSort(sortedByLevel, () => setSortedByLevel(true), 'levelLearned')}
+              >
+                Level {
+                  sortedByLevel ? 
+                    sortAsc ? 
+                      '^' 
+                      : 
+                      'v'
+                    :
+                    null
+                }
+              </Button>
+            </th>
+
+            <th>
+              <Button 
+                className='movelist_button' 
+                variant='primary' 
+                size='sm' 
+                onClick={() => handleToggleSort(sortedByName, () => setSortedByName(true), 'name')}
+              >
+                Name {
+                  sortedByName ? 
+                    sortAsc ? 
+                      '^' 
+                      : 
+                      'v'
+                    :
+                    null
+                }
+              </Button>
+            </th>
+
+            <th>
+              <Button 
+                className='movelist_button' 
+                variant='primary' 
+                size='sm' 
+                onClick={() => handleToggleSort(sortedByPower, () => setSortedByPower(true), 'power')}
+              >
+                Power {
+                  sortedByPower ? 
+                    sortAsc ? 
+                      '^' 
+                      : 
+                      'v'
+                    :
+                    null
+                }
+              </Button>
+            </th>
+
+            <th>
+              <Button 
+                className='movelist_button' 
+                variant='primary' 
+                size='sm' 
+                onClick={() => handleToggleSort(sortedByAccuracy, () => setSortedByAccuracy(true), 'accuracy')}
+              >
+                Acc {
+                  sortedByAccuracy ? 
+                    sortAsc ? 
+                      '^' 
+                      : 
+                      'v'
+                    :
+                    null
+                }
+              </Button>
+            </th>
+
+            <th>
+              <Button 
+                className='movelist_button' 
+                variant='primary' 
+                size='sm' 
+                onClick={() => handleToggleSort(sortedByPP, () => setSortedByPP(true), 'pp')}
+              >
+                PP {
+                  sortedByPP ? 
+                    sortAsc ? 
+                      '^' 
+                      : 
+                      'v'
+                    :
+                    null
+                }
+              </Button>
+            </th>
+
+            <th>
+              <Button 
+                className='movelist_button' 
+                variant='primary' 
+                size='sm' 
+                onClick={() => handleToggleSort(sortedByDmgClass, () => setSortedByDmgClass(true), 'dmgClass')}
+              >
+                Damage {
+                  sortedByDmgClass ? 
+                    sortAsc ? 
+                      '^' 
+                      : 
+                      'v'
+                    :
+                    null
+                }
+              </Button>
+            </th>
+
+            <th>
+              <Button 
+                className='movelist_button'
+                variant='primary' 
+                size='sm' 
+                onClick={() => handleToggleSort(sortedByType, () => setSortedByType(true), 'type')}
+              >
+                Type {
+                  sortedByType ? 
+                    sortAsc ? 
+                      '^' 
+                      : 
+                      'v'
+                    :
+                    null
+                }
+              </Button>
+            </th>
           </tr>
         </thead>
       </Table>

@@ -66,21 +66,21 @@ function PokedexMainRight (props) {
 
       <Container style={{height: '20vh', display: 'flex', flexDirection: 'column'}}>
 
-        <Card id='details' style={{height: '100%'}}>
+        <Card className='details' style={{height: '100%'}}>
 
-          <Card.Header style={{ display: 'flex', justifyContent: 'flex-end'}}>
+          <Card.Header className='main_right_card_header'>
             <Nav variant='tabs' defaultActiveKey={activeKey}>
-              <Nav.Item className='cardLink'>
+              <Nav.Item className='subCard'>
                 <Nav.Link eventKey={0}onClick={() => setActiveKey(0)}>
                   Dex
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item className='cardLink'>
+              <Nav.Item className='subCard'>
                 <Nav.Link eventKey={1} onClick={() => setActiveKey(1)}>
                   Bio
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item className='cardLink'>
+              <Nav.Item className='subCard'>
                 <Nav.Link eventKey={2} onClick={() => setActiveKey(2)}>
                   Ability
                 </Nav.Link>
@@ -185,20 +185,9 @@ function PokedexMainRight (props) {
               
             }
 
-
-
           </Card.Body>
         </Card>
-
       </Container>
-
-      {/* <Container>
-        {pokeState.pokemon?.name ? 
-          <Abilities />
-        :
-          null        
-        }
-      </Container> */}
 
       <Container>
         {pokeState.pokemon?.name ? 

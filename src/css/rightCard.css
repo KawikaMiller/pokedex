@@ -4,6 +4,7 @@
   text-align: left;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100%;
 }
 
@@ -46,7 +47,7 @@
   text-align: left;
 }
 
-.cardLink a.nav-link, .cardLink a.nav-link.active {
+.subCard a.nav-link, .subCard a.nav-link.active {
   padding: 0.25rem 0.5rem !important;
   border-bottom-color: black !important;
 }

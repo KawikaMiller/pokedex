@@ -1,4 +1,7 @@
 @import './modal.css';
+@import './subcards.css';
+@import './movelist.css';
+@import './learnset.css';
 
 :root {
   box-sizing: border-box;

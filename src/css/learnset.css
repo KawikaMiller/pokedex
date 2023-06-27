@@ -1,14 +1,13 @@
+.learnset_header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
 .accordion-button {
   color: rgba(255, 255, 255, 0.695);
   background-color: rgb(197, 0, 0);
   margin: 0;
-  padding: 0;
-}
-
-.accordion_move_header > .accordion-button {
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   padding: 0;
 }
 
@@ -32,11 +31,7 @@
   background-color: rgba(0,0,0,0%);
 }
 
-.accordion-body.accordion_body_movelist {
-  overflow-y: scroll;
-  height: 30vh;
-  padding: 0;
-}
+
 
 .accordion-body {
   font-size: 0.825rem;

@@ -73,13 +73,10 @@ function RightCard (props){
               <Nav.Link eventKey='0' onClick={() => {changeTab(0)}}>Main</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey='1' onClick={() => {changeTab(1)}}>Moves & Abilities</Nav.Link>
+              <Nav.Link eventKey='1' onClick={() => {changeTab(1)}}>Team Builder</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey='2' onClick={() => {changeTab(2)}}>Team Builder</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey='3' onClick={() => {changeTab(3)}}>Items</Nav.Link>
+              <Nav.Link eventKey='2' onClick={() => {changeTab(2)}}>Items</Nav.Link>
             </Nav.Item>
           </Nav>
         </Card.Header> 
@@ -92,42 +89,8 @@ function RightCard (props){
             false
           }
 
-          
-          {activeKey === 1 ?
-          // if activeKey is 1, displays moves and abilities
-            <Container id='learnset_and_abilities'>
-              <Container id='abilities_container'>
-                {
-                  pokeState.pokemon?.name ? 
-                    <Abilities
-                      key={`${pokeState.pokemon.name}_abilities`} 
-                    />
-                  : 
-                  null  
-                }
-              </Container>                
-                {pokeState.pokemon?.name ?
-                null
-                :
-                <h4>Please search for a Pokemon</h4>
-                }
-              <Container id="learnset_container">
-                {
-                  pokeState.pokemon?.name ?
-                    <Learnset 
-                      key={`${pokeState.pokemon.name}_moves`}
-                    /> 
-                  : 
-                  null
-                }
-              </Container>         
-            </Container> 
-          : 
-            null
-          }
-
           {
-            activeKey === 2 ?
+            activeKey === 1 ?
             // if activeKey is 2, displays team builder
               <Team showSaveTeamModal={showSaveTeamModal} setShowSaveTeamModal={setShowSaveTeamModal} />
             : 
@@ -137,7 +100,7 @@ function RightCard (props){
         </Card.Body>
 
         <Card.Footer>
-          {activeKey === 2 ? 
+          {activeKey === 1 ? 
             <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
               <Button size='sm' onClick={() => dispatch(toggleTypeChart())}>
                 Type Coverage

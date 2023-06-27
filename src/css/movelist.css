@@ -1,0 +1,30 @@
+.movelist_header {
+  background-color: black;
+}
+
+.accordion_move_header > .accordion-button {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+}
+
+/* selects every other nested accordion item in a moveset component */
+.movelist_accordion .accordion-item:nth-child(odd) .accordion-header > .accordion-button {
+  background-color: rgb(139, 0, 0);
+}
+
+.move_description {
+  background-color: var(--background);
+}
+
+.movelist_body {
+  background-color: black;
+  overflow-y: auto;
+  height: 37.3vh;
+  padding: 0;
+}
+
+.accordion-item{
+  border: none;
+}
