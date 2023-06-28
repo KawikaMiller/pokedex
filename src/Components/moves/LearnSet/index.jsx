@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
 import MoveList from '../MoveList';
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav'
@@ -13,70 +13,58 @@ function Learnset (props) {
   const [tutorMoves, setTutorMoves] = useState([]);
   const [eggMoves, setEggMoves] = useState([]);
   const [activeKey, setActiveKey] = useState(0);
+  const [activeGeneration, setActiveGeneration] = useState('yellow');
 
   const pokeState = useSelector(state => state.pokemon);
 
-  // parse moves by learn method
-  const parseLevelUpMoves = () => {
-    pokeState.pokemon.moves.forEach(move => {
-      if (move.learnMethod === 'level-up' && !levelUpMoves.includes(move)) {
-        setLevelUpMoves(levelUpMoves.push(move))
-      }
-    })
-
-  }
-
-  const parseTmMoves = () => {
-    pokeState.pokemon.moves.forEach(move => {
-      if (move.learnMethod === 'machine' && !tmMoves.includes(move)) {
-        setTmMoves(tmMoves.push(move))
-      }
-    })
-
-  }
-
-  const parseTutorMoves = () => {
-    pokeState.pokemon.moves.forEach(move => {
-      if (move.learnMethod === 'tutor' && !tutorMoves.includes(move)) {
-        setTutorMoves(tutorMoves.push(move))
-      }
-    })
-
-  }
-
-  const parseEggMoves = () => {
-    pokeState.pokemon.moves.forEach(move => {
-      if (move.learnMethod === 'egg' && !eggMoves.includes(move)) {
-        setEggMoves(eggMoves.push(move))
-      }
-    })
-
-  }
-
   // this runs all four previous parse methods
-  const parseMoves = () => {
-    parseEggMoves();
-    parseLevelUpMoves();
-    parseTmMoves();
-    parseTutorMoves();
-  }
+  const parseMovesByGeneration = (version) => {
+    let levelArr = [];
+    let tmArr = [];
+    let tutorArr = [];
+    let eggArr = [];
 
-  const handleKeyChange = (key) => {
-    if(key !== null){
-      setActiveKey(key)
-    }
+    pokeState.pokemon.moves.forEach(move => {
+      move.versionDetails.forEach(details => {
+        if (details.version === version) {
+          let nMove = {...move};
+          nMove.learnMethod = details.learnMethod;
+          nMove.levelLearned = details.levelLearned;
+          switch(details.learnMethod){
+            case 'level-up':
+              levelArr.push(nMove);
+              break;
+            case 'machine':
+              tmArr.push(nMove);
+              break;
+            case 'tutor':
+              tutorArr.push(nMove);
+              break;
+            case 'egg':
+              eggArr.push(nMove);
+              break;
+            default:
+              console.log('error parsing moves by learn method');
+          }
+        }
+      })
+    })
+
+    setLevelUpMoves(levelArr);
+    setTmMoves(tmArr);
+    setTutorMoves(tutorArr);
+    setEggMoves(eggArr);
   }
 
   // handles state change & move parsing during react lifecycle || simulates 'componentDidMount'
   useEffect(() => {
-    parseMoves();
-    setTimeout(() => {
-      setLevelUpMoves(levelUpMoves);
-      setTmMoves(tmMoves);
-      setTutorMoves(tutorMoves);
-      setEggMoves(eggMoves);
-    }, 10)
+    parseMovesByGeneration(activeGeneration)
+
   }, []) //eslint-disable-line
+
+  useEffect(() => {
+    parseMovesByGeneration(activeGeneration)
+  }, [pokeState.pokemon, activeGeneration]) //eslint-disable-line
 
   return(
 
@@ -125,53 +113,19 @@ function Learnset (props) {
           null
         }
       </Card.Body>
+      <Card.Footer style={{display: 'flex', justifyContent: 'space-evenly'}}>
+        <Button size='sm' onClick={() => setActiveGeneration('yellow')}>Gen 1</Button>
+        <Button size='sm' onClick={() => setActiveGeneration('crystal')}>Gen 2</Button>
+        <Button size='sm' onClick={() => setActiveGeneration('emerald')}>Gen 3</Button>
+        <Button size='sm' onClick={() => setActiveGeneration('platinum')}>Gen 4</Button>
+        <Button size='sm' onClick={() => setActiveGeneration('black-2-white-2')}>Gen 5</Button>
+        <Button size='sm' onClick={() => setActiveGeneration('x-y')}>Gen 6</Button>
+        <Button size='sm' onClick={() => setActiveGeneration('ultra-sun-ultra-moon')}>Gen 7</Button>
+        <Button size='sm' onClick={() => setActiveGeneration('sword-shield')}>Gen 8</Button>
+        <Button size='sm' onClick={() => setActiveGeneration('scarlet-violet')}>Gen 9</Button>
+      </Card.Footer>
     </Card>
 
-    // <Accordion id='learnset' defaultActiveKey={'0'} activeKey={activeKey} onSelect={e => handleKeyChange(e)}>
-      
-    //   {/* level up moves */}
-    //   <Accordion.Item eventKey='0'>
-    //     <Accordion.Header className='label'>Level-Up Moves</Accordion.Header>
-    //     <Accordion.Body className='accordion_body_movelist'>
-    //       <MoveList moves={levelUpMoves} />
-    //     </Accordion.Body>
-    //   </Accordion.Item>
-
-    //   {/* tm moves */}
-    //   <Accordion.Item eventKey='1'>
-    //     <Accordion.Header className='label'>TM Moves</Accordion.Header>
-    //     <Accordion.Body className='accordion_body_movelist'>
-    //       <MoveList moves={tmMoves} header="TM Moves" disableLevelLearned={true} />
-    //     </Accordion.Body>
-    //   </Accordion.Item>
-
-    //   {/* tutor moves */}
-    //   {tutorMoves.length > 0 ? 
-    //     <Accordion.Item eventKey='2'>
-    //       <Accordion.Header className='label'>Tutor Moves</Accordion.Header>
-    //       <Accordion.Body className='accordion_body_movelist'>
-    //         <MoveList moves={tutorMoves} header="Tutor Moves" disableLevelLearned={true} />
-    //       </Accordion.Body>
-    //     </Accordion.Item>
-    //   : 
-    //    null
-    //   }
-
-      
-    //   {/* egg moves */}
-    //   {eggMoves.length > 0 ?
-    //     <Accordion.Item eventKey='3'>
-    //       <Accordion.Header className='label'>Egg Moves</Accordion.Header>
-    //       <Accordion.Body className='accordion_body_movelist'>
-    //         <MoveList moves={eggMoves} header="Egg Moves" disableLevelLearned={true} />
-    //       </Accordion.Body>
-    //     </Accordion.Item>
-    //   :
-    //     null      
-    //   }
-
-
-    // </Accordion>
   )
 }
 

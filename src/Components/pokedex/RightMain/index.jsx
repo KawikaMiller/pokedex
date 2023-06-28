@@ -59,7 +59,9 @@ function PokedexMainRight (props) {
           </div>
           <div>
             <h4 style={{textAlign: 'end'}}>{`# ${pokeState.pokemon?.id.toString().padStart(4, '0')}`}</h4>
-            {pokeState.pokemon?.types.map(element => <TypeBadge type={element.type.name} />)}
+            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+              {pokeState.pokemon?.types.map(element => <TypeBadge type={element.type.name} />)}              
+            </div>
           </div>
         </div>
       </Container>

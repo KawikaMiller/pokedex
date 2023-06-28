@@ -27,8 +27,7 @@
 
     try {
       for(let move of pokemon.moves){
-        console.log(`fetching ${move.name} data...`)
-
+        console.log(`fetching ${move.name} data...`);
         axios(`https://pokeapi.co/api/v2/move/${move.name}`)
         .then(res => {
           let newMove = {...move};
@@ -45,6 +44,7 @@
           } else {
             newMove.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance)              
           };
+
           newMoves = [...newMoves, newMove];
           newPokemon.moves = newMoves;
         })
@@ -166,107 +166,31 @@
       .then(response => {
 
         let moveArr = [];
-        // gets move info from initial query, construct a "Move" object with basic information like name and level learned at
+        // gets move info from initial query, construct a "Move" object with basic information
         response.data.moves.forEach(element => {
-          element.version_group_details.forEach(vgDetail => {
-            // only gets most recent move set (gen 9)
-            if (vgDetail.version_group.name === 'scarlet-violet') {
-              moveArr.push({
-                // cant use Move constructor with redux because it will throw a 'non-serializable' error
-                // need to include undefined properties otherwise a TypeError: object is not extensible will occur
-                name: element.move.name, 
-                levelLearned: vgDetail.level_learned_at,
-                learnMethod: vgDetail.move_learn_method.name,
-                power: undefined, 
-                accuracy: undefined, 
-                pp: undefined, 
-                dmgClass: undefined, 
-                type: undefined,
-                description: '',
-              })
-            }
+          moveArr.push({
+            name: element.move.name,
+            power: undefined,
+            accuracy: undefined, 
+            pp: undefined, 
+            dmgClass: undefined, 
+            type: undefined,
+            description: '',
+            versionDetails: element.version_group_details
           })
+        });
+
+        moveArr.forEach(move => {
+          move.versionDetails.forEach((detail, idx) => {
+            let temp = {
+              levelLearned: detail.level_learned_at,
+              learnMethod: detail.move_learn_method.name,
+              version: detail.version_group.name
+            };
+            move.versionDetails[idx] = temp;
+          });
         })
-        // if there are no moves from gen9, get gen8 moves instead
-        if (moveArr.length === 0) {
-          response.data.moves.forEach(element => {
-            element.version_group_details.forEach(vgDetail => {
-              if (vgDetail.version_group.name === 'sword-shield') {
-                moveArr.push({
-                  name: element.move.name, 
-                  levelLearned: vgDetail.level_learned_at,
-                  learnMethod: vgDetail.move_learn_method.name,
-                  power: undefined, 
-                  accuracy: undefined, 
-                  pp: undefined, 
-                  dmgClass: undefined, 
-                  type: undefined,
-                  description: '',
-                })
-              }
-            })
-          })
-        }
-        // if there are no moves from gen8, get gen7 moves. etc.
-        if (moveArr.length === 0) {
-          response.data.moves.forEach(element => {
-            element.version_group_details.forEach(vgDetail => {
-              if (vgDetail.version_group.name === 'sun-moon') {
-                moveArr.push({
-                  name: element.move.name, 
-                  levelLearned: vgDetail.level_learned_at,
-                  learnMethod: vgDetail.move_learn_method.name,
-                  power: undefined, 
-                  accuracy: undefined, 
-                  pp: undefined, 
-                  dmgClass: undefined, 
-                  type: undefined,
-                  description: '',
-                })
-              }
-            })
-          })
-        }
-        // gen 7 (X and Y)
-        if (moveArr.length === 0) {
-          response.data.moves.forEach(element => {
-            element.version_group_details.forEach(vgDetail => {
-              if (vgDetail.version_group.name === 'x-y') {
-                moveArr.push({
-                  name: element.move.name, 
-                  levelLearned: vgDetail.level_learned_at,
-                  learnMethod: vgDetail.move_learn_method.name,
-                  power: undefined, 
-                  accuracy: undefined, 
-                  pp: undefined, 
-                  dmgClass: undefined, 
-                  type: undefined,
-                  description: '',
-                })
-              }
-            })
-          })
-        }
-        // gen 6 (Black and White)
-        if (moveArr.length === 0) {
-          response.data.moves.forEach(element => {
-            element.version_group_details.forEach(vgDetail => {
-              if (vgDetail.version_group.name === 'black-2-white-2') {
-                moveArr.push({
-                  name: element.move.name, 
-                  levelLearned: vgDetail.level_learned_at,
-                  learnMethod: vgDetail.move_learn_method.name,
-                  power: undefined, 
-                  accuracy: undefined, 
-                  pp: undefined, 
-                  dmgClass: undefined, 
-                  type: undefined,
-                  description: '',
-                })
-              }
-            })
-          })
-        }
+
 
         // reshaping the 'stats' property on the pokemon object
         let oldStats = response.data.stats;

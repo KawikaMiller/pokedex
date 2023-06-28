@@ -30,6 +30,7 @@ function MoveList (props) {
   // modular method for all properties
   const sortMoves = (arr, property) => {
     arr.sort((a,b) => {
+      // console.log(typeof a[property], typeof b[property])
       if(a[property] < b[property]){
         return -1;
       } else if (a[property] > b[property]) {
@@ -67,7 +68,7 @@ function MoveList (props) {
                   <td>{element.accuracy}</td>
                   <td>{element.pp}</td>
                   <td>{element.dmgClass}</td>
-                  <td>{element.type}</td>
+                  <td>{element.learnMethod}</td>
                 </tr>
               </tbody>
             </Table>
