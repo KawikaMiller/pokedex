@@ -2,7 +2,13 @@
 
 **Author**: Kawika Miller
 
-**Version**: 1.1 
+**Version**: 1.2
+
+[**Deployed Site**](https://kmdevsign-pokedex.netlify.app/)
+
+[**Deployed Site (Backup)**](https://pokedex-frontend.onrender.com/)
+
+[**Server Repo**](https://github.com/KMArtwork/pokedex-backend)
 
 ## Overview
 This application will allow a user to query the PokeAPI and view the results in a kanto-pokedex-styled UI.
@@ -51,11 +57,6 @@ If you click on the `Team Builder` tab on the right, you can create your own Pok
   - Also thinking of setting this up to use a PostgreSQL database instead of MongoDB
 
 The `Items` tab is still being worked on.
-
-## Getting Started
-If you are running this locally then first run the command `npm i` to install all your dependencies. Once that is finished you can start the app by running the command `npm start` in your terminal from the root of this directory.
-
-*Deployed version of the app TBD*
 
 ## Architecture
 - React
