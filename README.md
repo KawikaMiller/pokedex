@@ -115,5 +115,25 @@ If you are running this locally then first run the command `npm i` to install al
   - User will now be able to save their own teams and have them protected via login credentials (e.g. Users are only able to load/save/delete their own teams)
   - App is deployed on netlify & render
 
+2023-06-20 - 2023-06-28:
+  - API Calls
+    - Refactor api call for faster response when fetching supplemental move data
+    - Refactor dpad functionality
+      - Cleaner code
+  - Login / Signup
+    - Move login / signup feature to a modal instead of being in the header
+  - Layout
+    - Update 'Save Team' form
+      - Able to add / change team name
+      - Able to save a new team or overwrite existing team
+    - Update layout of 'Main' tab
+      - Consolidate all pokemon information into one place instead of having it spread out
+    - Add ability to view all moves by generation & their learn methods
+  - Style
+    - Update the styling of the moves and abilities components
+    - Create Badge components for pokemon types
+    - Begin modularizing stylesheets
+
+
 
 ## Credit and Collaborations
