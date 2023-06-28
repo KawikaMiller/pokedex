@@ -204,7 +204,9 @@ function PokedexMainRight (props) {
                   {pokeState.pokemon?.name ?
                     pokeState.pokemon?.evYields.map(stat => {
                       if(stat.yield){
-                        return `${stat.name} ${stat.yield} `
+                        return `${stat.name} ${stat.yield} `;
+                      } else{
+                        return '';
                       }
                     })
                     :

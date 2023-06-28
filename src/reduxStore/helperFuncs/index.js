@@ -23,12 +23,13 @@
     // spread operators to avoid 'TypeError: object is not extensible / object is read only' errors
     console.log('supplementing move data with missing info...')
     let newPokemon = {...pokemon};
-    let newMoves = [];
+    let newMoves = []; 
 
     try {
       for(let move of pokemon.moves){
         console.log(`fetching ${move.name} data...`);
         axios(`https://pokeapi.co/api/v2/move/${move.name}`)
+        //eslint-disable-next-line
         .then(res => {
           let newMove = {...move};
           newMove.power = res.data.power;
