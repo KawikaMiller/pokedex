@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const teamSlice = createSlice({
   name: 'team',
   initialState: {
-    teamName: 'missingName',
+    teamName: 'missingTeam',
     id: undefined,
     roster: [],
     fetchedTeams: [],

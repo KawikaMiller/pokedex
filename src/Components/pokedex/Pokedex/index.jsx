@@ -18,116 +18,120 @@ function Pokedex (props) {
   const dispatch = useDispatch();
   let { toggleShiny, changeFormIdx, setPokemon } = pokeSlice.actions
 
+  const pleaseSearchAlert = () => {
+    alert('Please search for a pokemon first')
+  }
 
   const handleToggleShiny = () => {
-    dispatch(toggleShiny(!state.showShiny))
+    if(state.pokemon?.name){
+      dispatch(toggleShiny(!state.showShiny))      
+    } else {
+      pleaseSearchAlert();
+    }
   }
 
   const handleToggleForm = () => {
-    let newApiIdx = state.formIdx + 1;
-    if (newApiIdx >= state.pokemon.forms.length) {
-      newApiIdx = 0;
+    if(state.pokemon?.name){
+      let newApiIdx = state.formIdx + 1;
+      if (newApiIdx >= state.pokemon.forms.length) {
+        newApiIdx = 0;
+      }
+      dispatch(changeFormIdx(newApiIdx))      
+    } else {
+      pleaseSearchAlert();
     }
-    dispatch(changeFormIdx(newApiIdx))
+  }
+
+  const handleSearch = (event, id) => {
+    dispatch(fetchPokemon(event, id))
+    .then(response => dispatch(supplementMoveData(response)))
+    .then(response => dispatch(fetchTypeEffectiveness(response)))
+    .then(response => dispatch(fetchPokedexEntries(response)))
+    .then(response => dispatch(fetchAbilityDescriptions(response)))
+    .then(response => {dispatch(setPokemon({pokemon: {...response}}))})    
   }
 
   const handleAdjacentPokemon = (event, int) => {
     dispatch(changeFormIdx(0));
-    if (state.pokemon.name) {
-      dispatch(fetchPokemon(event, state.pokemon.id + int))
-      .then(response => dispatch(supplementMoveData(response)))
-      .then(response => dispatch(fetchTypeEffectiveness(response)))
-      .then(response => dispatch(fetchPokedexEntries(response)))
-      .then(response => dispatch(fetchAbilityDescriptions(response)))
-      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+    if (state.pokemon?.name) {
+      handleSearch(event, state.pokemon.id + int)
+
     } else {
-      dispatch(fetchPokemon(event, 1))
-      .then(response => dispatch(supplementMoveData(response)))
-      .then(response => dispatch(fetchTypeEffectiveness(response)))
-      .then(response => dispatch(fetchPokedexEntries(response)))
-      .then(response => dispatch(fetchAbilityDescriptions(response)))
-      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      handleSearch(event, 1)
+
     }
   }
 
   const handleNextGen = (event) => {
-    // console.log('next generation')
     // if a search has been made and returned a result, then cycle up by generations
-    if (state.pokemon) {
+    if (state.pokemon?.name) {
     // if you're viewing pokemon within gen 1, move to gen 2
       if (state.pokemon.id <= 151) {
-        dispatch(fetchPokemon(event, 152))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+        handleSearch(event, 152)
     // if you're viewing pokemon within gen 2, move to gen 3 & etc.
       } else if (state.pokemon.id <= 251) {
-        dispatch(fetchPokemon(event, 252))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
-      } else if (state.pokemon.id <= 251) {
-        dispatch(fetchPokemon(event, 252))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})         
+        handleSearch(event, 252)
+
       } else if (state.pokemon.id <= 386) {
-        dispatch(fetchPokemon(event, 387))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+        handleSearch(event, 387)
+
       } else if (state.pokemon.id <= 493) {
-        dispatch(fetchPokemon(event, 494))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})                
+        handleSearch(event, 495)
+      
       } else if (state.pokemon.id <= 649) {
-        dispatch(fetchPokemon(event, 650))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+        handleSearch(event, 650)
+
       } else if (state.pokemon.id <= 721) {
-        dispatch(fetchPokemon(event, 722))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+        handleSearch(event, 722)
+
       } else if (state.pokemon.id <= 809) {
-        dispatch(fetchPokemon(event, 810))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+        handleSearch(event, 810)
+
       } else if (state.pokemon.id <= 905) {
-        dispatch(fetchPokemon(event, 906))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+        handleSearch(event, 906)
+
       } else if (state.pokemon.id <= 906) {
-        dispatch(fetchPokemon(event, 1))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})        
+        handleSearch(event, 1)
+
       }
-    } else {fetchPokemon(event, 1)}
+    } else {handleSearch(event, 1)}
   }
 
   const handlePreviousGen = (event) => {
-    console.log('previous generation')
     // if a search has been made and returned a result, cycle back by generations
     if (state.pokemon) {
       // if within gen 9, move back to first starter of gen 8
       if (state.pokemon.id >= 906) {
-        dispatch(fetchPokemon(event, 810))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
-      // if within gen 8, move back to first starter of gen 7 & etc.
+        handleSearch(event, 810)
+
       } else if (state.pokemon.id >= 810) {
-        dispatch(fetchPokemon(event, 722))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+        handleSearch(event, 722)
+
       } else if (state.pokemon.id >= 722) {
-        dispatch(fetchPokemon(event, 650))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+        handleSearch(event, 650)
+
       } else if (state.pokemon.id >= 650) {
-        dispatch(fetchPokemon(event, 494))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+        handleSearch(event, 495)
+
       } else if (state.pokemon.id >= 494) {
-        dispatch(fetchPokemon(event, 387))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+        handleSearch(event, 387)
+
       } else if (state.pokemon.id >= 387) {
-        dispatch(fetchPokemon(event, 252))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+        handleSearch(event, 252)
+
       } else if (state.pokemon.id >= 252) {
-        dispatch(fetchPokemon(event, 152))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+        handleSearch(event, 152)
+
       } else if (state.pokemon.id >= 152) {
-        dispatch(fetchPokemon(event, 1))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+        handleSearch(event, 1)
+
       } else if (state.pokemon.id >= 1) {
-        dispatch(fetchPokemon(event, 906))
-        .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+        handleSearch(event, 906)
       }
     // if no search has been made, move to gen 9
     } else {
-      dispatch(fetchPokemon(event, 906))
-      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+      handleSearch(event, 906)
+
     }
   }
 

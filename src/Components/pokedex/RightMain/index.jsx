@@ -54,13 +54,15 @@ function PokedexMainRight (props) {
       <Container>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <div>
-            <h2>{pokeState.pokemon?.name}</h2>
-            <h6>{pokeState.pokemon?.genus}</h6>
+            <h2>{pokeState.pokemon?.name ? pokeState.pokemon.name : '--' }</h2>
+            <h6>{pokeState.pokemon?.genus ? pokeState.pokemon.genus : '--'}</h6>
           </div>
           <div>
-            <h4 style={{textAlign: 'end'}}>{`# ${pokeState.pokemon?.id.toString().padStart(4, '0')}`}</h4>
+            <h4 style={{textAlign: 'end'}}>
+              {pokeState.pokemon?.id ? `# ${pokeState.pokemon?.id.toString().padStart(4, '0')}` : '# 0000'}
+            </h4>
             <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-              {pokeState.pokemon?.types.map(element => <TypeBadge type={element.type.name} />)}              
+              {pokeState.pokemon?.types ? pokeState.pokemon?.types.map(element => <TypeBadge type={element.type.name} />) : <TypeBadge type='--' />}           
             </div>
           </div>
         </div>
@@ -95,12 +97,17 @@ function PokedexMainRight (props) {
             {activeKey === 0 ?
             
             <>
-              <Button onClick={() => handleChangeDexEntry(-1)}>{`<`}</Button>
+              <Button disabled={pokeState.pokemon?.name ? false : true} onClick={() => handleChangeDexEntry(-1)}>{`<`}</Button>
               <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
-                <h6>Version: {pokeState.pokemon?.descriptions[dexEntry].version}</h6>
+                  {
+                    pokeState.pokemon?.name ? 
+                      <h6>Version: {pokeState.pokemon?.descriptions[dexEntry].version}</h6>
+                    :
+                      <p>--</p>
+                  }
                 {pokeState.pokemon?.descriptions[dexEntry].description}
               </div>
-              <Button onClick={() => handleChangeDexEntry(1)}>{`>`}</Button>            
+              <Button disabled={pokeState.pokemon?.name ? false : true} onClick={() => handleChangeDexEntry(1)}>{`>`}</Button>            
             </>
 
             :
@@ -111,22 +118,47 @@ function PokedexMainRight (props) {
             <div className='centered spreadCol'>
               <div>
                 <p className='underline'>Height & Weight</p>
-                <p>{pokeState.pokemon?.height.m} m | {pokeState.pokemon?.weight.kg} kg</p>              
+                <p>
+                  {pokeState.pokemon?.name ?
+                    `${pokeState.pokemon?.height.m} m | ${pokeState.pokemon?.weight.kg} kg`
+                    :
+                    '--'
+                  }
+                </p>              
               </div>
               <div>
                 <p className='underline'>Gender Ratio</p>
-                <p> {100 - (pokeState.pokemon?.genderRate / 8 * 100)} ♂ | {pokeState.pokemon?.genderRate / 8 * 100}% ♀</p>              
+                <p> 
+                  {pokeState.pokemon?.name ?
+                    `${100 - (pokeState.pokemon?.genderRate / 8 * 100)} ♂ | ${pokeState.pokemon?.genderRate / 8 * 100}% ♀`
+                    :
+                    '--'
+                  }
+                </p>              
               </div>              
             </div>
             
             <div className='centered spreadCol'>
               <div>
                 <p className='underline'>Catch Rate</p>
-                <p>{pokeState.pokemon?.catchRate}</p>              
+                <p>
+                  {pokeState.pokemon?.eggGroups[1] ?
+                    `${pokeState.pokemon?.catchRate}`
+                  :
+                    '--'
+                  }
+                  
+                </p>              
               </div>
               <div>
               <p className='underline'>Growth Rate</p>
-                <p>{pokeState.pokemon?.growthRate.name}</p>             
+                <p>
+                  {pokeState.pokemon?.eggGroups[1] ?
+                    `${pokeState.pokemon?.growthRate.name}`
+                  :
+                    '--'
+                  }
+                </p>             
               </div>
             </div>
 
@@ -134,34 +166,53 @@ function PokedexMainRight (props) {
               <div>
                 <p className='underline'>Egg Groups</p>
                 <span>
-                  {pokeState.pokemon?.eggGroups[0]}
-                  {pokeState.pokemon?.eggGroups[1] ?
-                    ` | ${pokeState.pokemon?.eggGroups[1]}`
-                  :
-                    null
+                  {
+                    pokeState.pokemon?.eggGroups ?
+                      pokeState.pokemon.eggGroups[1] ?
+                        `${pokeState.pokemon.eggGroups[0]} | ${pokeState.pokemon.eggGroups[1]}`
+                      :
+                        `${pokeState.pokemon.eggGroups[0]}`
+                    :
+                      '--'
                   }
                 </span>             
               </div>
               <div>
                 <p className='underline'>Hatch Time</p>
-                <p>{pokeState.pokemon?.hatchTime} Cycles</p>     
-          
+                <p>
+                  {pokeState.pokemon?.name ?
+                    `${pokeState.pokemon?.hatchTime} Cycles`
+                    :
+                    '--'
+                  }                 
+
+                </p>     
               </div>              
             </div>
 
             <div className='centered spreadCol'>
               <div>
                 <p className='underline'>XP Yield</p>
-                <p>{pokeState.pokemon?.baseExpYield} EXP</p>              
+                <p>
+                  {pokeState.pokemon?.name ?
+                    `${pokeState.pokemon?.baseExpYield} EXP`
+                    :
+                    '--'
+                  } 
+                </p>              
               </div>
               <div>
                 <p className='underline'>Ev Yield</p>
                 <span>
-                  {pokeState.pokemon?.evYields.map(stat => {
-                    if(stat.yield){
-                      return `${stat.name} ${stat.yield} `
-                    }
-                  })}
+                  {pokeState.pokemon?.name ?
+                    pokeState.pokemon?.evYields.map(stat => {
+                      if(stat.yield){
+                        return `${stat.name} ${stat.yield} `
+                      }
+                    })
+                    :
+                    '--'
+                  }
                 </span>
               </div>              
             </div>
@@ -173,12 +224,19 @@ function PokedexMainRight (props) {
             activeKey === 2 ?
 
             <>
-              <Button onClick={() => handleChangeAbility(-1)}>{`<`}</Button>
+              <Button disabled={pokeState.pokemon?.name ? false : true} onClick={() => handleChangeAbility(-1)}>{`<`}</Button>
               <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', textAlign: 'center'}}>
-                <h6>{pokeState.pokemon?.abilities[abilityKey].name}</h6>
-                {pokeState.pokemon?.abilities[abilityKey].description}
+                {
+                  pokeState.pokemon?.name ?
+                  <>
+                    <h6>{pokeState.pokemon?.abilities[abilityKey].name}</h6>
+                    <p>{pokeState.pokemon?.abilities[abilityKey].description}</p>                 
+                  </> 
+                  :
+                  '--'
+                }
               </div>
-              <Button onClick={() => handleChangeAbility(1)}>{`>`}</Button>            
+              <Button disabled={pokeState.pokemon?.name ? false : true} onClick={() => handleChangeAbility(1)}>{`>`}</Button>            
             </>
             
             :
@@ -192,11 +250,7 @@ function PokedexMainRight (props) {
       </Container>
 
       <Container>
-        {pokeState.pokemon?.name ? 
-          <Learnset />
-        :
-          null        
-        }
+        <Learnset />
       </Container>
 
     </Container>

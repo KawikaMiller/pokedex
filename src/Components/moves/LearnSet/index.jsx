@@ -24,7 +24,7 @@ function Learnset (props) {
     let tutorArr = [];
     let eggArr = [];
 
-    pokeState.pokemon.moves.forEach(move => {
+    pokeState.pokemon?.moves.forEach(move => {
       move.versionDetails.forEach(details => {
         if (details.version === version) {
           let nMove = {...move};
