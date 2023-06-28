@@ -21,28 +21,35 @@
 
   export const supplementMoveData = (pokemon) => async () => {
     // spread operators to avoid 'TypeError: object is not extensible / object is read only' errors
+    console.log('supplementing move data with missing info...')
     let newPokemon = {...pokemon};
-    let newMoves = [];
+    let newMoves = []; 
 
     try {
       for(let move of pokemon.moves){
-        let newMove = {...move};
-        let res = await axios(`https://pokeapi.co/api/v2/move/${move.name}`);
-        newMove.power = res.data.power;
-        newMove.accuracy = res.data.accuracy;
-        newMove.pp = res.data.pp;
-        newMove.priority = res.data.priority;
-        newMove.dmgClass = res.data.damage_class.name;
-        newMove.type = res.data.type.name;
-        newMove.effectChange = res.data.effect_chance;
+        console.log(`fetching ${move.name} data...`);
+        axios(`https://pokeapi.co/api/v2/move/${move.name}`)
+        //eslint-disable-next-line
+        .then(res => {
+          let newMove = {...move};
+          newMove.power = res.data.power;
+          newMove.accuracy = res.data.accuracy;
+          newMove.pp = res.data.pp;
+          newMove.priority = res.data.priority;
+          newMove.dmgClass = res.data.damage_class.name;
+          newMove.type = res.data.type.name;
+          newMove.effectChange = res.data.effect_chance;
 
-        if(!res.data.effect_entries[0]?.short_effect){
-          newMove.description = 'pokeAPI missing this information';
-        } else {
-          newMove.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance)              
-        };
-        newMoves = [...newMoves, newMove];
-        newPokemon.moves = newMoves;
+          if(!res.data.effect_entries[0]?.short_effect){
+            newMove.description = 'pokeAPI missing this information';
+          } else {
+            newMove.description = res.data.effect_entries[0].short_effect.replace('$effect_chance', res.data.effect_chance)              
+          };
+
+          newMoves = [...newMoves, newMove];
+          newPokemon.moves = newMoves;
+        })
+        .catch(e => console.error(e))
       }
 
     } 
@@ -53,6 +60,7 @@
   }
 
   export const fetchTypeEffectiveness = (pokemon) => async () => {
+    console.log('fetching type effectiveness...')
     pokemon.types.forEach(async element => {
       try{
         let res = await axios(element.type.url);
@@ -81,6 +89,7 @@
   }
 
   export const fetchPokedexEntries = (pokemon) => async () => {
+    console.log('fetching pokedex entries for all generations of this pokemon...')
     try {
       let response = await axios(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name.split('-')[0]}`);
       response.data.flavor_text_entries.forEach(element => {
@@ -91,6 +100,16 @@
           }
           pokemon.descriptions.push(description);
         }
+      });
+      for(let i = 0; i < response.data.genera.length; i++){
+        let current = response.data.genera[i];
+        if (current.language.name === 'en'){
+          pokemon.genus = current.genus;
+          break;
+        }
+      };
+      response.data.egg_groups.forEach(element => {
+        pokemon.eggGroups.push(element.name);
       })
       if (pokemon.forms.length === 0) {
         response.data.varieties.forEach(form => {
@@ -101,7 +120,13 @@
           }
           pokemon.forms.push(f)
         })           
-      }
+      };
+      pokemon.hatchTime = response.data.hatch_counter;
+      pokemon.catchRate = response.data.capture_rate;
+      pokemon.genderRate = response.data.gender_rate;
+      pokemon.baseHappiness = response.data.base_happiness;
+      pokemon.growthRate = response.data.growth_rate;
+
     } catch(err) {
       console.log(err)
     }
@@ -109,6 +134,7 @@
   }
 
   export const fetchAbilityDescriptions = (pokemon) => async () => {
+    console.log('fetching ability descriptions...')
     let newPokemon = {...pokemon};
     let newAbilities = [];
 
@@ -129,7 +155,7 @@
   }
 
   export const fetchPokemon = (event, searchQuery) => async () => {
-
+    console.log('fetching initial pokemon data...')
     // prevents page from reloading on  search 'submit'
     event.preventDefault();
 
@@ -141,111 +167,36 @@
       .then(response => {
 
         let moveArr = [];
-        // gets move info from initial query, construct a "Move" object with basic information like name and level learned at
+        // gets move info from initial query, construct a "Move" object with basic information
         response.data.moves.forEach(element => {
-          element.version_group_details.forEach(vgDetail => {
-            // only gets most recent move set (gen 9)
-            if (vgDetail.version_group.name === 'scarlet-violet') {
-              moveArr.push({
-                // cant use Move constructor with redux because it will throw a 'non-serializable' error
-                // need to include undefined properties otherwise a TypeError: object is not extensible will occur
-                name: element.move.name, 
-                levelLearned: vgDetail.level_learned_at,
-                learnMethod: vgDetail.move_learn_method.name,
-                power: undefined, 
-                accuracy: undefined, 
-                pp: undefined, 
-                dmgClass: undefined, 
-                type: undefined,
-                description: '',
-              })
-            }
+          moveArr.push({
+            name: element.move.name,
+            power: undefined,
+            accuracy: undefined, 
+            pp: undefined, 
+            dmgClass: undefined, 
+            type: undefined,
+            description: '',
+            versionDetails: element.version_group_details
           })
+        });
+
+        moveArr.forEach(move => {
+          move.versionDetails.forEach((detail, idx) => {
+            let temp = {
+              levelLearned: detail.level_learned_at,
+              learnMethod: detail.move_learn_method.name,
+              version: detail.version_group.name
+            };
+            move.versionDetails[idx] = temp;
+          });
         })
-        // if there are no moves from gen9, get gen8 moves instead
-        if (moveArr.length === 0) {
-          response.data.moves.forEach(element => {
-            element.version_group_details.forEach(vgDetail => {
-              if (vgDetail.version_group.name === 'sword-shield') {
-                moveArr.push({
-                  name: element.move.name, 
-                  levelLearned: vgDetail.level_learned_at,
-                  learnMethod: vgDetail.move_learn_method.name,
-                  power: undefined, 
-                  accuracy: undefined, 
-                  pp: undefined, 
-                  dmgClass: undefined, 
-                  type: undefined,
-                  description: '',
-                })
-              }
-            })
-          })
-        }
-        // if there are no moves from gen8, get gen7 moves. etc.
-        if (moveArr.length === 0) {
-          response.data.moves.forEach(element => {
-            element.version_group_details.forEach(vgDetail => {
-              if (vgDetail.version_group.name === 'sun-moon') {
-                moveArr.push({
-                  name: element.move.name, 
-                  levelLearned: vgDetail.level_learned_at,
-                  learnMethod: vgDetail.move_learn_method.name,
-                  power: undefined, 
-                  accuracy: undefined, 
-                  pp: undefined, 
-                  dmgClass: undefined, 
-                  type: undefined,
-                  description: '',
-                })
-              }
-            })
-          })
-        }
-        // gen 7 (X and Y)
-        if (moveArr.length === 0) {
-          response.data.moves.forEach(element => {
-            element.version_group_details.forEach(vgDetail => {
-              if (vgDetail.version_group.name === 'x-y') {
-                moveArr.push({
-                  name: element.move.name, 
-                  levelLearned: vgDetail.level_learned_at,
-                  learnMethod: vgDetail.move_learn_method.name,
-                  power: undefined, 
-                  accuracy: undefined, 
-                  pp: undefined, 
-                  dmgClass: undefined, 
-                  type: undefined,
-                  description: '',
-                })
-              }
-            })
-          })
-        }
-        // gen 6 (Black and White)
-        if (moveArr.length === 0) {
-          response.data.moves.forEach(element => {
-            element.version_group_details.forEach(vgDetail => {
-              if (vgDetail.version_group.name === 'black-2-white-2') {
-                moveArr.push({
-                  name: element.move.name, 
-                  levelLearned: vgDetail.level_learned_at,
-                  learnMethod: vgDetail.move_learn_method.name,
-                  power: undefined, 
-                  accuracy: undefined, 
-                  pp: undefined, 
-                  dmgClass: undefined, 
-                  type: undefined,
-                  description: '',
-                })
-              }
-            })
-          })
-        }
+
 
         // reshaping the 'stats' property on the pokemon object
         let oldStats = response.data.stats;
         let newStats = [];
+        let evYields = [];
 
           // removes 'effort' property from response and replaces with 'ev', uncouples 'name' and 'url', add 'stat_value' property
         oldStats.forEach(element => {
@@ -258,6 +209,10 @@
             stat_value: 1,
           }
           newStats.push(newStat)
+          evYields.push({
+            name: element.stat.name,
+            yield: element.effort
+          })
         })
 
         // renames stat names to abbreviated, all caps names
@@ -284,7 +239,32 @@
             default :
               console.log('error abbreviating stat name') 
           }
-        }) 
+        })
+        
+        evYields.forEach(element => {
+          switch(element.name) {
+            case 'hp' :
+              element.name = 'HP';
+              break;
+            case 'attack' :
+              element.name = 'ATK';
+              break;
+            case 'defense' :
+              element.name = 'DEF';
+              break;
+            case 'special-attack' :
+              element.name = 'SP.ATK';
+              break;
+            case 'special-defense' :
+              element.name = 'SP.DEF';
+              break;
+            case 'speed' :
+              element.name = 'SPD';
+              break;
+            default :
+              console.log('error abbreviating stat name') 
+          }
+        })
 
         // create pokemon object which will ultimately be what is returned/sent as response
         let pokemon = new Pokemon(
@@ -298,6 +278,16 @@
           newStats,
           response.data.types,
         )
+
+        pokemon.genus = '';
+        pokemon.catchRate = 0;
+        pokemon.eggGroups = [];
+        pokemon.growthRate = '';
+        pokemon.genderRate = 0;
+        pokemon.hatchTime = 0;
+        pokemon.baseHappiness = 0;
+        pokemon.baseExpYield = response.data.base_experience;
+        pokemon.evYields = evYields;
 
         pokemon.height = {
           m: response.data.height / 10,
@@ -344,7 +334,7 @@
         withCredentials: true,
         credentials: 'include'
       });
-      console.log(allTeams);
+      // console.log(allTeams);
     } catch(error) {
       console.log(error, ` | error getting teams from database`)
     }

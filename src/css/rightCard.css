@@ -1,0 +1,106 @@
+.rightMain {
+  color: white;
+  margin: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.rightMain > * {
+  margin: 0.5rem 0;
+}
+
+#details {
+  border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius);
+}
+
+#details .card-header {
+  background-color: red;
+  border-bottom: 5px solid black;
+}
+
+#details .card-body {
+  background-color: rgba(0, 0, 0, 85%);
+  color: white;
+}
+
+.rightMain.container, #pokeInfo.container {
+  padding: 0;
+  margin: 0;
+}
+
+#pokeInfo {
+  width: 40%;
+  margin-right: 0.6rem !important;
+  padding: 0 0.5rem !important;
+  /* border-right: 1px solid white; */
+  background-color: rgba(0, 0, 0, 45%);
+}
+
+.genus {
+  text-align: left;
+}
+
+.subCard a.nav-link, .subCard a.nav-link.active {
+  padding: 0.25rem 0.5rem !important;
+  border-bottom-color: black !important;
+}
+
+p, h6{
+  vertical-align: baseline !important;
+  padding: 0;
+  margin: 0;
+}
+
+.carousel.slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-inner {
+  width: 75%;
+}
+
+.carousel-item h6 {
+  text-align: center;
+}
+
+.carousel-control-next {
+  position: relative;
+  right: 0;
+}
+
+.carousel-control-prev {
+  position: absolute;
+  left: 0;
+}
+
+.spread {
+  /* margin: 0.5rem 0; */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.underline {
+  font-size: medium;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.centered {
+  text-align: center;
+}
+
+.spreadCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.spreadCol p:not(.underline), .spreadCol span {
+  font-size: small;
+}

@@ -1,9 +1,9 @@
 import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Main from './Components/mainscreen/Main/Main';
-import Header from './Components/mainscreen/Header/Header';
-import Footer from './Components/mainscreen/Footer/Footer';
+import Main from './Components/body/Main';
+import Header from './Components/body/Header';
+import Footer from './Components/body/Footer';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';

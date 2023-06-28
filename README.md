@@ -109,5 +109,31 @@ If you are running this locally then first run the command `npm i` to install al
   - Refactor API calls to PokeAPI to be more modular
     - From one giant function to multiple smaller ones chained together with `.then`s
 
+2023-05-30 - 2023-06-19:
+  - Added user login / logout / signup functionality
+  - Add reauthentication on reload via cookies
+  - User will now be able to save their own teams and have them protected via login credentials (e.g. Users are only able to load/save/delete their own teams)
+  - App is deployed on netlify & render
+
+2023-06-20 - 2023-06-28:
+  - API Calls
+    - Refactor api call for faster response when fetching supplemental move data
+    - Refactor dpad functionality
+      - Cleaner code
+  - Login / Signup
+    - Move login / signup feature to a modal instead of being in the header
+  - Layout
+    - Update 'Save Team' form
+      - Able to add / change team name
+      - Able to save a new team or overwrite existing team
+    - Update layout of 'Main' tab
+      - Consolidate all pokemon information into one place instead of having it spread out
+    - Add ability to view all moves by generation & their learn methods
+  - Style
+    - Update the styling of the moves and abilities components
+    - Create Badge components for pokemon types
+    - Begin modularizing stylesheets
+
+
 
 ## Credit and Collaborations

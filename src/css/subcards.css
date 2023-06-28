@@ -1,0 +1,20 @@
+.subCard a.nav-link, .subCard a.nav-link.active {
+  padding: 0.25rem 0.5rem !important;
+  border-bottom-color: black !important;
+}
+
+.details {
+  border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius);
+}
+
+.details .card-header {
+  background-color: red;
+  border-bottom: 5px solid black;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.details .card-body {
+  background-color: rgba(0, 0, 0, 85%);
+  color: white;
+}

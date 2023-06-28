@@ -3,12 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const teamSlice = createSlice({
   name: 'team',
   initialState: {
-    teamName: 'missingName',
+    teamName: 'missingTeam',
     id: undefined,
     roster: [],
     fetchedTeams: [],
     showTypeChart: false,
-    showLoadedTeams: false
+    showLoadedTeams: false,
+    showSaveTeam: false,
   },
   reducers: {
     setTeamsName(state, action){
@@ -37,6 +38,9 @@ const teamSlice = createSlice({
     },
     toggleLoadedTeams(state, action){
       state.showLoadedTeams = !state.showLoadedTeams;
+    },
+    toggleSaveTeam(state, action){
+      state.showSaveTeam = !state.showSaveTeam;
     },
     setRoster(state, action){
       state.id = action.payload._id;
