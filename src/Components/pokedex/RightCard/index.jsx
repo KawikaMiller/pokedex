@@ -3,24 +3,23 @@ import React, { useState } from "react";
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
 import Button from "react-bootstrap/Button";
-
-import Learnset from "../../moves/LearnSet";
 import Container from 'react-bootstrap/Container';
-import Abilities from "../../abilities/AbilitiesList";
+
+import TeamTypeChart from "../../teambuilder/roster/TypeChart";
 import Team from "../../teambuilder/roster/Team";
 import PokedexMainRight from "../RightMain"
-import { useSelector, useDispatch } from "react-redux";
-import teamSlice from "../../../reduxStore/teamSlice";
-import TeamTypeChart from "../../teambuilder/roster/TypeChart";
-import { fetchTeamsFromServer } from "../../../reduxStore/helperFuncs";
 import LoadedTeams from "../../teambuilder/modals/LoadedTeam";
 import SaveTeamModal from "../../teambuilder/modals/SaveTeam";
+
+import { useSelector, useDispatch } from "react-redux";
+import teamSlice from "../../../reduxStore/teamSlice";
+import { fetchTeamsFromServer } from "../../../reduxStore/helperFuncs";
+
 
 function RightCard (props){
   const [activeKey, setActiveKey] = useState(0);
   const [showSaveTeamModal, setShowSaveTeamModal] = useState(false);
 
-  const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
   const dispatch = useDispatch();
 
@@ -48,19 +47,6 @@ function RightCard (props){
     .then(dispatch(toggleSaveTeam()))
     .catch(err => console.error(err))
   }
-
-  // const saveTeam = (event) => {
-  //   event.preventDefault();
-
-  //   if(userState.username){
-  //     dispatch(saveTeamToServer(teamState.teamName, teamState.roster, teamState.id, userState.username))
-  //     .then(response => console.log('Team Saved', response))
-  //     .catch(error => console.error('Unable to save team', error))      
-  //   } else {
-  //     alert('User must be logged in to save a team')
-  //     console.error('User must be logged in to save a team');
-  //   }
-  // }
   
     return(
       <>
