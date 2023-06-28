@@ -68,7 +68,7 @@ function MoveList (props) {
                   <td>{element.accuracy}</td>
                   <td>{element.pp}</td>
                   <td>{element.dmgClass}</td>
-                  <td>{element.learnMethod}</td>
+                  <td>{element.type}</td>
                 </tr>
               </tbody>
             </Table>

@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { useSelector } from 'react-redux';
-import { ProgressBar } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -9,8 +8,6 @@ import Nav from 'react-bootstrap/Nav';
 import '../../../css/rightCard.css'
 import Learnset from '../../moves/LearnSet';
 import TypeBadge from '../../type/Badge';
-import Abilities from '../../abilities/AbilitiesList';
-import MoveList from '../../moves/MoveList';
 
 function PokedexMainRight (props) {
 
@@ -54,7 +51,7 @@ function PokedexMainRight (props) {
       <Container>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <div>
-            <h2>{pokeState.pokemon?.name ? pokeState.pokemon.name : '--' }</h2>
+            <h2>{pokeState.pokemon?.name ? pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1) : '--' }</h2>
             <h6>{pokeState.pokemon?.genus ? pokeState.pokemon.genus : '--'}</h6>
           </div>
           <div>
