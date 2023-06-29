@@ -10,6 +10,7 @@ import Team from "../../teambuilder/roster/Team";
 import PokedexMainRight from "../RightMain"
 import LoadedTeams from "../../teambuilder/modals/LoadedTeam";
 import SaveTeamModal from "../../teambuilder/modals/SaveTeam";
+import ItemTab from "../../items/ItemTab";
 
 import { useSelector, useDispatch } from "react-redux";
 import teamSlice from "../../../reduxStore/teamSlice";
@@ -80,6 +81,13 @@ function RightCard (props){
             // if activeKey is 2, displays team builder
               <Team showSaveTeamModal={showSaveTeamModal} setShowSaveTeamModal={setShowSaveTeamModal} />
             : 
+              null
+          }
+
+          {
+            activeKey === 2 ?
+              <ItemTab />
+            :
               null
           }
 
