@@ -48,6 +48,7 @@
 
           newMoves = [...newMoves, newMove];
           newPokemon.moves = newMoves;
+          console.log('supplementMoveData .then finished')
         })
         .catch(e => console.error(e))
       }
@@ -56,6 +57,7 @@
     catch(e){
       console.error(e)
     }
+    console.log('supplementMoveData returning')
     return newPokemon;
   }
 

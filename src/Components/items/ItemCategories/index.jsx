@@ -20,6 +20,7 @@ function ItemCategories(){
     let newMainPockets = [];
     try{
       for(const pocket of mainPockets){
+        console.log(`fetching ${pocket.name} data...`)
         let res = await axios(pocket.url);
         let nPocket = {
           ...pocket, 
@@ -42,35 +43,45 @@ function ItemCategories(){
 
   const fetchItemInfo = async (items) => {
     let newItems = [];
+    let promises = [];
     try{
       for(const item of items){
-        let res = await axios(item.url);
-        let nItem = {
-          ...item,
-          attributes: res.data.attributes,
-          cost: res.data.cost,
-          description: res.data.effect_entries[0].short_effect,
-          fling: {
-            effect: res.data.fling_effect,
-            power: res.data.fling_power
-          },
-          sprite: res.data.sprites.default
-        };
-        newItems = [...newItems, nItem];
+        console.log(`fetching ${item.name}data...`)
+        promises.push(axios(item.url)
+        .then(res => {
+          let nItem = {
+            ...item,
+            attributes: res.data.attributes,
+            cost: res.data.cost,
+            description: res.data.effect_entries[0].short_effect,
+            fling: {
+              effect: res.data.fling_effect,
+              power: res.data.fling_power
+            },
+            sprite: res.data.sprites.default
+          };
+          newItems = [...newItems, nItem];
+          console.log('.then finished');
+        }));
       }
     }
     catch(e){
       console.error(e)
     }
-    return newItems;
+    Promise.all(promises)
+    .then(res => {
+      console.log('PROMISE, NEW ITEMS: ', newItems)
+      dispatch(setCategoryItems(newItems))
+    })
   }
 
   // fetches all items within a category
   const fetchCategoryItems = (url) => {
     axios
       .get(url)
-      .then(response => fetchItemInfo(response.data.items))
-      .then(newItems => dispatch(setCategoryItems(newItems)))
+      .then(response => {
+        fetchItemInfo(response.data.items);
+      })
   }
 
   const handleClick = (url) => {

@@ -20,7 +20,7 @@ const itemsSlice = createSlice({
       })
     },
     setCategoryItems(state, action){
-      console.log(action.payload)
+      console.log('SET CATEGORY ITEM REDUX STATE: ',action.payload)
       state.categoryItems = action.payload
     },
   }
