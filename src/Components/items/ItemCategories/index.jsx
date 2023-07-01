@@ -47,30 +47,22 @@ function ItemCategories(){
     try{
       for(const item of items){
         console.log(`fetching ${item.name}data...`)
-        promises.push(axios(item.url)
-        .then(res => {
-          let nItem = {
-            ...item,
-            attributes: res.data.attributes,
-            cost: res.data.cost,
-            description: res.data.effect_entries[0].short_effect,
-            fling: {
-              effect: res.data.fling_effect,
-              power: res.data.fling_power
-            },
-            sprite: res.data.sprites.default
-          };
-          newItems = [...newItems, nItem];
-          console.log('.then finished');
-        }));
-      }
+        let itemId = item.url.split('/')[6];
+        promises.push(
+          axios
+            .get(`${process.env.REACT_APP_SERVER}/items/${itemId}`)
+            .then(response => {
+              newItems = [...newItems, response.data]
+            })        
+        );
+      };
     }
     catch(e){
       console.error(e)
     }
     Promise.all(promises)
     .then(res => {
-      console.log('PROMISE, NEW ITEMS: ', newItems)
+      console.log('PROMISE ALL, NEW ITEMS: ', newItems)
       dispatch(setCategoryItems(newItems))
     })
   }
