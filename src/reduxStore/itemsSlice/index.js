@@ -10,6 +10,7 @@ const itemsSlice = createSlice({
   },
   reducers: {
     setAllPockets(state, action){
+      console.log('SET ALL POCKETS: ', action.payload)
       state.allPockets = action.payload;
       state.allPockets.sort((a,b) => {
         if(a.name > b.name){

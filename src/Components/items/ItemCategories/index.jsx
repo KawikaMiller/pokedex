@@ -15,31 +15,6 @@ function ItemCategories(){
   const dispatch = useDispatch();
   const { setAllPockets, setCategoryItems } = itemsSlice.actions;
 
-  // fetches all item categories that belong to a pocket
-  const fetchSubPockets = async (mainPockets) => {
-    let newMainPockets = [];
-    try{
-      for(const pocket of mainPockets){
-        console.log(`fetching ${pocket.name} data...`)
-        let res = await axios(pocket.url);
-        let nPocket = {
-          ...pocket, 
-          categories: res.data.categories.sort((a, b) => {
-            if (a.name > b.name){
-              return 1
-            } else if (a.name < b.name){
-              return -1
-            } else return 0;
-          })
-        };
-        newMainPockets = [...newMainPockets, nPocket];
-      }
-    }
-    catch(e){
-      console.error(e)
-    }
-    return newMainPockets;
-  }
 
   const fetchItemInfo = async (items) => {
     let newItems = [];
@@ -62,35 +37,28 @@ function ItemCategories(){
     }
     Promise.all(promises)
     .then(res => {
-      console.log('PROMISE ALL, NEW ITEMS: ', newItems)
       dispatch(setCategoryItems(newItems))
     })
   }
 
   // fetches all items within a category
-  const fetchCategoryItems = (url) => {
+  const handleClick = (categoryItemsUrl) => {
     axios
-      .get(url)
+      .get(categoryItemsUrl)
       .then(response => {
         fetchItemInfo(response.data.items);
       })
-  }
-
-  const handleClick = (url) => {
-    fetchCategoryItems(url);
   }
 
   // when component mounts, gets all pockets and their respective item categories that they hold
   useEffect(() => {
     if (!itemsState.allPockets.length){
       axios
-      .get('https://pokeapi.co/api/v2/item-pocket/')
-      .then(response => fetchSubPockets(response.data.results))
-      .then(pockets => dispatch(setAllPockets(pockets)))
+      .get(`${process.env.REACT_APP_SERVER}/pockets`)
+      // .then(response => fetchSubPockets(response.data.results))
+      .then(response => dispatch(setAllPockets(response.data)))
     }
   }, [])//eslint-disable-line
-
-
 
   return(
     <Card id="itemPockets">
