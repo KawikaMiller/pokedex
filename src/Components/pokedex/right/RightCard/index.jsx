@@ -5,16 +5,16 @@ import Nav from 'react-bootstrap/Nav';
 import Button from "react-bootstrap/Button";
 import Container from 'react-bootstrap/Container';
 
-import TeamTypeChart from "../../teambuilder/roster/TypeChart";
-import Team from "../../teambuilder/roster/Team";
-import PokedexMainRight from "../RightMain"
-import LoadedTeams from "../../teambuilder/modals/LoadedTeam";
-import SaveTeamModal from "../../teambuilder/modals/SaveTeam";
-import ItemTab from "../../items/ItemTab";
+import TeamTypeChart from "../../../teambuilder/roster/TypeChart";
+import Team from "../teamBuilderTab/roster/Team";
+import RightMainTab from "../mainTab/Main";
+import LoadedTeams from "../../../teambuilder/modals/LoadedTeam";
+import SaveTeamModal from "../../../teambuilder/modals/SaveTeam";
+import ItemTab from "../../../items/ItemTab";
 
 import { useSelector, useDispatch } from "react-redux";
-import teamSlice from "../../../reduxStore/teamSlice";
-import { fetchTeamsFromServer } from "../../../reduxStore/helperFuncs";
+import teamSlice from "../../../../reduxStore/teamSlice";
+import { fetchTeamsFromServer } from "../../../../reduxStore/helperFuncs";
 
 
 function RightCard (props){
@@ -71,7 +71,7 @@ function RightCard (props){
         <Card.Body id="right_card_body">
           {activeKey === 0 ?
           // if activeKey is 0, display a 'default' pokedex layout
-            <PokedexMainRight />
+            <RightMainTab />
           :   
             false
           }

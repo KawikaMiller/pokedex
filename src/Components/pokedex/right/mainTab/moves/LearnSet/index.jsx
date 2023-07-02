@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import MoveList from '../MoveList';
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav'
-import '../../../css/learnset.css';
 
 import { useSelector } from 'react-redux';
 

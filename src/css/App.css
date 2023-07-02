@@ -3,6 +3,8 @@
 @import './items.css';
 @import './movelist.css';
 @import './learnset.css';
+@import './pokedexDisplay.css';
+@import './rightCard.css';
 
 :root {
   box-sizing: border-box;

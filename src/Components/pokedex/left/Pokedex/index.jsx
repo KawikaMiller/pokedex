@@ -6,17 +6,19 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import Button from "react-bootstrap/Button";
 // react components
-import RightCard from "../RightCard";
-import PokemonDisplay from "../Display";
+import RightCard from "../../right/RightCard";
+import PokemonDisplay from "../../left/Display";
 import BaseStats from "../BaseStats";
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import pokeSlice from "../../../reduxStore/pokeSlice";
+import pokeSlice from "../../../../reduxStore/pokeSlice";
+import dexSlice from "../../../../reduxStore/dexSlice";
 
 function Pokedex (props) {
   const state = useSelector(state => state.pokemon)
   const dispatch = useDispatch();
-  let { toggleShiny, changeFormIdx, setPokemon } = pokeSlice.actions
+  const { toggleShiny, changeFormIdx, setPokemon } = pokeSlice.actions
+  const { toggleIsLoading } = dexSlice.actions;
 
   const pleaseSearchAlert = () => {
     alert('Please search for a pokemon first')
@@ -44,18 +46,18 @@ function Pokedex (props) {
 
   const handleSearch = async (event, id) => {
     event.preventDefault();
+    dispatch(toggleIsLoading(true));
     let foundPokemon = await axios(`${process.env.REACT_APP_SERVER}/pokemon/${id}`);
     dispatch(setPokemon(foundPokemon.data.pokemon))
+    dispatch(toggleIsLoading(false));
   }
 
   const handleAdjacentPokemon = (event, int) => {
     dispatch(changeFormIdx(0));
     if (state.pokemon?.name) {
       handleSearch(event, state.pokemon.id + int)
-
     } else {
       handleSearch(event, 1)
-
     }
   }
 
@@ -68,28 +70,20 @@ function Pokedex (props) {
     // if you're viewing pokemon within gen 2, move to gen 3 & etc.
       } else if (state.pokemon.id <= 251) {
         handleSearch(event, 252)
-
       } else if (state.pokemon.id <= 386) {
         handleSearch(event, 387)
-
       } else if (state.pokemon.id <= 493) {
         handleSearch(event, 495)
-      
       } else if (state.pokemon.id <= 649) {
         handleSearch(event, 650)
-
       } else if (state.pokemon.id <= 721) {
         handleSearch(event, 722)
-
       } else if (state.pokemon.id <= 809) {
         handleSearch(event, 810)
-
       } else if (state.pokemon.id <= 905) {
         handleSearch(event, 906)
-
       } else if (state.pokemon.id <= 906) {
         handleSearch(event, 1)
-
       }
     } else {handleSearch(event, 1)}
   }
@@ -100,35 +94,26 @@ function Pokedex (props) {
       // if within gen 9, move back to first starter of gen 8
       if (state.pokemon.id >= 906) {
         handleSearch(event, 810)
-
       } else if (state.pokemon.id >= 810) {
         handleSearch(event, 722)
-
       } else if (state.pokemon.id >= 722) {
         handleSearch(event, 650)
-
       } else if (state.pokemon.id >= 650) {
         handleSearch(event, 495)
-
       } else if (state.pokemon.id >= 494) {
         handleSearch(event, 387)
-
       } else if (state.pokemon.id >= 387) {
         handleSearch(event, 252)
-
       } else if (state.pokemon.id >= 252) {
         handleSearch(event, 152)
-
       } else if (state.pokemon.id >= 152) {
         handleSearch(event, 1)
-
       } else if (state.pokemon.id >= 1) {
         handleSearch(event, 906)
       }
     // if no search has been made, move to gen 9
     } else {
       handleSearch(event, 906)
-
     }
   }
 

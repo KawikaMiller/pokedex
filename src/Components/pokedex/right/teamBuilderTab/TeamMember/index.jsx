@@ -4,9 +4,9 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 
 import { useDispatch } from 'react-redux';
-import teamSlice from '../../../reduxStore/teamSlice';
-import EditPokemon from '../../forms/EditPokemon';
-import TypeBadge from '../../type/Badge';
+import teamSlice from '../../../../../reduxStore/teamSlice';
+import EditPokemon from '../../../../forms/EditPokemon';
+import TypeBadge from '../../../../type/Badge';
 
 function TeamMember (props) {
 

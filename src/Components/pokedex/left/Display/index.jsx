@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import sprites from '../../../lib/sprites'
+import Spinner from 'react-bootstrap/Spinner';
+import sprites from '../../../../lib/sprites';
 
 function PokemonDisplay (props){
   const state = useSelector(state => state.pokemon)
+  const dexState = useSelector(state => state.pokedex);
 
   const [missingSprites, setMissingSprites] = useState(null);
 
@@ -26,7 +28,7 @@ function PokemonDisplay (props){
     
     <>
       {
-        state.pokemon ? 
+        !dexState.isLoading ? 
           missingSprites ? 
             state.formIdx === 0 ? 
               state.showShiny ? 
@@ -62,7 +64,19 @@ function PokemonDisplay (props){
               alt={`official artwork for ${state.pokemon.name}`}
               /> 
         : 
-          null
+        <>
+          <Spinner animation="grow" role="status" variant="light">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+          <Spinner animation="grow" role="status" variant="light">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+          <Spinner animation="grow" role="status" variant="light">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </>
+
+          
       }
     </>
   )

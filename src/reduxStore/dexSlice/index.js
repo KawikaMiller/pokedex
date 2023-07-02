@@ -8,6 +8,7 @@ const dexSlice = createSlice({
     dexIdx: 0,
     moveIdx: 0,
     abilityIdx: 0,
+    isLoading: false
   },
   reducers: {
     setMainScreenIdx(state, action){
@@ -25,6 +26,9 @@ const dexSlice = createSlice({
     setAbilityIdx(state, action){
       console.log(action.payload)
       state.abilityIdx = action.payload
+    },
+    toggleIsLoading(state, action){
+      state.isLoading = action.payload;
     }
   }
 })

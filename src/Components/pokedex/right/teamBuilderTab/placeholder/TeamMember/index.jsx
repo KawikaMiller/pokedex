@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import PlaceholderStats from '../Stats';
 
 import { useSelector, /*useDispatch*/ } from 'react-redux';
-import TypeBadge from '../../../type/Badge';
+import TypeBadge from '../../../../../type/Badge';
 // import pokeSlice from '../../../../reduxStore/pokeSlice';
 
 

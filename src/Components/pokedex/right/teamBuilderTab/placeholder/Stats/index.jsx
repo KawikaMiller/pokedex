@@ -5,9 +5,9 @@ import Container from 'react-bootstrap/Container';
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import pokeSlice from '../../../../reduxStore/pokeSlice';
-import teamSlice from '../../../../reduxStore/teamSlice';
-import EditPokemon from '../../../forms/EditPokemon';
+import pokeSlice from '../../../../../../reduxStore/pokeSlice';
+import teamSlice from '../../../../../../reduxStore/teamSlice';
+import EditPokemon from '../../../../../forms/EditPokemon';
 
 function PlaceholderStats(props) {
   const [showEditModal, setShowEditModal] = useState(false);
