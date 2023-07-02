@@ -4,6 +4,9 @@ import MoveList from '../MoveList';
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav'
 
+import '../../../../../../css/learnset.css';
+import '../../../../../../css/movelist.css';
+
 import { useSelector } from 'react-redux';
 
 function Learnset (props) {

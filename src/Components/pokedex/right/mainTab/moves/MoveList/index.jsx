@@ -3,6 +3,9 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
 
+import '../../../../../../css/learnset.css';
+import '../../../../../../css/movelist.css';
+
 function MoveList (props) {
 
   const [sortedByLevel, setSortedByLevel] = useState(false);
