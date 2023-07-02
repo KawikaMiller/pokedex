@@ -62,7 +62,10 @@ function Header (props) {
         <Navbar>
           <Nav id='nav_left'>
             <Navbar.Brand>Pokedex App</Navbar.Brand>
-            <Nav.Link>Home</Nav.Link>
+            <Nav.Link onClick={() => {
+              axios.get(`${process.env.REACT_APP_SERVER}/test`)
+              .then(res => console.log(res))
+            }}>Home</Nav.Link>
             <Nav.Link>About</Nav.Link>
             <NavDropdown title='Account'>
               <NavDropdown.Item>My Account</NavDropdown.Item>

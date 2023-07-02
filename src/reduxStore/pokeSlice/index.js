@@ -14,7 +14,7 @@ const pokeSlice = createSlice({
     },
     setPokemon(state, action){
       console.log('setting pokemon in state!')
-      state.pokemon = action.payload.pokemon;
+      state.pokemon = action.payload
     },
     toggleShiny(state, action){
       state.showShiny = action.payload;

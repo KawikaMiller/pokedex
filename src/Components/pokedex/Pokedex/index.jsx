@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 // react-bootstrap components
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -11,7 +12,6 @@ import BaseStats from "../BaseStats";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import pokeSlice from "../../../reduxStore/pokeSlice";
-import { fetchPokemon, supplementMoveData, fetchTypeEffectiveness, fetchPokedexEntries, fetchAbilityDescriptions } from "../../../reduxStore/helperFuncs";
 
 function Pokedex (props) {
   const state = useSelector(state => state.pokemon)
@@ -42,13 +42,10 @@ function Pokedex (props) {
     }
   }
 
-  const handleSearch = (event, id) => {
-    dispatch(fetchPokemon(event, id))
-    .then(response => dispatch(supplementMoveData(response)))
-    .then(response => dispatch(fetchTypeEffectiveness(response)))
-    .then(response => dispatch(fetchPokedexEntries(response)))
-    .then(response => dispatch(fetchAbilityDescriptions(response)))
-    .then(response => {dispatch(setPokemon({pokemon: {...response}}))})    
+  const handleSearch = async (event, id) => {
+    event.preventDefault();
+    let foundPokemon = await axios(`${process.env.REACT_APP_SERVER}/pokemon/${id}`);
+    dispatch(setPokemon(foundPokemon.data.pokemon))
   }
 
   const handleAdjacentPokemon = (event, int) => {

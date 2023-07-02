@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/Container";
 import { useDispatch, useSelector } from 'react-redux';
 import pokeSlice from '../../../reduxStore/pokeSlice';
-import { fetchPokemon, supplementMoveData, fetchTypeEffectiveness, fetchPokedexEntries,fetchAbilityDescriptions,  } from '../../../reduxStore/helperFuncs';
+import axios from 'axios';
 
 
 function SearchBar (props) {
@@ -12,13 +12,10 @@ function SearchBar (props) {
     const dispatch = useDispatch();
     let { handleSearchInputChange, setPokemon } = pokeSlice.actions
 
-    const handleSearch = (event) => {
-      dispatch(fetchPokemon(event, state.searchInput))
-      .then(response => dispatch(supplementMoveData(response)))
-      .then(response => dispatch(fetchTypeEffectiveness(response)))
-      .then(response => dispatch(fetchPokedexEntries(response)))
-      .then(response => dispatch(fetchAbilityDescriptions(response)))
-      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+    const handleSearch = async (event) => {
+      event.preventDefault();
+      let foundPokemon = await axios(`${process.env.REACT_APP_SERVER}/pokemon/${state.searchInput}`);
+      dispatch(setPokemon(foundPokemon.data.pokemon))
     }
 
     return(
