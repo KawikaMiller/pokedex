@@ -3,11 +3,13 @@ import Button from 'react-bootstrap/Button';
 import MoveList from '../MoveList';
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav'
+import Spinner from 'react-bootstrap/Spinner';
 
 import '../../../../../../css/learnset.css';
 import '../../../../../../css/movelist.css';
 
 import { useSelector } from 'react-redux';
+import dexSlice from '../../../../../../reduxStore/dexSlice';
 
 function Learnset (props) {
   const [levelUpMoves, setLevelUpMoves] = useState([]);
@@ -18,6 +20,7 @@ function Learnset (props) {
   const [activeGeneration, setActiveGeneration] = useState('yellow');
 
   const pokeState = useSelector(state => state.pokemon);
+  const dexState = useSelector(state => state.pokedex);
 
   // this runs all four previous parse methods
   const parseMovesByGeneration = (version) => {
@@ -100,6 +103,19 @@ function Learnset (props) {
       </Card.Header>
       <Card.Body className='movelist_body'>
         {
+          dexState.isLoading ?
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+            <Spinner animation="grow" role="status" variant="light">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+            <Spinner animation="grow" role="status" variant="light">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+            <Spinner animation="grow" role="status" variant="light">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>          
+          </div>
+          :
           activeKey === 0 ? 
           <MoveList moves={levelUpMoves} />
           :

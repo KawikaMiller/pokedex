@@ -50,7 +50,7 @@ function MainDetails(props) {
   }
 
   return(
-    <Card className='details' style={{height: '100%'}}>
+    <Card className='details' style={{height: '100%', maxHeight: '100%'}}>
 
     <Card.Header className='main_right_card_header'>
       <Nav variant='tabs' defaultActiveKey={activeKey}>
@@ -72,7 +72,7 @@ function MainDetails(props) {
       </Nav>
     </Card.Header>
 
-    <Card.Body style={{display: 'flex', justifyContent: 'space-between', padding: '0.5rem'}}>
+    <Card.Body style={{display: 'flex', justifyContent: 'space-between', padding: '0.5rem', overflowY: 'auto'}}>
 
       {activeKey === 0 ?
       
@@ -265,7 +265,7 @@ function MainDetails(props) {
 
       <>
         <Button disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeAbility(-1)}>{`<`}</Button>
-        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', textAlign: 'center'}}>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', margin: '0 0.5rem'}}>
 
             {
               pokeState.pokemon?.name ? 
@@ -284,7 +284,7 @@ function MainDetails(props) {
             }
           {
             pokeState.pokemon?.name ?
-              <p>
+              <p style={{maxHeight: '75%', overflowY: 'auto'}}>
                 {
                   !dexState.isLoading ?
                     pokeState.pokemon?.abilities[abilityKey].description
@@ -309,8 +309,6 @@ function MainDetails(props) {
       }
 
     </Card.Body>
-    <Card.Footer>
-    </Card.Footer>
   </Card>
   )
 

@@ -30,6 +30,10 @@
   --background: #282c34;
 }
 
+.spinner-grow{
+  margin: 1rem;
+}
+
 #footer.blarg {
   position: absolute;
   bottom: 0;
