@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 
 import TypeChartRow from '../TypeChartRow';
 import { useSelector, useDispatch } from 'react-redux';
-import teamSlice from '../../../../reduxStore/teamSlice';
+import teamSlice from '../../../../../../reduxStore/teamSlice';
 
 function TeamTypeChart (props) {
 

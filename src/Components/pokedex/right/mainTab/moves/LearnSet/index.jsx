@@ -9,7 +9,6 @@ import '../../../../../../css/learnset.css';
 import '../../../../../../css/movelist.css';
 
 import { useSelector } from 'react-redux';
-import dexSlice from '../../../../../../reduxStore/dexSlice';
 
 function Learnset (props) {
   const [levelUpMoves, setLevelUpMoves] = useState([]);

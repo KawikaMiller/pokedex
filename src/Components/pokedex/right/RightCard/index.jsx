@@ -5,12 +5,13 @@ import Nav from 'react-bootstrap/Nav';
 import Button from "react-bootstrap/Button";
 import Container from 'react-bootstrap/Container';
 
-import TeamTypeChart from "../../../teambuilder/roster/TypeChart";
+import TeamTypeChart from "../teamBuilderTab/roster/TypeChart";
 import Team from "../teamBuilderTab/roster/Team";
 import RightMainTab from "../mainTab/Main";
-import LoadedTeams from "../../../teambuilder/modals/LoadedTeam";
-import SaveTeamModal from "../../../teambuilder/modals/SaveTeam";
-import ItemTab from "../../../items/ItemTab";
+
+import LoadedTeams from "../teamBuilderTab/modals/LoadedTeam";
+import SaveTeamModal from "../teamBuilderTab/modals/SaveTeam";
+import ItemTab from "../itemTab/ItemTab";
 
 import { useSelector, useDispatch } from "react-redux";
 import teamSlice from "../../../../reduxStore/teamSlice";

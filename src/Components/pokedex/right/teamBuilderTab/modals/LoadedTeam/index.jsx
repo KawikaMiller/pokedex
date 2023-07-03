@@ -4,8 +4,8 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 
 import { useSelector, useDispatch } from "react-redux";
-import teamSlice from "../../../../reduxStore/teamSlice";
-import { loadTeamToClient, deleteTeamInServer } from "../../../../reduxStore/helperFuncs";
+import teamSlice from "../../../../../../reduxStore/teamSlice";
+import { loadTeamToClient, deleteTeamInServer } from "../../../../../../reduxStore/helperFuncs";
 
 function LoadedTeams() {
 

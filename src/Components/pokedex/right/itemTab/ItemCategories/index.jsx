@@ -1,24 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { useSelector, useDispatch } from "react-redux";
-import itemsSlice from "../../../reduxStore/itemsSlice";
+import itemsSlice from "../../../../../reduxStore/itemsSlice";
+import dexSlice from "../../../../../reduxStore/dexSlice";
 
 import Button from 'react-bootstrap/Button';
-import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 
 
 function ItemCategories(){
 
+  const [categoryFilters, setCategoryFilters] = useState([])
+
   const itemsState = useSelector(state => state.items);
   const dispatch = useDispatch();
   const { setAllPockets, setCategoryItems } = itemsSlice.actions;
+  const { toggleIsLoading } = dexSlice.actions;
 
 
   const fetchItemInfo = async (items) => {
     let newItems = [];
     let promises = [];
+    dispatch(toggleIsLoading(true));
     try{
       for(const item of items){
         console.log(`fetching ${item.name}data...`)
@@ -26,28 +31,58 @@ function ItemCategories(){
         promises.push(
           axios
             .get(`${process.env.REACT_APP_SERVER}/items/${itemId}`)
-            .then(response => {
+            .then(response => { //eslint-disable-line
               newItems = [...newItems, response.data]
             })        
         );
       };
     }
     catch(e){
+      dispatch(toggleIsLoading(false));
       console.error(e)
     }
-    Promise.all(promises)
-    .then(res => {
-      dispatch(setCategoryItems(newItems))
-    })
+    return Promise.all(promises)
+    .then(() => newItems)
   }
 
-  // fetches all items within a category
-  const handleClick = (categoryItemsUrl) => {
-    axios
-      .get(categoryItemsUrl)
-      .then(response => {
-        fetchItemInfo(response.data.items);
+  const handleApply = () => {
+    let promises = [];
+    let allItems = [];
+
+    for (const category of categoryFilters){
+      promises.push(
+        axios
+        .get(category)
+        .then(async res => { //eslint-disable-line
+          let fetchedItems = await fetchItemInfo(res.data.items);
+          allItems = [...allItems, ...fetchedItems] 
+        })
+      )
+    }
+    
+    Promise
+      .all(promises)
+      .then(() => {
+        dispatch(toggleIsLoading(false));
+        dispatch(setCategoryItems(allItems));
       })
+  }
+
+  const handleReset = () => {
+    let checkboxes = document.getElementsByClassName('form-check-input');
+    for(const checkbox of checkboxes){
+      checkbox.checked = false;
+    }
+    setCategoryFilters([]);
+  }
+
+  const handleCheckbox = (e, categoryUrl) => {
+    if (e.target.checked){
+      setCategoryFilters([...categoryFilters, categoryUrl])
+    } else {
+      let updatedFilters = [...categoryFilters].filter(element => element !== categoryUrl);
+      setCategoryFilters(updatedFilters)
+    }
   }
 
   // when component mounts, gets all pockets and their respective item categories that they hold
@@ -67,17 +102,26 @@ function ItemCategories(){
       </Card.Header>
       <Card.Body id="itemPocketsBody">
         {itemsState.allPockets.map(pocket => (
-          <Accordion>
-            <Accordion.Header>{pocket.name}</Accordion.Header>
-            <Accordion.Body className="categoryAccordionBody">
-                {pocket.categories.map(category => (
-                  <Button size='sm' onClick={() => handleClick(category.url)}>{category.name}</Button>
-                ))}
-            </Accordion.Body>
-          </Accordion>
+          <>
+            <h6 style={{textAlign: 'left', borderBottom: '1px solid white'}}>{pocket.name}</h6> 
+            <Form>
+              {pocket.categories.map(category => (
+                <Form.Check
+                  style={{textAlign: 'left'}} 
+                  type='checkbox'
+                  label={category.name}
+                  // value={category.url}
+                  onClick={(e) => handleCheckbox(e, category.url)}
+                />
+              ))}  
+            </Form>         
+          </>
         ))}        
       </Card.Body>
-
+      <Card.Footer id='itemPocketsFooter'>
+        <Button onClick={handleApply}>Apply</Button>
+        <Button onClick={handleReset}>Reset</Button>
+      </Card.Footer>
     </Card>
   )
 

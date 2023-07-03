@@ -8,10 +8,10 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Table from 'react-bootstrap/Table';
 
 import { useSelector, useDispatch } from "react-redux";
-import teamSlice from "../../../../reduxStore/teamSlice";
-import { fetchTeamsFromServer, saveTeamToServer } from "../../../../reduxStore/helperFuncs";
+import teamSlice from "../../../../../../reduxStore/teamSlice";
+import { fetchTeamsFromServer, saveTeamToServer } from "../../../../../../reduxStore/helperFuncs";
 
-import '../../../../css/saveTeamModal.css'
+import '../../../../../../css/saveTeamModal.css'
 
 function SaveTeamModal(props){
   
