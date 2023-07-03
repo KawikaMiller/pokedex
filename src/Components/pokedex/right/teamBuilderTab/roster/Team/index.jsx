@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TeamMember from '../../../../../teambuilder/TeamMember';
-import PlaceholderTeamMember from '../../../../../teambuilder/placeholder/TeamMember';
+import TeamMember from '../../TeamMember';
+import PlaceholderTeamMember from '../../placeholder/TeamMember';
 
 import Container from 'react-bootstrap/Container';
 

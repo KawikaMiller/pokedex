@@ -1,0 +1,92 @@
+#itemTabOuter{
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#itemsContainerParent{
+  width: 68%;
+  max-height: 73.5vh;
+  margin-left: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+#itemsContainer{
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* mask-image: linear-gradient(to bottom, black 97%, transparent 100%); */
+}
+
+#itemPockets{
+  background-color: rgba(0, 0, 0, 40%);
+  color: white;
+  max-height: 73.5vh;
+  width: 40%;
+  border-color: white;
+}
+
+#itemPocketsHeader{
+  background-color: red;
+}
+
+#itemPocketsFooter{
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+#itemPocketsBody{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  overflow-y: auto;
+  padding: 0 0.5rem;
+}
+
+#itemPocketsBody > h6 {
+  margin-top: 0.5rem;
+}
+
+.categoryAccordionBody.accordion-body{
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.itemAccordion{
+  margin: 0.5rem 0.25rem;
+}
+
+.itemAccordion:first-child{
+  margin: 0 0.25rem 0.5rem 0.25rem;
+}
+
+.itemAccordionHeader.card-header{
+  background-color: red;
+  color: white;
+  border-bottom: 5px solid black;
+}
+
+.itemAccordionHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pokedollar{
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.itemAccordionBody{
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+}

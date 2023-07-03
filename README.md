@@ -2,7 +2,13 @@
 
 **Author**: Kawika Miller
 
-**Version**: 1.1 
+**Version**: 1.25
+
+[**Deployed Site**](https://kmdevsign-pokedex.netlify.app/)
+
+[**Deployed Site (Backup)**](https://pokedex-frontend.onrender.com/)
+
+[**Server Repo**](https://github.com/KMArtwork/pokedex-backend)
 
 ## Overview
 This application will allow a user to query the PokeAPI and view the results in a kanto-pokedex-styled UI.
@@ -52,11 +58,6 @@ If you click on the `Team Builder` tab on the right, you can create your own Pok
 
 The `Items` tab is still being worked on.
 
-## Getting Started
-If you are running this locally then first run the command `npm i` to install all your dependencies. Once that is finished you can start the app by running the command `npm start` in your terminal from the root of this directory.
-
-*Deployed version of the app TBD*
-
 ## Architecture
 - React
 - React-Bootstrap
@@ -64,32 +65,44 @@ If you are running this locally then first run the command `npm i` to install al
 - Redux Toolkit
 
 ## Change Log
-2023-02-23 : Initialize project
 
-2023-02-24 : Add search bar and show results
+### 2023-06-29 - 2023-07-03:
+- Add content to 'items' tab
+- Add 'Items Categories' component
+  - Displays a list of all the `pockets` of a player's 'Bag'
+  - Each `pocket` has various 'categories' which represent the different types of items that a pocket holds
+  - Each category is represented by a checkbox which the user can toggle
+  - When the `Apply` button is clicked, all items from the checked checkboxes will be fetched and displayed
+- Add placeholder components (e.g. 'Spinner' and 'Placeholder') so that the user has a visual representation of when the requests are being made and the responses are being awaited
+- Refactor API calls to be proxy requests
+  - i.e. The client no longer makes a request directly to PokeAPI, instead the client will make a request to the server and the server will make a request to PokeAPI and then respond with the data
 
-2023-03-01 : Moves refresh/rerender when a new pokemon is searched for
+### 2023-06-20 - 2023-06-28:
+  - API Calls
+    - Refactor api call for faster response when fetching supplemental move data
+    - Refactor dpad functionality
+      - Cleaner code
+  - Login / Signup
+    - Move login / signup feature to a modal instead of being in the header
+  - Layout
+    - Update 'Save Team' form
+      - Able to add / change team name
+      - Able to save a new team or overwrite existing team
+    - Update layout of 'Main' tab
+      - Consolidate all pokemon information into one place instead of having it spread out
+    - Add ability to view all moves by generation & their learn methods
+  - Style
+    - Update the styling of the moves and abilities components
+    - Create Badge components for pokemon types
+    - Begin modularizing stylesheets
 
-2023-03-02 : Add ability information to screen
+### 2023-05-30 - 2023-06-19:
+  - Added user login / logout / signup functionality
+  - Add reauthentication on reload via cookies
+  - User will now be able to save their own teams and have them protected via login credentials (e.g. Users are only able to load/save/delete their own teams)
+  - App is deployed on netlify & render
 
-2023-03-04 : Modularize move-lists and move-container.
-
-2023-03-05 thru 19 : Add team builder
-- Can add/remove a Pokemon to/from team of 6
-- Can edit EVs/IVs, Level, and Nature
-- Can select 4 Battle Moves, Ability, and Held Item
-  - Held item functionality is there, but list of items does not exist
-- Can save team to database
-  - Server is not currently deployed, must be ran locally
-- Can see type coverage chart
-
-2023-03-21 : Able to load teams from database and render to screen
-- Minor reworks to shape of the `team` object sent to database. `pokemon` is now a property of `team` whose value is an array of pokemon objects instead of the six individual properties (e.g. `slot1`, `slot2`, etc.)
-  - This makes it easier for rendering the team back to the screen after the GET request (e.g. 'Load Team') has been made.
-
-2023-03-22 : Able to delete a team from the database
-
-2023-03-23 - 2023-05-30:
+### 2023-03-23 - 2023-05-30:
 - Updated styling
 - Team Member background colors conditional on type(s)
 - Added button for Pokemon cry
@@ -109,31 +122,37 @@ If you are running this locally then first run the command `npm i` to install al
   - Refactor API calls to PokeAPI to be more modular
     - From one giant function to multiple smaller ones chained together with `.then`s
 
-2023-05-30 - 2023-06-19:
-  - Added user login / logout / signup functionality
-  - Add reauthentication on reload via cookies
-  - User will now be able to save their own teams and have them protected via login credentials (e.g. Users are only able to load/save/delete their own teams)
-  - App is deployed on netlify & render
+### 2023-03-22
+- Able to delete a team from the database
 
-2023-06-20 - 2023-06-28:
-  - API Calls
-    - Refactor api call for faster response when fetching supplemental move data
-    - Refactor dpad functionality
-      - Cleaner code
-  - Login / Signup
-    - Move login / signup feature to a modal instead of being in the header
-  - Layout
-    - Update 'Save Team' form
-      - Able to add / change team name
-      - Able to save a new team or overwrite existing team
-    - Update layout of 'Main' tab
-      - Consolidate all pokemon information into one place instead of having it spread out
-    - Add ability to view all moves by generation & their learn methods
-  - Style
-    - Update the styling of the moves and abilities components
-    - Create Badge components for pokemon types
-    - Begin modularizing stylesheets
+### 2023-03-21
+- Able to load teams from database and render to screen
+- Minor reworks to shape of the `team` object sent to database. `pokemon` is now a property of `team` whose value is an array of pokemon objects instead of the six individual properties (e.g. `slot1`, `slot2`, etc.)
+  - This makes it easier for rendering the team back to the screen after the GET request (e.g. 'Load Team') has been made.
 
+### 2023-03-05 - 2023-03-19 
+- Add team builder
+- Can add/remove a Pokemon to/from team of 6
+- Can edit EVs/IVs, Level, and Nature
+- Can select 4 Battle Moves, Ability, and Held Item
+  - Held item functionality is there, but list of items does not exist
+- Can save team to database
+  - Server is not currently deployed, must be ran locally
+- Can see type coverage chart
 
+### 2023-03-04
+- Modularize move-lists and move-container.
+
+### 2023-03-02
+- Add ability information to screen
+
+### 2023-03-01
+- Moves refresh/rerender when a new pokemon is searched for
+
+### 2023-02-24
+- Add search bar and show results
+
+### 2023-02-23
+- Initialize project
 
 ## Credit and Collaborations

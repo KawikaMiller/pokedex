@@ -13,6 +13,7 @@ function UserAuthModal (props){
       <Modal.Body>
         <Login modalType={props.modalType} toggleModal={props.toggleModal}/>        
       </Modal.Body>
+      <Modal.Footer></Modal.Footer>
     </Modal>
   )
 

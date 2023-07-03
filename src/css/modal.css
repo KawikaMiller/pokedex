@@ -1,3 +1,7 @@
+.modal-content{
+  color: white !important;
+}
+
 .modal-header{
   background-color: #dc3545;
   color: white;

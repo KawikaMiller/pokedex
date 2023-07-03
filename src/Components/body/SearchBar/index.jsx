@@ -4,22 +4,24 @@ import Form from 'react-bootstrap/Form';
 import Container from "react-bootstrap/Container";
 import { useDispatch, useSelector } from 'react-redux';
 import pokeSlice from '../../../reduxStore/pokeSlice';
-import { fetchPokemon, supplementMoveData, fetchTypeEffectiveness, fetchPokedexEntries,fetchAbilityDescriptions,  } from '../../../reduxStore/helperFuncs';
-// import axios from 'axios';
+import dexSlice from '../../../reduxStore/dexSlice';
+import axios from 'axios';
 
 
 function SearchBar (props) {
     const state = useSelector(state => state.pokemon)
     const dispatch = useDispatch();
     let { handleSearchInputChange, setPokemon } = pokeSlice.actions
+    const { toggleIsLoading } = dexSlice.actions;
+    
 
-    const handleSearch = (event) => {
-      dispatch(fetchPokemon(event, state.searchInput))
-      .then(response => dispatch(supplementMoveData(response)))
-      .then(response => dispatch(fetchTypeEffectiveness(response)))
-      .then(response => dispatch(fetchPokedexEntries(response)))
-      .then(response => dispatch(fetchAbilityDescriptions(response)))
-      .then(response => {dispatch(setPokemon({pokemon: {...response}}))})
+    const handleSearch = async (event) => {
+      event.preventDefault();
+      dispatch(toggleIsLoading(true))
+      let foundPokemon = await axios(`${process.env.REACT_APP_SERVER}/pokemon/${state.searchInput}`);
+      console.log('BYTE SIZE: ', foundPokemon)
+      dispatch(setPokemon(foundPokemon.data.pokemon))
+      dispatch(toggleIsLoading(false))
     }
 
     return(

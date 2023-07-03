@@ -1,7 +1,10 @@
 @import './modal.css';
 @import './subcards.css';
+@import './items.css';
 @import './movelist.css';
 @import './learnset.css';
+@import './pokedexDisplay.css';
+@import './rightCard.css';
 
 :root {
   box-sizing: border-box;
@@ -25,6 +28,10 @@
   --water: #6890F0;
   --pokedex: #dc3545;
   --background: #282c34;
+}
+
+.spinner-grow{
+  margin: 1rem;
 }
 
 #footer.blarg {
