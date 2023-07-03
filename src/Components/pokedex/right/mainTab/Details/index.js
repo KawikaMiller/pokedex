@@ -4,18 +4,12 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 
-import Learnset from "../moves/LearnSet";
-import TypeBadge from "../../../../type/Badge";
-
-import dexSlice from "../../../../../reduxStore/dexSlice";
 import { Placeholder } from "react-bootstrap";
 
 function MainDetails(props) {
 
   const pokeState = useSelector(state => state.pokemon);
   const dexState = useSelector(state => state.pokedex);
-
-  const { toggleIsLoading } = dexSlice.actions;
 
   const [dexEntry, changeDexEntry] = useState(0);
   const [activeKey, setActiveKey] = useState(0);
