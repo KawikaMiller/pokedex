@@ -67,13 +67,20 @@ function MainDetails(props) {
       </Nav>
     </Card.Header>
 
-    <Card.Body style={{display: 'flex', justifyContent: 'space-between', padding: '0.5rem', overflowY: 'auto'}}>
+    <Card.Body id="details_card_body">
 
       {activeKey === 0 ?
       
       <>
-        <Button className={settingsState.theme} disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeDexEntry(-1)}>{`<`}</Button>
-        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', margin: '0 0.5rem'}}>
+        <Button 
+          className={settingsState.theme}
+          onClick={() => handleChangeDexEntry(-1)}
+          disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} 
+        >
+          {`<`}
+        </Button>
+
+        <div className='details_text'>
             {
               pokeState.pokemon?.name ? 
                 <h6>
@@ -100,7 +107,14 @@ function MainDetails(props) {
             }
 
         </div>
-        <Button className={settingsState.theme} disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeDexEntry(1)}>{`>`}</Button>            
+
+        <Button 
+          className={settingsState.theme}
+          onClick={() => handleChangeDexEntry(1)}
+          disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} 
+        >
+          {`>`}
+        </Button>            
       </>
 
       :
@@ -259,12 +273,17 @@ function MainDetails(props) {
       activeKey === 2 ?
 
       <>
-        <Button className={settingsState.theme} disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeAbility(-1)}>{`<`}</Button>
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', margin: '0 0.5rem'}}>
-
+        <Button 
+          className={settingsState.theme}
+          onClick={() => handleChangeAbility(-1)}
+          disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} 
+        >
+          {`<`}
+        </Button>
+        <div className='details_text'>
             {
               pokeState.pokemon?.name ? 
-                <h6 style={{height: '10%'}}>
+                <h6>
                   {
                     !dexState.isLoading ? 
                       pokeState.pokemon?.abilities[abilityKey].name
@@ -279,7 +298,7 @@ function MainDetails(props) {
             }
           {
             pokeState.pokemon?.name ?
-              <p style={{maxHeight: '75%', overflowY: 'auto'}}>
+              <p>
                 {
                   !dexState.isLoading ?
                     pokeState.pokemon?.abilities[abilityKey].description
@@ -294,7 +313,13 @@ function MainDetails(props) {
               '--'
           }
         </div>
-        <Button className={settingsState.theme} disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeAbility(1)}>{`>`}</Button>            
+        <Button 
+          className={settingsState.theme}
+          onClick={() => handleChangeAbility(1)}
+          disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} 
+        >
+          {`>`}
+        </Button>            
       </>
       
       :

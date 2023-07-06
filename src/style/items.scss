@@ -6,7 +6,7 @@
 
 #itemsContainerParent{
   width: 68%;
-  max-height: 73.5vh;
+  max-height: 765px;
   margin-left: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -19,13 +19,14 @@
   justify-content: flex-start;
   overflow-y: auto;
   overflow-x: hidden;
+
   /* mask-image: linear-gradient(to bottom, black 97%, transparent 100%); */
 }
 
 #itemPockets{
   background-color: rgba(0, 0, 0, 40%);
   color: white;
-  max-height: 73.5vh;
+  max-height: 765px;
   width: 40%;
   border-color: white;
 }
@@ -46,10 +47,23 @@
   /* justify-content: center; */
   overflow-y: auto;
   padding: 0 0.5rem;
+
+  h6{
+    text-align: left;
+    border-bottom: 1px solid white;
+    margin-top: 0.5rem;
+  }
+
+  .pocketCategoryCheckbox{
+    text-align: left;
+  }
 }
 
-#itemPocketsBody > h6 {
-  margin-top: 0.5rem;
+#itemsLoading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 765px;
 }
 
 .categoryAccordionBody.accordion-body{

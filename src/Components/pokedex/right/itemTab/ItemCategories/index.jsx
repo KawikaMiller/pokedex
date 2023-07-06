@@ -104,14 +104,13 @@ function ItemCategories(){
       <Card.Body id="itemPocketsBody">
         {itemsState.allPockets.map(pocket => (
           <>
-            <h6 style={{textAlign: 'left', borderBottom: '1px solid white'}}>{pocket.name}</h6> 
+            <h6>{pocket.name}</h6> 
             <Form>
               {pocket.categories.map(category => (
                 <Form.Check
-                  style={{textAlign: 'left'}} 
+                  className="pocketCategoryCheckbox"
                   type='checkbox'
                   label={category.name}
-                  // value={category.url}
                   onClick={(e) => handleCheckbox(e, category.url)}
                 />
               ))}  

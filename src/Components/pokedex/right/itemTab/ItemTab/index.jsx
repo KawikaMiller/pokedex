@@ -52,7 +52,7 @@ function ItemTab(){
               </Accordion>
 
             :
-              <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '500px'}}>
+              <div id='itemsLoading'>
                 <Spinner animation="grow" role="status" variant="light">
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
