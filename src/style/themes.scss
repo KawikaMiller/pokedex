@@ -7,12 +7,20 @@
 .pokeball{
   --pokePrimary: #ee1515;
   --pokeAccent: #0d6efd;
+  --pokeSecondary: #b72121;
   --pokeDex: #dc3545;
+  --pokeAccentBorder: #e60a0a;
+  --pokeAccentHoverBg: #da1717;
+  --pokeAccentHoverBorder: white;
+  --pokeAccentClickBg: #fb2323;
+  --pokeAccentClickBorder: #fe7676;
 }
 
 .greatball{
   --greatPrimary: #3890f8;
+  --greatSecondary: #074086;
   --greatAccent: #ee1515;
+  --greatAccentSecondary: #119fd1;
   --greatDex: #1860bd;
   --greatBtnBorder: #cd0c0c;
   --greatBtnHoverBg: #bd0e0e;
@@ -23,6 +31,7 @@
 
 .ultraball{
   --ultraPrimary: #373a3d;
+  --ultraSecondary: #a48509;
   --ultraAccent: #f5cd35;
   --ultraDex: #353535;
   --ultraBtnBorder: #e4b20b;
@@ -34,6 +43,7 @@
 
 .masterball{
   --masterPrimary: #7313a7;
+  --masterSecondary: #3b0a63;
   --masterAccent: #df1fbf;
   --masterAccentSecondary: #fc04ba;
   --masterDex: #4e2573;

@@ -73,19 +73,19 @@ function Learnset (props) {
 
   return(
 
-    <Card className='details'>
+    <Card className={`details ${settingsState.theme}`}>
       <Card.Header className={settingsState.theme}>
         <Nav variant='tabs' defaultActiveKey={activeKey}>
           <Nav.Item className='subCard'>
-            <Nav.Link className={settingsState.theme} onClick={() => setActiveKey(0)}>Level</Nav.Link>
+            <Nav.Link className={settingsState.theme} eventKey={0} onClick={() => setActiveKey(0)}>Level</Nav.Link>
           </Nav.Item>
           <Nav.Item className='subCard'>
-            <Nav.Link className={settingsState.theme} onClick={() => setActiveKey(1)}>TM</Nav.Link>
+            <Nav.Link className={settingsState.theme} eventKey={1} onClick={() => setActiveKey(1)}>TM</Nav.Link>
           </Nav.Item>
           {
             tutorMoves.length > 0 ? 
             <Nav.Item className='subCard'>
-              <Nav.Link className={settingsState.theme} onClick={() => setActiveKey(2)}>Tutor</Nav.Link>
+              <Nav.Link className={settingsState.theme} eventKey={2} onClick={() => setActiveKey(2)}>Tutor</Nav.Link>
             </Nav.Item>
             :
             null
@@ -93,7 +93,7 @@ function Learnset (props) {
           {
             eggMoves.length > 0 ? 
             <Nav.Item className='subCard'>
-              <Nav.Link className={settingsState.theme} onClick={() => setActiveKey(3)}>Egg</Nav.Link>
+              <Nav.Link className={settingsState.theme} eventKey={3} onClick={() => setActiveKey(3)}>Egg</Nav.Link>
             </Nav.Item>
             :
             null
