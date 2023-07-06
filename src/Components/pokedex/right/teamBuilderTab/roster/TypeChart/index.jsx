@@ -33,6 +33,7 @@ function TeamTypeChart (props) {
         ];
   
   const teamState = useSelector(state => state.team);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   const {toggleTypeChart} = teamSlice.actions;
 
@@ -59,7 +60,7 @@ function TeamTypeChart (props) {
         </Table>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => dispatch(toggleTypeChart())}>Close</Button>
+        <Button className={settingsState.theme} onClick={() => dispatch(toggleTypeChart())}>Close</Button>
       </Modal.Footer>
     </Modal>  
     : 

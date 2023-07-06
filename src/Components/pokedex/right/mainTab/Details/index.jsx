@@ -10,6 +10,7 @@ function MainDetails(props) {
 
   const pokeState = useSelector(state => state.pokemon);
   const dexState = useSelector(state => state.pokedex);
+  const settingsState = useSelector(state => state.settings);
 
   const [dexEntry, changeDexEntry] = useState(0);
   const [activeKey, setActiveKey] = useState(0);
@@ -44,22 +45,22 @@ function MainDetails(props) {
   }
 
   return(
-    <Card className='details' style={{height: '100%', maxHeight: '100%'}}>
+    <Card className={`details ${settingsState.theme}`}>
 
-    <Card.Header className='main_right_card_header'>
+    <Card.Header className={settingsState.theme}>
       <Nav variant='tabs' defaultActiveKey={activeKey}>
         <Nav.Item className='subCard'>
-          <Nav.Link eventKey={0}onClick={() => setActiveKey(0)}>
+          <Nav.Link className={settingsState.theme} eventKey={0}onClick={() => setActiveKey(0)}>
             Dex
           </Nav.Link>
         </Nav.Item>
         <Nav.Item className='subCard'>
-          <Nav.Link eventKey={1} onClick={() => setActiveKey(1)}>
+          <Nav.Link className={settingsState.theme} eventKey={1} onClick={() => setActiveKey(1)}>
             Bio
           </Nav.Link>
         </Nav.Item>
         <Nav.Item className='subCard'>
-          <Nav.Link eventKey={2} onClick={() => setActiveKey(2)}>
+          <Nav.Link className={settingsState.theme} eventKey={2} onClick={() => setActiveKey(2)}>
             Ability
           </Nav.Link>
         </Nav.Item>
@@ -71,7 +72,7 @@ function MainDetails(props) {
       {activeKey === 0 ?
       
       <>
-        <Button disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeDexEntry(-1)}>{`<`}</Button>
+        <Button className={settingsState.theme} disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeDexEntry(-1)}>{`<`}</Button>
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', margin: '0 0.5rem'}}>
             {
               pokeState.pokemon?.name ? 
@@ -99,7 +100,7 @@ function MainDetails(props) {
             }
 
         </div>
-        <Button disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeDexEntry(1)}>{`>`}</Button>            
+        <Button className={settingsState.theme} disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeDexEntry(1)}>{`>`}</Button>            
       </>
 
       :
@@ -258,7 +259,7 @@ function MainDetails(props) {
       activeKey === 2 ?
 
       <>
-        <Button disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeAbility(-1)}>{`<`}</Button>
+        <Button className={settingsState.theme} disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeAbility(-1)}>{`<`}</Button>
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', margin: '0 0.5rem'}}>
 
             {
@@ -293,7 +294,7 @@ function MainDetails(props) {
               '--'
           }
         </div>
-        <Button disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeAbility(1)}>{`>`}</Button>            
+        <Button className={settingsState.theme} disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} onClick={() => handleChangeAbility(1)}>{`>`}</Button>            
       </>
       
       :

@@ -16,6 +16,7 @@ function EditPokemon(props){
 
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
+  const settingsState = useSelector(state => state.settings);
   let dispatch = useDispatch();
   let { modifyProperty } = pokeSlice.actions;
   let { modifyMemberProperty } = teamSlice.actions
@@ -440,7 +441,7 @@ function EditPokemon(props){
               <div >
                 <Form.Group style={{display: 'flex', flexDirection: 'column'}}>
                   <Form.Label style={{visibility: 'hidden'}}>SUBMIT</Form.Label>
-                  <Button type='submit' disabled={disableSubmit ? true : false}>Save</Button>
+                  <Button className={settingsState.theme} type='submit' disabled={disableSubmit ? true : false}>Save</Button>
                   {disableSubmit ? 
                     <Form.Text>EVs cannot total more than 510</Form.Text>                     
                   : 

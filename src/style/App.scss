@@ -1,0 +1,70 @@
+
+@import './themes.scss';
+@import './body.scss';
+@import './leftCard.scss';
+@import './rightCard.scss';
+@import './teamBuilder.scss';
+@import './modal.scss';
+@import './subcards.scss';
+@import './items.css';
+@import './movelist.css';
+@import './learnset.css';
+@import './forms.scss';
+@import './badge.scss';
+@import './pokedex.scss';
+@import './buttons.scss';
+@import './nav.scss';
+
+:root {
+  box-sizing: border-box;
+  --bug: #A8B820;
+  --dark: #705848;
+  --dragon: #7038F8;
+  --electric: #F8D030;
+  --fairy: #EE99AC;
+  --fighting: #C03028;
+  --fire: #F08030;
+  --flying: #A890F0;
+  --ghost: #705898;
+  --grass: #78C850;
+  --ground: #E0C068;
+  --ice: #98D8D8;
+  --normal: #A8A878;
+  --poison: #A040A0;
+  --psychic: #F85888;
+  --rock: #B8A038;
+  --steel: #B8B8D0;
+  --water: #6890F0;
+  --pokedex: #dc3545;
+  --background: #282c34;
+}
+
+.spinner-grow{
+  margin: 1rem;
+}
+
+.App {
+  text-align: center;
+  background-color: var(--background);
+}
+
+#pokedex-container {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+#pokedex-group {
+  height: 900px;
+}
+
+// ------
+
+td, th {
+  text-align: center;
+  vertical-align: middle; 
+  width: 2.75rem;
+  font-size: 0.825rem;
+}
+
+
+

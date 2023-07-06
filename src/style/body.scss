@@ -1,0 +1,169 @@
+// -- transition animation testing ---
+
+#footer.blarg {
+  position: absolute;
+  bottom: 0;
+}
+
+#header.blarg,
+#footer.blarg {
+  margin: 0 0 0 0 !important;
+  height: 50vh;
+}
+
+#main.blargMain {
+  height: 0;
+  margin: 0 !important;
+  display: none;
+  /* opacity: 0; */
+}
+
+#pokeball_button_outer.blarg {
+  position: fixed;
+  top: 44%;
+}
+
+#pokeball_button_footer.blarg {
+  display: none;
+}
+
+// -----------------
+
+#header {
+  width: 100%;
+  height: 150px;
+  background-color: var(--pokedex);
+  color: white;
+  border-bottom: 1rem solid black;
+  margin: 0 0 3rem 0;
+  padding: 2rem 0 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  z-index: 3;
+  /* transition: height 2s; */
+
+  &.pokeball{
+    background-color: var(--pokePrimary);
+  }
+
+  &.greatball{
+    background-color: var(--greatPrimary)
+  }
+
+  &.ultraball{
+    background:
+    linear-gradient(
+      to right, 
+      var(--ultraPrimary) 35%, transparent 35%, 
+      transparent 65%, var(--ultraPrimary) 65%
+    ),
+    linear-gradient(var(--ultraAccent) 35%, transparent 35%), 
+    linear-gradient(
+      to right, 
+      var(--ultraPrimary) 35%, var(--ultraAccent) 35%,
+      var(--ultraAccent) 45%, var(--ultraPrimary) 45%,
+      var(--ultraPrimary) 55%, var(--ultraAccent) 55%,
+      var(--ultraAccent) 65%, var(--ultraPrimary) 65%
+    );
+  }
+
+  &.masterball{
+    background-color: var(--masterPrimary)
+  }
+}
+
+#header nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 1.5rem !important;
+  padding: 0 !important;
+}
+
+.navbar-nav a {
+  background-color: transparent !important;
+  vertical-align: middle;
+}
+
+#nav_left {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 30%;
+}
+
+#pokeball_button_outer {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  border: 1rem solid black;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  position: absolute;
+  top: 67.25%;
+}
+
+#footer {
+  width: 100%;
+  height: 150px;
+  transform-origin: 0 100%;
+  transform: scaleY(1);
+  background-color: gainsboro;
+  color: var(--pokedex);
+  /* border-top: 1rem solid black; */
+  margin: 3rem 0 0 0;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  z-index: 2;
+  /* transition: height 2s; */
+}
+
+#footer_contact{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: right;
+  padding: 0 1rem;
+  margin: 1rem;
+}
+
+#footer a {
+  color: var(--pokedex) !important;
+  margin: 0 0.5rem;
+}
+
+#footer a:hover{
+  color: blue !important;
+}
+
+#pokeball_button_footer {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  margin: 0;
+  background-color: var(--background);
+  position: absolute;
+  bottom: 67.25%;
+  /* z-index: -5; */
+}
+
+main {
+  /* height: 100vh; */
+  margin: 5rem 0 !important;
+  /* display: inherit; */
+  opacity: 100%;
+  /* transition: opacity 1s;
+  transition: height 2s; */
+}

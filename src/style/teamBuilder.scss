@@ -1,0 +1,145 @@
+.card-header.team_member_header,
+.card-footer.team_member_footer {
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 25%);
+}
+
+.card-header.team_member_header > * {
+  margin: 0;
+}
+
+.card-footer.team_member_footer {
+  justify-content: flex-end;
+}
+
+div.team_member.card {
+  color: white;
+  border-color: white;
+  background-color: grey;
+  width: 49.25%;
+  height: auto;
+  margin: 0.25rem 0;
+}
+
+div.team_member.card.electric, div.team_member.card.ground {
+  color: black;
+}
+
+div.team_member_body {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.25rem;
+  margin: 0;
+}
+
+.team_member_body Button {
+  width: 6vw;
+}
+
+.team_member_stats{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0.5rem;
+}
+
+/* placeholder / add pokemon to team card  */
+
+#team_member_placeholder h5,
+#team_members h5 {
+  text-align: left;
+}
+
+.card.member0 {
+  background-color: rgba(0, 0, 0, 25%);
+  max-height: auto;
+  border-color: white;
+  color: white;
+}
+
+div.placeholder_buttons {
+  display: flex; 
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 30%;
+}
+
+#placeholder_sprite,
+.stats_sub_phys,
+.stats_sub_spec  {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.stats_sub_phys, .stats_sub_spec {
+  width: 50% !important;
+}
+
+.stats_sub_phys Button, .stats_sub_spec Button{
+  width: auto;
+  padding: 0.25rem;
+  font-size: 0.60rem;
+}
+
+.stats_sub_spec > *, .stats_sub_phys > * {
+  margin: 0.5rem 0;
+}
+
+#team_member_stats_edit {
+  display: flex;
+  justify-content: space-between;
+  /* padding: 0; */
+}
+
+#team_member_stats_edit > *{
+  margin: 1rem;
+}
+
+#team_member_level_nature_edit {
+  display: flex;
+  justify-content: space-between;
+  /* padding: 0; */
+}
+
+#hp_phys {
+  margin-left: 0;
+  margin-right: 0;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
+section.team_member_sprite {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: auto;
+  height: auto;
+}
+
+section.team_member_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+#team_members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0;
+}
+
+#team_member_placeholder {
+  padding: 0;
+}
+
+.team_member_edit_buttons > * {
+  width: 48% !important; 
+}

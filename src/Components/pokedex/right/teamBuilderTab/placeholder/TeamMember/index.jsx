@@ -9,19 +9,6 @@ import TypeBadge from '../../../../../type/Badge';
 
 function PlaceholderTeamMember (props){
   const pokeState = useSelector(state => state.pokemon);
-  // let dispatch = useDispatch();
-
-  // let { setPokemon } = pokeSlice.actions;
-
-  // const updateBattleInfo = (battleMovesArr, battleAbility, heldItem) => {
-  //   let newPokemon = {...pokeState.pokemon};
-
-  //   newPokemon.battleMoves = battleMovesArr;
-  //   newPokemon.battleAbility = battleAbility;
-  //   newPokemon.heldItem = heldItem;
-
-  //   dispatch(setPokemon(newPokemon));
-  // }
 
     return(
       <Card className='member0'>

@@ -1,5 +1,8 @@
 import React from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPlay} from '@fortawesome/free-solid-svg-icons'
+
 // react-bootstrap components
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -14,8 +17,10 @@ import { useSelector, useDispatch } from "react-redux";
 import pokeSlice from "../../../../reduxStore/pokeSlice";
 import dexSlice from "../../../../reduxStore/dexSlice";
 
+
 function Pokedex (props) {
-  const state = useSelector(state => state.pokemon)
+  const state = useSelector(state => state.pokemon);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   const { toggleShiny, changeFormIdx, setPokemon } = pokeSlice.actions
   const { toggleIsLoading } = dexSlice.actions;
@@ -120,10 +125,10 @@ function Pokedex (props) {
   return (
     <Container id='pokedex-container'>
       
-      <CardGroup id='pokedex' >
+      <CardGroup className={`pokedex ${settingsState.theme}`} id='pokedex-group'>
 
         {/* left side card */}
-        <Card bg='danger'>
+        <Card className={settingsState.theme} id='leftcard'>
           <Card.Header>
             {/* pokedex lights */}
             <div id="light-container">
@@ -136,8 +141,8 @@ function Pokedex (props) {
 
           <Card.Body>
             {/* displays pokemon picture */}
-            <Container id='pokedex-display-border'>
-              <Container id='pokedex-display'>
+            <Container id='pokedex_display_border' className={settingsState.theme}>
+              <Container id='pokedex_display'>
                 {state.pokemon ?
                   <PokemonDisplay 
                     key={`${state.pokemon.name}_display`}
@@ -161,11 +166,11 @@ function Pokedex (props) {
               <Container id='bottom-ui-center'>
 
                 <Container id='bottom-ui-red-blue'>
-                  <Button variant="success" onClick={handleToggleForm}></Button>
+                  <Button className={settingsState.theme} onClick={handleToggleForm}></Button>
                   <Button onClick={handleToggleShiny}></Button>
                 </Container>
 
-                <Container id='bottom-ui-pokedex-info'>
+                <Container id='bottom-ui-basestats'>
                   {/* displays pokemon base stats */}
                   <BaseStats 
                       key={`${state.pokemon?.name}_basestats`}
@@ -175,11 +180,19 @@ function Pokedex (props) {
               </Container>
 
               <Container id='bottom-ui-dpad'>
-                  <div id='dpad-up' onClick={handleNextGen}></div>
-                  <div id='dpad-left' onClick={(event) => handleAdjacentPokemon(event, -1)}></div>
+                  <div id='dpad-up' onClick={handleNextGen}>
+                    <FontAwesomeIcon icon={faPlay} rotation={270}/>
+                  </div>
+                  <div id='dpad-left' onClick={(event) => handleAdjacentPokemon(event, -1)}>
+                    <FontAwesomeIcon icon={faPlay} rotation={180}/>
+                  </div>
                   <div id='dpad-center'></div>
-                  <div id='dpad-right' onClick={(event) => handleAdjacentPokemon(event, 1)}></div>
-                  <div id='dpad-down' onClick={handlePreviousGen}></div>
+                  <div id='dpad-right' onClick={(event) => handleAdjacentPokemon(event, 1)}>
+                    <FontAwesomeIcon icon={faPlay} />
+                  </div>
+                  <div id='dpad-down' onClick={handlePreviousGen}>
+                    <FontAwesomeIcon icon={faPlay} rotation={90}/>
+                  </div>
               </Container>
 
             </Container>

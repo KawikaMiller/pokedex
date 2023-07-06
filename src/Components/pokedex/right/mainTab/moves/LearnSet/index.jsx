@@ -5,8 +5,8 @@ import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav'
 import Spinner from 'react-bootstrap/Spinner';
 
-import '../../../../../../css/learnset.css';
-import '../../../../../../css/movelist.css';
+import '../../../../../../style/learnset.css';
+import '../../../../../../style/movelist.css';
 
 import { useSelector } from 'react-redux';
 
@@ -20,6 +20,7 @@ function Learnset (props) {
 
   const pokeState = useSelector(state => state.pokemon);
   const dexState = useSelector(state => state.pokedex);
+  const settingsState = useSelector(state => state.settings);
 
   // this runs all four previous parse methods
   const parseMovesByGeneration = (version) => {
@@ -73,7 +74,7 @@ function Learnset (props) {
   return(
 
     <Card className='details'>
-      <Card.Header className='main_right_card_header'>
+      <Card.Header className={settingsState.theme}>
         <Nav variant='tabs' defaultActiveKey={activeKey}>
           <Nav.Item className='subCard'>
             <Nav.Link onClick={() => setActiveKey(0)}>Level</Nav.Link>
@@ -131,15 +132,15 @@ function Learnset (props) {
         }
       </Card.Body>
       <Card.Footer style={{display: 'flex', justifyContent: 'space-evenly'}}>
-        <Button size='sm' onClick={() => setActiveGeneration('yellow')}>Gen 1</Button>
-        <Button size='sm' onClick={() => setActiveGeneration('crystal')}>Gen 2</Button>
-        <Button size='sm' onClick={() => setActiveGeneration('emerald')}>Gen 3</Button>
-        <Button size='sm' onClick={() => setActiveGeneration('platinum')}>Gen 4</Button>
-        <Button size='sm' onClick={() => setActiveGeneration('black-2-white-2')}>Gen 5</Button>
-        <Button size='sm' onClick={() => setActiveGeneration('x-y')}>Gen 6</Button>
-        <Button size='sm' onClick={() => setActiveGeneration('ultra-sun-ultra-moon')}>Gen 7</Button>
-        <Button size='sm' onClick={() => setActiveGeneration('sword-shield')}>Gen 8</Button>
-        <Button size='sm' onClick={() => setActiveGeneration('scarlet-violet')}>Gen 9</Button>
+        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('yellow')}>Gen 1</Button>
+        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('crystal')}>Gen 2</Button>
+        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('emerald')}>Gen 3</Button>
+        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('platinum')}>Gen 4</Button>
+        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('black-2-white-2')}>Gen 5</Button>
+        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('x-y')}>Gen 6</Button>
+        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('ultra-sun-ultra-moon')}>Gen 7</Button>
+        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('sword-shield')}>Gen 8</Button>
+        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('scarlet-violet')}>Gen 9</Button>
       </Card.Footer>
     </Card>
 

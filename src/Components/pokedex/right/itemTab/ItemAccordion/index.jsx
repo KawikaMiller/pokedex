@@ -1,4 +1,4 @@
-import React /*{ useState }*/ from "react";
+import React from "react";
 
 import Accordion from 'react-bootstrap/Accordion';
 import pokedollar from '../../../../../assets/pokedollar.png';
@@ -6,15 +6,6 @@ import missingSprite from '../../../../../assets/missingSprite.png';
 
 function ItemAccordion(props){
 
-  // const [cardBodyIdx, setCardBodyIdx] = useState(0);
-
-  // const handleClick = () => {
-  //   if(cardBodyIdx){
-  //     setCardBodyIdx(0)
-  //   } else {
-  //     setCardBodyIdx(1)
-  //   }
-  // }
 
   return(
     <Accordion.Item eventKey={props.eventKey} className="itemAccordion">
@@ -36,16 +27,6 @@ function ItemAccordion(props){
       </Accordion.Header>
       <Accordion.Body className="itemAccordionBody">
         {props.item.description}
-        {/* <Button variant="outline" onClick={handleClick}>{`<`}</Button>
-        {
-          AccordionBodyIdx === 0 ? 
-            props.item.description
-          :
-            <>
-              {console.log(props.item.fling)}
-            </>
-        }
-        <Button variant="outline" onClick={handleClick}>{`>`}</Button> */}
       </Accordion.Body>
     </Accordion.Item>
   )

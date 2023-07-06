@@ -1,0 +1,57 @@
+.btn {
+
+  &:not(.btn-danger){
+    &.pokeball{
+      // background-color: ;
+
+    }
+
+    &.greatball{
+      background-color: var(--greatAccent);
+      border: 0.1rem solid var(--greatBtnBorder);
+
+      &:hover{
+        background-color: var(--greatBtnHoverBg);
+        border: 0.1rem solid var(--greatBtnHoverBorder);
+      }
+
+      &:first-child:active{
+        background-color: var(--greatBtnClickBg);
+        border: 0.1rem solid var(--greatBtnClickBorder);
+      }
+    }
+
+    &.ultraball{
+      color: black;
+      background-color: var(--ultraAccent);
+      border: 0.1rem solid var(--ultraBtnBorder);
+
+      &:hover{
+        background-color: var(--ultraBtnHoverBg);
+        border: 0.1rem solid var(--ultraBtnHoverBorder);
+      }
+
+      &:first-child:active{
+        background-color: var(--ultraBtnClickBg);
+        border: 0.1rem solid var(--ultraBtnClickBorder);
+      }
+    }
+
+    &.masterball{
+      background-color: var(--masterAccent);
+      border: 0.1rem solid var(--masterBtnBorder);
+
+      &:hover{
+        background-color: var(--masterBtnHoverBg);
+        border: 0.1rem solid var(--masterBtnHoverBorder);
+      }
+
+      &:first-child:active{
+        background-color: var(--masterBtnClickBg);
+        border: 0.1rem solid var(--masterBtnClickBorder);
+      }
+    }
+
+  }
+
+}

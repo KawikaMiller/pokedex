@@ -15,6 +15,7 @@ function ItemCategories(){
   const [categoryFilters, setCategoryFilters] = useState([])
 
   const itemsState = useSelector(state => state.items);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   const { setAllPockets, setCategoryItems } = itemsSlice.actions;
   const { toggleIsLoading } = dexSlice.actions;
@@ -119,8 +120,8 @@ function ItemCategories(){
         ))}        
       </Card.Body>
       <Card.Footer id='itemPocketsFooter'>
-        <Button onClick={handleApply}>Apply</Button>
-        <Button onClick={handleReset}>Reset</Button>
+        <Button className={settingsState.theme} onClick={handleApply}>Apply</Button>
+        <Button className={settingsState.theme} onClick={handleReset}>Reset</Button>
       </Card.Footer>
     </Card>
   )

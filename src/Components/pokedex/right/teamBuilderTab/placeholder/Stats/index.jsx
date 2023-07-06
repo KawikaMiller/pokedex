@@ -12,6 +12,7 @@ import EditPokemon from '../../../../../forms/EditPokemon';
 function PlaceholderStats(props) {
   const [showEditModal, setShowEditModal] = useState(false);
   const pokeState = useSelector(state => state.pokemon);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   let { modifyProperty } = pokeSlice.actions
   let { addToRoster } = teamSlice.actions
@@ -55,6 +56,7 @@ function PlaceholderStats(props) {
         <div className='placeholder_buttons'>
 
           <Button
+            className={settingsState.theme}
             style={{ margin: '0.5rem 0', padding: '0'}}
             onClick={() => setShowEditModal(!showEditModal)}
           >

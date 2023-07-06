@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import teamSlice from '../../../../../reduxStore/teamSlice';
 import EditPokemon from '../../../../forms/EditPokemon';
 import TypeBadge from '../../../../type/Badge';
@@ -11,7 +11,7 @@ import TypeBadge from '../../../../type/Badge';
 function TeamMember (props) {
 
   const [showEditModal, setShowEditModal] = useState(false);
-
+  const settingsState = useSelector(state => state.settings)
   let dispatch = useDispatch();
   let { removeFromRoster } = teamSlice.actions;
 
@@ -60,11 +60,11 @@ function TeamMember (props) {
           <section className='team_member_info' style={{width: '100%'}}>
 
             <div className='team_member_edit_buttons' style={{display: 'flex', justifyContent: 'space-around', padding: '0.25rem'}}>
-              <Button size='sm' onClick={() => setShowEditModal(!showEditModal)}>
+              <Button className={settingsState.theme} size='sm' onClick={() => setShowEditModal(!showEditModal)}>
                 Edit
               </Button>
 
-              <Button size='sm' variant='danger' onClick={() => dispatch(removeFromRoster(props.rosterIdx))}>
+              <Button className={settingsState.theme} size='sm' variant='danger' onClick={() => dispatch(removeFromRoster(props.rosterIdx))}>
                 Remove
               </Button>
             </div>

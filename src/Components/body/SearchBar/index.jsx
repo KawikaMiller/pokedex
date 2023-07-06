@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 import Container from "react-bootstrap/Container";
 import { useDispatch, useSelector } from 'react-redux';
 import pokeSlice from '../../../reduxStore/pokeSlice';
@@ -10,6 +11,7 @@ import axios from 'axios';
 
 function SearchBar (props) {
     const state = useSelector(state => state.pokemon)
+    const settingsState = useSelector(state => state.settings)
     const dispatch = useDispatch();
     let { handleSearchInputChange, setPokemon } = pokeSlice.actions
     const { toggleIsLoading } = dexSlice.actions;
@@ -26,7 +28,7 @@ function SearchBar (props) {
 
     return(
       <Container>
-        <Form 
+        <InputGroup 
           onSubmit={handleSearch} 
           style={{display:'flex'}}
         >
@@ -38,13 +40,13 @@ function SearchBar (props) {
 
           <Button 
             type='submit' 
-            variant="primary" 
+            className={settingsState.theme}
             onClick={handleSearch} 
           >
             Search
           </Button>
 
-        </Form>
+        </InputGroup>
       </Container>
     )
 }

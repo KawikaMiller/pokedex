@@ -1,0 +1,39 @@
+// nav tabs (i.e. "main", "team-builder", "dex", "bio", etc)
+
+.nav-link {
+  // background-color: #0404ff;
+  color: white;
+  margin: 0 0.25rem;
+
+  &.pokeball{
+    color: white;
+    background-color: var(--pokeAccent);
+  }
+
+  &.greatball{
+    color: white;
+    background-color: var(--greatAccent);
+  }
+
+  &.ultraball{
+    color: black;
+    background-color: var(--ultraAccent);
+  }
+
+  &.masterball{
+    color: white;
+    background-color: var(--masterAccent);
+  }
+
+}
+  
+  .nav-link:hover{
+    border-color: red !important;
+    border-bottom-color: transparent !important;
+  }
+  
+  .nav-link.active {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border-bottom-color: transparent !important;
+  }

@@ -1,5 +1,6 @@
 import React from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import Card from "react-bootstrap/Card";
 
 import { useSelector } from "react-redux";
 
@@ -16,7 +17,7 @@ function BaseStats (props){
   ]
 
   return(
-    <>
+    <Card id='basestats-card'>
       {/* renders a stat label, stat value, and stat progress bar for each pokemon stat (hp, atk, def, etc.) */}
       {state.pokemon ? 
         state.pokemon.stats.map(element => (
@@ -85,7 +86,7 @@ function BaseStats (props){
           </div>
         ))
         }
-    </>
+    </Card>
   )
 }
 

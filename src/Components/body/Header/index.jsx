@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import UserAuthModal from '../../forms/modals/UserAuth';
 import userSlice from '../../../reduxStore/userSlice';
+import settingsSlice from '../../../reduxStore/settingsSlice';
 
 // import { useAuth0 } from '@auth0/auth0-react';
 
@@ -17,7 +18,9 @@ function Header (props) {
 
   const dispatch = useDispatch();
   const userState = useSelector(state => state.user);
-  let { userLogout, userLogin } = userSlice.actions
+  const settingsState = useSelector(state => state.settings);
+  const { userLogout, userLogin } = userSlice.actions
+  const { setTheme } = settingsSlice.actions;
 
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState(undefined);
@@ -40,6 +43,10 @@ function Header (props) {
       .catch(err => console.err('Unable to logout at this time, please try again.'))
   }
 
+  const handleThemeChange = (theme) => {
+    dispatch(setTheme(theme))
+  }
+
   useEffect(() => {
     axios
       .post(`${process.env.REACT_APP_SERVER}/reauthenticate`, {}, {
@@ -58,15 +65,18 @@ function Header (props) {
 
   return(
     <>
-      <section id='header' /*onClick={this.props.transitionHeader}*/ >
+      <section id='header' className={settingsState.theme} /*onClick={this.props.transitionHeader}*/ >
         <Navbar>
           <Nav id='nav_left'>
             <Navbar.Brand>Pokedex App</Navbar.Brand>
             <Nav.Link>Home</Nav.Link>
             <Nav.Link>About</Nav.Link>
-            <NavDropdown title='Account'>
-              <NavDropdown.Item>My Account</NavDropdown.Item>
-              <NavDropdown.Item>Theme</NavDropdown.Item>
+            <Nav.Link disabled>Account</Nav.Link>
+            <NavDropdown title='Theme'>
+              <NavDropdown.Item onClick={() => handleThemeChange('pokeball')}>Pokeball</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleThemeChange('greatball')}>Greatball</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleThemeChange('ultraball')}>Ultraball</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleThemeChange('masterball')}>Masterball</NavDropdown.Item>
             </NavDropdown>
           </Nav>            
           <div>
@@ -74,12 +84,12 @@ function Header (props) {
               userState.isLoggedIn ? 
               <>
                 <p>{`Welcome, ${userState.username}!`}</p>
-                <Button onClick={handleLogout}>Log Out</Button>        
+                <Button className={settingsState.theme} onClick={handleLogout}>Log Out</Button>        
               </>
               : 
               <>
-                <Button onClick={() => toggleModal('login')}>Log In</Button>
-                <Button onClick={() => toggleModal('signup')}>Sign Up</Button>              
+                <Button className={settingsState.theme} onClick={() => toggleModal('login')}>Log In</Button>
+                <Button className={settingsState.theme} onClick={() => toggleModal('signup')}>Sign Up</Button>              
               </>
             }
           </div>

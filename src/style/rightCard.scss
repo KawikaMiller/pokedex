@@ -1,5 +1,8 @@
-.rightMain {
+#rightcard{
   color: white;
+}
+
+.rightMain {
   margin: 0;
   text-align: left;
   display: flex;
@@ -12,18 +15,11 @@
   margin: 0.5rem 0;
 }
 
-#details {
-  border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius);
-}
-
-#details .card-header {
-  background-color: red;
-  border-bottom: 5px solid black;
-}
-
-#details .card-body {
-  background-color: rgba(0, 0, 0, 85%);
-  color: white;
+#right_card_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
 }
 
 .rightMain.container, #pokeInfo.container {

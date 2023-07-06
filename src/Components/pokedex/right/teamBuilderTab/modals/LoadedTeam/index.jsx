@@ -10,6 +10,7 @@ import { loadTeamToClient, deleteTeamInServer } from "../../../../../../reduxSto
 function LoadedTeams() {
 
   const teamState = useSelector(state => state.team);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   const {toggleLoadedTeams, setRoster, setFetchedTeams} = teamSlice.actions;
 
@@ -49,7 +50,7 @@ function LoadedTeams() {
                   <Accordion.Header>{element.teamName}</Accordion.Header>
                   <Accordion.Body>
                     <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                      <Button onClick={() => loadTeam(element.id)}>
+                      <Button className={settingsState.theme} onClick={() => loadTeam(element.id)}>
                         Load Team
                       </Button>
                       <Button variant='danger' onClick={() => deleteTeam(element.id)}>

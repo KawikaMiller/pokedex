@@ -11,12 +11,13 @@ import { useSelector, useDispatch } from "react-redux";
 import teamSlice from "../../../../../../reduxStore/teamSlice";
 import { fetchTeamsFromServer, saveTeamToServer } from "../../../../../../reduxStore/helperFuncs";
 
-import '../../../../../../css/saveTeamModal.css'
+import '../../../../../../style/saveTeamModal.css'
 
 function SaveTeamModal(props){
   
   const teamState = useSelector(state => state.team)
   const userState = useSelector(state => state.user)
+  const settingsState = useSelector(state => state.settings)
   const dispatch = useDispatch();
   const { setTeamsName, setFetchedTeams, toggleSaveTeam } = teamSlice.actions
 
@@ -76,7 +77,7 @@ function SaveTeamModal(props){
                 <Accordion.Item eventKey={idx}>
                   <Accordion.Header>
                     {`${pokemon.nickname ? pokemon.nickname : pokemon.name}`}
-                    <Button size='sm' style={{visibility: 'hidden'}}>Hidden for style consistency</Button>
+                    <Button className={settingsState.theme} size='sm' style={{visibility: 'hidden'}}>Hidden for style consistency</Button>
                   </Accordion.Header>
                   <Accordion.Body >
                     <Container style={{padding: '0', display: 'flex', justifyContent: 'space-between'}}>
@@ -172,7 +173,7 @@ function SaveTeamModal(props){
               teamState.fetchedTeams.map((team, idx) => (
                 <Accordion.Item eventKey={idx} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', paddingLeft: '0.25rem'}}>
                   {team.teamName}
-                  <Button size='sm' disabled={teamState.roster.length > 0 ? false : true} onClick={(event) => saveTeam(event, team.id)}>Save As</Button>
+                  <Button className={settingsState.theme} size='sm' disabled={teamState.roster.length > 0 ? false : true} onClick={(event) => saveTeam(event, team.id)}>Save As</Button>
                 </Accordion.Item>
               )) 
               : 
@@ -182,7 +183,8 @@ function SaveTeamModal(props){
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button 
+        <Button
+          className={settingsState.theme} 
           disabled={teamState.roster.length > 0 ? false : true} 
           type='submit' 
           onClick={saveTeam}

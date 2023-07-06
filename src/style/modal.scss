@@ -1,3 +1,5 @@
+@import './themes.scss';
+
 .modal-content{
   color: white !important;
 }
@@ -5,7 +7,7 @@
 .modal-header{
   background-color: #dc3545;
   color: white;
-  border-bottom: 10px solid black;
+  border-bottom: 5px solid black !important;
 }
 
 .modal-body {
@@ -14,7 +16,7 @@
 
 .modal-footer{
   background-color: white;
-  border-top: 10px solid black;
+  border-top: 5px solid black !important;
 }
 
 td {

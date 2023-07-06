@@ -1,0 +1,44 @@
+:root{
+  --ballSecondary: #222224;
+  --ballTertiary: #f0f0f0;
+  --pokeText: white;
+}
+
+.pokeball{
+  --pokePrimary: #ee1515;
+  --pokeAccent: blue;
+  --pokeDex: #dc3545;
+}
+
+.greatball{
+  --greatPrimary: #3890f8;
+  --greatAccent: #ee1515;
+  --greatDex: #1860bd;
+  --greatBtnBorder: #cd0c0c;
+  --greatBtnHoverBg: #bd0e0e;
+  --greatBtnHoverBorder: #9d0606;
+  --greatBtnClickBg: #8c0f0f;
+  --greatBtnClickBorder: #871010;
+}
+
+.ultraball{
+  --ultraPrimary: #373a3d;
+  --ultraAccent: #f5cd35;
+  --ultraDex: #353535;
+  --ultraBtnBorder: #e4b20b;
+  --ultraBtnHoverBg: #f1b621;
+  --ultraBtnHoverBorder: #e5a519;
+  --ultraBtnClickBg: #e2a31a;
+  --ultraBtnClickBorder: #d89613;
+}
+
+.masterball{
+  --masterPrimary: #af38ef;
+  --masterAccent: #df1fbf;
+  --masterDex: #751fc1;
+  --masterBtnBorder: #ea55d1;
+  --masterBtnHoverBg: #c924ad;
+  --masterBtnHoverBorder: #d504a1;
+  --masterBtnClickBg: #9e1186;
+  --masterBtnClickBorder: #a70d81;
+}

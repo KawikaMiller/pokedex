@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 function ItemInfo(){
 
   const itemsState = useSelector(state => state.items);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   const {} = teamSlice.actions;
 
@@ -21,9 +22,9 @@ function ItemInfo(){
           alt=''
         />
         <div style={{display: 'flex'}}>
-          <Button>{`<`}</Button>
+          <Button className={settingsState.theme}>{`<`}</Button>
           <p>{itemsState.activeItem.description}</p>
-          <Button>{`>`}</Button>
+          <Button className={settingsState.theme}>{`>`}</Button>
         </div>
       </Card.Body>
     </Card>

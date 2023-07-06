@@ -23,6 +23,7 @@ function RightCard (props){
   const [showSaveTeamModal, setShowSaveTeamModal] = useState(false);
 
   const teamState = useSelector(state => state.team);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
 
   const { toggleTypeChart, setFetchedTeams, clearRoster, toggleLoadedTeams, toggleSaveTeam } = teamSlice.actions;
@@ -52,7 +53,7 @@ function RightCard (props){
   
     return(
       <>
-      <Card bg='danger' style={{justifyContent: 'space-evenly'}}>    
+      <Card className={`pokedex ${settingsState.theme}`} id='rightcard'>    
       
         {/* tabs for different functionality of the pokedex */}
         <Card.Header>
@@ -97,16 +98,16 @@ function RightCard (props){
         <Card.Footer>
           {activeKey === 1 ? 
             <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
-              <Button size='sm' onClick={() => dispatch(toggleTypeChart())}>
+              <Button size='sm' className={settingsState.theme} onClick={() => dispatch(toggleTypeChart())}>
                 Type Coverage
               </Button>
-              <Button size='sm' onClick={() => dispatch(clearRoster())}>
+              <Button size='sm' className={settingsState.theme} onClick={() => dispatch(clearRoster())}>
                 New Team
               </Button>
-              <Button size='sm' onClick={toggleSaveTeamModal}>
+              <Button size='sm' className={settingsState.theme} onClick={toggleSaveTeamModal}>
                 Save Team
               </Button>
-              <Button size='sm' onClick={loadTeams}>
+              <Button size='sm' className={settingsState.theme} onClick={loadTeams}>
                 Load Team
               </Button>         
             </Container>

@@ -3,8 +3,10 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
 
-import '../../../../../../css/learnset.css';
-import '../../../../../../css/movelist.css';
+import '../../../../../../style/learnset.css';
+import '../../../../../../style/movelist.css';
+
+import { useSelector } from 'react-redux';
 
 function MoveList (props) {
 
@@ -16,6 +18,8 @@ function MoveList (props) {
   const [sortedByDmgClass, setSortedByDmgClass] = useState(false);
   const [sortedByType, setSortedByType] = useState(false);
   const [sortAsc, setSortAsc] = useState(false);
+
+  const settingsState = useSelector(state => state.settings);
 
   // resets all "sortedBy" state properties to false | the correct property will be set to true in 'handleToggleSort'
   const setAllSortedToFalse = () => {
@@ -90,7 +94,7 @@ function MoveList (props) {
           <tr>
             <th>
               <Button 
-                className='movelist_button' 
+                className={`movelist_button ${settingsState.theme}`}
                 disabled={props.disableLevelLearned ? true : false} 
                 variant='primary' 
                 size='sm' 
@@ -99,9 +103,9 @@ function MoveList (props) {
                 Level {
                   sortedByLevel ? 
                     sortAsc ? 
-                      '^' 
+                      '▲' 
                       : 
-                      'v'
+                      '▼'
                     :
                     null
                 }
@@ -110,7 +114,7 @@ function MoveList (props) {
 
             <th>
               <Button 
-                className='movelist_button' 
+                className={`movelist_button ${settingsState.theme}`} 
                 variant='primary' 
                 size='sm' 
                 onClick={() => handleToggleSort(sortedByName, () => setSortedByName(true), 'name')}
@@ -118,9 +122,9 @@ function MoveList (props) {
                 Name {
                   sortedByName ? 
                     sortAsc ? 
-                      '^' 
+                      '▲' 
                       : 
-                      'v'
+                      '▼'
                     :
                     null
                 }
@@ -129,7 +133,7 @@ function MoveList (props) {
 
             <th>
               <Button 
-                className='movelist_button' 
+                className={`movelist_button ${settingsState.theme}`} 
                 variant='primary' 
                 size='sm' 
                 onClick={() => handleToggleSort(sortedByPower, () => setSortedByPower(true), 'power')}
@@ -137,9 +141,9 @@ function MoveList (props) {
                 Power {
                   sortedByPower ? 
                     sortAsc ? 
-                      '^' 
+                      '▲' 
                       : 
-                      'v'
+                      '▼'
                     :
                     null
                 }
@@ -148,7 +152,7 @@ function MoveList (props) {
 
             <th>
               <Button 
-                className='movelist_button' 
+                className={`movelist_button ${settingsState.theme}`} 
                 variant='primary' 
                 size='sm' 
                 onClick={() => handleToggleSort(sortedByAccuracy, () => setSortedByAccuracy(true), 'accuracy')}
@@ -156,9 +160,9 @@ function MoveList (props) {
                 Acc {
                   sortedByAccuracy ? 
                     sortAsc ? 
-                      '^' 
+                      '▲' 
                       : 
-                      'v'
+                      '▼'
                     :
                     null
                 }
@@ -167,7 +171,7 @@ function MoveList (props) {
 
             <th>
               <Button 
-                className='movelist_button' 
+                className={`movelist_button ${settingsState.theme}`} 
                 variant='primary' 
                 size='sm' 
                 onClick={() => handleToggleSort(sortedByPP, () => setSortedByPP(true), 'pp')}
@@ -175,9 +179,9 @@ function MoveList (props) {
                 PP {
                   sortedByPP ? 
                     sortAsc ? 
-                      '^' 
+                      '▲' 
                       : 
-                      'v'
+                      '▼'
                     :
                     null
                 }
@@ -186,17 +190,17 @@ function MoveList (props) {
 
             <th>
               <Button 
-                className='movelist_button' 
+                className={`movelist_button ${settingsState.theme}`} 
                 variant='primary' 
                 size='sm' 
                 onClick={() => handleToggleSort(sortedByDmgClass, () => setSortedByDmgClass(true), 'dmgClass')}
               >
-                Damage {
+                Dmg {
                   sortedByDmgClass ? 
                     sortAsc ? 
-                      '^' 
+                      '▲' 
                       : 
-                      'v'
+                      '▼'
                     :
                     null
                 }
@@ -205,7 +209,7 @@ function MoveList (props) {
 
             <th>
               <Button 
-                className='movelist_button'
+                className={`movelist_button ${settingsState.theme}`}
                 variant='primary' 
                 size='sm' 
                 onClick={() => handleToggleSort(sortedByType, () => setSortedByType(true), 'type')}
@@ -213,9 +217,9 @@ function MoveList (props) {
                 Type {
                   sortedByType ? 
                     sortAsc ? 
-                      '^' 
+                      '▲' 
                       : 
-                      'v'
+                      '▼'
                     :
                     null
                 }
