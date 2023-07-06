@@ -1,39 +1,106 @@
 // nav tabs (i.e. "main", "team-builder", "dex", "bio", etc)
 
 .nav-link {
-  // background-color: #0404ff;
+  // background-color: #444485;
   color: white;
   margin: 0 0.25rem;
+  border-bottom-color: transparent;
 
   &.pokeball{
     color: white;
-    background-color: var(--pokeAccent);
+    background-color: #0d6efd;
+
+    &:hover{
+      background-color: #0b5ed7;
+      border-color: #0a58ca;
+    }
+
+    &:active{
+      background-color: #0a58ca;
+      border-color: #0a53be;
+    }
+
+    &.active{
+      background-color: #2d99ff;
+      border-color: white;
+      color: white;
+    }
   }
 
   &.greatball{
     color: white;
     background-color: var(--greatAccent);
+
+    &:hover{
+      background-color: var(--greatBtnHoverBg);
+      border-color: var(--greatBtnHoverBorder);
+    }
+
+    &:active{
+      background-color: var(--greatBtnClickBg);
+      border-color: var(--greatBtnClickBorder);
+    }
+
+    &.active{
+      background-color: rgb(255, 61, 61);
+      border-color: white;
+      color: white;
+    }
   }
 
   &.ultraball{
-    color: black;
-    background-color: var(--ultraAccent);
+    color: var(--ultraAccent);
+    background-color: rgb(31, 31, 31);
+
+    &:hover{
+      background-color: var(--ultraBtnHoverBg);
+      border-color: var(--ultraBtnHoverBorder);
+      color: black;
+    }
+
+    &:active{
+      background-color: var(--ultraBtnClickBg);
+      border-color: var(--ultraBtnClickBorder);
+      color: black;
+    }
+
+    &.active{
+      background-color: var(--ultraBtnClickBg);
+      border-color: yellow;
+    }
   }
 
   &.masterball{
     color: white;
     background-color: var(--masterAccent);
+
+    &:hover{
+      background-color: var(--masterBtnHoverBg);
+      border-color: var(--masterBtnHoverBorder);
+
+    }
+
+    &:active{
+      background-color: var(--masterBtnClickBg);
+      border-color: var(--masterBtnClickBorder);
+    }
+
+    &.active{
+      background-color: var(--masterAccentSecondary);
+      border-color: white;
+      color: white;
+    }
   }
 
 }
   
   .nav-link:hover{
-    border-color: red !important;
-    border-bottom-color: transparent !important;
+    // border-color: rgb(0, 4, 255) !important;
+    // border-bottom-color: transparent !important;
   }
   
   .nav-link.active {
-    background-color: #dc3545 !important;
-    color: white !important;
-    border-bottom-color: transparent !important;
+    background-color: #dc3545;
+    color: white;
+    
   }

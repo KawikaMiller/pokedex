@@ -6,7 +6,7 @@
 
 .pokeball{
   --pokePrimary: #ee1515;
-  --pokeAccent: blue;
+  --pokeAccent: #0d6efd;
   --pokeDex: #dc3545;
 }
 
@@ -33,9 +33,10 @@
 }
 
 .masterball{
-  --masterPrimary: #af38ef;
+  --masterPrimary: #7313a7;
   --masterAccent: #df1fbf;
-  --masterDex: #751fc1;
+  --masterAccentSecondary: #fc04ba;
+  --masterDex: #4e2573;
   --masterBtnBorder: #ea55d1;
   --masterBtnHoverBg: #c924ad;
   --masterBtnHoverBorder: #d504a1;

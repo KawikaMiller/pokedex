@@ -1,5 +1,5 @@
-import './style/App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './style/App.scss';
 
 import Main from './Components/body/Main';
 import Header from './Components/body/Header';
