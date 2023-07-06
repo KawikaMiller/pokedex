@@ -26,19 +26,13 @@ function BaseStats (props){
             key={`${element.name}_div`}
           >
           <strong
-            id='stat_label'
-            style={{
-              margin: '0', 
-              width: '35%'
-            }} 
+            className='basestat_label' 
             key={`${element.name}_name`}
           >
-
             {element.name}
-            <span style={{float: 'right'}}>
+            <span className="basestat_value">
               {element.base_stat}            
             </span>
-            
           </strong>
 
           <ProgressBar 
@@ -59,19 +53,10 @@ function BaseStats (props){
           key={`${element.name}_div`}
           >
             <strong
-              id='stat_label'
-              style={{
-                margin: '0', 
-                width: '35%'
-              }} 
+              className='basestat_label'
               key={`${element.name}_name`}
-            >
-    
+            > 
               {element.name}
-              <span style={{float: 'right'}}>
-                {element.base_stat}            
-              </span>
-              
             </strong>
     
             <ProgressBar 

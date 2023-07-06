@@ -14,6 +14,7 @@
 @import './pokedex.scss';
 @import './buttons.scss';
 @import './nav.scss';
+@import './basestats.scss';
 
 :root {
   box-sizing: border-box;
@@ -55,6 +56,14 @@
 
 #pokedex-group {
   height: 900px;
+}
+
+.card{
+  border: 1px solid rgba(0, 0, 0, 100%)
+}
+
+#searchbar{
+  display: flex;
 }
 
 // ------

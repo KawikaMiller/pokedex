@@ -30,7 +30,7 @@ function SearchBar (props) {
       <Container>
         <InputGroup 
           onSubmit={handleSearch} 
-          style={{display:'flex'}}
+          id='searchbar'
         >
           <Form.Control 
             id='search_input' 

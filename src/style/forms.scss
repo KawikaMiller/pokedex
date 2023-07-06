@@ -1,3 +1,9 @@
+// user login / auth form
+
+.form-text {
+  color: white;
+}
+
 .passwordFocus:focus{
   box-shadow: 0 0 0 0.3rem rgba(21, 0, 255, 0.25);
   /* outline: solid 1px red; */
@@ -16,10 +22,63 @@
   box-shadow: none;
 }
 
+.form-label {
+  margin: 0.25rem 0 !important;
+}
+
+.password_visibility{
+  width: 10%;
+}
+
+#auth_modal{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+// editpokemon form
+
+#battle_moves_container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit_pokemon_section{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#ivev_labels{
+  width: 7%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .ivev_form > * {
   margin: 0.25rem 0;
 }
 
-.form-label {
-  margin: 0.25rem 0 !important;
+#hp_phys {
+  margin-left: 0;
+  margin-right: 0;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#nickname {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+#ivev_submit {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden_for_formatting {
+  visibility: hidden;
 }

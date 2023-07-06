@@ -50,7 +50,7 @@ function MainDetails(props) {
     <Card.Header className={settingsState.theme}>
       <Nav variant='tabs' defaultActiveKey={activeKey}>
         <Nav.Item className='subCard'>
-          <Nav.Link className={settingsState.theme} eventKey={0}onClick={() => setActiveKey(0)}>
+          <Nav.Link className={settingsState.theme} eventKey={0} onClick={() => setActiveKey(0)}>
             Dex
           </Nav.Link>
         </Nav.Item>

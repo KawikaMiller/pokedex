@@ -207,8 +207,14 @@ float: right;
   background-color: #82da48;
 }
 
-#stat_label {
+.basestat_label {
+  margin: 0;
+  width: 35%;
   font-size: 0.55rem;
+}
+
+.basestat_value{
+  float: right
 }
 
 // ---------------

@@ -99,7 +99,7 @@ function Login (props) {
             size='sm'
             onFocus={() => setPasswordFocus(!passwordFocus)}
           />     
-          <Button className={settingsState.theme} size='sm' style={{width:'10%'}} onClick={togglePasswordVisibility} >
+          <Button className={`password_visibility ${settingsState.theme}`} size='sm' onClick={togglePasswordVisibility} >
             <FontAwesomeIcon  
               icon={showPassword ? faEye : faEyeSlash}
             />
@@ -119,7 +119,7 @@ function Login (props) {
                 maxLength='20'
                 size='sm'
               />     
-              <Button className={settingsState.theme} size='sm' style={{width:'10%'}} onClick={togglePasswordVisibility}>
+              <Button className={`password_visibility ${settingsState.theme}`} size='sm' onClick={togglePasswordVisibility}>
                 <FontAwesomeIcon  
                   icon={showPassword ? faEye : faEyeSlash}
                 />
@@ -131,23 +131,23 @@ function Login (props) {
           null
         }
 
-        <section style={{display: 'flex', justifyContent: 'space-between'}}>
+        <div id='auth_modal'>
           <Button className={settingsState.theme} type='submit'>{props.modalType === 'login' ? 'Log In' : 'Sign Up'}</Button>
           {isInvalidCredentials ? 
-          <section>
+          <div>
             <Form.Text>Invalid username or password</Form.Text>
-          </section>
+          </div>
           :
             null
           }
           {userIsTaken ? 
-          <section>
+          <div>
             <Form.Text>Username is already taken</Form.Text>
-          </section> 
+          </div> 
           : 
             null
           }
-        </section>
+        </div>
 
       </Form>
     </div>
