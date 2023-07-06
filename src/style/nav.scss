@@ -1,45 +1,39 @@
-// navtabs at the top of the <RightCard /> component (i.e. 'Main', 'TeamBuilder', 'Items')
-.pokeball{
-  &.nav-item{
+// header nav theme dropdown menu
+.nav-item{
+  &.pokeball{
     a{
       &:hover{
-        color: var(--pokeAccent)
+        color: var(--pokeAccent);
       }
       &:focus{
-        color: var(--pokeAccent)
+        color: var(--pokeAccent);  
       }
     }
-  }  
-}
+  }
 
-.greatball{
-  &.nav-item{
+  &.greatball{
     a{
       &:hover{
-        color: var(--greatAccent)
+        color: var(--greatAccent);
       }
       &:focus{
-        color: var(--greatAccent)
+        color: var(--greatAccent);    
       }
     }
-  }  
-}
+  }
 
-.ultraball{
-  &.nav-item{
+  &.ultraball{
     a{
       &:hover{
-        color: white
+        color: white;
       }
       &:focus{
-        color: white
+        color: white;      
       }
     }
-  }  
-}
+  }
 
-.masterball{
-  &.nav-item{
+  &.masterball{
     a{
       &:hover{
         color: var(--masterAccent)
@@ -48,9 +42,47 @@
         color: var(--masterAccent)
       }
     }
-  }  
+  }
 }
 
+.dropdown {
+
+  &.pokeball{
+    .dropdown-menu{
+      background-color: var(--pokeAccent);
+      // border: 1px solid white;
+      a{
+        color: white;
+      }
+    }
+  }
+  &.greatball{
+    .dropdown-menu{
+      background-color: var(--greatAccent);
+      a{
+        color: white;
+      }
+    }
+  }
+  &.ultraball{
+    .dropdown-menu{
+      background-color: grey;
+      a{
+        color: white;
+      }
+    }
+  }
+  &.masterball{
+    .dropdown-menu{
+      background-color: var(--masterAccent);
+      a{
+        color: white;
+      }
+    }
+  }
+}
+
+// Header nav
 nav {
 
   .ultraball{
@@ -82,7 +114,7 @@ nav {
   }  
 }
 
-
+// navtabs at the top of the <RightCard /> component (i.e. 'Main', 'TeamBuilder', 'Items')
 .rightCardNav {
 
   &.nav-link{
