@@ -1,7 +1,87 @@
 // navtabs at the top of the <RightCard /> component (i.e. 'Main', 'TeamBuilder', 'Items')
-.nav-link{
-  color: white;
+.pokeball{
+  &.nav-item{
+    a{
+      &:hover{
+        color: var(--pokeAccent)
+      }
+      &:focus{
+        color: var(--pokeAccent)
+      }
+    }
+  }  
 }
+
+.greatball{
+  &.nav-item{
+    a{
+      &:hover{
+        color: var(--greatAccent)
+      }
+      &:focus{
+        color: var(--greatAccent)
+      }
+    }
+  }  
+}
+
+.ultraball{
+  &.nav-item{
+    a{
+      &:hover{
+        color: white
+      }
+      &:focus{
+        color: white
+      }
+    }
+  }  
+}
+
+.masterball{
+  &.nav-item{
+    a{
+      &:hover{
+        color: var(--masterAccent)
+      }
+      &:focus{
+        color: var(--masterAccent)
+      }
+    }
+  }  
+}
+
+nav {
+
+  .ultraball{
+    .nav-link{
+      color: var(--ultraAccent)
+    }
+  }
+
+  .nav-link{
+    color: white;
+
+    &:hover{
+      &.pokeball{
+        color: var(--pokeAccent)
+      }
+    
+      &.greatball{
+        color: var(--greatAccent)
+      }
+    
+      &.ultraball{
+        color: white;
+      }
+
+      &.masterball{
+        color: var(--masterAccent)
+      }    
+    }
+  }  
+}
+
 
 .rightCardNav {
 
