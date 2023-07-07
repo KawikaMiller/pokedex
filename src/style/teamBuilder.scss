@@ -66,6 +66,11 @@ div.placeholder_buttons {
   justify-content: flex-end;
   align-items: center;
   width: 30%;
+
+  .btn{
+    margin: 0.5rem 0;
+    padding: 0
+  }
 }
 
 #placeholder_sprite,
@@ -75,36 +80,28 @@ div.placeholder_buttons {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+
+  p{
+    margin: 0;
+  }
 }
 
 .stats_sub_phys, .stats_sub_spec {
   width: 50% !important;
-}
-
-.stats_sub_phys Button, .stats_sub_spec Button{
-  width: auto;
-  padding: 0.25rem;
-  font-size: 0.60rem;
-}
-
-.stats_sub_spec > *, .stats_sub_phys > * {
-  margin: 0.5rem 0;
+  
+  > * {
+    margin: 0.5rem 0;
+  }
 }
 
 #team_member_stats_edit {
   display: flex;
   justify-content: space-between;
   /* padding: 0; */
-}
 
-#team_member_stats_edit > *{
-  margin: 1rem;
-}
-
-#team_member_level_nature_edit {
-  display: flex;
-  justify-content: space-between;
-  /* padding: 0; */
+  > * {
+    margin: 1rem;
+  }
 }
 
 section.team_member_sprite {
@@ -113,12 +110,21 @@ section.team_member_sprite {
   justify-content: space-between;
   width: auto;
   height: auto;
+
+  p{
+    margin: 0
+  }
 }
 
 section.team_member_info {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  width: 100%;
+
+  .progress{
+    margin: 0.25rem;
+  }
 }
 
 #team_members {
@@ -134,4 +140,32 @@ section.team_member_info {
 
 .team_member_edit_buttons > * {
   width: 48% !important; 
+}
+
+#teambuilder_footer{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#team_container{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#team_name_container{
+  padding: 0;
+
+  #team_name{
+    vertical-align: middle;
+    margin: 0.5rem 0;
+  }
+}
+
+.team_member_edit_buttons{
+  display: flex;
+  justify-content: space-around;
+  padding: 0.25rem;
 }

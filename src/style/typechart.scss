@@ -1,4 +1,10 @@
-#type_chart_headers > * {
-  padding: 0 0;
-  text-align: center;
+#type_chart_headers {
+
+  margin: 0.25rem;
+
+  > * {
+    padding: 0 0;
+    text-align: center;    
+  }
+
 }

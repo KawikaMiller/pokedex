@@ -57,18 +57,16 @@ function PlaceholderStats(props) {
 
           <Button
             className={settingsState.theme}
-            style={{ margin: '0.5rem 0', padding: '0'}}
             onClick={() => setShowEditModal(!showEditModal)}
           >
             Edit
           </Button>
 
           <Button 
-            style={{ margin: '0.5rem 0', padding: '0'}}
             variant='success' 
             onClick={() => dispatch(addToRoster(pokeState.pokemon))} 
           >
-          + To Team
+            + To Team
           </Button>
         </div>
       </Container>

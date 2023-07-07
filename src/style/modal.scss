@@ -1,5 +1,3 @@
-@import './themes.scss';
-
 .modal-content{
   color: white !important;
 }
@@ -21,4 +19,45 @@
 
 td {
   overflow-x: hidden;
+}
+
+#load_teams_options{
+  display: flex;
+  justify-content: space-around;
+}
+
+#save_team_modal{
+  .modal-header{
+    display: flex;
+    justify-content: space-between;
+
+    p{
+      margin: 0;
+      color: white;
+      font-size: 0.9rem;
+    }
+  }
+
+  .modal-body{
+    display: flex;
+  }
+}
+
+.teammember_save_modal_container{
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+
+  .teammember_info{
+    width: 100%;
+  }
+}
+
+.saved_team{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-left: 0.25rem;
 }

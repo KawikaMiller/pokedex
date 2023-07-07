@@ -49,7 +49,7 @@ function LoadedTeams() {
                 <Accordion.Item eventKey={idx}>
                   <Accordion.Header>{element.teamName}</Accordion.Header>
                   <Accordion.Body>
-                    <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                    <div id='load_teams_options'>
                       <Button className={settingsState.theme} onClick={() => loadTeam(element.id)}>
                         Load Team
                       </Button>

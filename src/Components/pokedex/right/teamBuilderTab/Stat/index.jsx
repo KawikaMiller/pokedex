@@ -61,14 +61,13 @@ function Stat (props) {
 
     return(
       <Container 
-        style={{textAlign: 'left', padding: '0', marginTop: '0'}} 
+        className='stat_container'
         key={`${props.stat.name}_container`}
       >
         {props.stat.name === 'HP' ?
           <>
             {props.stat.name} : {getHpTotal()} / {calculateMaxHpTotal()}
             <ProgressBar 
-              style={{height: '0.5vh', width: '90%'}} 
               now={getHpTotal()} 
               max={calculateMaxHpTotal()} 
               min={calculateMinHpTotal()}
@@ -77,14 +76,13 @@ function Stat (props) {
           </>         
         :
           <>
-          {props.stat.name} : {getStatTotal()} / {calculateMaxStatTotal()}
-          <ProgressBar 
-            style={{height: '0.5vh', width: '90%'}} 
-            now={getStatTotal()} 
-            max={calculateMaxStatTotal()} 
-            min={calculateMinStatTotal()}
-            key={`${props.stat.name}_${statTotal}`}
-          />
+            {props.stat.name} : {getStatTotal()} / {calculateMaxStatTotal()}
+            <ProgressBar 
+              now={getStatTotal()} 
+              max={calculateMaxStatTotal()} 
+              min={calculateMinStatTotal()}
+              key={`${props.stat.name}_${statTotal}`}
+            />
           </>
         }
       </Container>

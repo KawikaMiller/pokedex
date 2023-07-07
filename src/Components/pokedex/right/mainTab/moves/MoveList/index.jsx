@@ -3,9 +3,6 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
 
-import '../../../../../../style/learnset.css';
-import '../../../../../../style/movelist.css';
-
 import { useSelector } from 'react-redux';
 
 function MoveList (props) {

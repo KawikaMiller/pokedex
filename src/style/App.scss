@@ -7,14 +7,15 @@
 @import './modal.scss';
 @import './subcards.scss';
 @import './items.scss';
-@import './movelist.css';
-@import './learnset.css';
+@import './movelist.scss';
+@import './learnset.scss';
 @import './forms.scss';
 @import './badge.scss';
 @import './pokedex.scss';
 @import './buttons.scss';
 @import './nav.scss';
 @import './basestats.scss';
+@import './stat.scss';
 
 :root {
   box-sizing: border-box;
@@ -64,6 +65,10 @@
 
 #searchbar{
   display: flex;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 // ------

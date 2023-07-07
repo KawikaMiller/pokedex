@@ -307,7 +307,7 @@ function EditPokemon(props){
           <Container id='team_member_stats_edit'>
 
             <Form.Group id='ivev_labels' className='ivev_form'>
-              <Form.Label className='hidden_for_formatting'>STAT</Form.Label>
+              <Form.Label className='hidden'>STAT</Form.Label>
               <Form.Control
                 type='text'
                 disabled
@@ -439,12 +439,12 @@ function EditPokemon(props){
               
               <div>
                 <Form.Group id='ivev_submit'>
-                  <Form.Label className='hidden_for_formatting'>SUBMIT</Form.Label>
+                  <Form.Label className='hidden'>SUBMIT</Form.Label>
                   <Button className={settingsState.theme} type='submit' disabled={disableSubmit ? true : false}>Save</Button>
                   {disableSubmit ? 
                     <Form.Text>EVs cannot total more than 510</Form.Text>                     
                   : 
-                    <Form.Text className='hidden_for_formatting'>EVs cannot total more than 510</Form.Text>
+                    <Form.Text className='hidden'>EVs cannot total more than 510</Form.Text>
                   }
                 </Form.Group>
 

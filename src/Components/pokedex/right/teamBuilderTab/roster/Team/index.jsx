@@ -12,12 +12,12 @@ function Team (props){
   const teamState = useSelector(state => state.team);
 
     return(
-      <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%',}}>
+      <Container id='team_container'>
         
         {/* displays all team members */}
         <Container id='team_members'>
-          <Container style={{padding: '0'}}>
-            <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
+          <Container id='team_name_container'>
+            <h5 id='team_name'>
               {`Team Name: ${teamState.teamName}`}
             </h5>
           </Container>

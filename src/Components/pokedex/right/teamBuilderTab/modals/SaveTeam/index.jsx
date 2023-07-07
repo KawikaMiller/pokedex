@@ -49,12 +49,15 @@ function SaveTeamModal(props){
       onShow={loadTeams}
       onHide={() => dispatch(toggleSaveTeam())}
       size="lg"
+      id='save_team_modal'
     >
-      <Modal.Header style={{display: 'flex', justifyContent: 'space-between'}}>
+      <Modal.Header>
         Save Your Team 
-        <p style={{margin: '0', color: 'grey', fontSize: '0.9rem'}}>{teamState.roster.length > 0 ? '' : 'Team must have at least one member'}</p>
+        <p>
+          {teamState.roster.length > 0 ? '' : 'Team must have at least one member'}
+        </p>
       </Modal.Header>
-      <Modal.Body style={{display: 'flex'}}>
+      <Modal.Body>
         <Container>
           <Form id='teamSave'>
             <InputGroup size="sm">
@@ -77,19 +80,18 @@ function SaveTeamModal(props){
                 <Accordion.Item eventKey={idx}>
                   <Accordion.Header>
                     {`${pokemon.nickname ? pokemon.nickname : pokemon.name}`}
-                    <Button className={settingsState.theme} size='sm' style={{visibility: 'hidden'}}>Hidden for style consistency</Button>
+                    <Button className='hidden' size='sm'>Hidden for style consistency</Button>
                   </Accordion.Header>
                   <Accordion.Body >
-                    <Container style={{padding: '0', display: 'flex', justifyContent: 'space-between'}}>
-                      <Container className='innerContainer'>
-                        {/* <p><span><strong>Level: </strong>{pokemon.level}</span></p> */}
+                    <Container className='teammember_save_modal_container'>
+                      <div className='teammember_info'>
+                        <p><span><strong>Level: </strong>{pokemon.level}</span></p>
                         <p><span><strong>Held Item: </strong>{pokemon.heldItem}</span></p>
                         <p><span><strong>Nature: </strong>{pokemon.nature}</span></p>
                         <p><span><strong>Ability: </strong>{pokemon.battleAbility}</span></p>
                         <p><span><strong>Types: </strong>{pokemon.types.map(type => (` ${type.type.name}`))}</span></p>               
-                      </Container>
+                      </div>
                       
-                      <Container className='innerContainer' >
                         <Table striped bordered>
                           <thead>
                             <tr>
@@ -107,7 +109,6 @@ function SaveTeamModal(props){
                             </tr>
                           </tbody>
                         </Table>
-                      </Container>
                     </Container>
                     <Table bordered striped>
                       <thead>
@@ -171,7 +172,7 @@ function SaveTeamModal(props){
           <Accordion>
             {teamState.fetchedTeams.length > 0 ? 
               teamState.fetchedTeams.map((team, idx) => (
-                <Accordion.Item eventKey={idx} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', paddingLeft: '0.25rem'}}>
+                <Accordion.Item eventKey={idx} className='saved_team'>
                   {team.teamName}
                   <Button className={settingsState.theme} size='sm' disabled={teamState.roster.length > 0 ? false : true} onClick={(event) => saveTeam(event, team.id)}>Save As</Button>
                 </Accordion.Item>

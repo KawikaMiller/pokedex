@@ -90,7 +90,7 @@ function RightCard (props){
 
         <Card.Footer>
           {activeKey === 1 ? 
-            <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
+            <Container id='teambuilder_footer'>
               <Button size='sm' className={settingsState.theme} onClick={() => dispatch(toggleTypeChart())}>
                 Type Coverage
               </Button>
@@ -105,7 +105,7 @@ function RightCard (props){
               </Button>         
             </Container>
           :
-            <Button style={{visibility: 'hidden'}} size="sm">Just Here For Footer Consistency</Button>
+            <Button className='hidden' size="sm">Just Here For Footer Consistency</Button>
           }
         </Card.Footer>
     </Card>

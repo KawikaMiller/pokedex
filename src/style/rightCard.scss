@@ -15,6 +15,25 @@
   margin: 0.5rem 0;
 }
 
+#pokemon_basic_info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  #pokemon_id{
+    text-align: end;
+  }
+
+  #pokemon_types{
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+#main_details_container{
+  height: 25%;
+}
+
 #right_card_body {
   display: flex;
   flex-direction: column;

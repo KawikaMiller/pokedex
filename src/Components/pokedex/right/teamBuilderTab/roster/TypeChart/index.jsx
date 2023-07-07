@@ -2,9 +2,8 @@ import React from 'react'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-// import Accordion from 'react-bootstrap/Accordion';
-// import Button from 'react-bootstrap/Button';
 
+import TypeBadge from '../../../../../type/Badge';
 import TypeChartRow from '../TypeChartRow';
 import { useSelector, useDispatch } from 'react-redux';
 import teamSlice from '../../../../../../reduxStore/teamSlice';
@@ -44,10 +43,12 @@ function TeamTypeChart (props) {
       <Modal.Body>
         <Table id='team_type_chart_table' striped bordered hover size='sm'>
           <thead key='type_chart_tablehead'>
-            <tr key='type_chart_headers' id='type_chart_headers' style={{margin: '0.25rem'}}>
+            <tr key='type_chart_headers' id='type_chart_headers'>
               <th></th>{/*intentionally blank*/}
               {allTypes.map(element => (
-                <th key={`${element}_header`}>{element}</th>
+                <th key={`${element}_header`}>
+                  <TypeBadge type={element} />
+                </th>
               ))}
             </tr>
           </thead>

@@ -5,9 +5,6 @@ import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav'
 import Spinner from 'react-bootstrap/Spinner';
 
-import '../../../../../../style/learnset.css';
-import '../../../../../../style/movelist.css';
-
 import { useSelector } from 'react-redux';
 
 function Learnset (props) {
@@ -73,7 +70,7 @@ function Learnset (props) {
 
   return(
 
-    <Card className={`details ${settingsState.theme}`}>
+    <Card id='learnset' className={`details ${settingsState.theme}`}>
       <Card.Header className={settingsState.theme}>
         <Nav variant='tabs' defaultActiveKey={activeKey}>
           <Nav.Item className='subCard'>
@@ -104,7 +101,7 @@ function Learnset (props) {
       <Card.Body className='movelist_body'>
         {
           dexState.isLoading ?
-          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+          <div id='learnset_spinners'>
             <Spinner animation="grow" role="status" variant="light">
               <span className="visually-hidden">Loading...</span>
             </Spinner>
@@ -131,7 +128,7 @@ function Learnset (props) {
           null
         }
       </Card.Body>
-      <Card.Footer style={{display: 'flex', justifyContent: 'space-evenly'}}>
+      <Card.Footer>
         <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('yellow')}>Gen 1</Button>
         <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('crystal')}>Gen 2</Button>
         <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('emerald')}>Gen 3</Button>

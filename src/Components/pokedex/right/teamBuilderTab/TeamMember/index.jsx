@@ -53,13 +53,13 @@ function TeamMember (props) {
                 src={props.pokemon.sprite.front_default}
               >
               </Card.Img>
-              <p style={{margin: '0'}}>Lv. {props.pokemon.level}</p>
+              <p>Lv. {props.pokemon.level}</p>
           </section>
 
           {/* shows buttons to edit pokemon info */}
-          <section className='team_member_info' style={{width: '100%'}}>
+          <section className='team_member_info'>
 
-            <div className='team_member_edit_buttons' style={{display: 'flex', justifyContent: 'space-around', padding: '0.25rem'}}>
+            <div className='team_member_edit_buttons'>
               <Button className={settingsState.theme} size='sm' onClick={() => setShowEditModal(!showEditModal)}>
                 Edit
               </Button>
@@ -69,7 +69,7 @@ function TeamMember (props) {
               </Button>
             </div>
 
-            <ProgressBar now={100} variant='success' style={{margin: '0.25rem'}} label={props.pokemon.stats[0].stat_value} />
+            <ProgressBar now={100} variant='success' label={props.pokemon.stats[0].stat_value} />
           </section>
         </Card.Body>
       </Card>

@@ -1,7 +1,18 @@
-.learnset_header {
-  display: flex;
-  justify-content: flex-end;
+#learnset{
+  .card-footer{
+    display: flex;
+    justify-content: space-evenly;
+  }
 }
+
+#learnset_spinners{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
 
 
 .accordion-button {
@@ -30,8 +41,6 @@
   color: white;
   background-color: rgba(0,0,0,0%);
 }
-
-
 
 .accordion-body {
   font-size: 0.825rem;

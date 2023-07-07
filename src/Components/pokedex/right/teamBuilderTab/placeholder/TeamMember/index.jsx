@@ -28,7 +28,7 @@ function PlaceholderTeamMember (props){
                 src={pokeState.pokemon.sprite.front_default}
               >
               </Card.Img>
-              <p style={{margin: '0'}}>Lv. {pokeState.pokemon.level}</p>
+              <p>Lv. {pokeState.pokemon.level}</p>
             </section>
 
           <PlaceholderStats key={`${pokeState.pokemon.name}_stats`} />
