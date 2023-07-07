@@ -67,6 +67,38 @@
   display: flex;
 }
 
+#badsearch_toast{
+  position: fixed;
+  margin: 2rem 0;
+
+  .toast-header{
+    justify-content: space-between;
+    color: white;
+    border-bottom: 5px solid var(--ballSecondary);
+
+    &.pokeball{
+      background-color: var(--pokePrimary);
+    }
+
+    &.greatball{
+      background-color: var(--greatPrimary);
+    }
+
+    &.ultraball{
+      background-color: var(--ultraPrimary);
+      color: var(--ultraAccent);
+    }
+
+    &.masterball{
+      background-color: var(--masterPrimary);
+    }
+  }
+
+  // .toast-body{
+
+  // }
+}
+
 .hidden {
   visibility: hidden;
 }
