@@ -3,10 +3,10 @@
   &.pokeball{
     a{
       &:hover{
-        color: var(--pokeAccent);
+        color: $pokeAccent;
       }
       &:focus{
-        color: var(--pokeAccent);  
+        color: $pokeAccent;  
       }
     }
   }
@@ -14,10 +14,10 @@
   &.greatball{
     a{
       &:hover{
-        color: var(--greatAccent);
+        color: $greatAccent;
       }
       &:focus{
-        color: var(--greatAccent);    
+        color: $greatAccent;    
       }
     }
   }
@@ -36,10 +36,10 @@
   &.masterball{
     a{
       &:hover{
-        color: var(--masterAccent)
+        color: $masterAccent
       }
       &:focus{
-        color: var(--masterAccent)
+        color: $masterAccent
       }
     }
   }
@@ -49,7 +49,7 @@
 
   &.pokeball{
     .dropdown-menu{
-      background-color: var(--pokeAccent);
+      background-color: $pokeAccent;
       // border: 1px solid white;
       a{
         color: white;
@@ -58,7 +58,7 @@
   }
   &.greatball{
     .dropdown-menu{
-      background-color: var(--greatAccent);
+      background-color: $greatAccent;
       a{
         color: white;
       }
@@ -74,7 +74,7 @@
   }
   &.masterball{
     .dropdown-menu{
-      background-color: var(--masterAccent);
+      background-color: $masterAccent;
       a{
         color: white;
       }
@@ -87,7 +87,7 @@ nav {
 
   .ultraball{
     .nav-link{
-      color: var(--ultraAccent)
+      color: $ultraAccent
     }
   }
 
@@ -96,11 +96,11 @@ nav {
 
     &:hover{
       &.pokeball{
-        color: var(--pokeAccent)
+        color: $pokeAccent
       }
     
       &.greatball{
-        color: var(--greatAccent)
+        color: $greatAccent
       }
     
       &.ultraball{
@@ -108,7 +108,7 @@ nav {
       }
 
       &.masterball{
-        color: var(--masterAccent)
+        color: $masterAccent
       }    
     }
   }  
@@ -121,89 +121,89 @@ nav {
 
     &.pokeball{
       color: white;
-      background-color: var(--pokeSecondary);
+      background-color: $pokeSecondary;
 
       &:hover{
-        background-color: var(--pokeAccentHoverBg);
-        border-color: var(--pokeAccentHoverBorder);
+        background-color: $pokeAccentHoverBg;
+        border-color: $pokeAccentHoverBorder;
         border-bottom-color: transparent;
       }
 
       &:active{
-        background-color: var(--pokeAccentClickBg);
-        border-color: var(--pokeAccentClickBorder);
+        background-color: $pokeAccentClickBg;
+        border-color: $pokeAccentClickBorder;
         border-bottom-color: transparent;
       }
 
       &.active{
-        background-color: var(--pokedex);
+        background-color: $pokedex;
         border-bottom-color: transparent;
       }
     }
 
     &.greatball{
       color: white;
-      background-color: var(--greatSecondary);
+      background-color: $greatSecondary;
 
       &:hover{
-        background-color: var(--greatPrimary);
+        background-color: $greatPrimary;
         border-color: white;
         border-bottom-color: transparent;
       }
 
       &:active{
-        background-color: var(--greatAccentSecondary);
+        background-color: $greatAccentSecondary;
         border-color: white;
         border-bottom-color: transparent;
       }
 
       &.active{
-        background-color: var(--greatDex);
+        background-color: $greatDex;
         border-bottom-color: transparent;
       }
     }
 
     &.ultraball{
       color: white;
-      background-color: var(--ultraSecondary);
+      background-color: $ultraSecondary;
 
       &:hover{
-        background-color: var(--ultraBtnHoverBg);
-        border-color: var(--ultraBtnHoverBorder);
+        background-color: $ultraBtnHoverBg;
+        border-color: $ultraBtnHoverBorder;
         border-bottom-color: transparent;
         color: white;
       }
 
       &:active{
-        background-color: var(--ultraBtnClickBg);
-        border-color: var(--ultraBtnClickBorder);
+        background-color: $ultraBtnClickBg;
+        border-color: $ultraBtnClickBorder;
         border-bottom-color: transparent;
       }
 
       &.active{
-        background-color: var(--ultraDex);
+        background-color: $ultraDex;
         border-bottom-color: transparent;
       }
     }
 
     &.masterball{
       color: white;
-      background-color: var(--masterSecondary);
+      background-color: $masterSecondary;
 
       &:hover{
-        background-color: var(--masterBtnHoverBg);
-        border-color: var(--masterBtnHoverBorder);
+        background-color: $masterBtnHoverBg;
+        border-color: $masterBtnHoverBorder;
         border-bottom-color: transparent;
       }
 
       &:active{
-        background-color: var(--masterBtnClickBg);
-        border-color: var(--masterBtnClickBorder);
+        background-color: $masterBtnClickBg;
+        border-color: $masterBtnClickBorder;
         border-bottom-color: transparent;
       }
 
       &.active{
-        background-color: var(--masterDex);
+        background-color: $masterDex;
         border-bottom-color: transparent;
       }
     }
@@ -239,16 +239,16 @@ nav {
 
   &.greatball{
     color: white;
-    background-color: var(--greatAccent);
+    background-color: $greatAccent;
 
     &:hover{
-      background-color: var(--greatBtnHoverBg);
-      border-color: var(--greatBtnHoverBorder);
+      background-color: $greatBtnHoverBg;
+      border-color: $greatBtnHoverBorder;
     }
 
     &:active{
-      background-color: var(--greatBtnClickBg);
-      border-color: var(--greatBtnClickBorder);
+      background-color: $greatBtnClickBg;
+      border-color: $greatBtnClickBorder;
     }
 
     &.active{
@@ -259,44 +259,44 @@ nav {
   }
 
   &.ultraball{
-    color: var(--ultraAccent);
+    color: $ultraAccent;
     background-color: rgb(31, 31, 31);
 
     &:hover{
-      background-color: var(--ultraBtnHoverBg);
-      border-color: var(--ultraBtnHoverBorder);
+      background-color: $ultraBtnHoverBg;
+      border-color: $ultraBtnHoverBorder;
       color: black;
     }
 
     &:active{
-      background-color: var(--ultraBtnClickBg);
-      border-color: var(--ultraBtnClickBorder);
+      background-color: $ultraBtnClickBg;
+      border-color: $ultraBtnClickBorder;
       color: black;
     }
 
     &.active{
-      background-color: var(--ultraBtnClickBg);
+      background-color: $ultraBtnClickBg;
       border-color: yellow;
     }
   }
 
   &.masterball{
     color: white;
-    background-color: var(--masterAccent);
+    background-color: $masterAccent;
 
     &:hover{
-      background-color: var(--masterBtnHoverBg);
-      border-color: var(--masterBtnHoverBorder);
+      background-color: $masterBtnHoverBg;
+      border-color: $masterBtnHoverBorder;
 
     }
 
     &:active{
-      background-color: var(--masterBtnClickBg);
-      border-color: var(--masterBtnClickBorder);
+      background-color: $masterBtnClickBg;
+      border-color: $masterBtnClickBorder;
     }
 
     &.active{
-      background-color: var(--masterAccentSecondary);
+      background-color: $masterAccentSecondary;
       border-color: white;
       color: white;
     }

@@ -58,25 +58,25 @@
 
   &.pokeball{
     ::after {
-      border-left: 2.5rem solid var(--pokeDex);
+      border-left: 2.5rem solid $pokeDex;
     }
   }
 
   &.greatball{
     ::after {
-      border-left: 2.5rem solid var(--greatDex);
+      border-left: 2.5rem solid $greatDex;
     }
   }
 
   &.ultraball{
     ::after {
-      border-left: 2.5rem solid var(--ultraDex);
+      border-left: 2.5rem solid $ultraDex;
     }
   }
 
   &.masterball{
     ::after {
-      border-left: 2.5rem solid var(--masterDex);
+      border-left: 2.5rem solid $masterDex;
     }
   }
 }

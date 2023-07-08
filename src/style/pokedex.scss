@@ -6,25 +6,25 @@
 
     &.pokeball{
       > * {
-        background-color: var(--pokeDex);
+        background-color: $pokeDex;
       }
     }
 
     &.greatball{
       > * {
-        background-color: var(--greatDex);
+        background-color: $greatDex;
       }
     }
 
     &.ultraball{
       > * {
-        background-color: var(--ultraDex);
+        background-color: $ultraDex;
       }
     }
 
     &.masterball{
       > * {
-        background-color: var(--masterDex);
+        background-color: $masterDex;
       }
     }
   

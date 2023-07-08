@@ -60,8 +60,8 @@ function MoveList (props) {
       return props.moves
         .map((element, idx) => (
         <Accordion.Item eventKey={`${idx}`}>
-          <Accordion.Header className='accordion_move_header'>
-            <Table bordered>
+          <Accordion.Header  className={`${settingsState.theme} accordion_move_header`}>
+            <Table bordered className={settingsState.theme}>
               <tbody>
                 <tr>
                   <td>{element.levelLearned}</td>

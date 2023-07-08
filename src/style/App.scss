@@ -1,4 +1,3 @@
-
 @import './themes.scss';
 @import './body.scss';
 @import './leftCard.scss';
@@ -17,28 +16,10 @@
 @import './basestats.scss';
 @import './stat.scss';
 
+
+
 :root {
   box-sizing: border-box;
-  --bug: #A8B820;
-  --dark: #705848;
-  --dragon: #7038F8;
-  --electric: #F8D030;
-  --fairy: #EE99AC;
-  --fighting: #C03028;
-  --fire: #F08030;
-  --flying: #A890F0;
-  --ghost: #705898;
-  --grass: #78C850;
-  --ground: #E0C068;
-  --ice: #98D8D8;
-  --normal: #A8A878;
-  --poison: #A040A0;
-  --psychic: #F85888;
-  --rock: #B8A038;
-  --steel: #B8B8D0;
-  --water: #6890F0;
-  --pokedex: #dc3545;
-  --background: #282c34;
 }
 
 .spinner-grow{
@@ -47,7 +28,7 @@
 
 .App {
   text-align: center;
-  background-color: var(--background);
+  background-color: $background;
 }
 
 #pokedex-container {
@@ -74,23 +55,23 @@
   .toast-header{
     justify-content: space-between;
     color: white;
-    border-bottom: 5px solid var(--ballSecondary);
+    border-bottom: 5px solid $ballSecondary;
 
     &.pokeball{
-      background-color: var(--pokePrimary);
+      background-color: $pokePrimary;
     }
 
     &.greatball{
-      background-color: var(--greatPrimary);
+      background-color: $greatPrimary;
     }
 
     &.ultraball{
-      background-color: var(--ultraPrimary);
-      color: var(--ultraAccent);
+      background-color: $ultraPrimary;
+      color: $ultraAccent;
     }
 
     &.masterball{
-      background-color: var(--masterPrimary);
+      background-color: $masterPrimary;
     }
   }
 
@@ -102,15 +83,3 @@
 .hidden {
   visibility: hidden;
 }
-
-// ------
-
-td, th {
-  text-align: center;
-  vertical-align: middle; 
-  width: 2.75rem;
-  font-size: 0.825rem;
-}
-
-
-

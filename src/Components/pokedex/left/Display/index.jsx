@@ -28,7 +28,7 @@ function PokemonDisplay (props){
     
     <>
       {
-        dexState.isLoading ? 
+        !dexState.isLoading ? 
           missingSprites ? 
             state.formIdx === 0 ? 
               state.showShiny ? 

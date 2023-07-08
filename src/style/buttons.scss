@@ -7,48 +7,48 @@
     }
 
     &.greatball{
-      background-color: var(--greatAccent);
-      border: 0.1rem solid var(--greatBtnBorder);
+      background-color: $greatAccent;
+      border: 0.1rem solid $greatBtnBorder;
 
       &:hover{
-        background-color: var(--greatBtnHoverBg);
-        border: 0.1rem solid var(--greatBtnHoverBorder);
+        background-color: $greatBtnHoverBg;
+        border: 0.1rem solid $greatBtnHoverBorder;
       }
 
       &:first-child:active{
-        background-color: var(--greatBtnClickBg);
-        border: 0.1rem solid var(--greatBtnClickBorder);
+        background-color: $greatBtnClickBg;
+        border: 0.1rem solid $greatBtnClickBorder;
       }
     }
 
     &.ultraball{
       color: black;
-      background-color: var(--ultraAccent);
-      border: 0.1rem solid var(--ultraBtnBorder);
+      background-color: $ultraAccent;
+      border: 0.1rem solid $ultraBtnBorder;
 
       &:hover{
-        background-color: var(--ultraBtnHoverBg);
-        border: 0.1rem solid var(--ultraBtnHoverBorder);
+        background-color: $ultraBtnHoverBg;
+        border: 0.1rem solid $ultraBtnHoverBorder;
       }
 
       &:first-child:active{
-        background-color: var(--ultraBtnClickBg);
-        border: 0.1rem solid var(--ultraBtnClickBorder);
+        background-color: $ultraBtnClickBg;
+        border: 0.1rem solid $ultraBtnClickBorder;
       }
     }
 
     &.masterball{
-      background-color: var(--masterAccent);
-      border: 0.1rem solid var(--masterBtnBorder);
+      background-color: $masterAccent;
+      border: 0.1rem solid $masterBtnBorder;
 
       &:hover{
-        background-color: var(--masterBtnHoverBg);
-        border: 0.1rem solid var(--masterBtnHoverBorder);
+        background-color: $masterBtnHoverBg;
+        border: 0.1rem solid $masterBtnHoverBorder;
       }
 
       &:first-child:active{
-        background-color: var(--masterBtnClickBg);
-        border: 0.1rem solid var(--masterBtnClickBorder);
+        background-color: $masterBtnClickBg;
+        border: 0.1rem solid $masterBtnClickBorder;
       }
     }
 

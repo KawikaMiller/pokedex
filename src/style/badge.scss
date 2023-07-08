@@ -1,5 +1,3 @@
-@import './typeColors.css';
-
 .bg-bug, .bg-dark, .bg-dragon, .bg-electric, 
 .bg-fairy, .bg-fighting, .bg-fire, .bg-flying, 
 .bg-ghost, .bg-grass, .bg-ground, .bg-ice, .bg-normal,
@@ -10,80 +8,80 @@
 }
 
 .bg-bug{
-  background-color: var(--bug);
+  background-color: $bug;
   
 }
 
 .bg-dark{
-  background-color: var(--dark);
+  background-color: $dark;
 }
 
 .bg-dragon{
-  background-color: var(--dragon);
+  background-color: $dragon;
 }
 
 .bg-electric{
-  background-color: var(--electric);
+  background-color: $electric;
   color: black;
   border: 1px solid black;
 }
 
 .bg-fire{
-  background-color: var(--fire);
+  background-color: $fire;
 }
 
 .bg-fairy{
-  background-color: var(--fairy);
+  background-color: $fairy;
 }
 
 .bg-fighting{
-  background-color: var(--fighting);
+  background-color: $fighting;
 }
 
 .bg-fire{
-  background-color: var(--fire);
+  background-color: $fire;
 }
 
 .bg-flying{
-  background-color: var(--flying);
+  background-color: $flying;
 }
 
 .bg-ghost{
-  background-color: var(--ghost);
+  background-color: $ghost;
 }
 
 .bg-grass{
-  background-color: var(--grass);
+  background-color: $grass;
 }
 
 .bg-ground{
-  background-color: var(--ground);
+  background-color: $ground;
 }
 
 .bg-ice{
-  background-color: var(--ice);
+  background-color: $ice;
 }
 
 .bg-normal{
-  background-color: var(--normal);
+  background-color: $normal;
 }
 
 .bg-poison{
-  background-color: var(--poison);
+  background-color: $poison;
 }
 
 .bg-psychic{
-  background-color: var(--psychic);
+  background-color: $psychic;
 }
 
 .bg-rock{
-  background-color: var(--rock);
+  background-color: $rock;
 }
 
 .bg-steel{
-  background-color: var(--steel);
+  background-color: $steel;
 }
 
 .bg-water{
-  background-color: var(--water);
+  background-color: $water;
 }

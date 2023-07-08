@@ -32,7 +32,7 @@
 #header {
   width: 100%;
   height: 150px;
-  background-color: var(--pokedex);
+  background-color: $background;
   color: white;
   border-bottom: 1rem solid black;
   margin: 0 0 3rem 0;
@@ -46,32 +46,32 @@
   /* transition: height 2s; */
 
   &.pokeball{
-    background-color: var(--pokePrimary);
+    background-color: $pokePrimary;
   }
 
   &.greatball{
-    background-color: var(--greatPrimary)
+    background-color: $greatPrimary
   }
 
   &.ultraball{
     background:
     linear-gradient(
       to right, 
-      var(--ultraPrimary) 35%, transparent 35%, 
-      transparent 65%, var(--ultraPrimary) 65%
+      $ultraPrimary 35%, transparent 35%, 
+      transparent 65%, $ultraPrimary 65%
     ),
-    linear-gradient(var(--ultraAccent) 35%, transparent 35%), 
+    linear-gradient($ultraAccent 35%, transparent 35%), 
     linear-gradient(
       to right, 
-      var(--ultraPrimary) 35%, var(--ultraAccent) 35%,
-      var(--ultraAccent) 45%, var(--ultraPrimary) 45%,
-      var(--ultraPrimary) 55%, var(--ultraAccent) 55%,
-      var(--ultraAccent) 65%, var(--ultraPrimary) 65%
+      $ultraPrimary 35%, $ultraAccent 35%,
+      $ultraAccent 45%, $ultraPrimary 45%,
+      $ultraPrimary 55%, $ultraAccent 55%,
+      $ultraAccent 65%, $ultraPrimary 65%
     );
   }
 
   &.masterball{
-    background-color: var(--masterPrimary)
+    background-color: $masterPrimary
   }
 }
 
@@ -117,7 +117,7 @@
   transform-origin: 0 100%;
   transform: scaleY(1);
   background-color: gainsboro;
-  color: var(--pokedex);
+  color: $pokedex;
   /* border-top: 1rem solid black; */
   margin: 3rem 0 0 0;
   padding: 2rem 0;
@@ -140,7 +140,7 @@
 }
 
 #footer a {
-  color: var(--pokedex) !important;
+  color: $pokedex !important;
   margin: 0 0.5rem;
 }
 
@@ -153,7 +153,7 @@
   height: 6rem;
   border-radius: 50%;
   margin: 0;
-  background-color: var(--background);
+  background-color: $background;
   position: absolute;
   bottom: 67.25%;
   /* z-index: -5; */

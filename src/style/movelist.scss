@@ -9,22 +9,116 @@
   padding: 0;
 }
 
+.accordion-header {
+  color: rgba(255, 255, 255, 0.695);
+  margin: 0;
+  padding: 0;
+
+
+  &.pokeball {
+    > .accordion-button{
+      background-color: $pokeSecondary;
+    }
+  }
+
+  &.greatball {
+    > .accordion-button{
+      background-color: $greatPrimary;
+    }
+  }
+
+  &.ultraballball {
+    > .accordion-button{
+      background-color: $ultraPrimary;
+    }
+  }
+
+  &.masterball {
+    > .accordion-button{
+      background-color: $masterPrimary;
+    }
+  }
+}
+
 /* selects every other nested accordion item in a moveset component */
-.movelist_accordion .accordion-item:nth-child(odd) .accordion-header > .accordion-button {
-  background-color: rgb(139, 0, 0);
+.movelist_accordion .accordion-item:nth-child(odd) .accordion-header {
+  &.pokeball {
+    > .accordion-button{
+      background-color: $pokeSecondary;
+    }
+  }
+
+  &.greatball {
+    > .accordion-button{
+      background-color: $greatSecondary;
+    }
+  }
+
+  &.ultraballball {
+    > .accordion-button{
+      background-color: $ultraSecondary;
+    }
+  }
+
+  &.masterball {
+    > .accordion-button{
+      background-color: $masterSecondary;
+    }
+  }
 }
 
 .move_description {
-  background-color: var(--background);
-}
-
-.movelist_body {
-  background-color: black;
-  overflow-y: auto;
-  height: 37.3vh;
-  padding: 0;
+  background-color: $background;
 }
 
 .accordion-item{
   border: none;
+}
+
+
+.table {
+  margin-bottom: 0;
+  --bs-table-bg: inherit;
+
+  &.pokeball {
+    --bs-table-color: white;
+    --bs-table-striped-color: white;
+    --bs-table-bg: $pokePrimary;
+    --bs-table-striped-bg: rgba(255, 255, 255, 30%);
+    --bs-table-hover-color: white;
+    --bs-table-hover-bg: red;
+    --bs-table-border-color: #fc6767;
+  }
+
+  &.greatball {
+    --bs-table-color: white;
+    --bs-table-striped-color: white;
+    // --bs-table-bg: $greatPrimary);
+    --bs-table-striped-bg: rgba(255, 255, 255, 30%);
+    --bs-table-hover-color: white;
+    --bs-table-hover-bg: red;
+    --bs-table-border-color: #fc6767;
+  }
+
+  &.ultraball {
+
+  }
+
+  &.masterball {
+    
+  }
+
+  td, th {
+    text-align: center;
+    vertical-align: middle; 
+    width: 2.75rem;
+    font-size: 0.825rem;
+    max-width: 10px
+  }
+
+  th {
+    cursor: pointer;
+    justify-content: center;
+    padding: 8px 4px !important;
+  }
 }

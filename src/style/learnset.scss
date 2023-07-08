@@ -3,6 +3,15 @@
     display: flex;
     justify-content: space-evenly;
   }
+
+  .movelist_body{
+    background-color: $ballSecondary;
+    overflow-y: auto;
+    height: 37.3vh;
+    padding: 0;
+  }
+
+
 }
 
 #learnset_spinners{
@@ -10,16 +19,6 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-}
-
-
-
-
-.accordion-button {
-  color: rgba(255, 255, 255, 0.695);
-  background-color: rgb(197, 0, 0);
-  margin: 0;
-  padding: 0;
 }
 
 .accordion_move_header > .accordion-button::after{
@@ -71,23 +70,3 @@
   margin: 0.25rem 0;
 }
 
-.table {
-  --bs-table-color: white;
-  --bs-table-striped-color: white;
-  --bs-table-bg: rgba(0,0,0,0);
-  --bs-table-striped-bg: rgba(255, 255, 255, 30%);
-  --bs-table-hover-color: white;
-  --bs-table-hover-bg: red;
-  --bs-table-border-color: #fc6767;
-  margin-bottom: 0;
-}
-
-td, th {
-  max-width: 10px
-}
-
-th {
-  cursor: pointer;
-  justify-content: center;
-  padding: 8px 4px !important;
-}
