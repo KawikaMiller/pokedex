@@ -2,18 +2,43 @@
   background-color: black;
 }
 
+.movelist_button {
+  padding: 0 0.25rem;
+  width: calc(100% - 0.25rem);
+  margin: 0.25rem 0;
+}
+
+.move_description {
+  background-color: $background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6vh;
+  max-height: 10vh;
+  overflow: auto;
+
+  p {
+    margin: 0;
+  }
+}
+
 .accordion_move_header > .accordion-button {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   padding: 0;
+
+  &::after{
+    position: relative;
+    margin: 0;
+    align-self: center;
+  }
 }
 
 .accordion-header {
   color: rgba(255, 255, 255, 0.695);
   margin: 0;
   padding: 0;
-
 
   &.pokeball {
     > .accordion-button{
@@ -66,7 +91,6 @@
         background-color: $pokeAccentClickBorder;
       }
     }
-    
   }
 
   &.greatball {
@@ -100,39 +124,13 @@
   }
 }
 
-.move_description {
-  background-color: $background;
-}
-
 .accordion-item{
   border: none;
-
-  .pokeball {
-    &:hover{
-      // background-color: blue;
-    }
-  }
-
-  &.greatball {
-    &:hover{
-      
-    }
-  }
-
-  &.ultraball {
-    &:hover{
-      
-    }
-  }
-
-  &.masterball {
-    &:hover{
-      
-    }
-  }
-
 }
 
+.accordion-body {
+  font-size: 0.825rem;
+}
 
 .table {
   margin-bottom: 0;
