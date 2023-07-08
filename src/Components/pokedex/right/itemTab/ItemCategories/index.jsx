@@ -98,7 +98,7 @@ function ItemCategories(){
 
   return(
     <Card id="itemPockets">
-      <Card.Header id='itemPocketsHeader'>
+      <Card.Header id='itemPocketsHeader' className={settingsState.theme}>
         <strong>Pockets</strong>
       </Card.Header>
       <Card.Body id="itemPocketsBody">

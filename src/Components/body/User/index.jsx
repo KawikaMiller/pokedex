@@ -64,17 +64,16 @@ function UserDropdown(){
               variant="light-primary"
             >
               <Image roundedCircle={true} src="https://placehold.co/50"/>
-              {/* {userState.username} */}
             </Dropdown.Toggle>
 
-            <Dropdown.Menu align={'end'}>
-              <Dropdown.Item>{userState.username}</Dropdown.Item>
+            <Dropdown.Menu align={'end'} className={settingsState.theme}>
+              <Dropdown.Item className={settingsState.theme} disabled>{userState.username}</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Account</Dropdown.Item>
+              <Dropdown.Item className={settingsState.theme} disabled>Settings</Dropdown.Item>
+              <Dropdown.Item className={settingsState.theme} disabled>Account</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item>
-                <Button className={settingsState.theme} onClick={handleLogout}>Log Out</Button>                  
+              <Dropdown.Item className={settingsState.theme}>
+                <Button size='sm' className={settingsState.theme} onClick={handleLogout}>Log Out</Button>                  
               </Dropdown.Item>
             </Dropdown.Menu>
 

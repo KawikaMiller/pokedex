@@ -32,7 +32,21 @@
 }
 
 #itemPocketsHeader{
-  background-color: red;
+  &.pokeball{
+    background-color: $pokePrimary;
+  }
+
+  &.greatball{
+    background-color: $greatPrimary;
+  }
+
+  &.ultraball{
+    background-color: $ultraPrimary;
+  }
+
+  &.masterball{
+    background-color: $masterPrimary;
+  }
 }
 
 #itemPocketsFooter{
@@ -75,11 +89,37 @@
 }
 
 .itemAccordion{
-  margin: 0.5rem 0.25rem;
-}
+  &.pokeball{
 
-.itemAccordion:first-child{
-  margin: 0 0.25rem 0.5rem 0.25rem;
+    button{
+      color: white;
+      background-color: $pokePrimary;
+    }
+  }
+
+  &.greatball{
+
+    button{
+      color: white;
+      background-color: $greatPrimary;
+    }
+  }
+
+  &.ultraball{
+
+    button{
+      color: black;
+      background-color: $ultraAccent;
+    }
+  }
+
+  &.masterball{
+
+    button{
+      color: white;
+      background-color: $masterAccent;
+    }
+  }
 }
 
 .itemAccordionHeader.card-header{
@@ -90,8 +130,23 @@
 
 .itemAccordionHeader{
   display: flex;
-  justify-content: space-between;
   align-items: center;
+
+  button{
+    padding: 0.5rem;
+  }
+
+  div{
+    width: 100%
+  }
+
+  .item_cost{
+    width: 20%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-right: 1rem;
+  }
 }
 
 .pokedollar{
@@ -103,4 +158,6 @@
   display: flex;
   justify-content: center;
   padding: 0.5rem;
+  color: white;
+  background-color: $ballSecondary;
 }
