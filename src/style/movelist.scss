@@ -42,6 +42,7 @@
 
   &.pokeball {
     > .accordion-button{
+      color: white;
       background-color: $pokePrimary;
 
       &:hover{
@@ -52,6 +53,7 @@
 
   &.greatball {
     > .accordion-button{
+      color: white;
       background-color: $greatPrimary;
 
       &:hover{
@@ -62,6 +64,7 @@
 
   &.ultraball {
     > .accordion-button{
+      color: black;
       background-color: $ultraAccent;
 
       &:hover{
@@ -72,6 +75,7 @@
 
   &.masterball {
     > .accordion-button{
+      color: white;
       background-color: $masterPrimary;
 
       &:hover{

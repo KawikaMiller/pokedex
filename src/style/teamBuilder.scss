@@ -138,6 +138,12 @@ section.team_member_info {
   padding: 0;
 }
 
+#placeholder_badges{
+  display: flex;
+  justify-content: space-evenly;
+  // width: 25%;
+}
+
 .team_member_edit_buttons > * {
   width: 48% !important; 
 }

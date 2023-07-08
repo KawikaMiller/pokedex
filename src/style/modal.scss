@@ -26,6 +26,15 @@
 
 .modal-body {
   background-color: $background;
+
+  button{
+    color: white;
+  }
+
+  .accordion-body{
+    color: white;
+    background-color: $ballSecondary;
+  }
 }
 
 .modal-footer{
@@ -75,5 +84,35 @@ td {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-left: 0.25rem;
+  padding: 0.3rem;
+  color: white;
+
+  &.pokeball{
+    background-color: $pokePrimary
+  }
+
+  &.greatball{
+    background-color: $greatPrimary
+  }
+
+  &.ultraball{
+    background-color: $ultraPrimary;
+    color: black;
+  }
+
+  &.masterball{
+    background-color: $masterPrimary
+  }
+}
+
+.accordion-item:not(:last-of-type){
+  border-bottom: 2px solid black;
+}
+
+.accordion-button:not(.collapsed){
+  box-shadow: none;
+}
+
+.input-group{
+  margin-bottom: 1rem;
 }

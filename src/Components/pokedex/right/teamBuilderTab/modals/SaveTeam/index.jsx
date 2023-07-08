@@ -11,8 +11,6 @@ import { useSelector, useDispatch } from "react-redux";
 import teamSlice from "../../../../../../reduxStore/teamSlice";
 import { fetchTeamsFromServer, saveTeamToServer } from "../../../../../../reduxStore/helperFuncs";
 
-import '../../../../../../style/saveTeamModal.css'
-
 function SaveTeamModal(props){
   
   const teamState = useSelector(state => state.team)
@@ -51,7 +49,7 @@ function SaveTeamModal(props){
       size="lg"
       id='save_team_modal'
     >
-      <Modal.Header>
+      <Modal.Header className={settingsState.theme}>
         Save Your Team 
         <p>
           {teamState.roster.length > 0 ? '' : 'Team must have at least one member'}
@@ -78,7 +76,7 @@ function SaveTeamModal(props){
               teamState.roster.map((pokemon, idx) => (
                 
                 <Accordion.Item eventKey={idx}>
-                  <Accordion.Header>
+                  <Accordion.Header className={settingsState.theme}>
                     {`${pokemon.nickname ? pokemon.nickname : pokemon.name}`}
                     <Button className='hidden' size='sm'>Hidden for style consistency</Button>
                   </Accordion.Header>
@@ -172,7 +170,7 @@ function SaveTeamModal(props){
           <Accordion>
             {teamState.fetchedTeams.length > 0 ? 
               teamState.fetchedTeams.map((team, idx) => (
-                <Accordion.Item eventKey={idx} className='saved_team'>
+                <Accordion.Item eventKey={idx} className={`${settingsState.theme} saved_team`}>
                   {team.teamName}
                   <Button className={settingsState.theme} size='sm' disabled={teamState.roster.length > 0 ? false : true} onClick={(event) => saveTeam(event, team.id)}>Save As</Button>
                 </Accordion.Item>

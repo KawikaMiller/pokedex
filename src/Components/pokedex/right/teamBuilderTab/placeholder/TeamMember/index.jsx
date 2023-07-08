@@ -19,7 +19,9 @@ function PlaceholderTeamMember (props){
             :
               (pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1))
           }</h6>
-            {pokeState.pokemon.types.map(element => <TypeBadge type={element.type.name} />)}
+          <div id='placeholder_badges'>
+            {pokeState.pokemon.types.map(element => <TypeBadge type={element.type.name} />)}            
+          </div>
         </Card.Header>
         <Card.Body className='team_member_body'>
             <section id='placeholder_sprite'>
