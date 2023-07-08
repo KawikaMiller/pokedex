@@ -59,7 +59,7 @@ function MoveList (props) {
     if (props.moves.length > 0) {
       return props.moves
         .map((element, idx) => (
-        <Accordion.Item eventKey={`${idx}`}>
+        <Accordion.Item eventKey={`${idx}`} className={settingsState.theme}>
           <Accordion.Header  className={`${settingsState.theme} accordion_move_header`}>
             <Table bordered className={settingsState.theme}>
               <tbody>

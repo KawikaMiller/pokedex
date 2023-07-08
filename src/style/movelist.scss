@@ -17,25 +17,41 @@
 
   &.pokeball {
     > .accordion-button{
-      background-color: $pokeSecondary;
+      background-color: $pokePrimary;
+
+      &:hover{
+        background-color: $pokeAccentClickBorder;
+      }
     }
   }
 
   &.greatball {
     > .accordion-button{
       background-color: $greatPrimary;
+
+      &:hover{
+        background-color: $greatAccentSecondary;
+      }
     }
   }
 
-  &.ultraballball {
+  &.ultraball {
     > .accordion-button{
-      background-color: $ultraPrimary;
+      background-color: $ultraAccent;
+
+      &:hover{
+        background-color: rgb(255, 243, 110);
+      }
     }
   }
 
   &.masterball {
     > .accordion-button{
       background-color: $masterPrimary;
+
+      &:hover{
+        background-color: $masterAccent;
+      }
     }
   }
 }
@@ -45,24 +61,41 @@
   &.pokeball {
     > .accordion-button{
       background-color: $pokeSecondary;
+
+      &:hover{
+        background-color: $pokeAccentClickBorder;
+      }
     }
+    
   }
 
   &.greatball {
     > .accordion-button{
       background-color: $greatSecondary;
+
+      &:hover{
+        background-color: $greatAccentSecondary;
+      }
     }
   }
 
-  &.ultraballball {
+  &.ultraball {
     > .accordion-button{
-      background-color: $ultraSecondary;
+      background-color: $ultraBtnHoverBg;
+
+      &:hover{
+        background-color: rgb(255, 243, 110);
+      }
     }
   }
 
   &.masterball {
     > .accordion-button{
       background-color: $masterSecondary;
+
+      &:hover{
+        background-color: $masterAccent;
+      }
     }
   }
 }
@@ -73,52 +106,78 @@
 
 .accordion-item{
   border: none;
+
+  .pokeball {
+    &:hover{
+      // background-color: blue;
+    }
+  }
+
+  &.greatball {
+    &:hover{
+      
+    }
+  }
+
+  &.ultraball {
+    &:hover{
+      
+    }
+  }
+
+  &.masterball {
+    &:hover{
+      
+    }
+  }
+
 }
 
 
 .table {
   margin-bottom: 0;
+  color: white;
   --bs-table-bg: inherit;
-
-  &.pokeball {
-    --bs-table-color: white;
-    --bs-table-striped-color: white;
-    --bs-table-bg: $pokePrimary;
-    --bs-table-striped-bg: rgba(255, 255, 255, 30%);
-    --bs-table-hover-color: white;
-    --bs-table-hover-bg: red;
-    --bs-table-border-color: #fc6767;
-  }
-
-  &.greatball {
-    --bs-table-color: white;
-    --bs-table-striped-color: white;
-    // --bs-table-bg: $greatPrimary);
-    --bs-table-striped-bg: rgba(255, 255, 255, 30%);
-    --bs-table-hover-color: white;
-    --bs-table-hover-bg: red;
-    --bs-table-border-color: #fc6767;
-  }
-
-  &.ultraball {
-
-  }
-
-  &.masterball {
-    
-  }
+  --bs-table-border-color: black;
+  // --bs-table-hover-color: magenta;
 
   td, th {
     text-align: center;
     vertical-align: middle; 
     width: 2.75rem;
     font-size: 0.825rem;
-    max-width: 10px
+    max-width: 10px;
+    color: white;
   }
 
   th {
     cursor: pointer;
     justify-content: center;
     padding: 8px 4px !important;
+  }
+
+  &.pokeball {
+    // --bs-table-color: white;
+    // --bs-table-striped-color: white;
+    // // --bs-table-bg: $pokePrimary;
+    // --bs-table-striped-bg: rgba(255, 255, 255, 30%);
+    // --bs-table-hover-color: rgb(119, 255, 0);
+    // --bs-table-hover-bg: rgb(0, 0, 255);
+    --bs-table-border-color: #fc6767;
+  }
+
+  &.greatball {
+    --bs-table-border-color: #67d7fc;
+  }
+
+  &.ultraball {
+    --bs-table-border-color: #8a4a01;
+    td, th{
+      color: black;
+    }
+  }
+
+  &.masterball {
+    --bs-table-border-color: #f267fc;
   }
 }
