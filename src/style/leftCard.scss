@@ -47,7 +47,7 @@
   border-color: gainsboro;
   border-radius: 2.5% 2.5% 5% 2.5%;
 
-  ::after {
+  .container::after {
     content: "";
     width: 95%;
     position: absolute;
