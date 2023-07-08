@@ -23,9 +23,7 @@ function TeamMember (props) {
         }
         style={{
           background: props.pokemon.types.length === 2 ?
-            `linear-gradient(
-              var(--${props.pokemon.types[0].type.name}), var(--${props.pokemon.types[1].type.name})
-            )` 
+            `linear-gradient(var(--${props.pokemon.types[0].type.name}), var(--${props.pokemon.types[1].type.name}))` 
           : 
             `var(--${props.pokemon.types[0].type.name})`,
         }}

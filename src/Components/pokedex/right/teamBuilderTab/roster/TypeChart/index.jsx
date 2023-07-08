@@ -39,7 +39,7 @@ function TeamTypeChart (props) {
   return(
     teamState.roster.length > 0 ?
     <Modal centered show={teamState.showTypeChart} onHide={() => dispatch(toggleTypeChart())} size={'xl'}>
-      <Modal.Header>Type Effectiveness Chart</Modal.Header>
+      <Modal.Header className={settingsState.theme} >Type Effectiveness Chart</Modal.Header>
       <Modal.Body>
         <Table id='team_type_chart_table' striped bordered hover size='sm'>
           <thead key='type_chart_tablehead'>
@@ -61,7 +61,7 @@ function TeamTypeChart (props) {
         </Table>
       </Modal.Body>
       <Modal.Footer>
-        <Button className={settingsState.theme} onClick={() => dispatch(toggleTypeChart())}>Close</Button>
+        <Button size='sm' className={settingsState.theme} onClick={() => dispatch(toggleTypeChart())}>Close</Button>
       </Modal.Footer>
     </Modal>  
     : 

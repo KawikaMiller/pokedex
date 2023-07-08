@@ -3,7 +3,23 @@
 }
 
 .modal-header{
-  background-color: #dc3545;
+
+  &.pokeball{
+    background-color: $pokePrimary;
+  }
+
+  &.greatball{
+    background-color: $greatPrimary;
+  }
+
+  &.ultraball{
+    background: $ultraBallAccent;
+  }
+
+  &.masterball{
+    background-color: $masterPrimary;
+  }
+  // background-color: #dc3545;
   color: white;
   border-bottom: 5px solid black !important;
 }

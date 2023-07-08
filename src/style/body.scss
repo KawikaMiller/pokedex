@@ -50,28 +50,15 @@
   }
 
   &.greatball{
-    background-color: $greatPrimary
+    background-color: $greatPrimary;
   }
 
   &.ultraball{
-    background:
-    linear-gradient(
-      to right, 
-      $ultraPrimary 35%, transparent 35%, 
-      transparent 65%, $ultraPrimary 65%
-    ),
-    linear-gradient($ultraAccent 35%, transparent 35%), 
-    linear-gradient(
-      to right, 
-      $ultraPrimary 35%, $ultraAccent 35%,
-      $ultraAccent 45%, $ultraPrimary 45%,
-      $ultraPrimary 55%, $ultraAccent 55%,
-      $ultraAccent 65%, $ultraPrimary 65%
-    );
+    background: $ultraBallAccent;
   }
 
   &.masterball{
-    background-color: $masterPrimary
+    background-color: $masterPrimary;
   }
 }
 

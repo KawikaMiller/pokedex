@@ -12,6 +12,7 @@ import EditPokemon from '../../../../../forms/EditPokemon';
 function PlaceholderStats(props) {
   const [showEditModal, setShowEditModal] = useState(false);
   const pokeState = useSelector(state => state.pokemon);
+  const teamState = useSelector(state => state.team);
   const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   let { modifyProperty } = pokeSlice.actions
@@ -25,6 +26,14 @@ function PlaceholderStats(props) {
         return 1;
       } else return 0;
     })
+  }
+
+  const handleAddToRoster = (pokemon) => {
+    if (teamState.roster.length >= 6){
+      alert('There is no room on your team');
+    } else{
+      dispatch(addToRoster(pokemon))
+    }
   }
 
   // sorts moves on component mount
