@@ -41,11 +41,20 @@
 }
 
 .card{
-  border: 1px solid rgba(0, 0, 0, 100%)
+  border: 1px solid rgba(253, 126, 126, 0.644)
 }
 
 #searchbar{
   display: flex;
+}
+
+.dropdown-menu{
+  max-height: 10.5rem;
+  width: 94.25%;
+  overflow-y: scroll;
+  .dropdown-item{
+    color: black !important;    
+  }
 }
 
 #badsearch_toast{

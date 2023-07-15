@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import InputGroup from 'react-bootstrap/InputGroup';
+// import InputGroup from 'react-bootstrap/InputGroup';
 import Container from "react-bootstrap/Container";
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { autoSuggestions } from '../../../lib/autocomplete';
 
 import { useDispatch, useSelector } from 'react-redux';
 import pokeSlice from '../../../reduxStore/pokeSlice';
@@ -18,6 +20,8 @@ function SearchBar (props) {
 
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [suggestions, setSuggestions] = useState([]);
 
     const pokeState = useSelector(state => state.pokemon)
     const settingsState = useSelector(state => state.settings)
@@ -56,19 +60,41 @@ function SearchBar (props) {
       setShowModal(!showModal);
     }
 
+    const handleOnChange = (event) => {
+      if (event.target.value.length){
+        setSuggestions(autoSuggestions.filter(name => {
+          if (name.toLowerCase().includes(event.target.value.toLowerCase())){
+            return name;
+          } else;
+        }));
+      } else {
+        setSuggestions([]);
+      }
+      dispatch(handleSearchInputChange(event.target.value));
+    }
+    
+    const handleDropdownClick = (event) => {
+      console.log(event.target.innerText)
+      dispatch(handleSearchInputChange(event.target.innerText))
+    }
+
 
     return(
-      <Container>     
+      <Container>
+        <Dropdown>
         <Form 
           onSubmit={handleSearch} 
           id='searchbar'
         >
-          <Form.Control 
+          <Dropdown.Toggle
+            as={'input'}
             id='search_input' 
             type="text" 
             placeholder='Search by name or id...' 
-            onChange={(event) => dispatch(handleSearchInputChange(event.target.value.toLowerCase()))}
-            value={pokeState.searchInput} />
+            className='form-control'
+            onChange={handleOnChange}
+            value={pokeState.searchInput}
+          />
 
           <Button 
             type='submit' 
@@ -77,8 +103,13 @@ function SearchBar (props) {
           >
             Search
           </Button>
-
         </Form>
+
+        
+          <Dropdown.Menu show={false}>
+              {suggestions.length ? suggestions.map((name, idx) => <Dropdown.Item eventKey={idx} onClick={handleDropdownClick}>{name}</Dropdown.Item>) : null}
+          </Dropdown.Menu>
+        </Dropdown>
 
         <ToastContainer  key='badsearch' id='badsearch_toast' position='bottom-center'>
           <Toast autohide delay={5000} show={showAlert} onClose={() => setShowAlert(!showAlert)}>

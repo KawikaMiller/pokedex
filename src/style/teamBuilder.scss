@@ -127,11 +127,12 @@ section.team_member_info {
   }
 }
 
-#team_members {
+#roster {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  // justify-content: space-between;
   padding: 0;
+  height: 77.5%;
 }
 
 #team_member_placeholder {
@@ -159,6 +160,12 @@ section.team_member_info {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+
+  #team_members{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }
 
 #team_name_container{
@@ -167,6 +174,8 @@ section.team_member_info {
   #team_name{
     vertical-align: middle;
     margin: 0.5rem 0;
+    font-size: 2rem;
+    float: left;
   }
 }
 
