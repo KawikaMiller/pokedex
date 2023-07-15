@@ -58,6 +58,19 @@ function Learnset (props) {
     setEggMoves(eggArr);
   }
 
+  const handleClick = (event, generation) => {
+    console.log(event.target.classList)
+
+    setActiveGeneration(generation);
+    let buttonEls = document.getElementsByClassName('move_gen_button');
+    for(const button of buttonEls){
+      if (button.classList.contains('active_button')){
+        button.classList.remove('active_button');
+      }
+    }
+    event.target.classList.add('active_button')
+  }
+
   // handles state change & move parsing during react lifecycle || simulates 'componentDidMount'
   useEffect(() => {
     parseMovesByGeneration(activeGeneration)
@@ -129,15 +142,67 @@ function Learnset (props) {
         }
       </Card.Body>
       <Card.Footer>
-        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('yellow')}>Gen 1</Button>
-        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('crystal')}>Gen 2</Button>
-        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('emerald')}>Gen 3</Button>
-        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('platinum')}>Gen 4</Button>
-        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('black-2-white-2')}>Gen 5</Button>
-        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('x-y')}>Gen 6</Button>
-        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('ultra-sun-ultra-moon')}>Gen 7</Button>
-        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('sword-shield')}>Gen 8</Button>
-        <Button className={settingsState.theme} size='sm' onClick={() => setActiveGeneration('scarlet-violet')}>Gen 9</Button>
+        <Button 
+          className={`${settingsState.theme} move_gen_button`} 
+          size='sm' 
+          onClick={(event) => handleClick(event, 'yellow')} 
+          disabled={pokeState.pokemon?.id > 151}
+        >Gen 1</Button>
+
+        <Button 
+          className={`${settingsState.theme} move_gen_button`}  
+          size='sm' 
+          onClick={(event) => handleClick(event, 'crystal')}
+          disabled={pokeState.pokemon?.id > 251}
+        >Gen 2</Button>
+
+        <Button 
+          className={`${settingsState.theme} move_gen_button`}
+          size='sm' 
+          onClick={(event) => handleClick(event, 'emerald')}
+          disabled={pokeState.pokemon?.id > 386}
+        >Gen 3</Button>
+
+        <Button 
+          className={`${settingsState.theme} move_gen_button`}
+          size='sm' 
+          onClick={(event) => handleClick(event, 'platinum')}
+          disabled={pokeState.pokemon?.id > 494}
+        >Gen 4</Button>
+
+        <Button 
+          className={`${settingsState.theme} move_gen_button`}
+          size='sm' 
+          onClick={(event) => handleClick(event, 'black-2-white-2')}
+          disabled={pokeState.pokemon?.id > 649}
+        >Gen 5</Button>
+
+        <Button 
+          className={`${settingsState.theme} move_gen_button`}
+          size='sm' 
+          onClick={(event) => handleClick(event, 'x-y')}
+          disabled={pokeState.pokemon?.id > 721}
+        >Gen 6</Button>
+
+        <Button 
+          className={`${settingsState.theme} move_gen_button`}
+          size='sm' 
+          onClick={(event) => handleClick(event, 'ultra-sun-ultra-moon')}
+          disabled={pokeState.pokemon?.id > 809}
+        >Gen 7</Button>
+
+        <Button 
+          className={`${settingsState.theme} move_gen_button`}
+          size='sm' 
+          onClick={(event) => handleClick(event, 'sword-shield')}
+          disabled={pokeState.pokemon?.id > 905}
+        >Gen 8</Button>
+
+        <Button 
+          className={`${settingsState.theme} move_gen_button`}
+          size='sm' 
+          onClick={(event) => handleClick(event, 'scarlet-violet')}
+        >Gen 9</Button>
       </Card.Footer>
     </Card>
 

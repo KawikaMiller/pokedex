@@ -106,7 +106,7 @@ function SearchBar (props) {
         </Form>
 
         
-          <Dropdown.Menu show={false}>
+          <Dropdown.Menu show={true} id='search_suggestions'>
               {suggestions.length ? suggestions.map((name, idx) => <Dropdown.Item eventKey={idx} onClick={handleDropdownClick}>{name}</Dropdown.Item>) : null}
           </Dropdown.Menu>
         </Dropdown>

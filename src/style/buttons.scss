@@ -1,9 +1,13 @@
 .btn {
 
   &:not(.btn-danger){
-    &.pokeball{
-      // background-color: ;
 
+    &.pokeball{
+
+      &.active_button{
+        background-color: $pokePrimary;
+        border: 0.1rem solid $pokeSecondary;
+      }
     }
 
     &.greatball{
@@ -19,6 +23,12 @@
         background-color: $greatBtnClickBg;
         border: 0.1rem solid $greatBtnClickBorder;
       }
+
+      &.active_button{
+        background-color:  $greatAccentSecondary;
+        border: 0.1rem solid $greatPrimary;
+      }
+
     }
 
     &.ultraball{
@@ -35,6 +45,12 @@
         background-color: $ultraBtnClickBg;
         border: 0.1rem solid $ultraBtnClickBorder;
       }
+
+      &.active_button{
+        background-color:  $ultraPrimary;
+        border: 0.1rem solid $ultraAccent;
+        color: white;
+      }
     }
 
     &.masterball{
@@ -49,6 +65,11 @@
       &:first-child:active{
         background-color: $masterBtnClickBg;
         border: 0.1rem solid $masterBtnClickBorder;
+      }
+
+      &.active_button{
+        background-color:  $masterPrimary;
+        border: 0.1rem solid $masterSecondary;
       }
     }
 

@@ -48,10 +48,10 @@
   display: flex;
 }
 
-.dropdown-menu{
+#search_suggestions{
   max-height: 10.5rem;
   width: 94.25%;
-  overflow-y: scroll;
+  overflow-y: auto;
   .dropdown-item{
     color: black !important;    
   }
