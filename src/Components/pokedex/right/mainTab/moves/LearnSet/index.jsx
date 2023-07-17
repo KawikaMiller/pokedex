@@ -92,7 +92,6 @@ function Learnset (props) {
     setTmMoves(tmArr);
     setTutorMoves(tutorArr);
     setEggMoves(eggArr);
-    console.log('HAS MOVES: ', hasMoves)
   }
 
   const handleClick = (event, generation) => {
