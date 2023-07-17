@@ -1,3 +1,8 @@
+$headerfooterheight: 150px;
+$headerfooterborderwidth: 1rem;
+$headerfooterverticalmargin: 3rem;
+$headerfooterverticalpadding: 2rem;
+
 // -- transition animation testing ---
 
 #footer.blarg {
@@ -27,16 +32,16 @@
   display: none;
 }
 
-// -----------------
+// --------header---------
 
 #header {
   width: 100%;
-  height: 150px;
+  height: $headerfooterheight;
   background-color: $background;
   color: white;
-  border-bottom: 1rem solid black;
-  margin: 0 0 3rem 0;
-  padding: 2rem 0 !important;
+  border-bottom: $headerfooterborderwidth solid black;
+  // margin: 0 0 $headerfooterverticalmargin 0;
+  padding: $headerfooterverticalpadding 0 !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -98,16 +103,18 @@
   top: 67.25%;
 }
 
+// --------footer---------
+
 #footer {
   width: 100%;
-  height: 150px;
+  height: $headerfooterheight;
   transform-origin: 0 100%;
   transform: scaleY(1);
   background-color: gainsboro;
   color: $pokedex;
   /* border-top: 1rem solid black; */
-  margin: 3rem 0 0 0;
-  padding: 2rem 0;
+  // margin: $headerfooterverticalmargin 0 0 0;
+  padding: $headerfooterverticalpadding 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -158,11 +165,84 @@
   /* z-index: -5; */
 }
 
+// --------main---------
+
 main {
+  min-height: calc(100vh - (2 * $headerfooterheight) - $headerfooterborderwidth);
   /* height: 100vh; */
   margin: 5rem 0 !important;
   /* display: inherit; */
   opacity: 100%;
   /* transition: opacity 1s;
   transition: height 2s; */
+}
+
+// --------about---------
+
+#about {
+  display: flex;
+  padding: 5rem;
+  height: 70vh;
+
+  > * {
+    margin: 0 0.5rem;
+  }
+
+  #about_content {
+    color: white;
+    width: 65%;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+
+    p {
+      text-align: left;
+      font-size: x-large;
+      max-height: 80%;
+    }
+  }
+  
+  #about_categories {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 35%;
+
+    > * {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      font-size: x-large;
+      font-weight: bold;
+    }
+  }
+}
+
+// --------contact---------
+
+#contact{
+  padding: 5rem;
+  height: 70vh;
+  color: white;
+
+  button{
+    width: 35%;
+  }
+}
+
+#contact_details{
+  display: flex;
+  justify-content: space-between;
+
+  > * {
+    width: 47%;
+  }
+}
+
+.form_group{
+  text-align: left;
+
+  label {
+    text-align: left;
+    color: white;
+  }
 }

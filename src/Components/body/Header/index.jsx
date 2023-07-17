@@ -28,8 +28,9 @@ function Header (props) {
         <Navbar>
           <Nav id='nav_left'>
             <Navbar.Brand>Pokedex App</Navbar.Brand>
-            <Nav.Link className={settingsState.theme}>Home</Nav.Link>
-            <Nav.Link className={settingsState.theme}>About</Nav.Link>
+            <Nav.Link className={settingsState.theme} href='/'>Home</Nav.Link>
+            <Nav.Link className={settingsState.theme} href='/about'>About</Nav.Link>
+            <Nav.Link className={settingsState.theme} href='/contact'>Contact</Nav.Link>
             <NavDropdown title='Theme' className={settingsState.theme}>
               <NavDropdown.Item onClick={() => handleThemeChange('pokeball')}>Pokeball</NavDropdown.Item>
               <NavDropdown.Item onClick={() => handleThemeChange('greatball')}>Greatball</NavDropdown.Item>

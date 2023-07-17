@@ -29,6 +29,17 @@ function Pokedex (props) {
     alert('Please search for a pokemon first')
   }
 
+  const playAudio = () => {
+    if (pokeState.pokemon?.name){
+      let audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${pokeState.pokemon.name.toLowerCase()}.mp3`);
+      audio.volume = 0.1;
+      audio.play();      
+    } else {
+      pleaseSearchAlert();
+    }
+
+  }
+
   const handleToggleShiny = () => {
     if(pokeState.pokemon?.name){
       dispatch(toggleShiny(!pokeState.showShiny))      
@@ -168,11 +179,7 @@ function Pokedex (props) {
             <Container id='pokedex-bottom-ui'>
               
               <Container id='bottom-ui-circlebutton'>
-                <Container id='circlebutton' onClick={() => {
-                  let audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${pokeState.pokemon.name.toLowerCase()}.mp3`);
-                  audio.volume = 0.1;
-                  audio.play();
-                }}>                   
+                <Container id='circlebutton' onClick={playAudio}>                   
                 </Container>
               </Container>
 
