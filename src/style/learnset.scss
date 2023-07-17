@@ -1,0 +1,21 @@
+#learnset{
+  .card-footer{
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .movelist_body{
+    background-color: $ballSecondary;
+    overflow-y: auto;
+    height: 37.3vh;
+    padding: 0;
+  }
+
+}
+
+#learnset_spinners{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

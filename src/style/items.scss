@@ -6,7 +6,7 @@
 
 #itemsContainerParent{
   width: 68%;
-  max-height: 73.5vh;
+  max-height: 765px;
   margin-left: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -19,19 +19,34 @@
   justify-content: flex-start;
   overflow-y: auto;
   overflow-x: hidden;
+
   /* mask-image: linear-gradient(to bottom, black 97%, transparent 100%); */
 }
 
 #itemPockets{
   background-color: rgba(0, 0, 0, 40%);
   color: white;
-  max-height: 73.5vh;
+  max-height: 765px;
   width: 40%;
   border-color: white;
 }
 
 #itemPocketsHeader{
-  background-color: red;
+  &.pokeball{
+    background-color: $pokePrimary;
+  }
+
+  &.greatball{
+    background-color: $greatPrimary;
+  }
+
+  &.ultraball{
+    background-color: $ultraPrimary;
+  }
+
+  &.masterball{
+    background-color: $masterPrimary;
+  }
 }
 
 #itemPocketsFooter{
@@ -46,10 +61,23 @@
   /* justify-content: center; */
   overflow-y: auto;
   padding: 0 0.5rem;
+
+  h6{
+    text-align: left;
+    border-bottom: 1px solid white;
+    margin-top: 0.5rem;
+  }
+
+  .pocketCategoryCheckbox{
+    text-align: left;
+  }
 }
 
-#itemPocketsBody > h6 {
-  margin-top: 0.5rem;
+#itemsLoading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 765px;
 }
 
 .categoryAccordionBody.accordion-body{
@@ -61,11 +89,37 @@
 }
 
 .itemAccordion{
-  margin: 0.5rem 0.25rem;
-}
+  &.pokeball{
 
-.itemAccordion:first-child{
-  margin: 0 0.25rem 0.5rem 0.25rem;
+    button{
+      color: white;
+      background-color: $pokePrimary;
+    }
+  }
+
+  &.greatball{
+
+    button{
+      color: white;
+      background-color: $greatPrimary;
+    }
+  }
+
+  &.ultraball{
+
+    button{
+      color: black;
+      background-color: $ultraAccent;
+    }
+  }
+
+  &.masterball{
+
+    button{
+      color: white;
+      background-color: $masterAccent;
+    }
+  }
 }
 
 .itemAccordionHeader.card-header{
@@ -76,8 +130,23 @@
 
 .itemAccordionHeader{
   display: flex;
-  justify-content: space-between;
   align-items: center;
+
+  button{
+    padding: 0.5rem;
+  }
+
+  div{
+    width: 100%
+  }
+
+  .item_cost{
+    width: 20%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 1rem;
+  }
 }
 
 .pokedollar{
@@ -89,4 +158,6 @@
   display: flex;
   justify-content: center;
   padding: 0.5rem;
+  color: white;
+  background-color: $ballSecondary;
 }

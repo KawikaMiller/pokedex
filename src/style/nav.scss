@@ -1,0 +1,304 @@
+// header nav theme dropdown menu
+.nav-item{
+  &.pokeball{
+    a{
+      &:hover{
+        color: $pokeAccent;
+      }
+      &:focus{
+        color: $pokeAccent;  
+      }
+    }
+  }
+
+  &.greatball{
+    a{
+      &:hover{
+        color: $greatAccent;
+      }
+      &:focus{
+        color: $greatAccent;    
+      }
+    }
+  }
+
+  &.ultraball{
+    a{
+      &:hover{
+        color: white;
+      }
+      &:focus{
+        color: white;      
+      }
+    }
+  }
+
+  &.masterball{
+    a{
+      &:hover{
+        color: $masterAccent
+      }
+      &:focus{
+        color: $masterAccent
+      }
+    }
+  }
+}
+
+.dropdown {
+
+  &.pokeball{
+    .dropdown-menu{
+      background-color: $pokeAccent;
+      // border: 1px solid white;
+      a{
+        color: white;
+      }
+    }
+  }
+  &.greatball{
+    .dropdown-menu{
+      background-color: $greatAccent;
+      a{
+        color: white;
+      }
+    }
+  }
+  &.ultraball{
+    .dropdown-menu{
+      background-color: grey;
+      a{
+        color: white;
+      }
+    }
+  }
+  &.masterball{
+    .dropdown-menu{
+      background-color: $masterAccent;
+      a{
+        color: white;
+      }
+    }
+  }
+}
+
+// Header nav
+nav {
+
+  .ultraball{
+    .nav-link{
+      color: $ultraAccent
+    }
+  }
+
+  .nav-link{
+    color: white;
+
+    &:hover{
+      &.pokeball{
+        color: $pokeAccent
+      }
+    
+      &.greatball{
+        color: $greatAccent
+      }
+    
+      &.ultraball{
+        color: white;
+      }
+
+      &.masterball{
+        color: $masterAccent
+      }    
+    }
+  }  
+}
+
+// navtabs at the top of the <RightCard /> component (i.e. 'Main', 'TeamBuilder', 'Items')
+.rightCardNav {
+
+  &.nav-link{
+
+    &.pokeball{
+      color: white;
+      background-color: $pokeSecondary;
+
+      &:hover{
+        background-color: $pokeAccentHoverBg;
+        border-color: $pokeAccentHoverBorder;
+        border-bottom-color: transparent;
+      }
+
+      &:active{
+        background-color: $pokeAccentClickBg;
+        border-color: $pokeAccentClickBorder;
+        border-bottom-color: transparent;
+      }
+
+      &.active{
+        background-color: $pokedex;
+        border-bottom-color: transparent;
+      }
+    }
+
+    &.greatball{
+      color: white;
+      background-color: $greatSecondary;
+
+      &:hover{
+        background-color: $greatPrimary;
+        border-color: white;
+        border-bottom-color: transparent;
+      }
+
+      &:active{
+        background-color: $greatAccentSecondary;
+        border-color: white;
+        border-bottom-color: transparent;
+      }
+
+      &.active{
+        background-color: $greatDex;
+        border-bottom-color: transparent;
+      }
+    }
+
+    &.ultraball{
+      color: white;
+      background-color: $ultraSecondary;
+
+      &:hover{
+        background-color: $ultraBtnHoverBg;
+        border-color: $ultraBtnHoverBorder;
+        border-bottom-color: transparent;
+        color: white;
+      }
+
+      &:active{
+        background-color: $ultraBtnClickBg;
+        border-color: $ultraBtnClickBorder;
+        border-bottom-color: transparent;
+      }
+
+      &.active{
+        background-color: $ultraDex;
+        border-bottom-color: transparent;
+      }
+    }
+
+    &.masterball{
+      color: white;
+      background-color: $masterSecondary;
+
+      &:hover{
+        background-color: $masterBtnHoverBg;
+        border-color: $masterBtnHoverBorder;
+        border-bottom-color: transparent;
+      }
+
+      &:active{
+        background-color: $masterBtnClickBg;
+        border-color: $masterBtnClickBorder;
+        border-bottom-color: transparent;
+      }
+
+      &.active{
+        background-color: $masterDex;
+        border-bottom-color: transparent;
+      }
+    }
+  }
+
+}
+
+// navtabs for the details components of the 'Main' tab of the <RightCard /> component
+.nav-link {
+  margin: 0 0.25rem;
+  border-bottom-color: transparent;
+
+  &.pokeball{
+    color: white;
+    background-color: #0d6efd;
+
+    &:hover{
+      background-color: #0b5ed7;
+      border-color: #0a58ca;
+    }
+
+    &:active{
+      background-color: #0a58ca;
+      border-color: #0a53be;
+    }
+
+    &.active{
+      background-color: #2d99ff;
+      border-color: white;
+      color: white;
+    }
+  }
+
+  &.greatball{
+    color: white;
+    background-color: $greatAccent;
+
+    &:hover{
+      background-color: $greatBtnHoverBg;
+      border-color: $greatBtnHoverBorder;
+    }
+
+    &:active{
+      background-color: $greatBtnClickBg;
+      border-color: $greatBtnClickBorder;
+    }
+
+    &.active{
+      background-color: rgb(255, 61, 61);
+      border-color: white;
+      color: white;
+    }
+  }
+
+  &.ultraball{
+    color: $ultraAccent;
+    background-color: rgb(31, 31, 31);
+
+    &:hover{
+      background-color: $ultraBtnHoverBg;
+      border-color: $ultraBtnHoverBorder;
+      color: black;
+    }
+
+    &:active{
+      background-color: $ultraBtnClickBg;
+      border-color: $ultraBtnClickBorder;
+      color: black;
+    }
+
+    &.active{
+      background-color: $ultraBtnClickBg;
+      border-color: yellow;
+    }
+  }
+
+  &.masterball{
+    color: white;
+    background-color: $masterAccent;
+
+    &:hover{
+      background-color: $masterBtnHoverBg;
+      border-color: $masterBtnHoverBorder;
+
+    }
+
+    &:active{
+      background-color: $masterBtnClickBg;
+      border-color: $masterBtnClickBorder;
+    }
+
+    &.active{
+      background-color: $masterAccentSecondary;
+      border-color: white;
+      color: white;
+    }
+  }
+}

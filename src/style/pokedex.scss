@@ -1,0 +1,38 @@
+.pokedex{
+
+  > .card{
+
+    // border: 3px solid green;
+
+    &.pokeball{
+      > * {
+        background-color: $pokeDex;
+      }
+    }
+
+    &.greatball{
+      > * {
+        background-color: $greatDex;
+      }
+    }
+
+    &.ultraball{
+      > * {
+        background-color: $ultraDex;
+      }
+    }
+
+    &.masterball{
+      > * {
+        background-color: $masterDex;
+      }
+    }
+  
+  }
+
+}
+
+
+#rightcard{
+  justify-content: space-evenly;
+}

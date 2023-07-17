@@ -15,23 +15,23 @@ function RightMainTab (props) {
     <Container className='rightMain'>
 
       <Container>
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <div id='pokemon_basic_info'>
           <div>
-            <h2>{pokeState.pokemon?.name ? pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1) : '--' }</h2>
-            <h6>{pokeState.pokemon?.genus ? pokeState.pokemon.genus : '--'}</h6>
+            <h2 id='pokemon_name'>{pokeState.pokemon?.name ? pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1) : '--' }</h2>
+            <h6 id='pokemon_genus'>{pokeState.pokemon?.genus ? pokeState.pokemon.genus : '--'}</h6>
           </div>
           <div>
-            <h4 style={{textAlign: 'end'}}>
+            <h4 id='pokemon_id'>
               {pokeState.pokemon?.id ? `# ${pokeState.pokemon?.id.toString().padStart(4, '0')}` : '# 0000'}
             </h4>
-            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+            <div id='pokemon_types'>
               {pokeState.pokemon?.types ? pokeState.pokemon?.types.map(element => <TypeBadge type={element.type.name} />) : <TypeBadge type='--' />}           
             </div>
           </div>
         </div>
       </Container>
 
-      <Container style={{height: '20vh', display: 'flex', flexDirection: 'column'}}>
+      <Container id='main_details_container'>
         <MainDetails />
       </Container>
 

@@ -1,0 +1,87 @@
+.bg-bug, .bg-dark, .bg-dragon, .bg-electric, 
+.bg-fairy, .bg-fighting, .bg-fire, .bg-flying, 
+.bg-ghost, .bg-grass, .bg-ground, .bg-ice, .bg-normal,
+.bg-poison, .bg-psychic, .bg-rock, .bg-steel, .bg-water {
+  color: white;
+  border: 1px solid white;
+  margin: 0 0.1rem
+}
+
+.bg-bug{
+  background-color: $bug;
+  
+}
+
+.bg-dark{
+  background-color: $dark;
+}
+
+.bg-dragon{
+  background-color: $dragon;
+}
+
+.bg-electric{
+  background-color: $electric;
+  color: black;
+  border: 1px solid black;
+}
+
+.bg-fire{
+  background-color: $fire;
+}
+
+.bg-fairy{
+  background-color: $fairy;
+}
+
+.bg-fighting{
+  background-color: $fighting;
+}
+
+.bg-fire{
+  background-color: $fire;
+}
+
+.bg-flying{
+  background-color: $flying;
+}
+
+.bg-ghost{
+  background-color: $ghost;
+}
+
+.bg-grass{
+  background-color: $grass;
+}
+
+.bg-ground{
+  background-color: $ground;
+}
+
+.bg-ice{
+  background-color: $ice;
+}
+
+.bg-normal{
+  background-color: $normal;
+}
+
+.bg-poison{
+  background-color: $poison;
+}
+
+.bg-psychic{
+  background-color: $psychic;
+}
+
+.bg-rock{
+  background-color: $rock;
+}
+
+.bg-steel{
+  background-color: $steel;
+}
+
+.bg-water{
+  background-color: $water;
+}

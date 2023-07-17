@@ -1,0 +1,275 @@
+#light-container {
+  display: flex;
+  width: 40%;
+  justify-content: space-evenly;
+}
+
+#blue-light {
+  width: 10vh;
+  height: 10vh;
+  border-radius: 50%;
+  background-color: #009fff;
+  border: 0.35rem solid white;
+}
+
+#red-light, #yellow-light, #green-light {
+  width: 2vh;
+  height: 2vh;
+  border-radius: 50%;
+  border: 0.125rem solid rgba(0, 0, 0, 20%);
+}
+
+#red-light {
+  background-color: #d60000;
+}
+
+#yellow-light {
+  background-color: #f7e600;
+}
+
+#green-light {
+  background-color: #00c900;
+}
+
+// ---------------
+
+#pokedex_display_border {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
+  width: 85%;
+  padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: gainsboro;
+  border-color: gainsboro;
+  border-radius: 2.5% 2.5% 5% 2.5%;
+
+  .container::after {
+    content: "";
+    width: 95%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 2.5rem solid rgb(220, 220, 220);
+  }
+
+  &.pokeball{
+    ::after {
+      border-left: 2.5rem solid $pokeDex;
+    }
+  }
+
+  &.greatball{
+    ::after {
+      border-left: 2.5rem solid $greatDex;
+    }
+  }
+
+  &.ultraball{
+    ::after {
+      border-left: 2.5rem solid $ultraDex;
+    }
+  }
+
+  &.masterball{
+    ::after {
+      border-left: 2.5rem solid $masterDex;
+    }
+  }
+}
+
+#pokedex_display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 70%;
+  padding: 0;
+  background-color: #4fb9ff;
+  border-radius: 2.5%;
+
+  img {
+    width: 65%;
+    height: auto;
+    overflow: hidden;
+  }
+}
+
+// ---------------
+
+
+#pokedex-bottom-ui {
+  display: flex;
+  justify-content: center;
+  height: 35%;
+}
+
+// ---------------
+
+#bottom-ui-circlebutton {
+  display: flex;
+  justify-content: center;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 20%;
+}
+
+#circlebutton {
+  position: relative;
+  top: 25px;
+  background-color: dimgray;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  cursor: pointer;
+  
+  &:hover{
+    background-color: grey;
+  }
+}
+
+// ---------------
+
+#bottom-ui-center.container {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+// ---------------
+
+#bottom-ui-red-blue{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  padding: 0;
+  // margin: 0 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  button {
+    margin:  0 0.25rem;
+    height: 0.75rem;
+    width: 40%;
+    // background-color: 2px solid rgba(0, 0, 0, 20%);
+    // box-shadow:1px 1px 1px 2px rgba(0, 0, 0, 20%);
+  }
+}
+
+// ---------------
+
+#bottom-ui-basestats {
+
+  h4 {
+    margin: 0;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid rgba(31, 103, 0, 0.149);
+  }
+  
+  :nth-child(2n+1)+div {
+    background-color: rgba(31, 103, 0, 0.149);
+  }
+}
+
+.base_stat {
+  display: flex;
+  justify-content: space-between; 
+  text-align: start; 
+  padding: 0 0.5rem;
+  align-items: baseline;
+}
+
+div.base_stat_progressbar.progress {
+background-color: #a1f36a; 
+height: 1.3vh; 
+margin: 0.75vh; 
+width: 60%; 
+float: right;
+}
+
+#bottom-ui-basestats {
+  font-family: 'Press Start 2P';
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 90%;
+  height: 60%;
+}
+
+#basestats-card{
+  color:rgb(0, 94, 0);
+  background-color: #82da48;
+}
+
+.basestat_label {
+  margin: 0;
+  width: 35%;
+  font-size: 0.55rem;
+}
+
+.basestat_value{
+  float: right
+}
+
+// ---------------
+
+#bottom-ui-dpad {
+  position: relative;
+  top: 1rem;
+  display: grid;
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px;
+  width: 150px;
+  height: 150px;
+  margin: 2rem 1rem;
+  padding: 0 !important;
+  background-color: rgba(0, 0, 0, 20%);
+  border-radius: 50%;
+  box-shadow:1px 1px 1px 6.5px rgba(0, 0, 0, 20%);
+}
+
+#dpad-up, #dpad-center, #dpad-down {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+#dpad-left, #dpad-center, #dpad-right {
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+#dpad-left {
+  grid-column-start: 1;
+  grid-column-end: 2
+}
+
+#dpad-right {
+  grid-column-start: 3;
+  grid-column-end: 4;
+}
+
+#dpad-up, #dpad-left, #dpad-center, #dpad-right, #dpad-down {
+  background-color: dimgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .svg-inline--fa {
+    color:rgba(0, 0, 0, 20%);
+    height: 2.25rem;
+  }
+}
+
+#dpad-up:hover,
+#dpad-left:hover, 
+#dpad-right:hover, 
+#dpad-down:hover {
+  background-color: grey;
+  cursor: pointer;
+}

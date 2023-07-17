@@ -12,19 +12,21 @@ function Team (props){
   const teamState = useSelector(state => state.team);
 
     return(
-      <Container style={{position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%',}}>
+      <Container id='team_container'>
         
         {/* displays all team members */}
-        <Container id='team_members'>
-          <Container style={{padding: '0'}}>
-            <h5 style={{verticalAlign: 'middle', margin: '0.5rem 0'}}>
+        {/* <Container id='roster'> */}
+          <Container id='team_name_container'>
+            <h5 id='team_name'>
               {`Team Name: ${teamState.teamName}`}
             </h5>
           </Container>
-          {teamState.roster.length > 0 ?
-          teamState.roster.map((element, idx) => <TeamMember pokemon={element} rosterIdx={idx} />)
-          : null }
-        </Container>
+          <div id='team_members' style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
+            {teamState.roster.length > 0 ?
+            teamState.roster.map((element, idx) => <TeamMember pokemon={element} rosterIdx={idx} />)
+            : null }            
+          </div>
+        {/* </Container> */}
 
         {/* placeholder team member before adding pokemon to team */}
         <Container id='team_member_placeholder'>

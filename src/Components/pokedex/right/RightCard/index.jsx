@@ -23,6 +23,7 @@ function RightCard (props){
   const [showSaveTeamModal, setShowSaveTeamModal] = useState(false);
 
   const teamState = useSelector(state => state.team);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
 
   const { toggleTypeChart, setFetchedTeams, clearRoster, toggleLoadedTeams, toggleSaveTeam } = teamSlice.actions;
@@ -52,40 +53,33 @@ function RightCard (props){
   
     return(
       <>
-      <Card bg='danger' style={{justifyContent: 'space-evenly'}}>    
+      <Card className={`pokedex ${settingsState.theme}`} id='rightcard'>    
       
         {/* tabs for different functionality of the pokedex */}
         <Card.Header>
-          <Nav variant='tabs' defaultActiveKey='0'>
+          <Nav variant='tabs' defaultActiveKey={0}>
             <Nav.Item>
-              <Nav.Link eventKey='0' onClick={() => {changeTab(0)}}>Main</Nav.Link>
+              <Nav.Link className={`rightCardNav ${settingsState.theme}`} eventKey={0} onClick={() => {changeTab(0)}}>Main</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey='1' onClick={() => {changeTab(1)}}>Team Builder</Nav.Link>
+              <Nav.Link className={`rightCardNav ${settingsState.theme}`} eventKey={1} onClick={() => {changeTab(1)}}>Team Builder</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey='2' onClick={() => {changeTab(2)}}>Items</Nav.Link>
+              <Nav.Link className={`rightCardNav ${settingsState.theme}`} eventKey={2} onClick={() => {changeTab(2)}}>Items</Nav.Link>
             </Nav.Item>
           </Nav>
         </Card.Header> 
         
         <Card.Body id="right_card_body">
-          {activeKey === 0 ?
-          // if activeKey is 0, display a 'default' pokedex layout
-            <RightMainTab />
-          :   
-            false
-          }
-
           {
+            activeKey === 0 ?
+            // if activeKey is 0, display a 'default' pokedex layout
+              <RightMainTab />
+            :   
             activeKey === 1 ?
             // if activeKey is 2, displays team builder
               <Team showSaveTeamModal={showSaveTeamModal} setShowSaveTeamModal={setShowSaveTeamModal} />
             : 
-              null
-          }
-
-          {
             activeKey === 2 ?
               <ItemTab />
             :
@@ -96,22 +90,22 @@ function RightCard (props){
 
         <Card.Footer>
           {activeKey === 1 ? 
-            <Container style={{ display: 'flex', justifyContent: 'space-evenly'}}>
-              <Button size='sm' onClick={() => dispatch(toggleTypeChart())}>
+            <Container id='teambuilder_footer'>
+              <Button size='sm' className={settingsState.theme} onClick={() => dispatch(toggleTypeChart())}>
                 Type Coverage
               </Button>
-              <Button size='sm' onClick={() => dispatch(clearRoster())}>
+              <Button size='sm' className={settingsState.theme} onClick={() => dispatch(clearRoster())}>
                 New Team
               </Button>
-              <Button size='sm' onClick={toggleSaveTeamModal}>
+              <Button size='sm' className={settingsState.theme} onClick={toggleSaveTeamModal}>
                 Save Team
               </Button>
-              <Button size='sm' onClick={loadTeams}>
+              <Button size='sm' className={settingsState.theme} onClick={loadTeams}>
                 Load Team
               </Button>         
             </Container>
           :
-            <Button style={{visibility: 'hidden'}} size="sm">Just Here For Footer Consistency</Button>
+            <Button className='hidden' size="sm">Just Here For Footer Consistency</Button>
           }
         </Card.Footer>
     </Card>

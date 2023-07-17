@@ -12,6 +12,8 @@ import EditPokemon from '../../../../../forms/EditPokemon';
 function PlaceholderStats(props) {
   const [showEditModal, setShowEditModal] = useState(false);
   const pokeState = useSelector(state => state.pokemon);
+  // const teamState = useSelector(state => state.team);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   let { modifyProperty } = pokeSlice.actions
   let { addToRoster } = teamSlice.actions
@@ -25,6 +27,14 @@ function PlaceholderStats(props) {
       } else return 0;
     })
   }
+
+  // const handleAddToRoster = (pokemon) => {
+  //   if (teamState.roster.length >= 6){
+  //     alert('There is no room on your team');
+  //   } else{
+  //     dispatch(addToRoster(pokemon))
+  //   }
+  // }
 
   // sorts moves on component mount
   useEffect(() => {
@@ -55,18 +65,17 @@ function PlaceholderStats(props) {
         <div className='placeholder_buttons'>
 
           <Button
-            style={{ margin: '0.5rem 0', padding: '0'}}
+            className={settingsState.theme}
             onClick={() => setShowEditModal(!showEditModal)}
           >
             Edit
           </Button>
 
           <Button 
-            style={{ margin: '0.5rem 0', padding: '0'}}
             variant='success' 
             onClick={() => dispatch(addToRoster(pokeState.pokemon))} 
           >
-          + To Team
+            + To Team
           </Button>
         </div>
       </Container>

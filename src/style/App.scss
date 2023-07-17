@@ -1,0 +1,95 @@
+@import './themes.scss';
+@import './body.scss';
+@import './leftCard.scss';
+@import './rightCard.scss';
+@import './teamBuilder.scss';
+@import './modal.scss';
+@import './subcards.scss';
+@import './items.scss';
+@import './movelist.scss';
+@import './learnset.scss';
+@import './forms.scss';
+@import './badge.scss';
+@import './pokedex.scss';
+@import './buttons.scss';
+@import './nav.scss';
+@import './basestats.scss';
+@import './stat.scss';
+@import './user.scss';
+@import './typechart.scss';
+
+
+:root {
+  box-sizing: border-box;
+}
+
+.spinner-grow{
+  margin: 1rem;
+}
+
+.App {
+  text-align: center;
+  background-color: $background;
+}
+
+#pokedex-container {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+#pokedex-group {
+  height: 900px;
+}
+
+.card{
+  border: 1px solid rgba(253, 126, 126, 0.644)
+}
+
+#searchbar{
+  display: flex;
+}
+
+#search_suggestions{
+  max-height: 10.5rem;
+  width: 94.25%;
+  overflow-y: auto;
+  .dropdown-item{
+    color: black !important;    
+  }
+}
+
+#badsearch_toast{
+  position: fixed;
+  margin: 2rem 0;
+
+  .toast-header{
+    justify-content: space-between;
+    color: white;
+    border-bottom: 5px solid $ballSecondary;
+
+    &.pokeball{
+      background-color: $pokePrimary;
+    }
+
+    &.greatball{
+      background-color: $greatPrimary;
+    }
+
+    &.ultraball{
+      background-color: $ultraPrimary;
+      color: $ultraAccent;
+    }
+
+    &.masterball{
+      background-color: $masterPrimary;
+    }
+  }
+
+  // .toast-body{
+
+  // }
+}
+
+.hidden {
+  visibility: hidden;
+}

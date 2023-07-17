@@ -1,0 +1,39 @@
+.subCard a.nav-link, .subCard a.nav-link.active {
+  padding: 0.25rem 0.5rem !important;
+  border-bottom-color: black !important;
+}
+
+.details {
+  height: 100% !important;
+
+  .card-header{
+    border-bottom: 5px solid black;
+    display: flex;
+    justify-content: flex-end;
+
+    &.pokeball{
+      background-color: $pokePrimary;
+    }
+
+    &.greatball{
+      background-color: $greatPrimary;
+    }
+
+    &.ultraball{
+      background-color: $ultraPrimary;
+    }
+
+    &.masterball{
+      background-color: $masterPrimary;
+    }
+  }
+
+  .card-body{
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+  }
+
+  .card-footer{
+    background-color: $ballTertiary;
+  }
+}

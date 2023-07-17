@@ -1,0 +1,186 @@
+.movelist_header {
+  background-color: black;
+}
+
+.movelist_button {
+  padding: 0 0.25rem;
+  width: calc(100% - 0.25rem);
+  margin: 0.25rem 0;
+}
+
+.move_description {
+  background-color: $background;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6vh;
+  max-height: 10vh;
+  overflow: auto;
+
+  p {
+    margin: 0;
+  }
+}
+
+.accordion_move_header > .accordion-button {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+
+  &::after{
+    position: relative;
+    margin: 0;
+    align-self: center;
+  }
+}
+
+.accordion-header {
+  color: rgba(255, 255, 255, 0.695);
+  margin: 0;
+  padding: 0;
+
+  &.pokeball {
+    > .accordion-button{
+      color: white;
+      background-color: $pokePrimary;
+
+      &:hover{
+        background-color: $pokeAccentClickBorder;
+      }
+    }
+  }
+
+  &.greatball {
+    > .accordion-button{
+      color: white;
+      background-color: $greatPrimary;
+
+      &:hover{
+        background-color: $greatAccentSecondary;
+      }
+    }
+  }
+
+  &.ultraball {
+    > .accordion-button{
+      color: black;
+      background-color: $ultraAccent;
+
+      &:hover{
+        background-color: rgb(255, 243, 110);
+      }
+    }
+  }
+
+  &.masterball {
+    > .accordion-button{
+      color: white;
+      background-color: $masterPrimary;
+
+      &:hover{
+        background-color: $masterAccent;
+      }
+    }
+  }
+}
+
+/* selects every other nested accordion item in a moveset component */
+.movelist_accordion .accordion-item:nth-child(odd) .accordion-header {
+  &.pokeball {
+    > .accordion-button{
+      background-color: $pokeSecondary;
+
+      &:hover{
+        background-color: $pokeAccentClickBorder;
+      }
+    }
+  }
+
+  &.greatball {
+    > .accordion-button{
+      background-color: $greatSecondary;
+
+      &:hover{
+        background-color: $greatAccentSecondary;
+      }
+    }
+  }
+
+  &.ultraball {
+    > .accordion-button{
+      background-color: $ultraBtnHoverBg;
+
+      &:hover{
+        background-color: rgb(255, 243, 110);
+      }
+    }
+  }
+
+  &.masterball {
+    > .accordion-button{
+      background-color: $masterSecondary;
+
+      &:hover{
+        background-color: $masterAccent;
+      }
+    }
+  }
+}
+
+.accordion-item{
+  border: none;
+}
+
+.accordion-body {
+  font-size: 0.825rem;
+}
+
+.table {
+  margin-bottom: 0;
+  color: white;
+  --bs-table-bg: inherit;
+  --bs-table-border-color: black;
+  // --bs-table-hover-color: magenta;
+
+  td, th {
+    text-align: center;
+    vertical-align: middle; 
+    width: 2.75rem;
+    font-size: 0.825rem;
+    max-width: 10px;
+    color: white;
+  }
+
+  th {
+    cursor: pointer;
+    justify-content: center;
+    padding: 8px 4px !important;
+  }
+
+  &.pokeball {
+    // --bs-table-color: white;
+    // --bs-table-striped-color: white;
+    // // --bs-table-bg: $pokePrimary;
+    // --bs-table-striped-bg: rgba(255, 255, 255, 30%);
+    // --bs-table-hover-color: rgb(119, 255, 0);
+    // --bs-table-hover-bg: rgb(0, 0, 255);
+    --bs-table-border-color: #fc6767;
+  }
+
+  &.greatball {
+    --bs-table-border-color: #67d7fc;
+  }
+
+  &.ultraball {
+    --bs-table-border-color: #8a4a01;
+    td, th{
+      color: black;
+    }
+  }
+
+  &.masterball {
+    --bs-table-border-color: #f267fc;
+  }
+}

@@ -8,10 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from "axios";
 import base64 from 'base-64';
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import userSlice from "../../../reduxStore/userSlice";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import '../../../css/forms.css'
 
 function Login (props) {
 
@@ -19,7 +18,7 @@ function Login (props) {
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
-
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   let { userLogin } = userSlice.actions;
 
@@ -100,7 +99,7 @@ function Login (props) {
             size='sm'
             onFocus={() => setPasswordFocus(!passwordFocus)}
           />     
-          <Button size='sm' style={{width:'10%'}} onClick={togglePasswordVisibility} >
+          <Button className={`password_visibility ${settingsState.theme}`} size='sm' onClick={togglePasswordVisibility} >
             <FontAwesomeIcon  
               icon={showPassword ? faEye : faEyeSlash}
             />
@@ -120,7 +119,7 @@ function Login (props) {
                 maxLength='20'
                 size='sm'
               />     
-              <Button size='sm' style={{width:'10%'}} onClick={togglePasswordVisibility}>
+              <Button className={`password_visibility ${settingsState.theme}`} size='sm' onClick={togglePasswordVisibility}>
                 <FontAwesomeIcon  
                   icon={showPassword ? faEye : faEyeSlash}
                 />
@@ -132,23 +131,23 @@ function Login (props) {
           null
         }
 
-        <section style={{display: 'flex', justifyContent: 'space-between'}}>
-          <Button type='submit'>{props.modalType === 'login' ? 'Log In' : 'Sign Up'}</Button>
+        <div id='auth_modal'>
+          <Button className={settingsState.theme} type='submit'>{props.modalType === 'login' ? 'Log In' : 'Sign Up'}</Button>
           {isInvalidCredentials ? 
-          <section>
+          <div>
             <Form.Text>Invalid username or password</Form.Text>
-          </section>
+          </div>
           :
             null
           }
           {userIsTaken ? 
-          <section>
+          <div>
             <Form.Text>Username is already taken</Form.Text>
-          </section> 
+          </div> 
           : 
             null
           }
-        </section>
+        </div>
 
       </Form>
     </div>

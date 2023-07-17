@@ -2,7 +2,7 @@
 
 **Author**: Kawika Miller
 
-**Version**: 1.25
+**Version**: 1.3
 
 [**Deployed Site**](https://kmdevsign-pokedex.netlify.app/)
 
@@ -11,52 +11,26 @@
 [**Server Repo**](https://github.com/KMArtwork/pokedex-backend)
 
 ## Overview
-This application will allow a user to query the PokeAPI and view the results in a kanto-pokedex-styled UI.
+This application will allow a user to query the PokeAPI by making proxy-requests through a server and then takes the respone data and displays it in a first generation, kanto-pokedex-styled UI.
+
+None of these buttons are just for show! 
+- The grey, circular buttons on the left side of the pokedex allow you to hear a pokemon's cry
+- The two pill-shaped buttons will toggle between any alternate forms(e.g. Gigantamax, Mega, etc.) and the shiny version of the pokemon
+- The D-Pad will allow a user to traverse the pokedex
+  - Right & left will increase or decrease the pokedex number (e.g. If you're on bulbasaur (001) and you click right, you will go to ivysaur(002))
+  - Up & down will jump to the beginning of each new generation (e.g. If you're on bulbasaur and you click up, you will go to chikorita - the first pokemon of the second generation)
+
+  The 'Main' tab allows you to browse the general information about any given pokemon such as their moves, abilities, type effectiveness, egg groups, etc.
+
+  The 'Team Builder' tab allows you to theory craft and create your own teams! You can modify the EVs, IVs, nature, and even give your pokemon a nickname! However, if you want to be able to save your team info you'll have to create an account and log in. If you just want to *test* out the feature without creating an account you can use `test` as both the username and the password. Please note that any teams that you create/save will be accessible to anyone else that uses these credentials - meaning that they can up changed/deleted by anyone who logs in with the `test` account.
+
+  *As of right now there is no way to add a held item to any Pokemon on your team - but I will be working on adding this feature soon!*
+
+  The 'Items' tab will allow you to browse any and all of the items from the main pokemon games. 
+
 
 *There are weird scaling/sizing issues with the React-Bootstrap components that still need to be addressed. Therefore, this app works/looks best if your web browser window is at full size*
 
-![Main Screen](./screenshots/mainscreen.JPG)
-
-- When you first load the app you will be greeted with this screen. Go ahead and search for a pokemon and the result should load!
-  - *Because of how the PokeAPI works, there are a few Pokemon that need to be searched with a hyphenated query. (e.g. Searching for "Giratina" will not return any search results, but searching for "Giratina-origin" will work. I am in the early stages of working on a fix for this but until then you can search for these edge cases using a hyphenated search OR using their pokedex number*)
-
-![Main Screen Search Result](./screenshots/searchresult.JPG)
-- After you've made your search you will see something similar to the screenshot above. 
-
-- Some of these buttons aren't just for show!
-  - Click on the grey circle button on the left to hear the pokemon's cry
-  - The green button will toggle between the different forms a pokemon has if applicable (e.g. seasonal / regional / etc.)
-    - There are a few edge cases where the PokeAPI is inconsistent with how they handle this information so you may run into some strange bugs depending on which pokemon you search. (search for 'Unown' for an example!)
-    - I know it's actually supposed to be red but that makes it hard to see in its current state
-  - The blue button will toggle between the shiny version of that pokemon and the normal version
-  - The D-pad's left and right buttons will go back and forward by 1 pokedex number respectively.
-  - The D-pad's up and down buttons will go forward and back by 1 generation. (e.g. if you're on Pikachu and you click up, it will take you to the Chikorita - the start of Gen 2. If you're on Pichu and you click down it will take you to Bulbasaur)
-  - The `gen+` and `gen-` buttons cycle through each generation's pokedex entry for a given pokemon.
-  - The `move+` and `move-` buttons cycle through each of the Pokemon's moves and gives a brief description of what the move does
-  - The `ability+` and `ability-` buttons cycle through each of the Pokemon's abilities and gives a brief description of what the ability does.
-
-![Moves and Abilities Tab](./screenshots/moves%26abilities.JPG)
-
-If you click the `Moves and Abilities` tab on the right, you can view a more detailed breakdown of each of the Pokemon's moves and abilities.
-
-![Team Builder](./screenshots/teambuilder.JPG)
-
-If you click on the `Team Builder` tab on the right, you can create your own Pokemon team.
-
-- The `Search Result` section allows you to modify the pokemon's IVs and EVs, their four moves you will use for battle, as well as their ability and held item before committing them to your team.
-
-- You can always edit these values after they've been added to your team as well or remove them from the team completely.
-
-- You can view your current team's defenseive type coverage with the `Type Coverage` button at the bottom
-
-- The `New Team` button will clear your entire team
-
-- The `Save Team` and `Load Team` button do work but the back end repo hasn't been pushed up to GitHub yet so they won't actually do anything if you run this locally.
-  - Currently, they save everything to a database being hosted on MongoDB Atlas
-  - There's also no separation of pokemon teams based on login credentials so all saved teams get thrown into one singular DB - I need to reconfigure this and set the backend up properly so that people can use Auth0 to login with their google accounts and only be able to access their own saved teams.
-  - Also thinking of setting this up to use a PostgreSQL database instead of MongoDB
-
-The `Items` tab is still being worked on.
 
 ## Architecture
 - React
@@ -65,6 +39,29 @@ The `Items` tab is still being worked on.
 - Redux Toolkit
 
 ## Change Log
+
+### 2023-07-04 - 2023-07-17:
+- Implement Sass stylesheets
+- Removed all non-essential inline styles, add them to sass stylesheets
+- Implement four custom theme options across app & its components
+  - Pokeball
+  - Greatball
+  - Ultraball
+  - Masterball
+- Handle bad search queries
+  - A 'Toast' component will now pop up if you make a bad search
+- Create a 'User Dropdown' menu when logged in
+  - Much more modern ui/ux
+- Add search bar autocomplete
+  - Still needs a bit of polishing
+  - Sometimes the auto-complete dropdown will not appear. If this happens, just click outside of the search bar and then click back into it.
+- Add visual confirmation / cue to buttons that filter moves by generation
+- Able to filter moves by all generations & the titles in each generation
+  - e.g. Can now view moves from each main game title (yellow, diamond, firered, colosseum, arceus, etc) instead of just by generation (gen1, gen2, gen3, etc)
+- Atomized various 'details' components
+- Add 'About' and 'Contact' page
+  - About page still needs to be furthered updated
+  - Want to add a 'how to' section with visual aid/diagram on what each button does, what each tab does, etc.
 
 ### 2023-06-29 - 2023-07-03:
 - Add content to 'items' tab

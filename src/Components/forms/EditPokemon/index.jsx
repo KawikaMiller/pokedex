@@ -16,6 +16,7 @@ function EditPokemon(props){
 
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
+  const settingsState = useSelector(state => state.settings);
   let dispatch = useDispatch();
   let { modifyProperty } = pokeSlice.actions;
   let { modifyMemberProperty } = teamSlice.actions
@@ -198,9 +199,9 @@ function EditPokemon(props){
 
           <Form.Group id='battle_moves' className='battle_moves_form'>
 
-            <Container style={{display: 'flex', justifyContent: 'space-between'}}>
+            <Container id='battle_moves_container' >
 
-              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly'}}>
+              <div className='edit_pokemon_section'>
 
                 <div>
                     <Form.Label>Level</Form.Label>
@@ -225,7 +226,7 @@ function EditPokemon(props){
                 </div>
               </div>
 
-              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly'}}>
+              <div className='edit_pokemon_section'>
 
                 <div>
                   <Form.Label>Ability</Form.Label>
@@ -245,7 +246,7 @@ function EditPokemon(props){
 
               </div>
               
-              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly'}}>
+              <div className='edit_pokemon_section'>
                 <div>
                   <Form.Label>Move 1</Form.Label>
                   <Form.Select id='move_1'>
@@ -273,7 +274,7 @@ function EditPokemon(props){
                 </div>
               </div>
 
-              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly'}}>
+              <div className='edit_pokemon_section'>
                 <div>
                   <Form.Label>Move 3</Form.Label>
                   <Form.Select id='move_3'>
@@ -305,8 +306,8 @@ function EditPokemon(props){
 
           <Container id='team_member_stats_edit'>
 
-            <Form.Group className='ivev_form' style={{width: '7%', marginLeft: '0', marginRight: '0' }}>
-              <Form.Label style={{visibility: 'hidden'}}>STAT</Form.Label>
+            <Form.Group id='ivev_labels' className='ivev_form'>
+              <Form.Label className='hidden'>STAT</Form.Label>
               <Form.Control
                 type='text'
                 disabled
@@ -327,7 +328,6 @@ function EditPokemon(props){
               <Form.Group className='ivev_form'>
                 <Form.Label>HP</Form.Label>
                 <Form.Control 
-                  
                   type="number" 
                   id='iv_hp' 
                   placeholder={pokeState.pokemon.stats[0].iv ? pokeState.pokemon.stats[0].iv : 'IVs'}
@@ -430,21 +430,21 @@ function EditPokemon(props){
             </div>
 
           </Container>
-            <div style={{margin: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div id='nickname'>
               <Form.Group id='pokemon_nickname_form'>
                 <Form.Label>Nickname</Form.Label>
                 <Form.Control type='text' id='pokemon_nickname' minLength={1} maxLength={12} />
                 <Form.Text>Leave blank for no nickname</Form.Text>
               </Form.Group>
               
-              <div >
-                <Form.Group style={{display: 'flex', flexDirection: 'column'}}>
-                  <Form.Label style={{visibility: 'hidden'}}>SUBMIT</Form.Label>
-                  <Button type='submit' disabled={disableSubmit ? true : false}>Save</Button>
+              <div>
+                <Form.Group id='ivev_submit'>
+                  <Form.Label className='hidden'>SUBMIT</Form.Label>
+                  <Button className={settingsState.theme} type='submit' disabled={disableSubmit ? true : false}>Save</Button>
                   {disableSubmit ? 
                     <Form.Text>EVs cannot total more than 510</Form.Text>                     
                   : 
-                    <Form.Text style={{visibility: 'hidden'}}>EVs cannot total more than 510</Form.Text>
+                    <Form.Text className='hidden'>EVs cannot total more than 510</Form.Text>
                   }
                 </Form.Group>
 

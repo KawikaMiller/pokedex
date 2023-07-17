@@ -9,19 +9,6 @@ import TypeBadge from '../../../../../type/Badge';
 
 function PlaceholderTeamMember (props){
   const pokeState = useSelector(state => state.pokemon);
-  // let dispatch = useDispatch();
-
-  // let { setPokemon } = pokeSlice.actions;
-
-  // const updateBattleInfo = (battleMovesArr, battleAbility, heldItem) => {
-  //   let newPokemon = {...pokeState.pokemon};
-
-  //   newPokemon.battleMoves = battleMovesArr;
-  //   newPokemon.battleAbility = battleAbility;
-  //   newPokemon.heldItem = heldItem;
-
-  //   dispatch(setPokemon(newPokemon));
-  // }
 
     return(
       <Card className='member0'>
@@ -32,7 +19,9 @@ function PlaceholderTeamMember (props){
             :
               (pokeState.pokemon.name[0].toUpperCase() + pokeState.pokemon.name.slice(1))
           }</h6>
-            {pokeState.pokemon.types.map(element => <TypeBadge type={element.type.name} />)}
+          <div id='placeholder_badges'>
+            {pokeState.pokemon.types.map(element => <TypeBadge type={element.type.name} />)}            
+          </div>
         </Card.Header>
         <Card.Body className='team_member_body'>
             <section id='placeholder_sprite'>
@@ -41,7 +30,7 @@ function PlaceholderTeamMember (props){
                 src={pokeState.pokemon.sprite.front_default}
               >
               </Card.Img>
-              <p style={{margin: '0'}}>Lv. {pokeState.pokemon.level}</p>
+              <p>Lv. {pokeState.pokemon.level}</p>
             </section>
 
           <PlaceholderStats key={`${pokeState.pokemon.name}_stats`} />

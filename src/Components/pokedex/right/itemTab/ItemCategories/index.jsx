@@ -15,6 +15,7 @@ function ItemCategories(){
   const [categoryFilters, setCategoryFilters] = useState([])
 
   const itemsState = useSelector(state => state.items);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   const { setAllPockets, setCategoryItems } = itemsSlice.actions;
   const { toggleIsLoading } = dexSlice.actions;
@@ -97,20 +98,19 @@ function ItemCategories(){
 
   return(
     <Card id="itemPockets">
-      <Card.Header id='itemPocketsHeader'>
+      <Card.Header id='itemPocketsHeader' className={settingsState.theme}>
         <strong>Pockets</strong>
       </Card.Header>
       <Card.Body id="itemPocketsBody">
         {itemsState.allPockets.map(pocket => (
           <>
-            <h6 style={{textAlign: 'left', borderBottom: '1px solid white'}}>{pocket.name}</h6> 
+            <h6>{pocket.name}</h6> 
             <Form>
               {pocket.categories.map(category => (
                 <Form.Check
-                  style={{textAlign: 'left'}} 
+                  className="pocketCategoryCheckbox"
                   type='checkbox'
                   label={category.name}
-                  // value={category.url}
                   onClick={(e) => handleCheckbox(e, category.url)}
                 />
               ))}  
@@ -119,8 +119,8 @@ function ItemCategories(){
         ))}        
       </Card.Body>
       <Card.Footer id='itemPocketsFooter'>
-        <Button onClick={handleApply}>Apply</Button>
-        <Button onClick={handleReset}>Reset</Button>
+        <Button className={settingsState.theme} onClick={handleApply}>Apply</Button>
+        <Button className={settingsState.theme} onClick={handleReset}>Reset</Button>
       </Card.Footer>
     </Card>
   )

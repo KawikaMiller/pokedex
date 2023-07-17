@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import teamSlice from '../../../../../reduxStore/teamSlice';
 import EditPokemon from '../../../../forms/EditPokemon';
 import TypeBadge from '../../../../type/Badge';
@@ -11,7 +11,7 @@ import TypeBadge from '../../../../type/Badge';
 function TeamMember (props) {
 
   const [showEditModal, setShowEditModal] = useState(false);
-
+  const settingsState = useSelector(state => state.settings)
   let dispatch = useDispatch();
   let { removeFromRoster } = teamSlice.actions;
 
@@ -23,9 +23,7 @@ function TeamMember (props) {
         }
         style={{
           background: props.pokemon.types.length === 2 ?
-            `linear-gradient(
-              var(--${props.pokemon.types[0].type.name}), var(--${props.pokemon.types[1].type.name})
-            )` 
+            `linear-gradient(45deg, var(--${props.pokemon.types[0].type.name}), var(--${props.pokemon.types[1].type.name}))` 
           : 
             `var(--${props.pokemon.types[0].type.name})`,
         }}
@@ -53,23 +51,23 @@ function TeamMember (props) {
                 src={props.pokemon.sprite.front_default}
               >
               </Card.Img>
-              <p style={{margin: '0'}}>Lv. {props.pokemon.level}</p>
+              <p>Lv. {props.pokemon.level}</p>
           </section>
 
           {/* shows buttons to edit pokemon info */}
-          <section className='team_member_info' style={{width: '100%'}}>
+          <section className='team_member_info'>
 
-            <div className='team_member_edit_buttons' style={{display: 'flex', justifyContent: 'space-around', padding: '0.25rem'}}>
-              <Button size='sm' onClick={() => setShowEditModal(!showEditModal)}>
+            <div className='team_member_edit_buttons'>
+              <Button className={settingsState.theme} size='sm' onClick={() => setShowEditModal(!showEditModal)}>
                 Edit
               </Button>
 
-              <Button size='sm' variant='danger' onClick={() => dispatch(removeFromRoster(props.rosterIdx))}>
+              <Button className={settingsState.theme} size='sm' variant='danger' onClick={() => dispatch(removeFromRoster(props.rosterIdx))}>
                 Remove
               </Button>
             </div>
 
-            <ProgressBar now={100} variant='success' style={{margin: '0.25rem'}} label={props.pokemon.stats[0].stat_value} />
+            <ProgressBar now={100} variant='success' label={props.pokemon.stats[0].stat_value} />
           </section>
         </Card.Body>
       </Card>

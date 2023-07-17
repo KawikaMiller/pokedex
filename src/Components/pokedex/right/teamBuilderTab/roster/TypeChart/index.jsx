@@ -2,9 +2,8 @@ import React from 'react'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-// import Accordion from 'react-bootstrap/Accordion';
-// import Button from 'react-bootstrap/Button';
 
+import TypeBadge from '../../../../../type/Badge';
 import TypeChartRow from '../TypeChartRow';
 import { useSelector, useDispatch } from 'react-redux';
 import teamSlice from '../../../../../../reduxStore/teamSlice';
@@ -33,20 +32,23 @@ function TeamTypeChart (props) {
         ];
   
   const teamState = useSelector(state => state.team);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   const {toggleTypeChart} = teamSlice.actions;
 
   return(
     teamState.roster.length > 0 ?
     <Modal centered show={teamState.showTypeChart} onHide={() => dispatch(toggleTypeChart())} size={'xl'}>
-      <Modal.Header>Type Effectiveness Chart</Modal.Header>
+      <Modal.Header className={settingsState.theme} >Type Effectiveness Chart</Modal.Header>
       <Modal.Body>
         <Table id='team_type_chart_table' striped bordered hover size='sm'>
           <thead key='type_chart_tablehead'>
-            <tr key='type_chart_headers' id='type_chart_headers' style={{margin: '0.25rem'}}>
+            <tr key='type_chart_headers' id='type_chart_headers'>
               <th></th>{/*intentionally blank*/}
               {allTypes.map(element => (
-                <th key={`${element}_header`}>{element}</th>
+                <th key={`${element}_header`}>
+                  <TypeBadge type={element} />
+                </th>
               ))}
             </tr>
           </thead>
@@ -59,7 +61,7 @@ function TeamTypeChart (props) {
         </Table>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => dispatch(toggleTypeChart())}>Close</Button>
+        <Button size='sm' className={settingsState.theme} onClick={() => dispatch(toggleTypeChart())}>Close</Button>
       </Modal.Footer>
     </Modal>  
     : 

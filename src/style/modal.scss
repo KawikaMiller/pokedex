@@ -1,0 +1,118 @@
+.modal-content{
+  color: white !important;
+}
+
+.modal-header{
+
+  &.pokeball{
+    background-color: $pokePrimary;
+  }
+
+  &.greatball{
+    background-color: $greatPrimary;
+  }
+
+  &.ultraball{
+    background: $ultraBallAccent;
+  }
+
+  &.masterball{
+    background-color: $masterPrimary;
+  }
+  // background-color: #dc3545;
+  color: white;
+  border-bottom: 5px solid black !important;
+}
+
+.modal-body {
+  background-color: $background;
+
+  button{
+    color: white;
+  }
+
+  .accordion-body{
+    color: white;
+    background-color: $ballSecondary;
+  }
+}
+
+.modal-footer{
+  background-color: white;
+  border-top: 5px solid black !important;
+}
+
+td {
+  overflow-x: hidden;
+}
+
+#load_teams_options{
+  display: flex;
+  justify-content: space-around;
+}
+
+#save_team_modal{
+  .modal-header{
+    display: flex;
+    justify-content: space-between;
+
+    p{
+      margin: 0;
+      color: white;
+      font-size: 0.9rem;
+    }
+  }
+
+  .modal-body{
+    display: flex;
+  }
+}
+
+.teammember_save_modal_container{
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+
+  .teammember_info{
+    width: 100%;
+  }
+}
+
+.saved_team{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.3rem;
+  color: white;
+
+  &.pokeball{
+    background-color: $pokePrimary
+  }
+
+  &.greatball{
+    background-color: $greatPrimary
+  }
+
+  &.ultraball{
+    background-color: $ultraPrimary;
+    color: black;
+  }
+
+  &.masterball{
+    background-color: $masterPrimary
+  }
+}
+
+.accordion-item:not(:last-of-type){
+  border-bottom: 2px solid black;
+}
+
+.accordion-button:not(.collapsed){
+  box-shadow: none;
+}
+
+.input-group{
+  margin-bottom: 1rem;
+}

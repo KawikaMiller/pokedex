@@ -1,0 +1,78 @@
+.btn {
+
+  &:not(.btn-danger){
+
+    &.pokeball{
+
+      &.active_button{
+        background-color: $pokePrimary;
+        border: 0.1rem solid $pokeSecondary;
+      }
+    }
+
+    &.greatball{
+      background-color: $greatAccent;
+      border: 0.1rem solid $greatBtnBorder;
+
+      &:hover{
+        background-color: $greatBtnHoverBg;
+        border: 0.1rem solid $greatBtnHoverBorder;
+      }
+
+      &:first-child:active{
+        background-color: $greatBtnClickBg;
+        border: 0.1rem solid $greatBtnClickBorder;
+      }
+
+      &.active_button{
+        background-color:  $greatAccentSecondary;
+        border: 0.1rem solid $greatPrimary;
+      }
+
+    }
+
+    &.ultraball{
+      color: black;
+      background-color: $ultraAccent;
+      border: 0.1rem solid $ultraBtnBorder;
+
+      &:hover{
+        background-color: $ultraBtnHoverBg;
+        border: 0.1rem solid $ultraBtnHoverBorder;
+      }
+
+      &:first-child:active{
+        background-color: $ultraBtnClickBg;
+        border: 0.1rem solid $ultraBtnClickBorder;
+      }
+
+      &.active_button{
+        background-color:  $ultraPrimary;
+        border: 0.1rem solid $ultraAccent;
+        color: white;
+      }
+    }
+
+    &.masterball{
+      background-color: $masterAccent;
+      border: 0.1rem solid $masterBtnBorder;
+
+      &:hover{
+        background-color: $masterBtnHoverBg;
+        border: 0.1rem solid $masterBtnHoverBorder;
+      }
+
+      &:first-child:active{
+        background-color: $masterBtnClickBg;
+        border: 0.1rem solid $masterBtnClickBorder;
+      }
+
+      &.active_button{
+        background-color:  $masterPrimary;
+        border: 0.1rem solid $masterSecondary;
+      }
+    }
+
+  }
+
+}

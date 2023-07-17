@@ -1,5 +1,8 @@
-.rightMain {
+#rightcard{
   color: white;
+}
+
+.rightMain {
   margin: 0;
   text-align: left;
   display: flex;
@@ -12,18 +15,55 @@
   margin: 0.5rem 0;
 }
 
-#details {
-  border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius);
+#pokemon_basic_info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  #pokemon_id{
+    text-align: end;
+  }
+
+  #pokemon_types{
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
-#details .card-header {
-  background-color: red;
-  border-bottom: 5px solid black;
+#main_details_container{
+  height: 25%;
 }
 
-#details .card-body {
-  background-color: rgba(0, 0, 0, 85%);
-  color: white;
+#right_card_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+}
+
+#details_card_body{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  overflow-y: auto;
+}
+
+.details_text{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 0.5rem;
+
+  h6{
+    height: 20%;
+  }
+
+  p{
+    max-height: 80%;
+    overflow-y: auto;
+  }
 }
 
 .rightMain.container, #pokeInfo.container {
@@ -86,7 +126,7 @@ p, h6{
 }
 
 .underline {
-  font-size: medium;
+  font-size: large;
   font-weight: 500;
   text-decoration: underline;
 }
@@ -98,9 +138,9 @@ p, h6{
 .spreadCol {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .spreadCol p:not(.underline), .spreadCol span {
-  font-size: small;
+  font-size: medium;
 }

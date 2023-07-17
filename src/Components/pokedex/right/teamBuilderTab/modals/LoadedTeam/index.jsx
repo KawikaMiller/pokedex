@@ -10,6 +10,7 @@ import { loadTeamToClient, deleteTeamInServer } from "../../../../../../reduxSto
 function LoadedTeams() {
 
   const teamState = useSelector(state => state.team);
+  const settingsState = useSelector(state => state.settings);
   const dispatch = useDispatch();
   const {toggleLoadedTeams, setRoster, setFetchedTeams} = teamSlice.actions;
 
@@ -39,17 +40,17 @@ function LoadedTeams() {
         show={teamState.showLoadedTeams}
         onHide={() => dispatch(toggleLoadedTeams())}  
       >
-        <Modal.Header>Your Teams</Modal.Header>
+        <Modal.Header className={settingsState.theme}>Your Teams</Modal.Header>
 
         <Modal.Body>
           <Accordion>
             {teamState.fetchedTeams.length > 0 ?
               teamState.fetchedTeams.map((element, idx) => (
-                <Accordion.Item eventKey={idx}>
-                  <Accordion.Header>{element.teamName}</Accordion.Header>
+                <Accordion.Item className={settingsState.theme} eventKey={idx}>
+                  <Accordion.Header className={settingsState.theme}>{element.teamName}</Accordion.Header>
                   <Accordion.Body>
-                    <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                      <Button onClick={() => loadTeam(element.id)}>
+                    <div id='load_teams_options'>
+                      <Button className={settingsState.theme} onClick={() => loadTeam(element.id)}>
                         Load Team
                       </Button>
                       <Button variant='danger' onClick={() => deleteTeam(element.id)}>

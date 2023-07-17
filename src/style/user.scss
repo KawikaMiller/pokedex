@@ -1,0 +1,54 @@
+#user_dropdown_menu{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#login_signup{
+  width: 200px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.dropdown-menu{
+
+  .dropdown-item{
+    color: white;
+
+    &:hover{
+      &.pokeball{
+        background-color: $pokeAccent;
+      }
+    
+      &.greatball{
+        background-color: $greatAccent;
+      }
+    
+      &.ultraball{
+        color: black;
+        background-color: $ultraAccent;
+      }
+    
+      &.masterball{
+        background-color: $masterAccent;
+      }
+    }
+  }
+
+  &.pokeball{
+    background-color: $pokePrimary;
+  }
+
+  &.greatball{
+    background-color: $greatPrimary;
+  }
+
+  &.ultraball{
+    color: black;
+    background-color: $ultraPrimary;
+  }
+
+  &.masterball{
+    background-color: $masterPrimary;
+  }
+}
