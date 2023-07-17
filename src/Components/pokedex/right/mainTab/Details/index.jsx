@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 
-import { Placeholder } from "react-bootstrap";
+import { determineTypeEffectiveness } from "../../../../../lib/typeEffectiveness";
+import TypeMatchup from "./TypeMatchup";
+import AbilityDetails from "./Ability";
+import Bio from "./Bio";
+import DexEntries from "./DexEntries";
 
 function MainDetails(props) {
 
   const pokeState = useSelector(state => state.pokemon);
-  const dexState = useSelector(state => state.pokedex);
   const settingsState = useSelector(state => state.settings);
 
   const [dexEntry, changeDexEntry] = useState(0);
   const [activeKey, setActiveKey] = useState(0);
   const [abilityKey, setAbilityKey] = useState(0);
+  const [typeEffectiveness, setTypeEffectiveness] = useState([]);
 
   const handleChangeDexEntry = (value) => {
     // reset back to 0 when at end of descriptions
@@ -44,6 +48,13 @@ function MainDetails(props) {
     }
   }
 
+  useEffect(() => {
+    if (pokeState.pokemon?.types){
+      setTypeEffectiveness([]);
+      setTypeEffectiveness(determineTypeEffectiveness(pokeState.pokemon.types));      
+    }
+  }, [pokeState.pokemon])
+
   return(
     <Card className={`details ${settingsState.theme}`}>
 
@@ -64,6 +75,11 @@ function MainDetails(props) {
             Ability
           </Nav.Link>
         </Nav.Item>
+        <Nav.Item className='subCard'>
+          <Nav.Link className={settingsState.theme} eventKey={3} onClick={() => setActiveKey(3)}>
+            Type Matchup
+          </Nav.Link>
+        </Nav.Item>
       </Nav>
     </Card.Header>
 
@@ -71,257 +87,26 @@ function MainDetails(props) {
 
       {activeKey === 0 ?
       
-      <>
-        <Button 
-          className={settingsState.theme}
-          onClick={() => handleChangeDexEntry(-1)}
-          disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} 
-        >
-          {`<`}
-        </Button>
-
-        <div className='details_text'>
-            {
-              pokeState.pokemon?.name ? 
-                <h6>
-                  {
-                    !dexState.isLoading ? 
-                    `Version: ${pokeState.pokemon?.descriptions[dexEntry].version}` 
-                    : 
-                    <Placeholder animation="glow">
-                      <Placeholder style={{width: '200px'}} />
-                    </Placeholder>
-                  }
-                </h6>
-              :
-                <p>--</p>
-            }
-            {
-              !dexState.isLoading ? 
-              pokeState.pokemon?.descriptions[dexEntry].description
-              : 
-              <Placeholder animation="glow">
-                <Placeholder style={{width: '400px'}} />
-                <Placeholder style={{width: '350px'}} />
-              </Placeholder>
-            }
-
-        </div>
-
-        <Button 
-          className={settingsState.theme}
-          onClick={() => handleChangeDexEntry(1)}
-          disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} 
-        >
-          {`>`}
-        </Button>            
-      </>
+      <DexEntries dexEntry={dexEntry} handleChangeDexEntry={handleChangeDexEntry} />
 
       :
 
       activeKey === 1 ?
 
-      <>
-      <div className='centered spreadCol'>
-        <div>
-          <p className='underline'>Height & Weight</p>
-          <p>
-            {pokeState.pokemon?.name ?
-              !dexState.isLoading ?
-                `${pokeState.pokemon?.height.m} m | ${pokeState.pokemon?.weight.kg} kg`
-              :
-                <Placeholder animation="glow">
-                  <Placeholder style={{width: '75%'}} />
-                </Placeholder>
-            :
-              '--'
-            }
-          </p>              
-        </div>
-        <div>
-          <p className='underline'>Gender Ratio</p>
-          <p> 
-            {pokeState.pokemon?.name ?
-              !dexState.isLoading ?
-                `${100 - (pokeState.pokemon?.genderRate / 8 * 100)} ♂ | ${pokeState.pokemon?.genderRate / 8 * 100}% ♀`
-              :
-                <Placeholder animation="glow">
-                  <Placeholder style={{width: '75%'}} />
-                </Placeholder>
-            :
-              '--'
-            }
-          </p>              
-        </div>              
-      </div>
-      
-      <div className='centered spreadCol'>
-        <div>
-          <p className='underline'>Catch Rate</p>
-          <p>
-            {pokeState.pokemon?.name ?
-              !dexState.isLoading ?
-                `${pokeState.pokemon?.catchRate}`
-              :
-                <Placeholder animation="glow">
-                  <Placeholder style={{width: '75%'}} />
-                </Placeholder>
-            :
-              '--'
-            }
-            
-          </p>              
-        </div>
-        <div>
-        <p className='underline'>Growth Rate</p>
-          <p>
-            {pokeState.pokemon?.name ?
-              !dexState.isLoading ?
-                `${pokeState.pokemon?.growthRate.name}`
-              :
-                <Placeholder animation="glow">
-                  <Placeholder style={{width: '75%'}} />
-                </Placeholder>
-            :
-              '--'
-            }
-          </p>             
-        </div>
-      </div>
-
-      <div className='centered spreadCol'>
-        <div>
-          <p className='underline'>Egg Groups</p>
-          <span>
-            {
-              pokeState.pokemon?.eggGroups ?
-                !dexState.isLoading ?
-                  pokeState.pokemon.eggGroups[1] ?
-                    `${pokeState.pokemon.eggGroups[0]} | ${pokeState.pokemon.eggGroups[1]}`
-                  :
-                    `${pokeState.pokemon.eggGroups[0]}`
-                :
-                  <Placeholder animation="glow">
-                    <Placeholder style={{width: '75%'}} />
-                  </Placeholder>
-              :
-                '--'
-            }
-          </span>             
-        </div>
-        <div>
-          <p className='underline'>Hatch Time</p>
-          <p>
-            {pokeState.pokemon?.name ?
-              !dexState.isLoading ?
-                `${pokeState.pokemon?.hatchTime} Cycles`
-              :
-                <Placeholder animation="glow">
-                  <Placeholder style={{width: '75%'}} />
-                </Placeholder>
-            :
-              '--'
-            }                 
-
-          </p>     
-        </div>              
-      </div>
-
-      <div className='centered spreadCol'>
-        <div>
-          <p className='underline'>XP Yield</p>
-          <p>
-            {pokeState.pokemon?.name ?
-              !dexState.isLoading ?
-                `${pokeState.pokemon?.baseExpYield} EXP`
-                :
-                  <Placeholder animation="glow">
-                    <Placeholder style={{width: '75%'}} />
-                  </Placeholder>
-              :
-                '--'
-            } 
-          </p>              
-        </div>
-        <div>
-          <p className='underline'>Ev Yield</p>
-          <span>
-            {pokeState.pokemon?.name ?
-              !dexState.isLoading ?
-                  pokeState.pokemon?.evYields.map(stat => {
-                    if(stat.yield){
-                      return `${stat.name} ${stat.yield} `;
-                    } else{
-                      return '';
-                    }
-                  })
-                :
-                  <Placeholder animation="glow">
-                    <Placeholder style={{width: '75%'}} />
-                  </Placeholder>
-              :
-                '--'
-            }
-          </span>
-        </div>              
-      </div>
-
-      </>
+      <Bio />
 
       :
 
       activeKey === 2 ?
 
-      <>
-        <Button 
-          className={settingsState.theme}
-          onClick={() => handleChangeAbility(-1)}
-          disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} 
-        >
-          {`<`}
-        </Button>
-        <div className='details_text'>
-            {
-              pokeState.pokemon?.name ? 
-                <h6>
-                  {
-                    !dexState.isLoading ? 
-                      pokeState.pokemon?.abilities[abilityKey].name
-                    : 
-                      <Placeholder animation="glow">
-                        <Placeholder style={{width: '200px'}} />
-                      </Placeholder>
-                  }
-                </h6>
-              :
-                <p>--</p>
-            }
-          {
-            pokeState.pokemon?.name ?
-              <p>
-                {
-                  !dexState.isLoading ?
-                    pokeState.pokemon?.abilities[abilityKey].description
-                  :
-                  <Placeholder animation="glow">
-                    <Placeholder style={{width: '400px'}} />
-                    <Placeholder style={{width: '350px'}} />
-                  </Placeholder>                  
-                }
-              </p>                 
-            :
-              '--'
-          }
-        </div>
-        <Button 
-          className={settingsState.theme}
-          onClick={() => handleChangeAbility(1)}
-          disabled={pokeState.pokemon?.name ? !dexState.isLoading ? false : true : true} 
-        >
-          {`>`}
-        </Button>            
-      </>
+      <AbilityDetails abilityKey={abilityKey} handleChangeAbility={handleChangeAbility}/>
       
+      :
+
+      activeKey === 3 ?
+
+      <TypeMatchup typeEffectiveness={typeEffectiveness}/>
+
       :
 
       null

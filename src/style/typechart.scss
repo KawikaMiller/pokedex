@@ -8,3 +8,28 @@
   }
 
 }
+
+#type_effectiveness{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow-y: auto;
+}
+
+.type_badge_row{
+  display: flex;
+  justify-content: space-between;
+
+  > .badge {
+    margin: 0 0.25rem;
+  }
+
+  .type_badges{
+    width: 85%;
+  }
+
+  p {
+    text-decoration: underline;
+    // width: 17.5%;
+  }
+}
