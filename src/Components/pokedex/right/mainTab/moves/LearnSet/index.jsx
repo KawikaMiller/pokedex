@@ -185,6 +185,7 @@ function Learnset (props) {
           size='sm'
           align={{sm: 'start'}}
           disabled={pokeState.pokemon?.id > 151 || (!generationMoves['yellow'] && !generationMoves['red-blue'])}
+          onClick={(event) => handleClick(event, 'yellow')}
         >
           <Dropdown.Item onClick={(event) => handleClick(event, 'red-blue')} disabled={!generationMoves['red-blue']}>Red | Blue</Dropdown.Item>
           <Dropdown.Item onClick={(event) => handleClick(event, 'yellow')} disabled={!generationMoves['yellow']}>Yellow</Dropdown.Item>
@@ -196,6 +197,7 @@ function Learnset (props) {
           size='sm'
           align={{sm: 'start'}}
           disabled={pokeState.pokemon?.id > 251 || (!generationMoves['gold-silver'] && !generationMoves['crystal'])}
+          onClick={(event) => handleClick(event, 'crystal')}
         >
           <Dropdown.Item onClick={(event) => handleClick(event, 'gold-silver')} disabled={!generationMoves['gold-silver']}>Gold | Silver</Dropdown.Item>
           <Dropdown.Item onClick={(event) => handleClick(event, 'crystal')} disabled={!generationMoves['crystal']}>Crystal</Dropdown.Item>
@@ -207,6 +209,7 @@ function Learnset (props) {
           size='sm'
           align={{sm: 'start'}}
           disabled={pokeState.pokemon?.id > 386 || (!generationMoves['ruby-sapphire'] && !generationMoves['emerald'] && !generationMoves['firered-leafgreen'] && !generationMoves['colosseum'] && !generationMoves['xd'])}
+          onClick={(event) => handleClick(event, 'emerald')}
         >
           <Dropdown.Item onClick={(event) => handleClick(event, 'ruby-sapphire')} disabled={!generationMoves['ruby-sapphire']}>Ruby | Sapphire</Dropdown.Item>
           <Dropdown.Item onClick={(event) => handleClick(event, 'emerald')} disabled={!generationMoves['emerald']}>Emerald</Dropdown.Item>
@@ -221,6 +224,7 @@ function Learnset (props) {
           size='sm'
           align={{sm: 'start'}}
           disabled={pokeState.pokemon?.id > 494 || (!generationMoves['diamond-pearl'] && !generationMoves['platinum'] && !generationMoves['heartgold-soulsilver'])}
+          onClick={(event) => handleClick(event, 'platinum')}
         >
           <Dropdown.Item onClick={(event) => handleClick(event, 'diamond-pearl')} disabled={!generationMoves['diamond-pearl']}>Diamond | Pearl</Dropdown.Item>
           <Dropdown.Item onClick={(event) => handleClick(event, 'platinum')} disabled={!generationMoves['platinum']}>Platinum</Dropdown.Item>
@@ -233,6 +237,7 @@ function Learnset (props) {
           size='sm'
           align={{sm: 'start'}}
           disabled={pokeState.pokemon?.id > 649 || (!generationMoves['black-white'] && !generationMoves['black-2-white-2'])}
+          onClick={(event) => handleClick(event, 'black-2-white-2')}
         >
           <Dropdown.Item onClick={(event) => handleClick(event, 'black-white')} disabled={!generationMoves['black-white']}>Black | White</Dropdown.Item>
           <Dropdown.Item onClick={(event) => handleClick(event, 'black-2-white-2')} disabled={!generationMoves['black-2-white-2']}>Black 2 | White 2</Dropdown.Item>
@@ -244,6 +249,7 @@ function Learnset (props) {
           size='sm'
           align={{sm: 'start'}}
           disabled={pokeState.pokemon?.id > 721 || (!generationMoves['x-y'] && !generationMoves['omega-ruby-alpha-sapphire'])}
+          onClick={(event) => handleClick(event, 'x-y')}
         >
           <Dropdown.Item onClick={(event) => handleClick(event, 'x-y')} disabled={!generationMoves['x-y']}>X | Y</Dropdown.Item>
           <Dropdown.Item onClick={(event) => handleClick(event, 'omega-ruby-alpha-sapphire')} disabled={!generationMoves['omega-ruby-alpha-sapphire']}>Omega Ruby | Alpha Sapphire</Dropdown.Item>
@@ -255,6 +261,7 @@ function Learnset (props) {
           size='sm'
           align={{sm: 'start'}}
           disabled={pokeState.pokemon?.id > 809 || (!generationMoves['sun-moon'] && !generationMoves['ultra-sun-ultra-moon'] && !generationMoves['lets-go-pikachu-lets-go-eevee'])}
+          onClick={(event) => handleClick(event, 'ultra-sun-ultra-moon')}
         >
           <Dropdown.Item onClick={(event) => handleClick(event, 'sun-moon')} disabled={!generationMoves['sun-moon']}>Sun | Moon</Dropdown.Item>
           <Dropdown.Item onClick={(event) => handleClick(event, 'ultra-sun-ultra-moon')} disabled={!generationMoves['ultra-sun-ultra-moon']}>Ultra Sun/Moon</Dropdown.Item>
@@ -267,6 +274,7 @@ function Learnset (props) {
           size='sm'
           align={{sm: 'start'}}
           disabled={pokeState.pokemon?.id > 905 || (!generationMoves['sword-shield'] && !generationMoves['diamond-pearl'] && !generationMoves['legends-arceus'])}
+          onClick={(event) => handleClick(event, 'sword-shield')}
         >
           <Dropdown.Item onClick={(event) => handleClick(event, 'sword-shield')} disabled={!generationMoves['sword-shield']}>Sword | Shield</Dropdown.Item>
           <Dropdown.Item onClick={(event) => handleClick(event, 'diamond-pearl')} disabled={!generationMoves['diamond-pearl']}>Brilliant Diamond | Shining Pearl</Dropdown.Item>
@@ -279,6 +287,7 @@ function Learnset (props) {
           size='sm'
           align={{sm: 'start'}}
           disabled={pokeState.pokemon?.id > 905 || !generationMoves['scarlet-violet']}
+          onClick={(event) => handleClick(event, 'scarlet-violet')}
         >
           <Dropdown.Item onClick={(event) => handleClick(event, 'scarlet-violet')} >Scarlet | Violet</Dropdown.Item>
         </SplitButton>
