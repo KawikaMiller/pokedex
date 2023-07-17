@@ -5,7 +5,6 @@ import pokedollar from '../../../../../assets/pokedollar.png';
 import missingSprite from '../../../../../assets/missingSprite.png';
 
 import { useSelector } from "react-redux";
-import settingsSlice from "../../../../../reduxStore/settingsSlice";
 
 function ItemAccordion(props){
 

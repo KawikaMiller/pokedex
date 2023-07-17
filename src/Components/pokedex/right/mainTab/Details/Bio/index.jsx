@@ -7,7 +7,6 @@ function Bio() {
 
   const pokeState = useSelector(state => state.pokemon);
   const dexState = useSelector(state => state.pokedex);
-  const settingsState = useSelector(state => state.settings);
 
   return(
     <>

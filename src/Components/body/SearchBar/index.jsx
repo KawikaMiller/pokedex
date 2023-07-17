@@ -20,7 +20,6 @@ function SearchBar (props) {
 
     const [showAlert, setShowAlert] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [showSuggestions, setShowSuggestions] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
 
     const pokeState = useSelector(state => state.pokemon)
@@ -65,7 +64,7 @@ function SearchBar (props) {
         setSuggestions(autoSuggestions.filter(name => {
           if (name.toLowerCase().includes(event.target.value.toLowerCase())){
             return name;
-          } else;
+          } else return null;
         }));
       } else {
         setSuggestions([]);
