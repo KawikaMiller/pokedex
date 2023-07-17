@@ -66,6 +66,29 @@ The `Items` tab is still being worked on.
 
 ## Change Log
 
+### 2023-07-04 - 2023-07-17:
+- Implement Sass stylesheets
+- Removed all non-essential inline styles, add them to sass stylesheets
+- Implement four custom theme options across app & its components
+  - Pokeball
+  - Greatball
+  - Ultraball
+  - Masterball
+- Handle bad search queries
+  - A 'Toast' component will now pop up if you make a bad search
+- Create a 'User Dropdown' menu when logged in
+  - Much more modern ui/ux
+- Add search bar autocomplete
+  - Still needs a bit of polishing
+  - Sometimes the auto-complete dropdown will not appear. If this happens, just click outside of the search bar and then click back into it.
+- Add visual confirmation / cue to buttons that filter moves by generation
+- Able to filter moves by all generations & the titles in each generation
+  - e.g. Can now view moves from each main game title (yellow, diamond, firered, colosseum, arceus, etc) instead of just by generation (gen1, gen2, gen3, etc)
+- Atomized various 'details' components
+- Add 'About' and 'Contact' page
+  - About page still needs to be furthered updated
+  - Want to add a 'how to' section with visual aid/diagram on what each button does, what each tab does, etc.
+
 ### 2023-06-29 - 2023-07-03:
 - Add content to 'items' tab
 - Add 'Items Categories' component
