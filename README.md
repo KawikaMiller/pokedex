@@ -2,7 +2,7 @@
 
 **Author**: Kawika Miller
 
-**Version**: 1.25
+**Version**: 1.3
 
 [**Deployed Site**](https://kmdevsign-pokedex.netlify.app/)
 
