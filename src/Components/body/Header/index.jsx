@@ -27,7 +27,7 @@ function Header (props) {
       <section id='header' className={settingsState.theme} /*onClick={this.props.transitionHeader}*/ >
         <Navbar>
           <Nav id='nav_left'>
-            <Navbar.Brand>Pokedex App</Navbar.Brand>
+            <Navbar.Brand>Pokedex +</Navbar.Brand>
             <Nav.Link className={settingsState.theme} href='/'>Home</Nav.Link>
             <Nav.Link className={settingsState.theme} href='/about'>About</Nav.Link>
             <Nav.Link className={settingsState.theme} href='/contact'>Contact</Nav.Link>
