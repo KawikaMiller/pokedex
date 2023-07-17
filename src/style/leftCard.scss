@@ -191,7 +191,7 @@ float: right;
 }
 
 #bottom-ui-basestats {
-  font-family: 'Press Start 2P';
+  // font-family: 'Press Start 2P' !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -210,7 +210,7 @@ float: right;
 .basestat_label {
   margin: 0;
   width: 35%;
-  font-size: 0.55rem;
+  // font-size: 0.55rem;
 }
 
 .basestat_value{
